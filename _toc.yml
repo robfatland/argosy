@@ -4,11 +4,13 @@
 format: jb-book
 root: intro
 parts:
+
 - caption: Boilerplate
   chapters:
     - file: markdown
     - file: notebooks
     - file: markdown-notebooks
+
 - caption: Chapters
   chapters:
     - file: chapters/shallowprofiler
@@ -16,3 +18,4 @@ parts:
 - caption: References
   chapters:
     - file: reference/glossary
+    - file: reference/bibliography
