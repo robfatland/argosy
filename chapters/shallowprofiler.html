@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Shallow profiler data &#8212; My sample book</title>
+    <title>Shallow Profiler &#8212; My sample book</title>
   
   
   
@@ -187,7 +187,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Shallow profiler data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Shallow Profiler</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -365,7 +365,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -376,11 +378,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Shallow profiler data</h1>
+    <h1>Shallow Profiler</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -390,100 +400,38 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="shallow-profiler-data">
-<h1>Shallow profiler data<a class="headerlink" href="#shallow-profiler-data" title="Link to this heading">#</a></h1>
+  <section id="shallow-profiler">
+<h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p>OOI data access remarks</p>
+<li><p>This procedural is constrained</p>
 <ul>
-<li><p>Requiring Username + Creds of data consumers: Reasonable</p></li>
-<li><p>Hard to find a Data Mission Statement</p></li>
-<li><p>Hard to find a related Operational Framework e.g. ‘What is M2M? What are sampling rates?’</p></li>
+<li><p>Shallow profiler only; no platform, no other RCA sites</p></li>
+<li><p>Ascent only; exception: Descent sensors</p></li>
+<li><p>Three locations: Slope base (sb), Oregon offshore (oo), axial base (ab)</p></li>
+<li><p>Full-resolution datasets; no Data Explorer datasets</p></li>
 </ul>
 </li>
-<li><p>Shallow profiler depth charts depend on good time bounds for ascent, descent, and rest intervals</p>
+<li><p>Ascent and descent intervals: From published metadata</p>
 <ul>
-<li><p>I created a CSV file some time back which could be compared with…</p></li>
-<li><p>Wendi Ruef at RCA has created a GitHub resource</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p></li>
+<li><p>Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>Things we might have <em>guessed at</em></p>
-<ul>
-<li><p><strong>Designators</strong> are shorthand strings: For <em>site</em>, <em>node</em>, <em>sensor</em> etcetera</p>
-<ul>
-<li><p>Be on the look for <strong>Reference Designator</strong></p></li>
-</ul>
-</li>
-<li><p>M2M means <em>machine-to-machine</em> i.e. API calls</p></li>
-<li><p>There is a <a class="reference external" href="https://ooinet.oceanobservatories.org/data_access/"><strong>Data Catalog</strong></a></p></li>
-</ul>
-</li>
-<li><p>To establish baseline comprehension of OOI data: Start with the website</p>
-<ul>
+<section id="ooi-data-access">
+<h2>OOI data access<a class="headerlink" href="#ooi-data-access" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ooinet.oceanobservatories.org/data_access/"><strong>Data Catalog</strong></a></p></li>
 <li><p><a class="reference external" href="https://oceanobservatories.org/community-data-tools/">Community Data Tools</a></p>
 <ul>
-<li><p>11 Categories</p>
+<li><p>Review…</p></li>
+</ul>
+</li>
+<li><p>Establish User: { Email + Password } will suffice for data orders</p>
 <ul>
-<li><p><a class="reference external" href="https://zenodo.org/records/15092310">OOIPY, a Python toolbox</a>: Broadband + Low Freq Hydrophone</p>
-<ul>
-<li><p>CTD is included in the demos</p></li>
-<li><p>To do: check with Don Setiawan</p></li>
-<li><p>List of known analogous tools for other instruments/sensors</p>
-<ul>
-<li><p>ECHOPYPE (sp?) for sonar</p></li>
-<li><p>epipelargosy for shallow profilers in conjunction with Wendi’s profile resource</p></li>
+<li><p>Order &gt; Stage &gt; <code class="docutils literal notranslate"><span class="pre">wget</span></code> &gt; Re-sample</p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>OOI Data Team Coastal and Global Array MATLAB Toolbox</p>
-<ul>
-<li><p>M2M interface tools (“What is M2M?”)</p></li>
-</ul>
-</li>
-<li><p>OOI Data Team R M2M Toolbox</p></li>
-<li><p>OOI Data Team Python M2M Toolbox</p></li>
-<li><p>Rutgers Data Team GitHub Repository</p></li>
-<li><p>OOI Data Team Machine-to-Machine Tutorials</p>
-<ul>
-<li><p>“View this tool” link</p></li>
-<li><p>Basic M2M Examples</p>
-<ul>
-<li><p>Python uses <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code> passing credentials</p></li>
-<li><p>Uh-oh: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">2.7</span></code>?</p></li>
-</ul>
-</li>
-<li><p>JSON Requests</p></li>
-<li><p>NetCDF Requests</p></li>
-<li><p>Real-Time Data Requests</p></li>
-</ul>
-</li>
-<li><p>Cabled Array Tilt Meter, Co-Located Temperature Plots and Inflation Forecast</p></li>
-<li><p>Broadband Hydrophone</p></li>
-<li><p>Axial Seamount Hydrothermal Vent Time-Lapse Videos</p></li>
-<li><p>Axial Seamount and Coastal/Slope Biology Catalogs</p></li>
-<li><p>Additional Helpful Links</p>
-<ul>
-<li><p><a class="reference external" href="https://oceanobservatories.org/site-list/">Site-Platform and Node Codes</a></p></li>
-<li><p><a class="reference external" href="https://oceanobservatories.org/instruments/">Instrument Class Codes</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>3 Community Data Tools topics</p>
-<ul>
-<li><p>Jupyter notebooks</p></li>
-<li><p>How to Use Acknowledge and Cite Data</p></li>
-<li><p>Data Helpdesk</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li><p>“Username” and “Token” used for API calls</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -522,7 +470,7 @@ document.write(`
 <span class="ne">---&gt; </span><span class="mi">56</span>     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;6be472b2-ade5-4d8a-97db-8e006a39f986&#39;]
+<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;e03f4e3e-1bb3-4a3f-a96e-c1a8d452c7cd&#39;]
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -1475,6 +1423,7 @@ completeness, or usefulness, of this information.</dd><dt><span>naming_authority
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1530,6 +1479,21 @@ completeness, or usefulness, of this information.</dd><dt><span>naming_authority
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
