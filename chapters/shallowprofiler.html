@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -175,7 +175,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Welcome to your Jupyter Book
+                    Argosy Ocean Data Analysis
                 </a>
             </li>
         </ul>
@@ -188,6 +188,8 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Shallow Profiler</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -388,8 +390,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data visualization</a></li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -400,39 +405,54 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="shallow-profiler">
+  <p><a class="reference external" href="https://robfatland.github.io/argosy">Jupyter Book “Argosy”</a></p>
+<ul class="simple">
+<li><p>Build commands</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/argosy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code></p></li>
+<li><p>Usual <code class="docutils literal notranslate"><span class="pre">git</span></code> sequence: <code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">.;</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;remark&quot;;</span> <span class="pre">git</span> <span class="pre">push</span></code></p></li>
+</ul>
+</li>
+</ul>
+<section id="shallow-profiler">
 <h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
+<p>Goal: Characterize the upper 200 meters of the water column (the photic / epipelagic zone) nine
+times per day at three sites across a dozen or so sensor types. Observing time range runs about
+2015 to present.</p>
+<p>The scope of this data analysis procedure is constrained by…</p>
 <ul class="simple">
-<li><p>This procedural is constrained</p>
+<li><p>…shallow profiler data only; no platform data and no data from other RCA sites</p></li>
+<li><p>…ascent only: Optimize undisturbed water</p>
 <ul>
-<li><p>Shallow profiler only; no platform, no other RCA sites</p></li>
-<li><p>Ascent only; exception: Descent sensors</p></li>
-<li><p>Three locations: Slope base (sb), Oregon offshore (oo), axial base (ab)</p></li>
-<li><p>Full-resolution datasets; no Data Explorer datasets</p></li>
+<li><p>Exception: Some sensors only operate on descent (nitrate for example)</p></li>
 </ul>
 </li>
-<li><p>Ascent and descent intervals: From published metadata</p>
+<li><p>…three RCA shallow profiler sites (with abbreviations)</p>
 <ul>
-<li><p>Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p></li>
+<li><p>Slope base (sb): Base of the continental shelf</p></li>
+<li><p>Oregon offshore (oo): On the continental shelf</p></li>
+<li><p>Axial base (ab): At Axial seamount</p></li>
 </ul>
 </li>
+<li><p>…full-resolution datasets as source</p>
+<ul>
+<li><p>Data supplied by OOINET</p></li>
+<li><p>Resampling strategies as described below</p></li>
 </ul>
+</li>
+<li><p>…dual dimension strategy: time dimension for profiles, depth dimension for an individual profile</p></li>
+</ul>
+<p>Ascent and descent interval metadata is available from GitHub.
+- Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p>
+</section>
 <section id="ooi-data-access">
-<h2>OOI data access<a class="headerlink" href="#ooi-data-access" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://ooinet.oceanobservatories.org/data_access/"><strong>Data Catalog</strong></a></p></li>
-<li><p><a class="reference external" href="https://oceanobservatories.org/community-data-tools/">Community Data Tools</a></p>
-<ul>
-<li><p>Review…</p></li>
-</ul>
-</li>
-<li><p>Establish User: { Email + Password } will suffice for data orders</p>
-<ul>
-<li><p>Order &gt; Stage &gt; <code class="docutils literal notranslate"><span class="pre">wget</span></code> &gt; Re-sample</p></li>
-</ul>
-</li>
-<li><p>“Username” and “Token” used for API calls</p></li>
-</ul>
+<h1>OOI data access<a class="headerlink" href="#ooi-data-access" title="Link to this heading">#</a></h1>
+<p>See Reserve notebook.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-visualization">
+<h1>Data visualization<a class="headerlink" href="#data-visualization" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
@@ -470,7 +490,7 @@ document.write(`
 <span class="ne">---&gt; </span><span class="mi">56</span>     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;e03f4e3e-1bb3-4a3f-a96e-c1a8d452c7cd&#39;]
+<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;f630499b-3abb-4656-8483-ca6ef120fd27&#39;]
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -1423,7 +1443,6 @@ completeness, or usefulness, of this information.</dd><dt><span>naming_authority
 </div>
 </div>
 </section>
-</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1489,8 +1508,11 @@ completeness, or usefulness, of this information.</dd><dt><span>naming_authority
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data visualization</a></li>
 </ul>
+
   </nav></div>
 
 </div></div>

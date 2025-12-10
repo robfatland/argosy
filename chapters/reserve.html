@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -175,7 +175,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Welcome to your Jupyter Book
+                    Argosy Ocean Data Analysis
                 </a>
             </li>
         </ul>
@@ -188,6 +188,8 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="shallowprofiler.html">Shallow Profiler</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -400,7 +402,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-system-notes">
+  <p>The first chapter is <strong>shallowprofiler</strong> intended to jump into the visualization
+of data that has been tidied up. This <code class="docutils literal notranslate"><span class="pre">Reserve</span></code> notebook covers the tidying-up
+process.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="data-system-notes">
 <h1>Data System Notes<a class="headerlink" href="#data-system-notes" title="Link to this heading">#</a></h1>
 <ul class="simple">
 <li><p>Hard to find a Data Mission Statement</p></li>
@@ -455,6 +460,8 @@ document.write(`
 <section id="data-order">
 <h2>Data order<a class="headerlink" href="#data-order" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://ooinet.oceanobservatories.org/data_access/"><strong>Data Catalog</strong></a></p></li>
+<li><p>Establish User: { Email + Password } will suffice for data orders</p></li>
 <li><p>Use filters to get to the Data Catalog box</p>
 <ul>
 <li><p>Do not worry about setting the date range filter</p></li>
@@ -462,7 +469,17 @@ document.write(`
 </li>
 <li><p>Click the plus to bring up another box <em>above</em></p></li>
 <li><p>Click on the download button and set the time range to 1 year or less</p></li>
-<li><p>Click on order the data to initiate the process</p></li>
+<li><p>Click on order the data to initiate the process</p>
+<ul>
+<li><p>Order &gt; Stage &gt; “Ready” email &gt; THREDDS or Direct Download &gt; <code class="docutils literal notranslate"><span class="pre">wget</span></code> &gt; Re-sample</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://oceanobservatories.org/community-data-tools/">Community Data Tools</a></p>
+<ul>
+<li><p>Review…</p></li>
+</ul>
+</li>
+<li><p>“Username” and “Token” are used for API calls: Possibly THREDDS? sort this out</p></li>
 </ul>
 </section>
 </section>
