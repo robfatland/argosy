@@ -12,6 +12,17 @@ kernelspec:
   name: python3
 ---
 
+
+[Jupyter Book "Argosy"](https://robfatland.github.io/argosy)
+
+
+- Build commands
+    - `cd ~/argosy`
+    - `jupyter-book build .`
+    - `ghp-import -n -p -f _build/html`
+    - Usual `git` sequence: `add .; commit -m "remark"; git push`
+
+
 # Notebooks with MyST Markdown
 
 Jupyter Book also lets you write text-based notebooks using MyST Markdown.

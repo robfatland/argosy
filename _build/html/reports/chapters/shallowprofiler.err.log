@@ -46,7 +46,7 @@ ds = xr.open_dataset(f)
 [32m---> [39m[32m56[39m     value = [38;5;28mself[39m._cache[key]
 [32m     57[39m     [38;5;28mself[39m._cache.move_to_end(key)
 
-[31mKeyError[39m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '6be472b2-ade5-4d8a-97db-8e006a39f986']
+[31mKeyError[39m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), 'f630499b-3abb-4656-8483-ca6ef120fd27']
 
 During handling of the above exception, another exception occurred:
 
