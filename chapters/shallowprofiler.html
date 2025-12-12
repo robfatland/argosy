@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Build commands &#8212; My sample book</title>
+    <title>Shallow Profiler &#8212; My sample book</title>
   
   
   
@@ -187,8 +187,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Build commands</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Shallow Profiler</a></li>
 
 
 
@@ -382,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Build commands</h1>
+    <h1>Shallow Profiler</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -392,8 +391,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Build commands</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler">Shallow Profiler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
 </ul>
 </li>
@@ -417,16 +416,16 @@ document.write(`
                 <article class="bd-article">
                   
   <p><a class="reference external" href="https://robfatland.github.io/argosy">Jupyter Book “Argosy”</a></p>
+<section id="shallow-profiler">
+<h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
 <section id="build-commands">
-<h1>Build commands<a class="headerlink" href="#build-commands" title="Link to this heading">#</a></h1>
+<h2>Build commands<a class="headerlink" href="#build-commands" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/argosy</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code></p></li>
 </ul>
 </section>
-<section id="shallow-profiler">
-<h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
 <section id="goals-constraints">
 <h2>Goals, constraints<a class="headerlink" href="#goals-constraints" title="Link to this heading">#</a></h2>
 <p>Goal: Characterize the upper 200 meters of the water column (the photic / epipelagic zone) nine
@@ -535,7 +534,7 @@ times per day at three sites: sensors described below. Observing interval is
 <span class="ne">---&gt; </span><span class="mi">56</span>     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;8a53aad9-8e6a-4b4d-bfe5-8c22ff0b1e3a&#39;]
+<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;b421a801-b72c-412d-af34-adb4aed0cd60&#39;]
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -1553,8 +1552,8 @@ completeness, or usefulness, of this information.</dd><dt><span>naming_authority
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Build commands</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler">Shallow Profiler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
 </ul>
 </li>
