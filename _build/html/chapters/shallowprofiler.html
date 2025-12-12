@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -188,6 +188,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Shallow Profiler</a></li>
+
 
 
 </ul>
@@ -390,8 +391,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-types">Sensor types</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler-science-pod">Shallow profiler “science pod”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profiler-platform-200m">Profiler Platform (200m)</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data visualization</a></li>
 </ul>
 
@@ -406,20 +416,20 @@ document.write(`
                 <article class="bd-article">
                   
   <p><a class="reference external" href="https://robfatland.github.io/argosy">Jupyter Book “Argosy”</a></p>
+<section id="shallow-profiler">
+<h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
+<section id="build-commands">
+<h2>Build commands<a class="headerlink" href="#build-commands" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Build commands</p>
-<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/argosy</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code></p></li>
-<li><p>Usual <code class="docutils literal notranslate"><span class="pre">git</span></code> sequence: <code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">.;</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;remark&quot;;</span> <span class="pre">git</span> <span class="pre">push</span></code></p></li>
 </ul>
-</li>
-</ul>
-<section id="shallow-profiler">
-<h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
+</section>
+<section id="goals-constraints">
+<h2>Goals, constraints<a class="headerlink" href="#goals-constraints" title="Link to this heading">#</a></h2>
 <p>Goal: Characterize the upper 200 meters of the water column (the photic / epipelagic zone) nine
-times per day at three sites across a dozen or so sensor types. Observing time range runs about
+times per day at three sites: sensors described below. Observing interval is
 2015 to present.</p>
 <p>The scope of this data analysis procedure is constrained by…</p>
 <ul class="simple">
@@ -447,9 +457,43 @@ times per day at three sites across a dozen or so sensor types. Observing time r
 <p>Ascent and descent interval metadata is available from GitHub.
 - Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p>
 </section>
+</section>
 <section id="ooi-data-access">
 <h1>OOI data access<a class="headerlink" href="#ooi-data-access" title="Link to this heading">#</a></h1>
-<p>See Reserve notebook.</p>
+<p>See Reserve notebook</p>
+</section>
+<section id="sensor-types">
+<h1>Sensor types<a class="headerlink" href="#sensor-types" title="Link to this heading">#</a></h1>
+<section id="shallow-profiler-science-pod">
+<h2>Shallow profiler “science pod”<a class="headerlink" href="#shallow-profiler-science-pod" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>CTD</p></li>
+<li><p>3 Wavelength Fluorometer</p></li>
+<li><p>Dissolved Oxygen</p></li>
+<li><p>Nitrate</p></li>
+<li><p>Photosynthetically Available Radiation</p></li>
+<li><p>Seawater pH</p></li>
+<li><p>Single Point Velocity Meter</p></li>
+<li><p>Spectral Irradiance</p></li>
+<li><p>Spectrophotometer</p></li>
+<li><p>pCO2 Water</p></li>
+</ul>
+</section>
+<section id="profiler-platform-200m">
+<h2>Profiler Platform (200m)<a class="headerlink" href="#profiler-platform-200m" title="Link to this heading">#</a></h2>
+<p>These sensors are not the immediate concern.</p>
+<ul class="simple">
+<li><p>2-Wavelength Fluorometer</p></li>
+<li><p>5-Beam Velocity Profiler (500kHz)</p></li>
+<li><p>5-Beam Velocity Profiler (600kHz)</p></li>
+<li><p>Broadband Acoustic Receiver (Hydrophone)</p></li>
+<li><p>CTD</p></li>
+<li><p>Digital Still Camera</p></li>
+<li><p>Dissolved Oxygen</p></li>
+<li><p>Seawater pH</p></li>
+<li><p>Velocity Profiler (150kHz)</p></li>
+</ul>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="data-visualization">
 <h1>Data visualization<a class="headerlink" href="#data-visualization" title="Link to this heading">#</a></h1>
@@ -490,7 +534,7 @@ times per day at three sites across a dozen or so sensor types. Observing time r
 <span class="ne">---&gt; </span><span class="mi">56</span>     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;f630499b-3abb-4656-8483-ca6ef120fd27&#39;]
+<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/kilroy/REDO/rca/OregonSlopeBase/profiler/ctd/ooi-rs01sbps-sf01a-2a-ctdpfa102_4eec_68ec_95ec.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;b421a801-b72c-412d-af34-adb4aed0cd60&#39;]
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -1508,8 +1552,17 @@ completeness, or usefulness, of this information.</dd><dt><span>naming_authority
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Shallow Profiler</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-types">Sensor types</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler-science-pod">Shallow profiler “science pod”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profiler-platform-200m">Profiler Platform (200m)</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data visualization</a></li>
 </ul>
 
