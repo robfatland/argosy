@@ -121,7 +121,7 @@ def GetSensorTuple(s, f):
 
 # A list of keys for sp sensors (excepting spectrophotometer)
 sp_sensorkeys = ['time',
-                 'conductivity', 'density', 'pressure', 'salinity', 'temoperature', 
+                 'conductivity', 'density', 'pressure', 'salinity', 'temperature', 
                  'chlora', 'backscatter', 'fdom', 
                  'si412', 'si443', 'si490', 'si510', 'si555', 'si620', 'si683', 
                  'nitrate', 'nitratedark', 
