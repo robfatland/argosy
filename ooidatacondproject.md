@@ -1,29 +1,52 @@
 # OOI Project
 
 
+This document is a Coding Assistant prompt. Initially the CA was Q Developer from AWS (using Claude Sonnet) but 
+this may evolve as CAs appear. Q Dev is not Agentic; whereas Kiro (from AWS) will be. 
+
+
+### Reference websites
+
+
 - [The OOI official website](https://oceanobservatories.org/)
     - [The OOINET data resource](https://ooinet.oceanobservatories.org/data_access)
     - [OOI Glossary](https://oceanobservatories.org/glossary/)
+    - [Deciphering OOI Reference Designators](https://oceanobservatories.org/knowledgebase/how-to-decipher-a-reference-designator/)
 - [The Regional Cabled Array website](https://interactiveoceans.washington.edu/)
+    - [Shallow Profilers](https://interactiveoceans.washington.edu/technology/shallow-profiler-moorings/)
+    - [Horizontal Echosounders (HPIES) page](https://interactiveoceans.washington.edu/instruments/hpies/)
 
 
 ### Goals
 
 
-- Build a data subset across all sensors using profile ascent / descent time metadata
-- Build interactive visualizations and artifact visualizations
-- Characterize sensor profiles
+- Select a set of OOI instrument installations
+    - including RCA shallow profilers (3 sites)
+    - including Horizontal Electrometer Pressure Inverted Echosounders (HPIES; 2 sites)
+    - including a Glider
+    - including ...TBD...
+- For each installation: Identify data streams that would contribute to a publication
+    - Example: Shallow profilers generate about 15 types of scientific data
+    - ...plus a lot of engineering / data quality information
+- Build and run a pipeline that **reduces** the data to analysis-ready
+    - Native format: NetCDF, stacked, Deployment-related time boxes, continuous
+    - Reduced: Low-volume NetCDF, separated, isolated to profile ascents/descents etcetera
+- Operating on reduced data: 
+    - Produce a set of interactive visualization tools
+    - Characterize sensors (mean/variance) by site, time of day, time of year 
+- Publish the pipeline and output results to be openly available
 
 
-### Coding behavior prompts for a Coding Assistant
+### Coding behavior and terminology prompts for a Coding Assistant
 
 
-- When writing Python code
+- The acronym CA refers to a Coding Assistant such as AWS Q Developer
+- The CA when writing Python code:
     - Do not place a backslash before a double quote as in `\"` in print statement arguments
-    - To insert a linefeed in a print statement use \n. Do not use \\n.
+    - To insert a linefeed in a print statement use \n. Do not use \\n
 
 
-### List of completed code blocks
+### Completed code blocks
 
 
 These code blocks run in IPython notebook cells. They are candidates for eventual migration to workflow. 
@@ -34,7 +57,7 @@ These code blocks run in IPython notebook cells. They are candidates for eventua
 - DataDownload.ipynb
     - "DataDownloader" copies a data order (multiple NetCDF files) from OOINET server to localhost 
 - DataStreamline.ipynb
-    - "
+
 
 ## Technical Description
 
