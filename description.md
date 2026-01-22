@@ -15,6 +15,9 @@ this may evolve as CAs appear. Q Dev is not Agentic; whereas Kiro (from AWS) wil
 - [The Regional Cabled Array website](https://interactiveoceans.washington.edu/)
     - [Shallow Profilers](https://interactiveoceans.washington.edu/technology/shallow-profiler-moorings/)
     - [Horizontal Echosounders (HPIES) page](https://interactiveoceans.washington.edu/instruments/hpies/)
+    - [RCA QA/QC](https://qaqc.ooi-rca.net/)
+- Publication of data, workflow, visualizations
+    - Zenodo
 
 
 ### Goals
@@ -35,6 +38,8 @@ this may evolve as CAs appear. Q Dev is not Agentic; whereas Kiro (from AWS) wil
     - Produce a set of interactive visualization tools
     - Characterize sensors (mean/variance) by site, time of day, time of year 
 - Publish the pipeline and output results to be openly available
+    - Includes appraisal of working on the OOI-hosted Jupyter Hub
+    - Includes containerization as appropriate
 
 
 ### Coding behavior and terminology prompts for a Coding Assistant
