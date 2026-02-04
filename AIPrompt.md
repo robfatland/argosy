@@ -484,7 +484,7 @@ Cursor location is printed near the chart as depth and temperature.
     - Both of these conditions must be met for the filename to be placed into `source_ctd_filelist.txt` 
 
 
-## Next
+## Temperature compilation from many source CTD files
 
 Write a Python script that will run in a Jupyter cell. It will work from the file `source_ctd_filelist.txt` generated
 in the previous stage of this effort. For each file listed we want to perform the following procedure: 
@@ -512,6 +512,42 @@ in the previous stage of this effort. For each file listed we want to perform th
 - If the number of profile files written for a given input file is zero:
     - State this and prompt the User for instructions: `Continue [C] or Halt [H]?`
     - If the User choses Continue: Proceed to the next input CTD file
-- Continue to the next input CTD file until all have been processed in this manner  
+- Continue to the next input CTD file until all have been processed in this manner 
+
+
+## Next
+
+- Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.
+- This code will run in a Jupyter cell
+- The input questions take on the default value if the User just hits Enter.
+    - Start by asking "Include TMLD estimate in the visualization? Default is no. [y/n]" 
+    - Then ask "How many profiles in the bundle? Default is 18 (two days)" refer to this as N
+    - Then ask "How many seconds delay between frames? (0.1 sec):" refer to this as d
+    - Then ask "Start date (default 01-JAN-2018):" refer to this as T0
+    - Then ask "End date (default 31-DEC-2018):" refer to this as T1
+- Start at T0 and continue to T1: To create an animated chart sequence
+    - The output file should be called 'temp_bundle_animation.mp4' followed by the appropriate file extension
+    - Each frame of the animation consists of N profiles bundled in one chart
+    - The horizontal axis is fixed at 7 deg C to 19 deg C, does not change from one frame to another
+    - The vertical axis is fixed as before from 200 meters to 0 meters
+    - Show N profiles per frame of the animation
+    - For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.
+    - If possible: Add in a 'hold time' per frame of d seconds
+    - If a time gap exists between two profiles that exceeds 48 hours: 
+        - The chart frame should include in large black letters at the lower right 'Time Gap'
+        - This Time Gap message persists until all N consecutive profiles do not have this time gap between them
+- Check that the output file exists and report its status
+
+
+What you were doing:
+- Re-do the animation generator with the Time Gap qualifier already added
+- Go online and try to order CTD data from 2022 or 2023 for OSB
+- Line up on what else CTD gives us and define the identifier strings
+
+    
+    
+
+
+
 
 
