@@ -1,137 +1,9 @@
-# OOI Project
-
-
-This document is a Coding Assistant prompt. Initially the CA was Q Developer from AWS (using Claude Sonnet) but 
-this may evolve as CAs appear. Q Dev is not Agentic; whereas Kiro (from AWS) will be. 
-
-
-### Reference websites
-
-
-- [The OOI official website](https://oceanobservatories.org/)
-    - [The OOINET data resource](https://ooinet.oceanobservatories.org/data_access)
-    - [OOI Glossary](https://oceanobservatories.org/glossary/)
-    - [Deciphering OOI Reference Designators](https://oceanobservatories.org/knowledgebase/how-to-decipher-a-reference-designator/)
-- [The Regional Cabled Array website](https://interactiveoceans.washington.edu/)
-    - [Shallow Profilers](https://interactiveoceans.washington.edu/technology/shallow-profiler-moorings/)
-    - [Horizontal Echosounders (HPIES) page](https://interactiveoceans.washington.edu/instruments/hpies/)
-    - [RCA QA/QC](https://qaqc.ooi-rca.net/)
-- Publication of data, workflow, visualizations
-    - Zenodo
-
-
-### Goals
-
-
-- Select a set of OOI instrument installations
-    - including RCA shallow profilers (3 sites)
-    - including Horizontal Electrometer Pressure Inverted Echosounders (HPIES; 2 sites)
-    - including a Glider
-    - including ...TBD...
-- For each installation: Identify data streams that would contribute to a publication
-    - Example: Shallow profilers generate about 15 types of scientific data
-    - ...plus a lot of engineering / data quality information
-- Build and run a pipeline that **reduces** the data to analysis-ready
-    - Native format: NetCDF, stacked, Deployment-related time boxes, continuous
-    - Reduced: Low-volume NetCDF, separated, isolated to profile ascents/descents etcetera
-- Operating on reduced data: 
-    - Produce a set of interactive visualization tools
-    - Characterize sensors (mean/variance) by site, time of day, time of year 
-- Publish the pipeline and output results to be openly available
-    - Includes appraisal of working on the OOI-hosted Jupyter Hub
-    - Includes containerization as appropriate
-
-
-### Coding behavior and terminology prompts for a Coding Assistant
-
-
-- The acronym CA refers to a Coding Assistant such as AWS Q Developer
-- The CA when writing Python code:
-    - Do not place a backslash before a double quote as in `\"` in print statement arguments
-    - To insert a linefeed in a print statement use \n. Do not use \\n
-
-
-### Completed code blocks
-
-
-These code blocks run in IPython notebook cells. They are candidates for eventual migration to workflow. 
-
-
-- ShallowProfiler.ipynb
-    - "TemperatureChart" checks temperature (sensor) data match to ascent timing metadata
-- DataDownload.ipynb
-    - "DataDownloader" copies a data order (multiple NetCDF files) from OOINET server to localhost 
-- DataStreamline.ipynb
-
-
-## Technical Description
-
-
-This writeup is primarily intended to get the CA aligned with the project, for example
-when starting a new chat session. To be clear: CA = Coding Assistant; as of 1/2/2026 in 
-practice = AWS Q Developer powered by Claude Sonnet. 
-
-
-This OOI Project **goal** is to transform oceanographic data from its source format 
-to research data.
-
-
-The initial data resource is the Ocean Observatories Initiative (OOI). 
-Other resources include remote sensing systems, models, other *in situ* sensor arrays
-such as ARGO, and complementary data such as that gathered by surface buoys
-that measure wind and wave height.
-
-
-The OOI "observatory" is composed of seven Arrays:
-
-
-- Regional Cabled Array
-- Coastal Endurance Array
-- Global Station Papa Array
-- Global Irminger Sea Array
-- Coastal Pioneer Array
-- Global Argentine Basin Array (no longer operational)
-- Global Southern Ocean Array (no longer operational)
-
-
-The deployment of these arrays dates back to 2014-2015.
-
-
-The initial focus is the Regional Cabled Array or RCA. The dual backbones
-of the RCA are two electro-optic cables emanating from a shore station in Pacific 
-City on the west coast of Oregon state.
-
-
-The first cable is named for its endpoint: 'Axial Seamount', about 450 km west of Pacific City. 
-The second cable is named 'Continental Margin': The cable crosses the continental shelf and
-then curves south and east along the continental shelf margin.
-
-
-This study begins with a characterization of the upper 200 meters of the water column, 
-known variously as the photic or epipelagic zone. There are three sites in the RCA where 
-a sensor assembly called a Shallow Profiler is used to profile the upper water column 
-nine times per day: Oregon Slope Base, Oregon Offshore and Axial Slope Base. 
-
-
-In this work the term *Instrument* indicates an aggregation of one or more *Sensors*.
-For example a fluorescence *instrument* might consist of three sensors: One for 
-fluorescing dissolved organic matter, one for chlorophyll, and one that measures 
-backscatter. These three sensors would be considered *scalar* as they generate
-single-valued observational data. There are also *vector* sensors such as a
-spectrophotometer, a spectral irradiance sensors or a 3-axis current sensor 
-that generate multiple values per observation.
-
-
-The profiler pod makes 9 ascents and 9 descents each day from a platform moored
-200 meters below the surface. 
-
-
-In this context we can now elaborate a first sequence of steps:
+The present focus:
 
 
 - Obtain source data from the OOINET data product servers
-    - Initial focus: Oregon Slope Base shallow profiler
-    - Span from 2015 through 30-DEC-2025
+    - Oregon Slope Base shallow profiler
+    - Span from 2015 through 31-DEC-2025
     - List sensors including instruments and scalar or vector type
     - Master directory will be in an S3 bucket called `epipelargosy` in a folder called `ooidata`
         - The sub-structure of the `ooidata` folder is as follows:
@@ -304,29 +176,6 @@ Constraints...
 - ...dual dimension strategy: time dimension for profiles, depth dimension for an individual profile 
 
 
-Ascent and descent interval metadata is available from GitHub.
-    - Wendi Ruef (RCA): `https://github.com/OOI-CabledArray/profileIndices`
-    - This has been cloned into WSL ~/profileIndices
-    - Profiles are broken down by site identifier and then by year
-        - CE04OSPD ...?... 
-            - years 2015, 18, 19, 21, 22, 23, 24, 25
-        - CE04OSPS ~ Oregon Offshore ('oo') shallow profiler (CE = Coastal Endurance array)
-            - 2014 -- 2026
-        - RS01SBPD ...?... 
-            - years 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024
-        - RS01SBPS ~ Slope Base ('sb') shallow profiler
-            - 2014 -- 2026
-        - RS03AXPD ...?...
-            - years 2014, 2017 -- 2025
-        - RS03AXPS ~ Axial Base ('ab') shallow profiler
-            - years 2014 -- 2026
-
-
-To select data from the Slope Base shallow profiler CTD during 2018: Use the time
-ranges present in the file `~/profileIndices/RS01SBPS_profiles_2018.csv`. This file has four
-columns: profile, start, peak, end. For an instrument / sensor that operates on ascent
-the time range for a given profile would be given by columns 2 and 3: start and peak. 
-The times are given in format 'yyyy-MM-dd hh:mm:ss'.
 
 
 
@@ -365,11 +214,6 @@ The times are given in format 'yyyy-MM-dd hh:mm:ss'.
 
 Using Python + xarray here are data types by Instrument file:
 
-All data files are NetCDF. They have Dimensions, Coordinates, Variables and Attributes.
-The default Dimension is Observation 'obs'. The Dimension we want to use is time. The
-full set of available Dimensions via Coordinates is: { obs, lon, lat, depth, time }. 
-We want to switch the Dimension to time and retain Coordinate depth associated with
-each time. 
 
 *Unresolved*: Each instrument includes int_ctd_pressure. I suggest verifying this can be
 ignored in lieu of depth.
