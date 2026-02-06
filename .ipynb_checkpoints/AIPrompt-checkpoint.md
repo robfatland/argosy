@@ -4,16 +4,53 @@
 For humans: This document is project background and prompts for a Coding Assistant (CA). 
 Initial work used CA = Q Developer from AWS powered by Claude Sonnet. Q Dev is not Agentic;
 however its successor Kiro (also from AWS) will be; this is circa early 2026. This file
-lays out project goals and acts a progress journal in relation to those goals. New CA 
-sessions can scan this to quickly boot up the context.
+lays out project goals and acts as a progress journal in relation to those goals. New CA 
+sessions can scan this file to quickly boot up the context.
 
 
-For CA: This effort concerns organizing oceanography data starting with data produced by the
+For the CA: This effort concerns organizing oceanography data starting with data produced by the
 Ocean Observatories Initiative; in fact specifically focusing on the Regional Cabled Array
 shallow profilers. The underlying idea is to transition from a somewhat daunting data 
 system to data and visualizations amenable to physical interpretation. This markdown file
 is intended as context; where the immediate prompt is found in the last 50-at-most lines
 of the file under the heading **Next**.
+
+
+## Cut to the chase example
+
+
+In three stages:
+
+
+(1) Begin with a NetCDF file retrieved from the OOINET staging area (a data order delivery). Filename example: 
+
+
+`deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc`
+
+
+This is perhaps 157 profiles, many sensor types built into a CTD: packed into a 400MB `.nc` file.
+
+
+(2) One file = one temperature profile. Many of these files written in a dedicated directory. Each file is 174kb. 
+Filename example: 
+
+
+`RCA_OSB_Profiler_Temp_2018_296_6261_7_V1.nc`
+
+
+This captures array, site, platform, sensor type, year, day of year, profile number (metadata version), profile number (day of), extractor version.
+
+
+To do: Rewrite this with `lat` and `lon` and `obs` removed cutting file volume probably down below 100kb.
+
+
+(3) Bundle plotter: A double-slider visualization tool running in a Jupyter notebook cell that plots N consecutive
+profiles together (slider 1) starting at profile T (slider 2). Slider 2 can be dragged through time so as to scan 
+this sensor's view of the epipelagic: We see anomalies, seasonal trends, mixed layer depth changes with season, 
+possible sensor artifacts, etcetera.
+
+
+To do: Place a screenshot here.
 
 
 ## Special terminology
@@ -515,7 +552,7 @@ in the previous stage of this effort. For each file listed we want to perform th
 - Continue to the next input CTD file until all have been processed in this manner 
 
 
-## Next
+## Accumulate
 
 - Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.
 - This code will run in a Jupyter cell
@@ -533,16 +570,20 @@ in the previous stage of this effort. For each file listed we want to perform th
     - Show N profiles per frame of the animation
     - For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.
     - If possible: Add in a 'hold time' per frame of d seconds
-    - If a time gap exists between two profiles that exceeds 48 hours: 
-        - The chart frame should include in large black letters at the lower right 'Time Gap'
-        - This Time Gap message persists until all N consecutive profiles do not have this time gap between them
+    - If a time gap > 48 hours exists between any two consecutive profiles in a given bundle/frame: 
+        - This chart frame includes in large black letters at the lower right 'Time Gap'
+        - The Time Gap message persists until all N consecutive profiles do not have a time gap
 - Check that the output file exists and report its status
 
 
-What you were doing:
-- Re-do the animation generator with the Time Gap qualifier already added
-- Go online and try to order CTD data from 2022 or 2023 for OSB
-- Line up on what else CTD gives us and define the identifier strings
+What you were doing / what is next:
+
+
+- restructure to treat one year at a time
+- Line up on what else CTD gives us
+- Define the identifier strings
+- reconcile this AIPrompt.md with the 'outside repo' version on the surface
+- remove lat, lon, obs from the output files
 
     
     

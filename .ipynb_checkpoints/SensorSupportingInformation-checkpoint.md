@@ -176,29 +176,6 @@ Constraints...
 - ...dual dimension strategy: time dimension for profiles, depth dimension for an individual profile 
 
 
-Ascent and descent interval metadata is available from GitHub.
-    - Wendi Ruef (RCA): `https://github.com/OOI-CabledArray/profileIndices`
-    - This has been cloned into WSL ~/profileIndices
-    - Profiles are broken down by site identifier and then by year
-        - CE04OSPD ...?... 
-            - years 2015, 18, 19, 21, 22, 23, 24, 25
-        - CE04OSPS ~ Oregon Offshore ('oo') shallow profiler (CE = Coastal Endurance array)
-            - 2014 -- 2026
-        - RS01SBPD ...?... 
-            - years 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024
-        - RS01SBPS ~ Slope Base ('sb') shallow profiler
-            - 2014 -- 2026
-        - RS03AXPD ...?...
-            - years 2014, 2017 -- 2025
-        - RS03AXPS ~ Axial Base ('ab') shallow profiler
-            - years 2014 -- 2026
-
-
-To select data from the Slope Base shallow profiler CTD during 2018: Use the time
-ranges present in the file `~/profileIndices/RS01SBPS_profiles_2018.csv`. This file has four
-columns: profile, start, peak, end. For an instrument / sensor that operates on ascent
-the time range for a given profile would be given by columns 2 and 3: start and peak. 
-The times are given in format 'yyyy-MM-dd hh:mm:ss'.
 
 
 
@@ -237,11 +214,6 @@ The times are given in format 'yyyy-MM-dd hh:mm:ss'.
 
 Using Python + xarray here are data types by Instrument file:
 
-All data files are NetCDF. They have Dimensions, Coordinates, Variables and Attributes.
-The default Dimension is Observation 'obs'. The Dimension we want to use is time. The
-full set of available Dimensions via Coordinates is: { obs, lon, lat, depth, time }. 
-We want to switch the Dimension to time and retain Coordinate depth associated with
-each time. 
 
 *Unresolved*: Each instrument includes int_ctd_pressure. I suggest verifying this can be
 ignored in lieu of depth.
