@@ -1,3 +1,8 @@
+# Sensor Information
+
+## See also the ShallowProfiler.ipynb notebook
+
+
 The present focus:
 
 
@@ -49,85 +54,107 @@ The present focus:
             - Filename format: <instrument name>example.nc
 
 
-```
-Keys for shallow profile sensor data
+
+## Keys for shallow profile sensor data
+
+
 These key names avoid spaces and underscores. Inside a given NetCDF file (Instrument)
 there will be several data types listed corresponding to sensors. These data type / sensor names
 in the data files are different than what I am defining and using. The official (from data file)
 versions of the sensor names are given in quotes to the right of the sensor names.
 
+
 Format:
 - No indent: Category: One of 'dimension', 'coordinate', 'scalar', 'vector'
 - Single indent: Dimension/coordinate type (for those categories), otherwise: instrument
 - Double indent: Sensor associated with the above instrument
+    
+    
+Source data variable keys can be listed for dataset `ds` via: `ds.data_vars.keys()`.
+The CTD parameters of interest are included below.
+    
 
+
+The following table maps from source file to XArray Dataset to output redux (shard) files.
+    
+    
+Dataset category, one of { dimension, coordinate, data variable, attribute }
+```
 dimension
-    observation
+    obs(ervation) --> convert to time using swap_dims()
 
-coordinate
+coordinates
     observation
     lat
     lon
     depth
     time
 
-scalar
-    CTD
-        pressure                  'Pressure'
-        conductivity              'Conductivity'
-        temperature               'Temperature (deg C)'
-        salinity                  'Salinity'
-        density                   'Density (kg m-3)'
-    dissolvedoxygen
-        dissolvedoxygen           'Dissolved Oxygen' 
-    nitrate
-        nitrate                   'Nitrate Concentration'
-    nitratedark
-        nitratedark               ?
-    fluorometer
+data variables
+    sea_water_practical_salinity        Note use of prefix "sea_water_" for research analysis
+    <many other types>
+
+attributes
+    <many; ignoring for now>
+```
+    
+
+Scalar datasets are virtually all with the exception of current, spectral irradiance and 
+the spectrophotometer.
+    
+```
+Instrument  redux name          human readable              source data variable name
+CTD                                                                            
+            pressure            Pressure                    sea_water_pressure 
+            conductivity        Conductivity                sea_water_electrical_conductivity
+            temperature         Temperature (deg C)         sea_water_temperature
+            salinity            Salinity                    sea_water_practical_salinity
+            density             Density (kg m-3)            sea_water_density
+dissolvedoxygen
+        dissolvedoxygen         Dissolved Oxygen            do_fast_sample-corrected_dissolved_oxygen     
+```
+    
+The above table needs to be extended to what is started below:
+    
+
+```
+nitrate
+        nitrate                 Nitrate Concentration   
+nitratedark
+        nitratedark
+fluorometer
         chlora                    'Chlorophyll-A'
         fdom                      'Fluorescent DOM'
         backscatter               'Particulate Backscatter'
-    pco2
+pco2
         pco2                      'CO2 Concentration'
-    ph
+ph
         ph                        'pH'
-    par
-        par                       'Photosynthetically Available Radiation'
+par
+        par                       'Phot. Avail Radiation'
 
 vector instruments
-    current
-        east                      'Current: East'          
-        north                     'Current: North'
-        up                        'Current: Vertical'
-    spectralirradiance
-        si412                     'Spectral Irradiance 412nm'
-        si443                     'Spectral Irradiance 443nm'
-        si490                     'Spectral Irradiance 490nm'
-        si510                     'Spectral Irradiance 510nm'
-        si555                     'Spectral Irradiance 555nm'
-        si620                     'Spectral Irradiance 620nm'
-        si683                     'Spectral Irradiance 683nm'
-    spectrophotometer
-        c001                      ?
-        c002
-        ...
-        c073
-
-Other data types listed by instrument file type:
-    CTD
-    dissolvedoxygen
-    nitrate
-    fluorometer
-    pco2
-    ph
-    par
-    current
-    spectralirradiance
-    spectrophotometer
-
-(First draft) Expected numerical data ranges by sensor
-
+current
+    east                      'Current: East'          
+    north                     'Current: North'
+    up                        'Current: Vertical'
+spectralirradiance
+    si412                     'Spectral Irradiance 412nm'
+    si443                     'Spectral Irradiance 443nm'
+    si490                     'Spectral Irradiance 490nm'
+    si510                     'Spectral Irradiance 510nm'
+    si555                     'Spectral Irradiance 555nm'
+    si620                     'Spectral Irradiance 620nm'
+    si683                     'Spectral Irradiance 683nm'
+spectrophotometer
+    c001                      ?
+    c002
+    ...
+    c073
+```
+    
+    
+```
 conductivity:(3.2,3.7)
 density:(1024, 1028)
 pressure:(0.,200.)
@@ -162,21 +189,10 @@ Here is 'simplest' code to elaborate details of a particular Instrument:
 import xarray as xr
 ds = xr.open_dataset('~/argosy/tmpdata/ctdexample.nc')
 ds
+ds.data_vars.keys()
 ```
 
-Default dimension will be observation index `obs`.
-Five standard Coordinates: observation, time, lat, lon, depth
-Data variables
-Attributes: Text fields describing the dataset
-
-
-Constraints...
-- ...ascent only, except as noted for descending sensors such as nitrate
-    - measurements of undisturbed water as the pod ascends
-- ...dual dimension strategy: time dimension for profiles, depth dimension for an individual profile 
-
-
-
+Missing information to go in above: Ascent / Descent and Midnight / Noon qualifiers.
 
 
 
@@ -185,7 +201,7 @@ Constraints...
 
 - Using `miniconda`
 - Install `matplotlib`, `pandas`
-- Install `xarray` and `h5netcdf` (or if that fails: can install `netcdf4`)
+- Install `xarray` and `h5netcdf` (or `netcdf4`)
 
 
 ### ordering data
@@ -217,16 +233,6 @@ Using Python + xarray here are data types by Instrument file:
 
 *Unresolved*: Each instrument includes int_ctd_pressure. I suggest verifying this can be
 ignored in lieu of depth.
-
-
-#### CTD
-
-    corrected_dissolved_oxygen
-    do_fast_sample-corrected_dissolved_oxygen
-    sea_water_practical_salinity
-    sea_water_electrical_conductivity
-    sea_water_density
-    sea_water_temperature
 
 
 #### Dissolved Oxygen
@@ -293,9 +299,6 @@ Variables:
 
 
 #### par
-
-
-These data are on order.
 
 
 
