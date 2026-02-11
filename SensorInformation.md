@@ -397,3 +397,26 @@ We are now moving to a new Python program that will initially run in a notebook 
 - input a NetCDF file folder on localhost
 - make a list of all NetCDF files in that folder
 - 
+    
+    
+## Dissolved Oxygen note
+
+
+This is from working with the CA and should be verified with the OOI staff. First the CA claims that
+DO files are distinct from dissolved oxygen found in CTD files. Quoting:
+    
+
+```
+### Why OOI Created Separate DO Files
+
+    
+Instrument separation: The dedicated DO files come from the Aanderaa oxygen optode (a standalone sensor), 
+while CTD files come from the SBE 52-MP CTD package. They're physically different instruments...
+```
+
+
+However I then did a comparison (using CA-generated code) which showed that both CTD streams and
+the DO were all identical. So the thing to confirm is that using `corrected_dissolved_oxygen` from
+the CTD file is perfectly adequate in pulling the science-ready data. 
+    
+    

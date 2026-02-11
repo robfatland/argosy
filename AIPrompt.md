@@ -268,6 +268,13 @@ a platform moored 200 meters below the surface. Mooring is by means
 of two cables that extend down to the sea floor.
 
 
+## Gripes
+
+
+- Why does OOI have two streams for DO (that appear to be identical) in CTD files plus a third (also apparently identical) stream in the DO file?
+    - What is the discovery path in the website documentation?
+    
+    
 ## Sensor list and associated file label
 
 
@@ -828,16 +835,37 @@ These are in the base location `~/ooidata/rca/sb/scalar/`.
 
 
     
-## Next
+## Multi-sensor Bundle / Mean-std charts
     
     
-This is the most recent specification for the sensor data bundle plotter.
+This is the most recent specification for the sensor data bundle plotter. One of the recurring 
+errors in recent revisions has been overlaying two horizontal axis ranges. This can be done in
+matplotlib with careful attention to `axis`. What we want to *avoid* is plotting data from two 
+different sensors using a single x-axis range. 
 
 
-The Jupyter cell code bundle chart generator will accommodate one or two sensor types out of four
-sensor types which are namely { temperature, salinity, density, dissolved oxygen }. The choice of 
-how many (1 or 2) and which one or ones is managed by User choice.
+The sensor data bundle plotter runs in a Jupyter cell.
     
+
+It first inputs from the User what years should be included in the profile time range,
+corresponding to `~/redux<yyyy>` folders.
+    
+    
+The code will accommodate one or two sensor types out of these four sensor types: 
+ 
+    
+{ temperature, salinity, density, dissolved oxygen } 
+
+    
+The User is given a choice of 
+1 or 2 sensors (default is 2)
+Key for sensor 1 (1, 2, 3 or 4)
+Low range for sensor 1 (defaults given below)
+High range for sensor 1
+Choice of bundle plot or mean-std plot for sensor 1 (default is bundle)
+If 2 sensors are chosen the corresponding: 
+Key, Low, High, choice of bundle or mean-std for sensor 2
+
     
 The charts will have fixed range on the x-axis with defaults as follows:
     
@@ -849,46 +877,112 @@ dissolved oxygen    low   50.0     high  300.0
     
     
 These are presented as default-on-Enter so the User can type in alternative values.
+
+
+There will be two control sliders to make this plot interactive. The first is the 
+number of profiles to include in the bundle (or mean-std calculation as the case may be).
+This is called the nProfiles slider. It ranges from 0 to 180 and is initialized to have
+a value of 1. 
     
+The second slider chooses the first profile index of the current bundle. This is the 
+index0 slider.
+
+
+Changing slider values only creates a new chart when the left mouse button is 
+released.
     
-There will be four additional buttons in the control area laid out horizontally with
-labels "--", "-", "+", "++". These will affect the current value of the index0 slider. 
+If the index0 slider plus the nProfiles values exceeds the available profiles then
+the chart simply plots the profiles that are available. 
+
+    
+There are to be four additional buttons in the control area laid out horizontally with
+labels "--", "-", "+", "++". These affect the current value of the index0 slider. 
 The "-" and "+" buttons will decrement / increment the index0 slider value by 1 profile.
 The "--" and "++" buttons will decrement / increment the index0 slider by half of the
-nProfiles value. Tapping any of these four buttons updates the chart.
+current nProfiles value. Tapping any of these four buttons updates the chart.
     
     
-In the case of 1 sensor type plots: The plot width is as before. 
+In the case of a bundle chart with 1 sensor: The plot width is fairly wide. 
     
     
-In the case of 2 sensor type plots: The x-axis will be extended to give more horizontal
-extent and the two fixed sensor ranges will be offset from one another so that the resulting 
-sensor bundle traces will not (ideally) overlap.
+In the case of a bundle chart with 2 sensors: The plot is wider still. That is: The
+x-axis is extended to give more horizontal extent and the two sensor ranges will 
+be offset from one another so that the resulting sensor bundle traces will not (ideally) 
+overlap. This is done by having two respective axes, one for each sensor, where the
+range of the axes is determined as follows: 
     
     
-In detail: Suppose the x-axis range for sensor 1 is a to b. For sensor 2 it is from c to d.
-Then the bundle chart range will accommodate both by having the sensor 1 axis running from 
-a to (2b - a); and the sensor 2 axis will run from (2c - d) to d.
+Suppose the x-axis range for sensor 1 is from `a` to `b`. For sensor 2 it is from `c` to `d`.
+Then the bundle chart range will accommodate both sets of sensor profiles by having a sensor 1 
+axis running from `a` to `(2b - a)`; and a sensor 2 axis running from `(2c - d)` to `d`.
+In this way sensor 2 data will be displaced to the right and sensor 1 to the left so that 
+the profiles do not overlap.
     
     
-As a concrete example: temperature in range 7 to 20 deg C means that the x-axis should
-run from 7 to 33 deg C. If sensor 2 is salinity with range 32 to 34 then the chart should
-have range 30 to 34.
+As a concrete example: temperature in range 7 to 20 deg C means that the x-axis for the
+temperature sensor should run from 7 to 33 deg C. Then suppose sensor 2 is salinity with 
+range 32 to 34: Then the chart should have a second horizontal axis with a data range 
+from 30 to 34.
     
     
-Be sure to include a diagnostic print statement along these lines: 
+Include a diagnostic print statement along these lines: 
     
     
-sensor 1 has range 7 to 20; chart has range 7 to 33 to left-justify.
-sensor 2 has range 32 to 34; chart has range 30 to 34 to right-justify.
+sensor 1 has range 7 to 20; chart first x-axis has range 7 to 33 to left-justify.
+sensor 2 has range 32 to 34; chart second x-axis has range 30 to 34 to right-justify.
     
     
-Both sensor x-axis labels will be printed below the chart, one above the other, labeled.
+Both sensor x-axis labels are to be printed below the chart, one above the other, labeled.
 This will include two tick mark bars, labeled for the respective sensors in the same 
 color ink. 
 
 
+## Progress made
+    
+Fix some issues with the latest version of the bundle chart explorer. The main description
+is lines 838 to 938 of this file.
+    
+- The label for the second axis should go above the chart
+    - It was mistakenly below the chart where it conflicts with labes for the first axis
+- Use blue rather than green for the second data type
+- An initial density profile was displayed but no salinity
+- Changing the two sliders resulted in no change in the display
+- Prompts for the sensor keys should spell out the sensor names as:
+    - temperature, salinity, density, dissolved oxygen
+    
+## More progress
+    
+While the bundle plot seems to be working: With two plots both set to meanstd there is an
+error as soon as I move the nProfiles slider as follows:
 
+```
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[21], line 108, in update_plot(change)
+    105     if depths is None: depths = ds.depth.values
+    107 if all_data:
+--> 108     data_array = np.array(all_data)
+    109     mean = np.nanmean(data_array, axis=0)
+    110     std = np.nanstd(data_array, axis=0)
+
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (24,) + inhomogeneous part.
+```
+    
+In addition to fixing this error let's make the default response to the "which years?" question be 2023,2024.
+
+The default number of sensors in the plot should be 2.
+The default first sensor should be temperature.
+The default second sensor should be salinity.
+The default response to 'bundle or meanstd?' should be `meanstd`.
+    
+The four colors for sensors { temp, salinity, density, do } should be { red, blue, black, cyan }.
     
     
+## Next
     
+Does the code read the entire dataset into RAM at the outset? If so let's shift to reading only the data
+needed for a given chart each time the chart parameters change, for example due to moving a slider.
+
+Rather than have the User choose 'bundle' or 'meanstd' as a permanent choice: Install a choice control
+widget in the interface, one for each sensor being charted. The choices are 'bundle' and 'meanstd' so
+the User can switch between views. 
