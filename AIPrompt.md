@@ -1,11 +1,17 @@
 # AI Prompt
 
 
+## Introduction for humans
+
+
 For humans: This document is project background and prompts for a Coding Assistant (CA). 
 Initial work used CA = Q Developer from AWS powered by Claude Sonnet. Q Dev is not Agentic;
 however its successor Kiro (also from AWS) will be; this is circa early 2026. This file
 lays out project goals and acts a progress journal in relation to those goals. New CA 
 sessions can scan this to quickly boot up the context.
+
+
+## Introduction for coding agent (aka coding assistant)
 
 
 For CA: This effort concerns organizing oceanography data starting with data produced by the
@@ -976,7 +982,20 @@ The default second sensor should be salinity.
 The default response to 'bundle or meanstd?' should be `meanstd`.
     
 The four colors for sensors { temp, salinity, density, do } should be { red, blue, black, cyan }.
+
     
+## Intermezzo: AstaLabs
+
+    
+I uploaded the first 81 x 4 profile files to AstaLab at AI2 to run 20 experiments. These were
+{ density, dissolved oxygen, salinity, temperature } files for 2016, January 1 -- 9, 9 profiles
+per day. I borrowed text from this `AIPrompt.md` file to write up context for the data exploration.
+Of the 324 upload files a number (40+) had to be reloaded; an annoyance.
+
+
+URL: `https://autodiscovery.allen.ai/runs/3d1b04de-de13-4a16-b6e4-43b6f874fb28`
+    
+
     
 ## Next
     
