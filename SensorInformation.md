@@ -1,6 +1,7 @@
 # Sensor Information
 
-## See also the ShallowProfiler.ipynb notebook
+This file describes the sensor data in transit from data order NetCDF files from OOINET
+to sharded profiles on localhost, mirrored to S3. See also the `ShallowProfiler.ipynb` notebook.
 
 
 The present focus:
@@ -225,57 +226,78 @@ Missing information to go in above: Ascent / Descent and Midnight / Noon qualifi
     - Submit the order; turnaround time will be on the order of hours
     
 
-### Data Variable names of interest listed by instrument/file
+### Shallow profiler data variable names of interest by instrument/sensor
 
-
-Using Python + xarray here are data types by Instrument file:
-
-
-*Unresolved*: Each instrument includes int_ctd_pressure. I suggest verifying this can be
-ignored in lieu of depth.
 
 
 #### Dissolved Oxygen
 
 
-**Unresolved**: *It would seem that Dissolved Oxygen is bundled in the CTD data
-rendering a separate product redundant.*
+**It seems that Dissolved Oxygen is identical to the DO found bundled in the 
+CTD data files rendering the separate DO product redundant.**
 
 
-Variables:
-  sea_water_practical_salinity
-  sea_water_temperature
-  corrected_dissolved_oxygen
+Data variables:
 
+    
+```
+sea_water_practical_salinity
+sea_water_temperature
+corrected_dissolved_oxygen
+```
 
 #### nitrate
 
-  nutnr_nitrogen_in_nitrate
-  nitrate_concentration
-  sea_water_practical_salinity
-  salinity_corrected_nitrate
+
+Data variables:
+
+
+```
+nutnr_nitrogen_in_nitrate
+nitrate_concentration
+sea_water_practical_salinity
+salinity_corrected_nitrate
+```
+    
+Use `salinity_corrected_nitrate`: Includes both salinity and dark corrections.
+    
+
+** More detail:** For OOI RCA nitrate measurements using SUNA (Submersible Ultraviolet Nitrate Analyzer) 
+sensors: The nitrate sample data is an actual measurement of nitrate concentration in seawater. It
+is obtained via a UV absorption spectrum measured with light passing through the sample.
+The nitrate dark sample data is a baseline measurement taken with the light source *off*.
+It captures electronic noise, detector dark current and ambient light (but no nitrate
+signal). The dark sample is subtracted from the light sample to remove instrumental 
+artifacts: Corrected Nitrate = Sample Data - Dark Sample Data
 
 
 #### nitratedark
 
 
-  nutnr_nitrogen_in_nitrate
-  nitrate_concentration
+Data variables:
 
 
+```
+nutnr_nitrogen_in_nitrate
+nitrate_concentration
+```
+
+    
 #### fluorometer
 
 
-Variables:
-  fluorometric_cdom
-  seawater_scattering_coefficient
-  sea_water_practical_salinity
-  total_volume_scattering_coefficient
-  fluorometric_chlorophyll_a
-  optical_backscatter
-  sea_water_temperature
-  int_ctd_pressure
+Data variables:
 
+
+```
+fluorometric_cdom
+seawater_scattering_coefficient
+sea_water_practical_salinity
+total_volume_scattering_coefficient
+fluorometric_chlorophyll_a
+optical_backscatter
+sea_water_temperature
+```
 
   
 #### pco2
@@ -294,7 +316,7 @@ Variables:
 Variables:
   sea_water_practical_salinity
   ph_seawater
-  int_ctd_pressure
+
 
 
 
@@ -378,6 +400,7 @@ Here is an example, the direct
 In the DataDownload.ipynb notebook we now have a Python cell that copies data files from an order
 on the OOINET server to localhost. In detail what this code does:
 
+
 - input download link and target folder (instrument + time range)
     - example `~/s3/ooidata/rca/sb/scalar/2015_2025_par`
 - create the folder if it does not yet exist (the User may create this in advance)
@@ -396,7 +419,6 @@ We are now moving to a new Python program that will initially run in a notebook 
 
 - input a NetCDF file folder on localhost
 - make a list of all NetCDF files in that folder
-- 
     
     
 ## Dissolved Oxygen note
@@ -416,7 +438,7 @@ while CTD files come from the SBE 52-MP CTD package. They're physically differen
 
 
 However I then did a comparison (using CA-generated code) which showed that both CTD streams and
-the DO were all identical. So the thing to confirm is that using `corrected_dissolved_oxygen` from
-the CTD file is perfectly adequate in pulling the science-ready data. 
+the DO were all identical. Confirm from the OOI site: `corrected_dissolved_oxygen` from
+the CTD file is science-ready data. 
     
     

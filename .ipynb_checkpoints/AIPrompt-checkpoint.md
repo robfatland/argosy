@@ -4,72 +4,165 @@
 ## Introduction for humans
 
 
-For humans: This document is project background and prompts for a Coding Assistant (CA). 
-Initial work used CA = Q Developer from AWS powered by Claude Sonnet. Q Dev is not Agentic;
-however its successor Kiro (also from AWS) will be; this is circa early 2026. This file
-lays out project goals and acts a progress journal in relation to those goals. New CA 
-sessions can scan this to quickly boot up the context.
+This document is a project summary together with prompts for a Coding Assistant (CA). 
+$CA_0$ is Q Developer from AWS, powered by Claude Sonnet. The Q Dev successor Kiro 
+(also from AWS) is "agentic" and the intent is to substitute that in at some point. 
 
 
-## Introduction for coding agent (aka coding assistant)
+In addition to summarizing and providing prompts at the bottom of the file, this
+document states some goals and records progress. New CA sessions can get up to speed
+by scanning this context.
 
 
-For CA: This effort concerns organizing oceanography data starting with data produced by the
-Ocean Observatories Initiative; in fact specifically focusing on the Regional Cabled Array
-shallow profilers. The underlying idea is to transition from a somewhat daunting archival data 
-system to data and visualizations amenable to physical interpretation. This markdown file
-is intended as context for a Coding Assistant. 
+## Introduction for a coding agent (aka coding assistant)
 
 
-The CA with no context at the start of a chat session is directed to read this document
-in its entirety. With that done an immediate prompt is found at the bottom
-of this file under the heading **Next**. The line range of this prompt 
-is provided to the CA in the IDE chat window as a meta-prompt, for example:
+This effort concerns organizing oceanography data starting with the
+Ocean Observatories Initiative Regional Cabled Array shallow profilers. 
+The idea is to transition from the archival data system to a more 
+interpretable form of the data; and then to visualize, interpret and
+further explore this data. 
 
 
-"Get the next prompt from lines 300 - 342 of `AIPrompt.md`."
+This markdown file is intended as context for a Coding Assistant (CA). 
 
 
-As a **Next** prompt is addressed: It is either accepted or undergoes some iterative refinement.
-For this reason it is ideal if the **Next** prompt is written to convey a complete specification.
-Once any iteration is done: The prompt text is migrated upward (and rewritten as necessary) into 
-the descriptive context body of the document.
+A CA is likely to be running as a VSCode IDE extension. At the start of a chat session it 
+has no context.
 
 
-## An quick sketch of the initial workflow
+To see the file structure: This work exists on a Windows PC in the WSL2 home file system.
+Folders of interest at this time include `reduxYYYY` and `argosy`. Within `argosy` there
+are Jupyter notebooks, markdown files (including this `AIPrompt.md` file, and standalone
+Python programs. When asking for code I will indicate whether it is to be run as a 
+standalone or in an IPython notebook cell. 
 
 
-In three stages:
+The CA is directed to scan this document in its entirety. 
 
 
-(1) Begin with a NetCDF file retrieved from the OOINET staging area (a data order delivery). Filename example: 
+The penultimate heading is **Pending ideas**. This section is not a CA prompt; it is
+notes I want to have on hand for developing later propmts.
+
+
+
+The final prompt in this file is found at the bottom of the file under 
+the heading **Next**.
+
+
+The line range of this prompt will often be provided to the CA in the IDE chat window as a 
+meta-prompt, for example:
+
+
+"Get the next prompt from lines 1118 - 1160 of `AIPrompt.md`."
+
+
+As a **Next** prompt is resolved (often with some iteration) the prompt text is
+typically integrated into the body of the document; with a new **Next** prompt to follow.
+
+
+## A sketch of the initial workflow
+
+
+Three tasks:
+
+
+### Task 1: Data Download
+
+
+Retrieve NetCDF files from the OOINET staging area populated via a manual data order. 
+The file retrieval / management code resides in the notebook `DataDownload.ipynb`.
+
+
+OOINET filename example:
 
 
 `deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc`
 
 
-This includes 157 ascent profiles, with many sensor types built into a CTD; in a 400MB `.nc` file. The data
-are *not* pre-assigned as ascent profiles. Rather the data file is a continuous time series containing
-ascents, descents and rest intervals from the shallow profiler.
+Breakdown of this filename:
+
+
+- `deploymentNNNN` refers to the fourth operational phases; each deployment typically months to a year in duration
+- `RS` identifies the Regional Cabled Array
+- `01` TBD
+- `SB` refers to the (Oregon) Slope Base site
+- `PS` is "Profiler (Shallow)" i.e. the Shallow Profiler at the Oregon Slope Base site
+- `SF` TBD
+- `01A` TBD
+- `2A` TBD
+- `CTDPF` is a CTD instrument (multiple sensors)
+- `A102` TBD
+- `streamed` TBD
+- `ctdpf` is a second (lower case) reference to the CTD
+- `sbe43` TBD
+- `sample` TBD
+- `20180208T000000.840174-20180226T115959.391002` is a UTC time range for the sensor data in this file
+- `.nc` indicates file format is NetCDF
+
+
+This data file bundles many sensors plus engineering and quality control data. It includes data from
+157 ascents of the shallow profiler profile in addition to data from descents and rest intervals.
+In short the file is very overloaded and -- perhaps -- can be overwhelming to think about, particularly
+since there are another ten-or-so sensor types in addition to the four sensors built into the 
+shallow profiler CTD, namely temperature, dissolved oxygen, density, and salinity (in relation to
+depth).
+
+
+The shallow profiler ascends from its docking platform at 200 meters depth to near the surface. 
+Data in this file are chronological.
 
 
 Note this file covers a period of time in 2018. It will prove convenient to compartmentalize data by year.
 
 
-(2) One output file corresponds to one ascent profile with temperature data. Many such files written to 
-a dedicated directory. Each file is 100kb. Filename example: 
+### Task 2: Data Sharding
 
 
-`RCA_sb_sp_temperature_2018_296_6261_7_V1.nc`
+Break downloaded data into individual files in an organizing directory structure. Code for this
+and related operations is in `DataSharding.ipynb`.
 
 
-This captures array, site, platform, sensor type, year, day of year, profile number (metadata version), profile number (day of), extractor version.
+One output file (a shard) corresponds to one ascent profile and one sensor type, for
+example temperature data. Many such files profiles (shards) are written to a directory labeled by
+year. Each single-sensor ascent shard file is about 100kb in comparison with source files that
+are typically 500MB. 
 
 
-(3) Bundle plotter and other visualizations. A bundle plotter is a double-slider visualization tool running in a Jupyter notebook 
-cell that plots N consecutive profiles together (slider 1) starting at profile T (slider 2). Slider 2 can be dragged through time 
-so as to scan this sensor's view of the epipelagic: We see anomalies, seasonal trends, mixed layer depth changes with season, 
-possible sensor artifacts, etcetera.
+Shard folder name example: `~/redux2018`
+
+
+Shard ascent filename example: `RCA_sb_sp_temperature_2018_296_6261_7_V1.nc`
+
+
+Breakdown of this filename:
+
+
+- `RCA` = Regional Cabled Array
+- `sb` = (Oregon) Slope Base
+- `sp` = Shallow Profiler
+- `temperature` = sensor type
+- `2018` = year of this profile
+- `296` = Julian day of this profile
+- `6261` = global index of this profile (see `profileIndices` below)
+- `7` = daily index of this profile, a number from 1 to 9
+- `V1` = version number of this shard operation
+- `.nc` = file type NetCDF
+
+
+
+### Task 3: Bundle plotter and other visualizations
+
+
+Working from sharded data build out both interactive visualizations and data animation generators.
+Code for this and related tasks is in `Visualizations.ipynb`.
+
+
+A bundle plotter is a double-slider visualization tool running in a Jupyter notebook 
+cell that plots $N$ consecutive profiles together (slider 1) starting at profile T 
+(slider 2). Slider 2 can be dragged through time so as to scan this sensor's view of 
+the epipelagic zone: We can notice anomalies, seasonal trends, mixed layer depth changes 
+with season, possible sensor artifacts, and so on.
 
 
 <Place a screenshot here.>
@@ -78,14 +171,23 @@ possible sensor artifacts, etcetera.
 ## Special terminology
 
 
-- Red Zone (the challenge of the last 20 yards): Aggregate and organize OOI data for scientific analysis.
+- Red Zone ('the challenge of the last 20 yards'): Aggregate and organize OOI data for scientific analysis.
     - In particular I may use *red zone format* to mean 'data ready for scientific analysis'.
-    - This is related in meaning to `redux` data: Profiles stripped out of source datasets and written as individual NetCDF files.
-- Umbrella: Extend the analysis space to include specialized instruments in OOI (sonar, spectrophotometer) and from other programs.
-- Bundle plot: Multiple profiles from a sensor displayed together, potentially with a stride, potentially with a color coding scheme
-- Midnight: One of two extended profiles during any given day, running at local midnight
-- Noon: One of two extended profiles during any given day, running at local noon
+    - As a synonymous term I introduce the term 'Interpretable Data' abbreviated ID
+    - A second synonymous term: `redux` data
+        - These are sensor profiles written as individual NetCDF files.
+        - The term `redux` is intended to evoke *revived* from the compound OOINET files to a form of ID
+- Umbrella: The notion of extending the interpretable data
+    - The first expansion is to other sensor types (for example PAR, pCO2, etc)
+    - The second expansion is to specialized instruments in OOI (sonar, spectrophotometers)
+    - The third expansion is from the Slope Base site to other sites
+    - The fourth expansion is data from other programs: Models, surface buoy data, ARGO, satellite remote sensing, gliders and so on
+- Bundle plot: Returning to the shallow profiler: Multiple profiles from a sensor displayed together as a bundle
+    - This might potentially include a stride; for example "only noon profiles"
+- Midnight profile: One of two extended profiles during any given day, running at local midnight
+- Noon profile: One of two extended profiles during any given day, running at local noon
 - `SensorInformation.md` is a supporting document relating native datafile structure to red zone format.
+- `ShallowProfiler.ipynb` is a supporting document in the same vein
     
 
 ## Reference websites
@@ -510,14 +612,20 @@ Warning: A prior version of the code program produced this error:
 ```/tmp/ipykernel_206172/2169783661.py:91: PerformanceWarning: DataFrame is highly fragmented. (etcetera)```
 
 
-## Jupyter notebook cell code: Bundle plots for temperature profiles
+## Visualization 1
+    
+    
+Visualization sections are numbered in sequence with sub-topic to follow:
+    
+
+### Jupyter notebook cell code: Bundle plots for temperature profiles
 
 
 Create a code block to run in a Jupyter notebook cell that will generate bundle plots as follows:
 
 
-- Code uses matplotlib
-- marker size is 1
+- Use matplotlib
+- marker size typically 1 (small)
 - `temperature` is on the x-axis with range wide enough to accommodate all the temperature data
 - `depth` is on the y-axis with a range of 0 meters to 200 meters: From top to bottom
 - The bundle plot means that several-to-many consecutive profiles are plotted on a single chart
@@ -535,73 +643,61 @@ Create a code block to run in a Jupyter notebook cell that will generate bundle 
     - profile is a day-relative profile number from 1 to 9
 
 
-## Experiment: Can the CA identify mixed layer depth from a text description? 
+## Experiment: Can the Q Developer CA identify mixed layer depth from a text description? 
 
 
-No: The code primarily just selected the top of the profile. We do not have time to teach the AI how 
-to do this better without some examples so (after this description) we request a picker program.
+A naive attempt produced a non-result. However the AI2 "AstaLabs" release of AutoDiscovery made significant
+progress; which I will not attempt to capture here. A human-driven ETMLD picker program was written in Python.
+This is not Jupyter cell code because my set-up is not supporting interactive mouse clicks. Here is the 
+specification for the program:
 
 
-- Generate a CSV file with three columns to reside in this directory.
-    - First column is profile index as recorded in the profile filenames in ~/redux2018
-    - Second column is `Estimated TMLD` 
-        - This stands for 'Estimated Temperature Mixed Layer Depth'
-        - It is a depth in meters measured positive-downward
-        - It is described below
-        - We want to test if you the AI CA are able to make these estimates from a text description
-    - Third column is the temperature at that depth for that profile
-    - As there are 157 profiles in ~/redux2018 this file (with header) will be 158 lines
-- Estimated Temperature Mixed Layer Depth description
-    - The upper N meters of the water column is well-mixed due to wave action etcetera
-    - At the bottom of this layer at a depth of N meters the temperature begins to decrease with depth
-    - The temperature continues to drop with depth with the gradient becoming less sharp
-    - The TMLD is this value N; it often appears as a distinct kink in the profile chart
-- Modify the Jupyter cell bundle plotter from the previous prompt as follows:
-    - Read the TMLD CSV file generated above
-    - Make the bundle plots exactly as before
-    - For each profile add a marker at the TMLD depth and temperature for that profile
-        - This marker should be larger to make it obvious but not enormous
+- Generate a CSV file with three columns, resides in `~argosy`.
+    - First column = profile index as recorded in the profile filename in ~/redux2018
+    - Second column is `Estimated TMLD`
+        - 'Estimated Temperature Mixed Layer Depth' (meters, positive downward)
+    - Third column = temperature at that depth for that profile
+- Estimated TMLD value `N`
+    - The upper `N` meters of the water column is well-mixed due to wave action etcetera
+    - At the bottom of this layer temperature begins to steadily decrease with depth (pycnocline)
+    - With increasing depth the temperature gradient decreases
+    - The mixed layer / pycnocline boundary often appears as a pronounced kink in the temperature curve
+    - Equivalent boundaries exist: Salinity, density, other sensible attributes of the water column
+- The TMLD data can be included in bundle plots as distinct markers
+    - 1:1 correspondence to individual profile curves
+    - Marker should be larger, different color
 
 
-## TMLD generator
+### TMLD generator program
 
-
-We will now generate a TMLD file by recording left-mouse-clicks on each profile chart. 
-This is User driven; and as the interactive mouse clicks were not working the Jupyter 
-notebook we will run this as a standalone Python program. 
-
-
-To be tolerant of User error we log the most recent click (selected TMLD point) only after
-the User hits Enter. 
-
-
-Whereupon the click location (depth and temperature) is transcribed as a next row in the TMLD file. 
-
-
-The program displays N/P where N is the number of profiles completed 
-so far and P is the total number of profiles, equal to the number of files in 
-the ~/redux2018 folder for temperature data.
-
-
-Cursor location is printed near the chart as depth and temperature.
-
-
-## List the CTD files in a "to do" file
     
+- Establish a range of profiles to annotate
+- Display each in sequence
+- Left mouse click identifies the TMLD depth 
+- standalone Python program as noted (not Jupyter cell) 
+- confirm a choice by hitting Enter
+- program should also support a "no data" choice if the User wants to skip
+- cursor location is printed in/near the chart so User can see both depth and temperature.
 
-- Return to the folder where the original CTD data file is located
+
+## Processing the full timespan dataset
+
+
+- CTD is the initial emphasis
+- List the CTD files in a "to do" file
+- From the folders where the original CTD data file is located
 - Create a new file listing all of the CTD files in that folder
     - Let us call this file `source_ctd_filelist.txt`
     - The first line will be the full path to the folder
     - The remaining lines are 1 line per CTD file
-- This list of files will be processed sequentially to expand the time series for Oregon Slope Base shallow profiler temperature profiles
-    - The output will be additional NetCDF temperature profile files in ~/redux2018
-- As a reminder the input file location is `~/ooidata/rca/sb/scalar/2015_2025_ctd`
-- As a reminder the original input file is called:
+- Process these files to expand the time series for Oregon Slope Base shallow profiler `temperature` profiles
+- Expand to `dissolvedoxygen`, `density`, `salinity` 
+    - Use those strings in the output filenames sensor field
+- Input file location for year `<YYYY>` is `~/ooidata/rca/sb/scalar/<YYYY>_ctd`
+- The original input file was:
     - `deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc`
-    - Notice that in this file name we see the string `CTDPF` which indicates a CTD file
-    - Notice the file extension is `.nc` which indicates a NetCDF file
-    - Both of these conditions must be met for the filename to be placed into `source_ctd_filelist.txt` 
+    - The string `CTDPF` indicates a CTD file. File extension must be `.nc`
+    - Compile the source file list in `source_ctd_filelist.txt` as described above 
 
 
 ## Temperature compilation from many source CTD files
@@ -637,7 +733,10 @@ in the previous stage of this effort. For each file listed we want to perform th
 - Continue to the next input CTD file until all have been processed in this manner 
 
 
-## Bundle animation
+## Visualization 2
+    
+    
+### Bundle animation
     
 
 - Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.
@@ -997,11 +1096,61 @@ URL: `https://autodiscovery.allen.ai/runs/3d1b04de-de13-4a16-b6e4-43b6f874fb28`
     
 
     
-## Next
+## Pending ideas
     
-Does the code read the entire dataset into RAM at the outset? If so let's shift to reading only the data
-needed for a given chart each time the chart parameters change, for example due to moving a slider.
+    
+Does the visualization code read the entire dataset into RAM at the outset? If so let's shift to reading 
+only the data needed for a given chart each time the chart parameters change, for example due to moving a slider.
 
+    
 Rather than have the User choose 'bundle' or 'meanstd' as a permanent choice: Install a choice control
 widget in the interface, one for each sensor being charted. The choices are 'bundle' and 'meanstd' so
-the User can switch between views. 
+the User can switch between views.
+    
+    
+The std render is not correct.
+    
+    
+    
+## Next
+    
+Rewrite the standalone `redux_s3_synch.py` program found in `~/argosy`:
+
+
+When giving a diagnostic time such as "Starting synch at {time.time()}": Re-format that time 
+in standard year - month - day - hour - minute - second human-readable format. 
+
+
+Next:  I infer from `ps -ef | grep redux_s3_synch` that for a given year `<YYYY>` the 
+code generates the list of redux files in random sequence. I want to have a sense of 
+how the year is progressing using the above `ps` command so here is the proposed remedy:
+
+
+First: Establish a list of sensors sorted alphabetically. At the moment there are four sensors: 
+'density', 'dissolvedoxygen', 'salinity', 'temperature'. This will soon be expanding to
+include ten-or-so additional. 
+
+
+Then: Between creating the list of files from reduxYYYY and checking for their presence in the 
+S3 bucket: Sort the file list for a given `<YYYY>` year using 3 attributes: The fast attribute 
+is by sensor type per the above list of alphabetized sensors. Next is the profile sequence for
+a given day, i.e. up to nine values 1, 2, ..., 9. The third (slow) sorting index is Julian 
+day within this year. For example here are eight consecutive file names sorted in this manner.
+(I indicate the `profileIndices` absolute index as <ix>:
+
+    
+```
+RCA_sb_sp_density_2024_217_<ix>_9_V1.nc
+RCA_sb_sp_dissolvedoxygen_2024_217_<ix>_9_V1.nc
+RCA_sb_sp_salinity_2024_217_<ix>_9_V1.nc
+RCA_sb_sp_temperature_2024_217_<ix>_9_V1.nc
+RCA_sb_sp_density_2024_218_<ix>_1_V1.nc
+RCA_sb_sp_dissolvedoxygen_2024_218_<ix>_1_V1.nc
+RCA_sb_sp_salinity_2024_218_<ix>_1_V1.nc
+RCA_sb_sp_temperature_2024_218_<ix>_1_V1.nc
+```
+
+    
+These files are for the Regional Cabled Array, for the Oregon Slope Base site, for the 
+shallow profiler, and for four sensor types: Year 2024, two consecutive Julian days, 
+first profile 9 on day 217 then profile 1 on day 218. 
