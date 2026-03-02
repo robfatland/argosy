@@ -286,26 +286,27 @@ This is at much lower task resolution.
 - The CA will be directed in the **Next** prompt on the context of the code
     - Typically it will be code that runs in a Jupyter notebook cell
     - Less typically it will be a standalone Python program
-- The CA should always place a comment at or near the top of code as the title
+- The CA should always place a comment at or near the top of code
     - Comment is between one and four lines in length
     - Comment briefly tells what this code does
     - Comment briefly indicates where this execution occurs in the workflow
 
 
-## Code locations
+## Code locations in relation to workflow tasks
 
 
-These are IPython notebooks in development. Eventually this code can be migrated 
-to a workflow as straight up .py Python files. 
+Most of the work is done by IPython notebooks, in development. Eventually code 
+should migrate to straight up `.py` Python files.
+
 
 - No code: Data order, done by a human on the OOINET website
 - `DataDownload.ipynb`
-    - A data order is generated on the OOINET system (full time resolution)
-    - It appears usually between minutes to hours: email notification
-    - DataDownloader uses the delivery URL to build a `bash` script
-    - The script downloads (multiple NetCDF) datafiles from the OOINET server
-    - These files are input to DataStreamline
-- No code: Copy the source NetCDF files to an S3 bucket
+    - Manual: Data order already generated on the OOINET system (full time resolution)
+    - Manual: URLs copied sequentially from email notice(s) to `~/argosy/download_link_list.txt`
+    - Manual: Make sure localhost receive folders exist: `ooinetdata/RCA/sb/scalar/2015_flor` etcetera
+    - Jupyter cell: `DataDownload.ipynb` uses the above `.txt` file to 
+        - Deprecated: Build a `bash` script that downloads NetCDF files from the OOINET server
+        - Actually: Downloads 
 - `ShardProfiles.ipynb`
     - Extract sensor data cut into profile bins; write these as NetCDF files
     - Output folders are `~/redux<yyyy>`
@@ -342,7 +343,7 @@ The OOI "observatory" consists of seven Arrays:
 
 
 Each array is a sub-program. Array deployment dates back to 2013-2015. The components
-of the active arrays are continuously subjected to maintenance.
+of the active arrays are continuously subject to maintenance.
 
 
 The initial focus as noted is the Regional Cabled Array (RCA) off the coast of Oregon. 
@@ -1096,48 +1097,23 @@ URL: `https://autodiscovery.allen.ai/runs/3d1b04de-de13-4a16-b6e4-43b6f874fb28`
     
 
     
-## Pending ideas
     
     
-Does the visualization code read the entire dataset into RAM at the outset? If so let's shift to reading 
-only the data needed for a given chart each time the chart parameters change, for example due to moving a slider.
-
-    
-Rather than have the User choose 'bundle' or 'meanstd' as a permanent choice: Install a choice control
-widget in the interface, one for each sensor being charted. The choices are 'bundle' and 'meanstd' so
-the User can switch between views.
+## Synchronize localhost with S3
     
     
-The std render is not correct.
-    
-    
-    
-## Next
-    
-Rewrite the standalone `redux_s3_synch.py` program found in `~/argosy`:
+Python standalone `redux_s3_synch.py` in `~/argosy` rewrite:
 
 
-When giving a diagnostic time such as "Starting synch at {time.time()}": Re-format that time 
-in standard year - month - day - hour - minute - second human-readable format. 
+- Re-format that time in human-readable format. 
+- Order of operations:
+    - Fast index: List of sensors sorted alphabetically
+        - To date: 'density', 'dissolvedoxygen', 'salinity', 'temperature'
+    - Medium index: Profile sequence for a given day: 1, 2, ..., 9
+    - Slow index: Julian day for a given year
+    - Slowest index: Year
 
-
-Next:  I infer from `ps -ef | grep redux_s3_synch` that for a given year `<YYYY>` the 
-code generates the list of redux files in random sequence. I want to have a sense of 
-how the year is progressing using the above `ps` command so here is the proposed remedy:
-
-
-First: Establish a list of sensors sorted alphabetically. At the moment there are four sensors: 
-'density', 'dissolvedoxygen', 'salinity', 'temperature'. This will soon be expanding to
-include ten-or-so additional. 
-
-
-Then: Between creating the list of files from reduxYYYY and checking for their presence in the 
-S3 bucket: Sort the file list for a given `<YYYY>` year using 3 attributes: The fast attribute 
-is by sensor type per the above list of alphabetized sensors. Next is the profile sequence for
-a given day, i.e. up to nine values 1, 2, ..., 9. The third (slow) sorting index is Julian 
-day within this year. For example here are eight consecutive file names sorted in this manner.
-(I indicate the `profileIndices` absolute index as <ix>:
-
+Example 8-file sequence per the above (where `<ix>` is the appropriate profileIndices global index):
     
 ```
 RCA_sb_sp_density_2024_217_<ix>_9_V1.nc
@@ -1150,7 +1126,278 @@ RCA_sb_sp_salinity_2024_218_<ix>_1_V1.nc
 RCA_sb_sp_temperature_2024_218_<ix>_1_V1.nc
 ```
 
+
+## Pending ideas
     
-These files are for the Regional Cabled Array, for the Oregon Slope Base site, for the 
-shallow profiler, and for four sensor types: Year 2024, two consecutive Julian days, 
-first profile 9 on day 217 then profile 1 on day 218. 
+    
+- Visualization revisit
+    - Does the visualization code read the entire dataset into RAM at the outset? If so let's shift to reading 
+only the data needed for a given chart each time the chart parameters change, for example due to moving a slider.
+
+    
+Rather than have the User choose 'bundle' or 'meanstd' as a permanent choice: Install a choice control
+widget in the interface, one for each sensor being charted. The choices are 'bundle' and 'meanstd' so
+the User can switch between views.
+    
+    
+The std render is not correct.
+    
+
+## Shard rewrite
+    
+The `DataSharding.ipynb` primary sharding cell was rewritten. It generalizes instruments to include both
+CTDPF and FLORT instruments (source files). The SENSOR_MAP is also expanded with key information: 
+
+
+```
+data variable in source file              shard name for this sensor          low extreme      high extreme
+fluorometric_cdom                         cdom                                0.5              4.5
+fluorometric_chlorophyll_a                chlora                              0.0              1.5
+optical_backscatter                       backscatter                         0.0              0.006
+```
+    
+    
+## Work in progress on Visualization
+    
+    
+This former prompt needs to go into the visualization bundle chart specification.
+    
+
+It is time to revisit Visualization, specifically bundle charts. We now have seven sensor types with
+nitrate pending. 
+    
+
+In passing: 
+Organize the sensors as a sensor table in a CSV file: Describe the sensor array for
+shallow profilers. Not included in this table are `time` and `depth`: These are always 
+ancillary data: `time` as dimension/coordinate and `depth` as data variable.
+    
+    
+For the subsequent table here is { column content (left to right), short column name, elaboration }:
+
+
+- sensor name,          sensor,  a descriptive "normal text" name
+- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF FLORT
+- ooinet download key,  key,     short abbreviation of sensor name used in download folder names
+- sensor data variable, datavar, for the science data variable e.g. `sea_water_temperature`
+- shard data variable,  shard,   used in `redux` shard files e.g. `RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc`
+- acquisition side:     side,    `ascent` or `descent`
+- data extreme low,     xlow,    well below the expected data minimum
+- data extreme high,    xhigh,   well above the expected data maximum
+
+    
+Sensor table:
+    
+```
+sensor,         instrum,  key,  datavar,                             shard,           side,     xlow,  xhigh
+temperature,      CTDPF,  ctd,  sea_water_temperature,               temperature,     ascent,    6.0,   20.0
+salinity,         CTDPF,  ctd,  sea_water_practical_salinity,        salinity,        ascent,   32.0,   36.0
+density,          CTDPF,  ctd,  sea_water_density,                   density,         ascent, 1024.0, 1028.0
+dissolved oxygen, CTDPF,  ctd,  corrected_dissolved_oxygen,          dissolvedoxygen, ascent,   50.0,  300.0
+nitrate,          NITNR, nitr,                     ,                 nitrate,         ascent,    ???,    ???
+CDOM,             FLORT, flor,  fluorometric_cdom,                   cdom,            ascent,    0.5,    4.5
+Chlorophyll-A,    FLORT, flor,  fluorometric_chlorophyll_a,          chlora,          ascent,    0.0,    1.5
+backscatter,      FLORT, flor,  optical_backscatter,                 backscatter,     ascent,    0.0,    0.006
+pCO2,             PCO2W, pco2,    ?,                                 pco2,           descent,  200.0, 1200.0
+pH,               PHSEN,   ph,    ?,                                 ph,             descent,    7.6,    8.2
+PAR,              PARAD,  par,    ?,                                 par,             ascent,    ???,    ???
+velocity,         VELPT,  vel,    ?,                                 vel,             ascent,    ???,    ???
+spectralirrad,    SPKIR,
+opticalabsorb,    OPTAA,
+beamattenuation,  OPTAA,
+```
+    
+### Notes on the above sensor table
+
+- sensors
+- instruments
+    - OPTAA is a spectrophotometer with two sensors (see above)
+        - This is a vector instrument because the sensors produce more than one value per sample
+        - Specifically we have multiple wavelengths / channels
+- keys
+- data variables
+- shards
+- sides
+- xlow
+- xhigh
+
+## Visualization: Bundle chart
+
+- User input to configure
+    - Select one or two sensors from 7 available
+    - Range of years, inclusive, default is 2015-2016
+- Use the data range from the above table as start values
+- For each sensor: Option of draw individual profiles or mean+-stdev for the current bundle
+- Four advance buttons: <--> <-> <+> <++> will change the bundle range
+    - <--> is earlier by half the current number of profiles rounded up
+    - <->  is earlier by one profile
+    - <+> and <++> are forward in time by the same amounts
+
+
+
+### Adding MIDNIGHT/NOON and annotation file
+
+The local time at the Oregon Slope Base site is UTC-8 during standard time and UTC-7 during
+daylight savings time. Create a data structure tied to Oregon Slope Base that contains this
+information. Then add the following feature:
+    
+When a profile bundle size is nProfiles = 1: When that profile start-end interval spans 
+local midnight place the word MIDNIGHT in large font on the chart at the lower right. Likewise
+when the profile start-end interval spans local noon place the word NOON in large font on the
+chart at the lower right.
+    
+The next feature to add will be annotation per profile from a source CSV file: In the
+form of either text or markers. The name of the annotation file will arbitrary so there 
+will be (at the bottom of the user interface) a blank field where the user will type a 
+filename such as `~/argosy/annotation.csv`. 
+    
+Next to the filename field place a button labeled `Annotation Load`. When this is clicked
+the code will attempt to render annotations from the given CSV file. This button will toggle
+on/off.
+    
+The CSV file must have the following column labels present in row 1: 
+    
+```
+shard, profile, depth, value, color, markersize, opacity, text
+```
+
+`shard` will be the sensor designation as found in shard filenames.
+`profile` will be the global profile Index as found in `profileIndices`.
+`depth` is depth in meters, positive downward
+`value` is a data value for this sensor type
+`color` is a marker color
+`markersize` is a marker size
+`opacity` is a marker opacity
+`text` is some annotation text
+    
+If one of the CSV fields is not present in row 1: Print a message to this effect 
+and do nothing further.
+
+For each subsequent row present: Fields can be blank by having no text, i.e. two commas `,,`
+or one comma at the end `,`. The`shard` and `profile` fields can not be empty. If they
+are: Print an error message and do nothing further.
+    
+If the text field is not empty: Print the text on the chart when the corresponding
+shard is active and the single bundle profile matches the profile value. Otherwise
+render a marker of the given location, size, color and opacity.
+
+The code should in general try to print a "no can do" diagnostic message if it is 
+unable to draw a given annotation, again only when nProfiles = 1. 
+
+For marker rendering: 
+
+    
+- If no markersize is given: The marker size is 9.
+- If no opacity is given: The default is fully opaque.
+- If no color is given: Use the color of the `shard` sensor
+- If no depth is given: Use depth = 180.
+- If no value is given: Use value = center of x-axis range for this sensor
+    
+### Refine MIDNIGHT / NOON single profile annotation
+    
+In the previous step the MIDNIGHT / NOON annotations are not working well. To debug 
+this revisit the logic with these two modifications to build: 
+    
+- The condition for a profile to be considered at local noon is: Local noon falls in 
+a time window defined by [(local) `start` time - 30 minutes, (local) `end` time + 30 minutes]. 
+That is: Both times defining this time window are in local time for a meaningful comparison 
+to local noon. The same logic applies to local midnight.
+    
+- As a temporary validation measure: When printing 'NOON' or 'MIDNIGHT': Underneath that
+print the profile `peak` time shifted to local time. Again this time shift is -8 hours
+during standard time and -7 hours during daylight savings.
+    
+## More pending ideas
+
+Concerning a diagnostic printout: 
+
+During the User input phase of operation after selectiong 2015 - 2016 a diagnostic
+print statement produces this incorrect content:
+    
+```
+Scanning redux folders from 2015 to 2016...
+  redux2015: 4394 profiles
+  redux2016: 20671 profiles
+```
+    
+This appears to be counting shard files in redux folders. Replace this with the number
+of profiles for each year as found in `profileIndices`. Include the maximum possible value
+after the actual value: In parentheses, as in for example: 
+
+```
+Scanning profileIndices metadata...
+  2015: 578 profiles (3285 possible)
+  2016: 2975 profiles (3366 possible)
+```
+    
+Concerning NOON / MIDNIGHT determination:
+    
+Both NOON and MIDNIGHT profiles are distinct from the other seven possible profiles
+in that the descent stage (between time `peak` and time `end` in profileIndices) takes
+longer in order to allow for sensor equilibration, specifically for the pCO2 and pH 
+sensors that operate on descent only. 
+
+## Next for Rob (not kiro)
+    
+Logical inconsistencies and areas needing clarification:
+
+Dissolved oxygen variable name inconsistency (lines ~650 vs earlier):
+
+- Earlier: do_fast_sample-corrected_dissolved_oxygen
+- Later in sensor table: corrected_dissolved_oxygen
+- Which is correct? This could cause code failures.
+    
+Profile count calculation confusion (line ~1050):
+
+- The diagnostic shows "4394 profiles" for 2015 but then says it should show "578 profiles (3285 possible)"
+- The document correctly identifies this as counting shard files (4 sensors × ~1100 profiles ≈ 4400)
+- But the logic needs clarification: Are you counting unique profiles or total shard files?
+
+Incomplete sensor table:
+
+- Several sensors have ? for critical fields (nitrate datavar, pCO2/pH instrument codes, PAR ranges)
+- This makes the table less useful as a reference
+
+Time zone handling ambiguity:
+
+- Mentions UTC-8/UTC-7 for standard/daylight time
+- Doesn't specify when DST transitions occur (important for the NOON/MIDNIGHT logic)
+- Consider adding explicit DST transition dates or using a timezone library
+    
+Gripes section (line ~180):
+
+- Mentions "two streams for DO" plus a third - this unresolved question could affect the dissolved oxygen processing
+- Should be investigated before finalizing the sensor variable names
+    
+Animation frame timing (line ~450):
+
+- Says "If possible: Add in a 'hold time' per frame of d seconds"
+- This uncertainty should be resolved - matplotlib animations support frame duration
+
+Axis offset calculation (lines ~900-920):
+
+- The formula for offsetting two sensor ranges is clever but could use a worked example
+- The concrete example helps but doesn't match the formula exactly (should verify the math)
+
+Profile index terminology:
+
+- Sometimes "profile index" means global index from profileIndices
+- Sometimes it means day-relative (1-9)
+- Consider using distinct terms like "global_index" and "daily_profile_number"
+
+Missing "Next" section:
+
+- Document ends with "There is no immediate 'next' task" but earlier sections reference pending work
+- Consider a prioritized task list
+
+Recommendations:
+
+- Create a data dictionary section consolidating all variable names with their exact spellings
+- Add a glossary defining terms like "bundle", "redux", "shard" for new readers
+- Resolve the incomplete sensor table entries
+- Add explicit DST handling (or use pytz/zoneinfo)
+- Clarify the profile counting logic throughout
+- Consider adding a troubleshooting section for common errors
+
+    
+The document is quite usable as-is for someone familiar with the project, but these clarifications would make it more robust and easier for others (or future you) to work with.
