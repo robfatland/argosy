@@ -40,8 +40,16 @@ git push
 [Argosy Jupyter Book link](https://robfatland.github.io/argosy/intro.html)
 
 
+## Python library installations
 
-## Introduction for a coding agent (aka coding assistant (CA))
+
+- Using `miniconda`
+- Install `matplotlib`, `pandas`
+- Install `xarray` and `h5netcdf` (or `netcdf4`)
+- jupyter lab/book
+
+
+## Introduction for a coding agent (coding assistant (CA))
 
 
 This effort concerns organizing oceanography data starting with the
@@ -49,9 +57,6 @@ Ocean Observatories Initiative Regional Cabled Array shallow profilers.
 The idea is to transition from the archival data system to a more 
 interpretable form of the data; and then to visualize, interpret and
 further explore this data. 
-
-
-This markdown file is intended as context for a Coding Assistant (CA). 
 
 
 A CA is likely to be running as a VSCode IDE extension. At the start of a chat session it 
@@ -183,6 +188,29 @@ Three tasks:
 
 
 ### Task 1: Data Download
+
+
+#### Data order
+
+
+- Log in to OOI [access page](https://ooinet.oceanobservatories.org/data_access) with an established account
+- LHS filters: Array, Cable, Platform, Instrument
+- Data Catalog box (bottom center)
+    - ***Do not try and use the time window interface***
+    - ***+*** Action button: Download table appears top center
+        - Also: Data availability plot, center center
+    - Top center: Download button generates a data order
+        - ***Select datasets with Stream type == `Science`***
+        - > Pop up to finalize order
+            - Calendars: Type in time range manually e.g. `2015-01-01 00:00:00.0`
+            - Optional:
+                - Un-check the box for **Download All Parameters**
+                - Use ctrl-click to select parameters of interest
+            - Submit the order
+            - "Order ready" email sent to account usually < 2 hours
+
+
+#### Download data order
 
 
 Retrieve NetCDF files from the OOINET staging area populated via a manual data order. 
@@ -538,29 +566,33 @@ ds = ds.swap_dims({'obs':'time'})
 
 
 Profile metadata for both shallow and deep profilers is retained in a public GitHub
-repo as a set of CSV files delineated by platform and year. The first column of a
-profile CSV file is an index (a profile counter) that begins at 1 at the start of the 
-(example:) RCA OSB shallow profiler deployment in July 9 2015. Today the index exceeds 
-20,000. In addition to the index column this file has 3 additional columns. 
+repository as a set of CSV files delineated by platform and year. Each row of a
+metadata file corresponds to a unique profile. 
     
-
-A shallow profiler divides its time between three phases: Ascent, Descent, and Rest.
-The metadata CSV file therefore continues with three additional columns associated 
-with the start time of an ascent, the peak time of that ascent, and the time that the 
-profiler returns to the support platform at 200m depth. The associated column names 
-are `start`, `peak`, `end`. 
-
-
-The GitHub repository organization is 'OOI-CabledArray'. The repository of interest is 
-'profileIndices'. The RCA Data Manager who built this is Wendi Ruef. 
+The first column of the profile CSV file is a global index (a profile counter) specific 
+to that profiler. The value in this column begins at 1 at the start of the profiler 
+operation. Example: RCA OSB shallow profiler deployment in July 9 2015 begins with profile 
+1. This global index for this shallow profiler exceeds 20,000 in early 2026. 
     
+    
+In addition to the global index column, the metadata file has 3 additional columns. 
+A profiler is in one of three phases and consequently divides its time between them:
+Ascent, Descent, and Rest. The three additional profileIndices metadata columns are 
+associated with the start time of ascent, the peak time of that ascent, and the time 
+that the profiler completes its descent, returning to its support structure. 
+The associated column names are `start`, `peak`, `end`. 
 
-The repository has been cloned to localhost ~ as `profileIndices`. 
+
+The GitHub repository **Organization** is 'OOI-CabledArray'. The repository of 
+interest is 'profileIndices'. 
 
 
+For the `argosy` project this repository is cloned to localhost: `~/profileIndices`. 
+Details: 
 
-- Wendi Ruef (RCA): `https://github.com/OOI-CabledArray/profileIndices`
-- Clone to localhost WSL ~/profileIndices
+
+- `https://github.com/OOI-CabledArray/profileIndices`
+- Clone to localhost WSL `~/profileIndices`
 - Profiles are broken down by array and site identifier, then by year
     - Array CE = Coastal Endurance, associated with the Oregon Offshore site ('OS')
     - Array RS = Regional Cabled Array, associated with Slope Base ('SB') and Axial Base ('AB') sites
@@ -579,37 +611,37 @@ The repository has been cloned to localhost ~ as `profileIndices`.
         - years 2014 -- 2026
 
 
-To select data from the Slope Base shallow profiler CTD during 2018: Use the time
-ranges present in the file `~/profileIndices/RS01SBPS_profiles_2018.csv`. 
+To select profile time-series data from a sensor/instrument on the Oregon Slope Base shallow 
+profiler: Use time ranges in `~/profileIndices/RS01SBPS_profiles_2018.csv`. 
 
 
-Note: Some sensors operate continuously (such as CTD temperature). Other operate
-at a lower duty cycle / during selected phases.
-    
-    
+Note: Some sensors operate continuously (such as CTD temperature). Others operate
+at a lower duty cycle, for example only during selected phases of a profile. Most
+sensors operate (at least) during ascent with two notable exceptions: `pH` and `pCO2`.
+
+
 For an instrument / sensor that operates on ascent the time range for a given 
-profile would be given by columns 2 and 3: start and peak. Other cases will be
-elaborated as they come up.
+profile would be given by columns 2 and 3: `start` and `peak`. For a descending
+instrument the time range would be defined by `peak` and `end`.
 
     
-Times are given in format 'yyyy-MM-dd hh:mm:ss'.
+Time format: `yyyy-MM-dd hh:mm:ss`.
     
 
 Note: Noon and midnight profiles tend to have longer duration owing to a slower descent profile.
 
 
+## Reference metadata
 
-## Further development of shallow profile metadata
 
-
-This is an idea but not implemented yet.
+This idea is elaborated but not fully implemented.
     
 
-In this phase the goal is to produce the extensive `redux` dataset. 
-It will be of further red zone use to build out additional metadata.
+Goal: Produce a data availability/quality description for the sharded dataset.
+This should be built when it helps achieve a specific goal.
 
     
-Here is one design concept
+Example design concept:
     
 
 - CSV file
@@ -682,29 +714,36 @@ The filename format for each redux profile `.nc` file is slightly different than
         - PPPPP = Profile index drawn from the `profileIndices` tables
         - Q     = This profile's index relative to the data acquisition day: a number from 1 to 9
         - VVV   = Version number: Use `V1` at this time
-    
+
+
 An output filename example: `RCA_sb_sp_temperature_2018_003_3752_4_V1.nc`.
+
 
 A single year could produce as many as (365*9) redux files.
 
+    
 When the program runs: First determine the time range of the source NetCDF file. Print this
 out and include the estimated number of available profiles by multiplying the time range in days
 by nine. 
+
 
 For each profile: Data are extracted using time limits from the profileIndices CSV files. Specifically
 the profile start time is given in the `start` column. The profile end time is given in the `peak` 
 column: When the profiler reached peak depth closest to the ocean surface.
 
+
 This program should tally up how many profiles it attempted to extract and write; and 
 it should tally up how many were extracted successfully. Print these values at the end as 
 a diagnostic remark. 
 
+    
 Warning: A prior version of the code program produced this error: 
+
 
 ```/tmp/ipykernel_206172/2169783661.py:91: PerformanceWarning: DataFrame is highly fragmented. (etcetera)```
 
 
-## Visualization 1
+## Visualization Part 1
     
     
 Visualization sections are numbered in sequence with sub-topic to follow:
@@ -946,7 +985,7 @@ The animation output mp4 file should be written in the ~ folder.
 The code handles zero / nan mean cases gracefully.   
     
     
-## SECTION NEEDS A TITLE
+## Data Download
     
 
 This task is to upgrade the Jupyter cell code to perform a bulk download of NetCDF source files
@@ -982,43 +1021,81 @@ re-starting after only partial completion. Here is the functionality description
 
 
 
-## The Sensor Table
+## Sensor table 
+    
+
+### Explore source file data variables
     
     
-We now define the sensor table as a comprehensive list of sensor types for the shallow 
-profiler. For the moment this resides in this file; but will eventually be written as
-a standalone CSV file. 
+```
+import xarray as xr
+ds = xr.open_dataset('~/argosy/tmpdata/ctdexample.nc')
+ds
+ds.data_vars.keys()
+```
+    
+    
+Source file structure: 
+    
+    
+```
+dimension
+    obs(ervation) --> convert to time using swap_dims()
+
+coordinates
+    observation
+    lat
+    lon
+    depth
+    time
+
+data variables
+    sea_water_practical_salinity        Note use of prefix "sea_water_" for research analysis
+    <many other types>
+
+attributes
+    <many; ignoring for now>
+```
+
+
+    
+### Sensor table columns
+    
+    
+The **sensor table** is a comprehensive list of sensor types for the shallow profiler. 
+This will eventually be written to a standalone reference CSV file. 
     
     
 Premise: Jupyter cell code in the `DataSharding.ipynb` notebook shards multiple types of 
 source 'instrument' NetCDF datafiles to produce single-sensor shard files, one file
 per profile. Shards are written into folders spanning single years; with folder names
-`~/redux<yyyy>` where `<yyyy>` is a four-digit year. In the course of going from 
-complicated instrument file to much simpler/smaller shard files to visualizations to
-analysis we need consistent metadata; so the sensor table localizes that metadata
-to a single resource.
+`~/redux<yyyy>` where `<yyyy>` is a four-digit year. The sensor table localizes the
+metadata concerned with managing the sensor data.
     
     
-Sensors correspond to rows of the sensor table, eventually to be written as a CSV file.
-Not included in the sensor table are `time` and `depth`: These are ancillary data: 
-`time` as dimension/coordinate and `depth` as data variable (XArray terminology).
+Sensors correspond to rows of the sensor table. Not included in the sensor table are 
+`time` and `depth` which are ancillary: `time` as dimension/coordinate and `depth` 
+as data variable (XArray terminology). These define the two-dimensional framework for
+for the sensor data. 
     
     
 Here is the sensor table column information, columns going left to right.
-Format: column content, short column name, some elaboration
+Format of this table: column content, short column name, some elaboration
 
 
+```
 - sensor name,          sensor,  a descriptive "normal text" name
-- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF FLORT
-- ooinet download key,  key,     short abbreviation of sensor name used in download folder names
-- sensor data variable, datavar, for the science data variable e.g. `sea_water_temperature`
-- shard data variable,  shard,   the sensor shard name is used in `redux` shard files e.g. `RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc`
+- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF, FLORT
+- ooinet download key,  key,     short abbreviation of instrument name used in download folder name
+- sensor data variable, datavar, the science data variable of interest for this sensor e.g. `sea_water_temperature`
+- shard sensor name,    shard,   for `redux` sensor filename; e.g. RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc
 - acquisition side:     side,    `ascent` or `descent` (mostly ascent; pCO2 and pH are the notable descending acquisitions)
 - data extreme low,     xlow,    well below the expected data minimum
 - data extreme high,    xhigh,   well above the expected data maximum
-
+```
     
-Sensor table:
+### Sensor table
+    
     
 ```
 sensor,         instrum,  key,  datavar,                             shard,           side,     xlow,  xhigh
@@ -1026,24 +1103,110 @@ temperature,      CTDPF,  ctd,  sea_water_temperature,               temperature
 salinity,         CTDPF,  ctd,  sea_water_practical_salinity,        salinity,        ascent,   32.0,   36.0
 density,          CTDPF,  ctd,  sea_water_density,                   density,         ascent, 1024.0, 1028.0
 dissolved oxygen, CTDPF,  ctd,  corrected_dissolved_oxygen,          dissolvedoxygen, ascent,   50.0,  300.0
-nitrate,          NITNR, nitr,                     ,                 nitrate,         ascent,    ???,    ???
+nitrate,          NITNR, nitr,  salinity_corrected_nitrate,          nitrate,         ascent,      0,     35
 CDOM,             FLORT, flor,  fluorometric_cdom,                   cdom,            ascent,    0.5,    4.5
 Chlorophyll-A,    FLORT, flor,  fluorometric_chlorophyll_a,          chlora,          ascent,    0.0,    1.5
 backscatter,      FLORT, flor,  optical_backscatter,                 backscatter,     ascent,    0.0,    0.006
-pCO2,             PCO2W, pco2,    ?,                                 pco2,           descent,  200.0, 1200.0
-pH,               PHSEN,   ph,    ?,                                 ph,             descent,    7.6,    8.2
-PAR,              PARAD,  par,    ?,                                 par,             ascent,    ???,    ???
-velocity,         VELPT,  vel,    ?,                                 vel,             ascent,    ???,    ???
-spectralirrad,    SPKIR,  irr,    ?,                                 irr,             ascent,    ???,    ???
-opticalabsorb,    OPTAA,   oa,
-beamattenuation,  OPTAA,   ba,
+pCO2,             PCO2W, pco2,  pco2_seawater,                       pco2,           descent,  200.0, 1200.0
+pH,               PHSEN,   ph,  ph_seawater,                         ph,             descent,    7.6,    8.2
+PAR,              PARAD,  par,    ?,                                 par,             ascent,      0,    300
+velocity,         VELPT,  vel,  east-north-up,                       vel,             ascent,    -.4,     .4
+spectralirrad,    SPKIR,  irr,  si412-443-490-510-555-620-683,       irr,             ascent,      0,     15
+opticalabsorb,    OPTAA,   oa,  73 channels,                         oa,              ascent,    ???,    ???
+beamattenuation,  OPTAA,   ba,  73 channels,                         ba,              ascent,    ???,    ???
 ```
+
     
-Unless noted each sensor is *scalar* (single numerical value per sample). The four exceptions
-are `velocity`, `spectral irradiance`, `optical absorption` and `beam attenuation`. The latter
-two sensors are both produced by a spectrophotometer (OPTAA).
+### sensor table notes
 
 
+Most sensor data is *scalar* (single numerical value per sample) with four exceptions:
+`velocity` (3), `spectral irradiance` (7), `optical absorption` (80?) and `beam attenuation` (80?). 
+The latter two are produced by a spectrophotometer (OPTAA).
+    
+    
+#### Velocity
+    
+
+current
+    
+
+east                      'Current: East'          
+north                     'Current: North'
+up                        'Current: Vertical'
+    
+
+#### Spectral Irradiance
+    
+
+si412                     'Spectral Irradiance 412nm'
+si443                     'Spectral Irradiance 443nm'
+si490                     'Spectral Irradiance 490nm'
+si510                     'Spectral Irradiance 510nm'
+si555                     'Spectral Irradiance 555nm'
+si620                     'Spectral Irradiance 620nm'
+si683                     'Spectral Irradiance 683nm'
+
+    
+#### Spectrophotometer
+    
+
+Incomplete: Has to be two sensors: Optical absorbance and beam attenuation; 
+apparently 73 channels for each.
+
+
+c001
+c002
+...
+c073
+
+
+#### Dissolved Oxygen
+
+
+**It seems that Dissolved Oxygen is identical to the DO found bundled in the 
+CTD data files rendering the separate DO product redundant.**
+
+
+Data variables:
+
+    
+```
+sea_water_practical_salinity
+sea_water_temperature
+corrected_dissolved_oxygen
+```
+
+
+This is from working with the CA and should be verified with the OOI staff. First the CA claims that
+DO files are distinct from dissolved oxygen found in CTD files. Quoting:
+    
+
+```
+### Why OOI Created Separate DO Files
+
+    
+Instrument separation: The dedicated DO files come from the Aanderaa oxygen optode (a standalone sensor), 
+while CTD files come from the SBE 52-MP CTD package. They're physically different instruments...
+```
+
+
+Comparison shows both CTD streams and the DO data identical. 
+To Do: Confirm from the OOI site: `corrected_dissolved_oxygen` from the CTD file is science-ready data. 
+    
+    
+#### Nitrate
+
+
+For OOI RCA nitrate measurements using SUNA (Submersible Ultraviolet Nitrate Analyzer) 
+sensors: Initial observation is a UV absorption spectrum measured with light passing 
+through a sample. The nitrate dark sample data is taken with the light source *off*:
+electronic noise, detector dark current and ambient light (no nitrate signal). 
+Corrected Nitrate = Sample Data - Dark Sample Data. A subsequent salinity correction
+arrives at `salinity_corrected_nitrate`.
+
+    
+    
 ## Sharding and shard files
     
     
@@ -1468,4 +1631,3 @@ Recommendations:
 
 - revamp animations
 - curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb
-- 

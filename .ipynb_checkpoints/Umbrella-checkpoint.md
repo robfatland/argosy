@@ -2,13 +2,13 @@
 
 This file describes the 'umbrella' askpect of this OOI project. For a definition
 of umbrella in this context: See `~/argosy/AIPrompt.md`. This markdown file 
-primarily concerns non-OOI data resources aspect of the umbrella concept. The
-scientific objective is to use this profusion of data to better characterize 
+primarily concerns non-OOI data resources, the most important aspect of the umbrella 
+concept. The scientific objective is to use this profusion of data to better characterize 
 the upper water column (photic zone) in the northeast Pacific, particularly in 
 the vicinity of the Regional Cabled Array.
 
 
-## List of data resources outside of the OOI program
+## List of umbrella data resources outside of the OOI program
 
 
 - National Data Buoy Center (NDBC)
@@ -26,7 +26,7 @@ The "Port Orford" NDBC station 46015 is at the same location.
 
 
 ```
-NDBC buoy 46015 "Port Orford" 42.754 N 124.839 W`
+NDBC buoy 46015 "Port Orford" 42.754 N 124.839 W
 ```
 
 
@@ -34,8 +34,34 @@ Compare
 
 
 ```
-Oregon Slope Base 44.529 N 125.390 W
-Oregon Offshore   44.374 N 124.956 W 
+Site name             Abbreviation     Latitude          Longitude
+------------------    ------------     --------          ---------
+Oregon Offshore         OOF            44.37415          -124.95648
+Oregon Slope Base       OSB            44.52897          -125.38966 
+Axial Base              AXB            45.83049          -129.75326
+```   
+
+
+#### Distance calculation
+
+
+```
+from math import pi, cos, sqrt
+def distance_approximate(lat_a_dd, lon_a_dd, lat_b_dd = 44.6, lon_b_dd = -124.)
+    '''
+    A very coarse distance local distance estimation in km.
+    The default lat/lon is Newport Oregon.
+    '''
+    conversion = pi/180
+    lat_a_rad = lat_a_dd * conversion
+    lon_a_rad = lon_a_dd * conversion
+    lat_b_rad = lat_b_dd * conversion
+    lon_b_rad = lon_b_dd * conversion
+    re        = 6378.                        # earth radius, km
+    mean_lat  = (lat_a_rad - lat_b_rad)*0.5
+    dx_km     = (lon_a_rad - lon_b_rad)*cos(mean_lat)*re
+    dy_km     = (lat_a_rad - lat_b_rad)*re
+    return sqrt(dx_km**2 + dy_km**2)
 ```
 
 
@@ -107,5 +133,4 @@ Other data types beyond standard meteorological are:
 ## Task list
 
 
-- NDBC Verify the latitude and longitude of SB matches 46015 from a source file
 

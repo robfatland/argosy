@@ -10,13 +10,17 @@ parts:
     - file: markdown
     - file: notebooks
     - file: markdown-notebooks
-    - file: ooiproject
+    - file: AIPrompt
+    - file: SensorInformation
+    - file: ShallowProfiler
+    - file: Umbrella
+    - file: AnalysisConcepts
 
 - caption: Chapters
   chapters:
-    - file: chapters/ShallowProfiler
     - file: chapters/DataDownload
-    - file: chapters/DataStreamline
+    - file: chapters/DataSharding
+    - file: chapters/Visualization
 
 - caption: References
   chapters:

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Temporary holder for bits of AIPrompt.md &#8212; My sample book</title>
+    <title>Shallow Profiler &#8212; Argosy</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,8 +60,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ShallowProfiler';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Download" href="DataDownload.html" />
-    <link rel="prev" title="Notebooks with MyST Markdown" href="../markdown-notebooks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -124,6 +122,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -151,8 +151,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
   
   
 </a></div>
@@ -182,11 +182,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../markdown.html">Markdown Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks.html">Content with notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AIPrompt.html">AI Prompt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AnalysisConcepts.html">Analysis Concepts</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Temporary holder for bits of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code></a></li>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="DataDownload.html">Data Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataSharding.html">Shard complex multi-sensor datasets into individual sensors and single profiles</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -246,7 +250,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -263,7 +267,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapters/ShallowProfiler.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2Fchapters/ShallowProfiler.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -377,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Temporary holder for bits of AIPrompt.md</h1>
+    <h1>Shallow Profiler</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -387,30 +391,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-notes">Technical Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-list-and-associated-file-label">Sensor list and associated file label</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-data-file-system-and-file-structure">Source data file system and file structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-profile-metadata">Using profile metadata</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-development-of-shallow-profile-metadata">Further development of shallow profile metadata</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-input-file-to-redux">Single Input File to <code class="docutils literal notranslate"><span class="pre">redux</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles">Jupyter notebook cell code: Bundle plots for temperature profiles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-can-the-ca-identify-mixed-layer-depth-from-a-text-description">Experiment: Can the CA identify mixed layer depth from a text description?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld-generator">TMLD generator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-the-ctd-files-in-a-to-do-file">List the CTD files in a “to do” file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-compilation-from-many-source-ctd-files">Temperature compilation from many source CTD files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle-animation">Bundle animation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordering-data-from-the-data-access-page-once-logged-into-ooi">Ordering data from the Data Access page once logged into OOI</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-for-expansion-temperature-2015-through-2025">Prepare for expansion: Temperature 2015 through 2025</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-year-redux-generator">Multi-year redux generator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-the-two-visualization-cells-bundle-charts-and-bundle-animation">Refreshing the two visualization cells: Bundle charts and bundle animation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-needs-a-title">SECTION NEEDS A TITLE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-sensor-list-to-4-temperature-salinity-density-dissolved-oxygen">Expand sensor list to 4: temperature, salinity, density, dissolved oxygen</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next">Next</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler">Shallow Profiler</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-types">Sensor types</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler-science-pod">Shallow profiler “science pod”</a></li>
@@ -428,7 +410,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><a class="reference external" href="https://robfatland.github.io/argosy">Jupyter Book “Argosy”</a></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="shallow-profiler">
+<h1>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h1>
+<section id="build-commands">
+<h2>Build commands<a class="headerlink" href="#build-commands" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/argosy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code></p></li>
+</ul>
+<p><a class="reference external" href="https://robfatland.github.io/argosy">Jupyter Book “Argosy”</a></p>
 <p>This project near-term goal is described in <code class="docutils literal notranslate"><span class="pre">~/argosy/ooiproject.md</span></code></p>
 <p>Re-engaging after a time gap: Here are meta-tasks to help organize / present this material</p>
 <ul class="simple">
@@ -503,736 +494,9 @@ document.write(`
 </div>
 </div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="temporary-holder-for-bits-of-aiprompt-md">
-<h1>Temporary holder for bits of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code><a class="headerlink" href="#temporary-holder-for-bits-of-aiprompt-md" title="Link to this heading">#</a></h1>
-<section id="technical-notes">
-<h2>Technical Notes<a class="headerlink" href="#technical-notes" title="Link to this heading">#</a></h2>
-<p>The OOI “observatory” consists of seven Arrays:</p>
-<ul class="simple">
-<li><p>Regional Cabled Array</p></li>
-<li><p>Coastal Endurance Array</p></li>
-<li><p>Global Station Papa Array</p></li>
-<li><p>Global Irminger Sea Array</p></li>
-<li><p>Coastal Pioneer Array</p></li>
-<li><p>Global Argentine Basin Array (no longer operational)</p></li>
-<li><p>Global Southern Ocean Array (no longer operational)</p></li>
-</ul>
-<p>Each array is a sub-program. Array deployment dates back to 2013-2015. The components
-of the active arrays are continuously subjected to maintenance.</p>
-<p>The initial focus as noted is the Regional Cabled Array (RCA) off the coast of Oregon.
-The RCA is distributed along two electro-optic cables emanating from a shore station
-in Pacific City on the Oregon coast.</p>
-<p>The first cable is named for its endpoint: ‘Axial Seamount’, about 450 km west of Pacific City.
-The second cable is named ‘Continental Margin’: The cable crosses the continental shelf and
-then curves south and east along the continental shelf margin. This cable hosts the
-Oregon Slope Base site, the initial focus of this work.</p>
-<p>This study begins with a characterization of the upper 200 meters of the water column,
-known variously as the photic or epipelagic zone. There are three sites in the RCA where
-a sensor assembly called a shallow profiler is used to profile the upper water column
-nine times per day: Oregon Slope Base, Oregon Offshore and Axial Slope Base.</p>
-<p>In this work the term <em>Instrument</em> indicates an aggregation of one or more <em>Sensors</em>.
-For example a fluorescence <em>instrument</em> consists of three sensors: One for
-fluorescent dissolved organic matter, one for chlorophyll, and one that measures
-particulate backscatter. These three sensors would be considered <em>scalar</em> sensors
-as they generate single-valued observational data. There are also <em>vector</em> sensors,
-specifically a spectrophotometer, a spectral irradiance sensor and a 3-axis current
-sensor. ‘Vector’ means the sensor generates multiple values per observation.</p>
-<p>The profiler pod makes 9 ascents and 9 descents each day from where it rests on
-a platform moored 200 meters below the surface. Mooring is by means
-of two cables that extend down to the sea floor.</p>
-</section>
-<section id="sensor-list-and-associated-file-label">
-<h2>Sensor list and associated file label<a class="headerlink" href="#sensor-list-and-associated-file-label" title="Link to this heading">#</a></h2>
-<p>This partial list can stay here for the moment. The definitive information is
-in the file <code class="docutils literal notranslate"><span class="pre">SensorInformation.md</span></code> in the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> root directory.</p>
-<ul class="simple">
-<li><p>CTD NetCDF files include…</p>
-<ul>
-<li><p>Dissolved oxygen</p></li>
-<li><p>Density</p></li>
-<li><p>Temperature</p></li>
-<li><p>Salinity</p></li>
-</ul>
-</li>
-<li><p>PARAD NetCDF files include…</p>
-<ul>
-<li><p>PAR data</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="source-data-file-system-and-file-structure">
-<h2>Source data file system and file structure<a class="headerlink" href="#source-data-file-system-and-file-structure" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>RCA source datafiles are resident on localhost in <code class="docutils literal notranslate"><span class="pre">~/ooidata/rca/</span></code></p></li>
-<li><p>subfolder <code class="docutils literal notranslate"><span class="pre">/sb</span></code> abbreviating Oregon <strong>S</strong>lope <strong>B</strong>ase.</p></li>
-<li><p>subfolder <code class="docutils literal notranslate"><span class="pre">/scalar</span></code> for scalar instruments</p></li>
-<li><p>subfolder <code class="docutils literal notranslate"><span class="pre">&lt;year0&gt;_&lt;year1&gt;_&lt;instrument&gt;</span></code> for example <code class="docutils literal notranslate"><span class="pre">2015_2025_ctd</span></code></p></li>
-<li><p>Datafile name in this folder, example:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc</span></code></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Deployments</span></code> last months or as much as a year between maintenance events</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RS01SBPS</span></code> is a reference designator</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">RS</span></code> is Regional Cabled Array</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">01</span></code> ?</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SB</span></code> is Slope Base</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PS</span></code> is (reversed) shallow profiler</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SF01A</span></code> is the profiler (not the fixed platform)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2A</span></code> ?</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CTDPFA102</span></code> is CTD data</p></li>
-<li><p>?</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">20180208T000000.840174</span></code> is the data start time</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">20180226T115959.391002</span></code> is the data end time (Zulu)</p></li>
-<li><p>.nc is NetCDF</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>The NetCDF file will have <code class="docutils literal notranslate"><span class="pre">variables</span></code>, <code class="docutils literal notranslate"><span class="pre">coordinates</span></code>, <code class="docutils literal notranslate"><span class="pre">dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">attributes</span></code>.
-The default Dimension is Observation ‘obs’. The Dimension we want to use is <code class="docutils literal notranslate"><span class="pre">time</span></code>.
-This is done using an <code class="docutils literal notranslate"><span class="pre">xarray</span></code>: <code class="docutils literal notranslate"><span class="pre">swap_dims()</span></code> method on the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;obs&#39;</span><span class="p">:</span><span class="s1">&#39;time&#39;</span><span class="p">})</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">variables</span></code> include sensor data of interest and QA/QC/Engineering metadata</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">coordinates</span></code> are a special type of data variable</p>
-<ul>
-<li><p>natively the important coordinates are <code class="docutils literal notranslate"><span class="pre">obs</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code></p></li>
-<li><p>there is also <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> but these do not vary much for a shallow profiler</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dimensions</span></code> are tied to <code class="docutils literal notranslate"><span class="pre">coordinates</span></code>: They are the data series reference</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> are metadata; can be useful; ignore for now</p></li>
-</ul>
-</section>
-<section id="using-profile-metadata">
-<h2>Using profile metadata<a class="headerlink" href="#using-profile-metadata" title="Link to this heading">#</a></h2>
-<p>Profile metadata for both shallow and deep profilers is retained in a public GitHub
-repo as a set of CSV files delineated by platform and year. The first column of a
-profile CSV file is an index (a profile counter) that begins at 1 at the start of the
-(example:) RCA OSB shallow profiler deployment in July 9 2015. Today the index exceeds
-20,000. In addition to the index column this file has 3 additional columns.</p>
-<p>A shallow profiler divides its time between three phases: Ascent, Descent, and Rest.
-The metadata CSV file therefore continues with three additional columns associated
-with the start time of an ascent, the peak time of that ascent, and the time that the
-profiler returns to the support platform at 200m depth. The associated column names
-are <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">peak</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
-<p>The GitHub repository organization is ‘OOI-CabledArray’. The repository of interest is
-‘profileIndices’. The RCA Data Manager who built this is Wendi Ruef.</p>
-<p>The repository has been cloned to localhost ~ as <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code>.</p>
-<ul class="simple">
-<li><p>Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p></li>
-<li><p>Clone to localhost WSL ~/profileIndices</p></li>
-<li><p>Profiles are broken down by array and site identifier, then by year</p>
-<ul>
-<li><p>Array CE = Coastal Endurance, associated with the Oregon Offshore site (‘OS’)</p></li>
-<li><p>Array RS = Regional Cabled Array, associated with Slope Base (‘SB’) and Axial Base (‘AB’) sites</p></li>
-</ul>
-</li>
-<li><p>Here are the six resulting codes: 3 Deep Profilers, 3 Shallow Profilers</p>
-<ul>
-<li><p>CE04OSPD Offshore (Sub-folder ‘os’) deep profiler</p>
-<ul>
-<li><p>years 2015, 18, 19, 21, 22, 23, 24, 25</p></li>
-</ul>
-</li>
-<li><p>CE04OSPS ~ Oregon Offshore (‘os’) shallow profiler (CE = Coastal Endurance array)</p>
-<ul>
-<li><p>2014 – 2026</p></li>
-</ul>
-</li>
-<li><p>RS01SBPD ~ Slope base (‘sb’) <strong>deep profiler</strong></p>
-<ul>
-<li><p>years 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024</p></li>
-</ul>
-</li>
-<li><p>RS01SBPS ~ Slope Base (‘sb’) shallow profiler</p>
-<ul>
-<li><p>2014 – 2026</p></li>
-</ul>
-</li>
-<li><p>RS03AXPD ~ Axial Base (‘ab’) <strong>deep profiler</strong></p>
-<ul>
-<li><p>years 2014, 2017 – 2025</p></li>
-</ul>
-</li>
-<li><p>RS03AXPS ~ Axial Base (‘ab’) shallow profiler</p>
-<ul>
-<li><p>years 2014 – 2026</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>To select data from the Slope Base shallow profiler CTD during 2018: Use the time
-ranges present in the file <code class="docutils literal notranslate"><span class="pre">~/profileIndices/RS01SBPS_profiles_2018.csv</span></code>.</p>
-<p>Note: Some sensors operate continuously (such as CTD temperature). Other operate
-at a lower duty cycle / during selected phases.</p>
-<p>For an instrument / sensor that operates on ascent the time range for a given
-profile would be given by columns 2 and 3: start and peak. Other cases will be
-elaborated as they come up.</p>
-<p>Times are given in format ‘yyyy-MM-dd hh:mm:ss’.</p>
-<p>Note: Noon and midnight profiles tend to have longer duration owing to a slower descent profile.</p>
-</section>
-<section id="further-development-of-shallow-profile-metadata">
-<h2>Further development of shallow profile metadata<a class="headerlink" href="#further-development-of-shallow-profile-metadata" title="Link to this heading">#</a></h2>
-<p>This is an idea but not implemented yet.</p>
-<p>In this phase the goal is to produce the extensive <code class="docutils literal notranslate"><span class="pre">redux</span></code> dataset.
-It will be of further red zone use to build out additional metadata.</p>
-<p>Here is one design concept</p>
-<ul class="simple">
-<li><p>CSV file</p>
-<ul>
-<li><p>The first called <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_ctd_temperature_profile_status.csv</span></code></p></li>
-<li><p>This will span the full range of available time (2014 - 2026)</p></li>
-<li><p>Each row corresponds to a year + day</p>
-<ul>
-<li><p>The majority of years will have 365 rows, leap years 366</p></li>
-<li><p>The first row will be column headers</p></li>
-<li><p>Subsequent rows in chronological order</p></li>
-</ul>
-</li>
-<li><p>Columns</p>
-<ul>
-<li><p>year</p></li>
-<li><p>Julian day</p></li>
-<li><p>date (dd-MON-year format e.g. 01-FEB-2026)</p></li>
-<li><p>1</p></li>
-<li><p>2</p></li>
-<li><p>3</p></li>
-<li><p>4</p></li>
-<li><p>5</p></li>
-<li><p>6</p></li>
-<li><p>7</p></li>
-<li><p>8</p></li>
-<li><p>9</p></li>
-<li><p>Total</p></li>
-<li><p>Noon</p></li>
-<li><p>Midnight</p></li>
-</ul>
-</li>
-<li><p>Column values</p>
-<ul>
-<li><p>The first 3 columns are straightforward</p></li>
-<li><p>Each number column 1 … 9 has value 1 or 0 based on the profile indices (present / absent)</p></li>
-<li><p>Total is the sum of columns 1 … 9</p></li>
-<li><p>Noon is an index for the profile number that happened at noon local time</p></li>
-<li><p>Midnight likewise</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>A second metadata file will describe active profiling intervals and gaps.</p>
-</section>
-<section id="single-input-file-to-redux">
-<h2>Single Input File to <code class="docutils literal notranslate"><span class="pre">redux</span></code><a class="headerlink" href="#single-input-file-to-redux" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Transcribe the bulk CTD file named above to a set of single-profile files for temperature data.</p></li>
-<li><p>These will be referred to as <em>redux files</em>.</p></li>
-<li><p>Do not modify the <code class="docutils literal notranslate"><span class="pre">profile_status.csv</span></code> file from the previous step.</p></li>
-<li><p>Do not create a <code class="docutils literal notranslate"><span class="pre">timeline.csv</span></code> file.</p></li>
-<li><p>Rather: Just focus on the transcription task</p></li>
-<li><p>The output files will be NetCDF</p>
-<ul>
-<li><p>Advise: Use XArray Datasets or DataFrames?</p></li>
-</ul>
-</li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">dimension</span></code> of the output files will be <code class="docutils literal notranslate"><span class="pre">time</span></code> via <code class="docutils literal notranslate"><span class="pre">.swap_dims()</span></code></p></li>
-<li><p>The data variable will be <code class="docutils literal notranslate"><span class="pre">sea_water_temperature</span></code> (input data variable) written as <code class="docutils literal notranslate"><span class="pre">temperature</span></code> (output)</p></li>
-<li><p>The file will include coordinate <code class="docutils literal notranslate"><span class="pre">depth</span></code></p></li>
-<li><p>The output folder will be <code class="docutils literal notranslate"><span class="pre">~/redux2018</span></code> where the individual profile files will be written.</p></li>
-<li><p>One file is written per profile</p></li>
-</ul>
-<p>The output folders are <code class="docutils literal notranslate"><span class="pre">~/redux&lt;yyyy&gt;</span></code>.</p>
-<p>The filename format for each redux profile <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file is slightly different than before, as follows:</p>
-<ul class="simple">
-<li><p>The filename format will be <code class="docutils literal notranslate"><span class="pre">AAA_SSS_TTT_BBB_YYYY_DDD_PPPPP_Q_VVVV.nc</span></code></p>
-<ul>
-<li><p>These are to be filled in as follows for now:</p>
-<ul>
-<li><p>AAA  = Array name: Using <code class="docutils literal notranslate"><span class="pre">RCA</span></code> for Regional Cabled Array</p></li>
-<li><p>SSS  = Site: Using <code class="docutils literal notranslate"><span class="pre">sb</span></code> for Oregon Slope Base</p></li>
-<li><p>TTT  = Platform: Use <code class="docutils literal notranslate"><span class="pre">sp</span></code> for shallow profiler</p></li>
-<li><p>BBB  = Observation type, one of:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code> for temperature</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">salinity</span></code> for salinity</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code> for density</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dissolvedoxygen</span></code> for dissolved oxygen</p></li>
-</ul>
-</li>
-<li><p>YYYY  = four digit year</p></li>
-<li><p>DDD   = three digit Julian day as in 027 for January 27</p></li>
-<li><p>PPPPP = Profile index drawn from the <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> tables</p></li>
-<li><p>Q     = This profile’s index relative to the data acquisition day: a number from 1 to 9</p></li>
-<li><p>VVV   = Version number: Use <code class="docutils literal notranslate"><span class="pre">V1</span></code> at this time</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>An output filename example: <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_temperature_2018_003_3752_4_V1.nc</span></code>.</p>
-<p>A single year could produce as many as (365*9) redux files.</p>
-<p>When the program runs: First determine the time range of the source NetCDF file. Print this
-out and include the estimated number of available profiles by multiplying the time range in days
-by nine.</p>
-<p>For each profile: Data are extracted using time limits from the profileIndices CSV files. Specifically
-the profile start time is given in the <code class="docutils literal notranslate"><span class="pre">start</span></code> column. The profile end time is given in the <code class="docutils literal notranslate"><span class="pre">peak</span></code>
-column: When the profiler reached peak depth closest to the ocean surface.</p>
-<p>This program should tally up how many profiles it attempted to extract and write; and
-it should tally up how many were extracted successfully. Print these values at the end as
-a diagnostic remark.</p>
-<p>Warning: A prior version of the code program produced this error:</p>
-<p><code class="docutils literal notranslate"><span class="pre">/tmp/ipykernel_206172/2169783661.py:91:</span> <span class="pre">PerformanceWarning:</span> <span class="pre">DataFrame</span> <span class="pre">is</span> <span class="pre">highly</span> <span class="pre">fragmented.</span> <span class="pre">(etcetera)</span></code></p>
-</section>
-<section id="jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles">
-<h2>Jupyter notebook cell code: Bundle plots for temperature profiles<a class="headerlink" href="#jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles" title="Link to this heading">#</a></h2>
-<p>Create a code block to run in a Jupyter notebook cell that will generate bundle plots as follows:</p>
-<ul class="simple">
-<li><p>Code uses matplotlib</p></li>
-<li><p>marker size is 1</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code> is on the x-axis with range wide enough to accommodate all the temperature data</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">depth</span></code> is on the y-axis with a range of 0 meters to 200 meters: From top to bottom</p></li>
-<li><p>The bundle plot means that several-to-many consecutive profiles are plotted on a single chart</p></li>
-<li><p>The bundle is chose via two widget sliders called <code class="docutils literal notranslate"><span class="pre">nProfiles</span></code> and <code class="docutils literal notranslate"><span class="pre">index0</span></code>:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">nProfiles</span></code> is a number of time-consecutive profiles to plot on a single chart (a bundle of profile plots)</p>
-<ul>
-<li><p>The minimum value is 0, the default starts at 1, the maximum value is 100</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">index0</span></code> is the index of the first profile (chronologically) in the bundle plot</p>
-<ul>
-<li><p>this is an integer from 1 to 157 (the number of profiles produced in the redux step)</p></li>
-<li><p>the code will need to translate from the index0 value to the corresponding filename from <code class="docutils literal notranslate"><span class="pre">~/redux2018</span></code></p></li>
-<li><p>if the bundle specifications <code class="docutils literal notranslate"><span class="pre">nProfiles</span></code> and <code class="docutils literal notranslate"><span class="pre">index0</span></code> go over the end file (file 157) the code handles this gracefully</p></li>
-<li><p>The bundle plot only refreshes when the User is done dragging the slider to a new value (left mouse button release)</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Each refresh of the bundle plot should indicate the profile range as <code class="docutils literal notranslate"><span class="pre">yyyy-doy-profile</span> <span class="pre">to</span> <span class="pre">yyyy-doy-profile</span></code>:</p>
-<ul>
-<li><p>yyyy is year</p></li>
-<li><p>doy is day of year or Julian day</p></li>
-<li><p>profile is a day-relative profile number from 1 to 9</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="experiment-can-the-ca-identify-mixed-layer-depth-from-a-text-description">
-<h2>Experiment: Can the CA identify mixed layer depth from a text description?<a class="headerlink" href="#experiment-can-the-ca-identify-mixed-layer-depth-from-a-text-description" title="Link to this heading">#</a></h2>
-<p>No: The code primarily just selected the top of the profile. We do not have time to teach the AI how
-to do this better without some examples so (after this description) we request a picker program.</p>
-<ul class="simple">
-<li><p>Generate a CSV file with three columns to reside in this directory.</p>
-<ul>
-<li><p>First column is profile index as recorded in the profile filenames in ~/redux2018</p></li>
-<li><p>Second column is <code class="docutils literal notranslate"><span class="pre">Estimated</span> <span class="pre">TMLD</span></code></p>
-<ul>
-<li><p>This stands for ‘Estimated Temperature Mixed Layer Depth’</p></li>
-<li><p>It is a depth in meters measured positive-downward</p></li>
-<li><p>It is described below</p></li>
-<li><p>We want to test if you the AI CA are able to make these estimates from a text description</p></li>
-</ul>
-</li>
-<li><p>Third column is the temperature at that depth for that profile</p></li>
-<li><p>As there are 157 profiles in ~/redux2018 this file (with header) will be 158 lines</p></li>
-</ul>
-</li>
-<li><p>Estimated Temperature Mixed Layer Depth description</p>
-<ul>
-<li><p>The upper N meters of the water column is well-mixed due to wave action etcetera</p></li>
-<li><p>At the bottom of this layer at a depth of N meters the temperature begins to decrease with depth</p></li>
-<li><p>The temperature continues to drop with depth with the gradient becoming less sharp</p></li>
-<li><p>The TMLD is this value N; it often appears as a distinct kink in the profile chart</p></li>
-</ul>
-</li>
-<li><p>Modify the Jupyter cell bundle plotter from the previous prompt as follows:</p>
-<ul>
-<li><p>Read the TMLD CSV file generated above</p></li>
-<li><p>Make the bundle plots exactly as before</p></li>
-<li><p>For each profile add a marker at the TMLD depth and temperature for that profile</p>
-<ul>
-<li><p>This marker should be larger to make it obvious but not enormous</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="tmld-generator">
-<h2>TMLD generator<a class="headerlink" href="#tmld-generator" title="Link to this heading">#</a></h2>
-<p>We will now generate a TMLD file by recording left-mouse-clicks on each profile chart.
-This is User driven; and as the interactive mouse clicks were not working the Jupyter
-notebook we will run this as a standalone Python program.</p>
-<p>To be tolerant of User error we log the most recent click (selected TMLD point) only after
-the User hits Enter.</p>
-<p>Whereupon the click location (depth and temperature) is transcribed as a next row in the TMLD file.</p>
-<p>The program displays N/P where N is the number of profiles completed
-so far and P is the total number of profiles, equal to the number of files in
-the ~/redux2018 folder for temperature data.</p>
-<p>Cursor location is printed near the chart as depth and temperature.</p>
-</section>
-<section id="list-the-ctd-files-in-a-to-do-file">
-<h2>List the CTD files in a “to do” file<a class="headerlink" href="#list-the-ctd-files-in-a-to-do-file" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Return to the folder where the original CTD data file is located</p></li>
-<li><p>Create a new file listing all of the CTD files in that folder</p>
-<ul>
-<li><p>Let us call this file <code class="docutils literal notranslate"><span class="pre">source_ctd_filelist.txt</span></code></p></li>
-<li><p>The first line will be the full path to the folder</p></li>
-<li><p>The remaining lines are 1 line per CTD file</p></li>
-</ul>
-</li>
-<li><p>This list of files will be processed sequentially to expand the time series for Oregon Slope Base shallow profiler temperature profiles</p>
-<ul>
-<li><p>The output will be additional NetCDF temperature profile files in ~/redux2018</p></li>
-</ul>
-</li>
-<li><p>As a reminder the input file location is <code class="docutils literal notranslate"><span class="pre">~/ooidata/rca/sb/scalar/2015_2025_ctd</span></code></p></li>
-<li><p>As a reminder the original input file is called:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc</span></code></p></li>
-<li><p>Notice that in this file name we see the string <code class="docutils literal notranslate"><span class="pre">CTDPF</span></code> which indicates a CTD file</p></li>
-<li><p>Notice the file extension is <code class="docutils literal notranslate"><span class="pre">.nc</span></code> which indicates a NetCDF file</p></li>
-<li><p>Both of these conditions must be met for the filename to be placed into <code class="docutils literal notranslate"><span class="pre">source_ctd_filelist.txt</span></code></p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="temperature-compilation-from-many-source-ctd-files">
-<h2>Temperature compilation from many source CTD files<a class="headerlink" href="#temperature-compilation-from-many-source-ctd-files" title="Link to this heading">#</a></h2>
-<p>Write a Python script that will run in a Jupyter cell. It will work from the file <code class="docutils literal notranslate"><span class="pre">source_ctd_filelist.txt</span></code> generated
-in the previous stage of this effort. For each file listed we want to perform the following procedure:</p>
-<ul class="simple">
-<li><p>Print the data file directory on a line</p></li>
-<li><p>Print the name of the current file on the next line</p></li>
-<li><p>Print <code class="docutils literal notranslate"><span class="pre">&lt;start</span> <span class="pre">date&gt;</span> <span class="pre">-</span> <span class="pre">&lt;end</span> <span class="pre">date&gt;</span></code> on the next line</p></li>
-<li><p>Print whether or not <code class="docutils literal notranslate"><span class="pre">sea_water_temperature</span></code> is present as a data variable in the file</p>
-<ul>
-<li><p>If it is not present:</p>
-<ul>
-<li><p>State this</p></li>
-<li><p>State the data variables that <em>are</em> present</p></li>
-<li><p>prompt the User for instructions: <code class="docutils literal notranslate"><span class="pre">Continue</span> <span class="pre">[C]</span> <span class="pre">or</span> <span class="pre">Halt</span> <span class="pre">[H]?</span></code></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>For this input CTD file start a counter of how many profile files have been written to <code class="docutils literal notranslate"><span class="pre">~/redux2018</span></code></p></li>
-<li><p>Formulate the filename for the current profile</p></li>
-<li><p>Using the appropriate <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">peak</span></code> times from the appropriate <code class="docutils literal notranslate"><span class="pre">~/profileIndeces</span></code> folder CSV file:</p>
-<ul>
-<li><p>Extract and write a temperature profile file to the folder <code class="docutils literal notranslate"><span class="pre">~/redux2018</span></code> following the same format as before</p></li>
-<li><p>In this process: Keep a running sum of how many data samples there are in each profile</p></li>
-<li><p>Output files in ~/redux2018 feature sea_water_temperature renamed <code class="docutils literal notranslate"><span class="pre">temperature</span></code> plus <code class="docutils literal notranslate"><span class="pre">depth</span></code> against dimension <code class="docutils literal notranslate"><span class="pre">time</span></code></p></li>
-<li><p>Do not retain other data variables or other coordinates, particularly <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code></p></li>
-</ul>
-</li>
-<li><p>Repeat this procedure of writing temperature profile files, incrementing the ‘writes’ counter</p></li>
-<li><p>After every 90 profile writes: Print the number of profiles written for this input file so far</p></li>
-<li><p>Upon completing a file: Print diagnostics:</p>
-<ul>
-<li><p>How many profile files were written</p></li>
-<li><p>What is the average number of data values per profile</p></li>
-</ul>
-</li>
-<li><p>If the number of profile files written for a given input file is zero:</p>
-<ul>
-<li><p>State this and prompt the User for instructions: <code class="docutils literal notranslate"><span class="pre">Continue</span> <span class="pre">[C]</span> <span class="pre">or</span> <span class="pre">Halt</span> <span class="pre">[H]?</span></code></p></li>
-<li><p>If the User choses Continue: Proceed to the next input CTD file</p></li>
-</ul>
-</li>
-<li><p>Continue to the next input CTD file until all have been processed in this manner</p></li>
-</ul>
-</section>
-<section id="bundle-animation">
-<h2>Bundle animation<a class="headerlink" href="#bundle-animation" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.</p></li>
-<li><p>This code will run in a Jupyter cell</p></li>
-<li><p>The input questions take on the default value if the User just hits Enter.</p>
-<ul>
-<li><p>Start by asking “Include TMLD estimate in the visualization? Default is no. [y/n]”</p></li>
-<li><p>Then ask “How many profiles in the bundle? Default is 18 (two days)” refer to this as N</p></li>
-<li><p>Then ask “How many seconds delay between frames? (0.1 sec):” refer to this as d</p></li>
-<li><p>Then ask “Start date (default 01-JAN-2018):” refer to this as T0</p></li>
-<li><p>Then ask “End date (default 31-DEC-2018):” refer to this as T1</p></li>
-</ul>
-</li>
-<li><p>Start at T0 and continue to T1: To create an animated chart sequence</p>
-<ul>
-<li><p>The output file should be called ‘temp_bundle_animation.mp4’ followed by the appropriate file extension</p></li>
-<li><p>Each frame of the animation consists of N profiles bundled in one chart</p></li>
-<li><p>The horizontal axis is fixed at 7 deg C to 19 deg C, does not change from one frame to another</p></li>
-<li><p>The vertical axis is fixed as before from 200 meters to 0 meters</p></li>
-<li><p>Show N profiles per frame of the animation</p></li>
-<li><p>For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.</p></li>
-<li><p>If possible: Add in a ‘hold time’ per frame of d seconds</p></li>
-<li><p>If a time gap &gt; 48 hours exists between any two consecutive profiles in a given bundle/frame:</p>
-<ul>
-<li><p>This chart frame includes in large black letters at the lower right ‘Time Gap’</p></li>
-<li><p>The Time Gap message persists until all N consecutive profiles do not have a time gap</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Check that the output file exists and report its status</p></li>
-</ul>
-</section>
-<section id="ordering-data-from-the-data-access-page-once-logged-into-ooi">
-<h2>Ordering data from the Data Access page once logged into OOI<a class="headerlink" href="#ordering-data-from-the-data-access-page-once-logged-into-ooi" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>This is the <code class="docutils literal notranslate"><span class="pre">OOINET</span></code> data resource (not Data Explorer)</p></li>
-<li><p>For the moment: Order one year at a time (CTD)</p></li>
-<li><p>Left sidebar: Begin by setting filters</p>
-<ul>
-<li><p>Do not set the time range filters</p></li>
-<li><p>Array = Cabled Array</p></li>
-<li><p>Platform = Shallow Profiler</p></li>
-<li><p>Do not select a Node</p></li>
-<li><p>Instruments = CTD</p></li>
-</ul>
-</li>
-<li><p>Data Catalog (center-low panel)</p>
-<ul>
-<li><p>Shows 2 results: Shallow profiler and Platform; select the former</p></li>
-</ul>
-</li>
-<li><p>Data Navigation (center-top window below title bar)</p>
-<ul>
-<li><p>Shows 4 Engineering and 1 Science result; select the download button for Science</p></li>
-</ul>
-</li>
-<li><p>Download time range pop-up wizard</p>
-<ul>
-<li><p>Set start to Jan 1 2019 00:00:00 (for example)</p></li>
-<li><p>Set end to Dec 31 2019 23:59:59 (for example)</p></li>
-<li><p>Clicked on download (email to be sent in a few minutes notifying completion)</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="prepare-for-expansion-temperature-2015-through-2025">
-<h2>Prepare for expansion: Temperature 2015 through 2025<a class="headerlink" href="#prepare-for-expansion-temperature-2015-through-2025" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Created folders <code class="docutils literal notranslate"><span class="pre">redux2014</span></code> through <code class="docutils literal notranslate"><span class="pre">redux2026</span></code> (implicitly Oregon Slope Base only to this point)</p></li>
-<li><p>Order and download proper CTD data from years beyond 2018</p></li>
-</ul>
-</section>
-<section id="multi-year-redux-generator">
-<h2>Multi-year redux generator<a class="headerlink" href="#multi-year-redux-generator" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Rewrite the redux code that runs in a Jupyter notebook cell</p>
-<ul>
-<li><p>This scans multiple folders for (large) CTD source datafiles</p>
-<ul>
-<li><p>If the folder is not found: Skip it</p></li>
-<li><p>If a source folder is found that spans year breaks: Be sure to write outputs to the correct year-folder</p></li>
-<li><p>We are still focused on just temperature data</p></li>
-<li><p>The output files are called <code class="docutils literal notranslate"><span class="pre">redux</span></code> files</p></li>
-<li><p>There follows some more detail on how this code will work</p></li>
-</ul>
-</li>
-<li><p>Source data folders have name format <code class="docutils literal notranslate"><span class="pre">~/ooidata/rca/sb/scalar/&lt;yyyy&gt;_ctd</span></code> where <yyyy> runs from 2015 through 2025</p>
-<ul>
-<li><p>The program should prompt for y/n for each year (folder) for which there is data</p>
-<ul>
-<li><p>This prompt defaults to <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Output files as developed earlier with these changes:</p>
-<ul>
-<li><p>remove data variables <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> and remove <code class="docutils literal notranslate"><span class="pre">obs</span></code> from the output <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file. Retain time, depth and temperature.</p></li>
-<li><p>when writing the output <code class="docutils literal notranslate"><span class="pre">redux</span></code> file: select destination folder based on this profile’s year as follows:</p>
-<ul>
-<li><p>a profile from 2018 will be written to <code class="docutils literal notranslate"><span class="pre">~/redux2018</span></code></p></li>
-<li><p>a profile from 2019 will be written to <code class="docutils literal notranslate"><span class="pre">~/redux2019</span></code></p></li>
-<li><p>and so forth: Possible year values are 2014 through 2026</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="refreshing-the-two-visualization-cells-bundle-charts-and-bundle-animation">
-<h2>Refreshing the two visualization cells: Bundle charts and bundle animation<a class="headerlink" href="#refreshing-the-two-visualization-cells-bundle-charts-and-bundle-animation" title="Link to this heading">#</a></h2>
-<p>So far we have two visualizations: A bundle chart with two time sliders; and a bundle chart animation generator.
-As in the previous step we want both of these to be written to cope with redux files distributed through single-year
-folders: redux2014, redux2015, …and so on through…, redux2026.</p>
-<p>We now have a working bundle chart code running in a Jupyter notebook cell.</p>
-<p>We also have a bundle animator; but it needs some modifications.</p>
-<p>As with the bundle chart the animator features a pre-scan with User interaction, first to confirm using the various
-populated <code class="docutils literal notranslate"><span class="pre">~/redux&lt;yyyy&gt;</span></code> folders. This sets up the year range of the animation.</p>
-<p>We want to give the User a new display mode as an option: Display the bundle (the default, as currently set up)
-or display a mean profile defined as follows:
-- The profiles in a given bundle are averaged to produce a ‘mean profile’.
-- This is displayed as a medium-heavy line
-- The standard deviation is also calculated as a function of depth
-- This is displayed as two + and - profiles relative to the mean profile using a thin line</p>
-<p>The last User input is animation start and end date. Revisit how the default values for these prompts are calculated.
-The default start date should be the earliest date in the chosen folders/years; and the default end date should be
-the latest date in the chosen folders/years.</p>
-<p>The bundle chart includes the Time Gap alert. This is also present in the animation so that is good.</p>
-<p>The bundle chart viewer gives the option to fix the x-axis for all bundle charts. For the animation: This is not an
-option: The temperature range will be fixed at 7 deg C to 20 deg C. (19 deg C was too low for some of the data.)</p>
-<p>The animation output mp4 file should be written in the ~ folder.</p>
-<p>The code handles zero / nan mean cases gracefully.</p>
-</section>
-<section id="section-needs-a-title">
-<h2>SECTION NEEDS A TITLE<a class="headerlink" href="#section-needs-a-title" title="Link to this heading">#</a></h2>
-<p>This task is to upgrade the Jupyter cell code to perform a bulk download of NetCDF source files
-from one or more URLs. Each URL corresponds roughly to a calendar year where for now we are working
-with CTD files.</p>
-<p>Massive download jobs are subject to interruption so we want the code to be tolerant of
-re-starting after only partial completion. Here is the functionality description:</p>
-<ul class="simple">
-<li><p>Open a file <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code></p>
-<ul>
-<li><p>Each line is a URL for a distinct data order</p>
-<ul>
-<li><p>For each URL print a diagnostic of</p>
-<ul>
-<li><p>how many <code class="docutils literal notranslate"><span class="pre">.nc</span></code> files are present</p></li>
-<li><p>how many have already been downloaded</p></li>
-<li><p>how many remain to download</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>At that URL is a collection of files to download</p></li>
-</ul>
-</li>
-<li><p>We want to download files that are not yet fully downloaded; otherwise skip</p></li>
-<li><p>Files are to be downloaded to the corresponging localhost destination folder <code class="docutils literal notranslate"><span class="pre">yyyy_ctd</span></code></p>
-<ul>
-<li><p>The base localhost folder location is <code class="docutils literal notranslate"><span class="pre">~/ooidata/rca/sb/scalar/</span></code></p></li>
-<li><p>If a destination folder does not exist: Print a message and halt</p></li>
-<li><p>The destination folder name <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> value is a year from 2014 to 2026</p></li>
-</ul>
-</li>
-<li><p>To determine the destination folder for a particular <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file:</p>
-<ul>
-<li><p>Parse the <code class="docutils literal notranslate"><span class="pre">.nc</span></code> filename as:</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;first_part&gt;_yyyyMMddTHHmmss.ssssss-yyyyMMddTHHmmss.ssssss.nc</span></code></p>
-<ul>
-<li><p>This maps to <code class="docutils literal notranslate"><span class="pre">&lt;first_part&gt;_datetime-datetime.nc</span></code></p></li>
-<li><p>The first datetime: year <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> month <code class="docutils literal notranslate"><span class="pre">MM</span></code> day <code class="docutils literal notranslate"><span class="pre">dd</span></code> literal character <code class="docutils literal notranslate"><span class="pre">T</span></code>…</p>
-<ul>
-<li><p>…followed by hour <code class="docutils literal notranslate"><span class="pre">HH</span></code> minute <code class="docutils literal notranslate"><span class="pre">mm</span></code> second <code class="docutils literal notranslate"><span class="pre">ss.ssssss</span></code></p></li>
-</ul>
-</li>
-<li><p>Second datetime follows the same format.</p></li>
-</ul>
-</li>
-<li><p>Destination folder <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> is chosen as the same <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> as the first datetime.</p></li>
-</ul>
-</li>
-<li><p>Download the <code class="docutils literal notranslate"><span class="pre">.nc</span></code> NetCDF files and ignore the <code class="docutils literal notranslate"><span class="pre">.ncml</span></code> files</p></li>
-</ul>
-</section>
-<section id="expand-sensor-list-to-4-temperature-salinity-density-dissolved-oxygen">
-<h2>Expand sensor list to 4: temperature, salinity, density, dissolved oxygen<a class="headerlink" href="#expand-sensor-list-to-4-temperature-salinity-density-dissolved-oxygen" title="Link to this heading">#</a></h2>
-<p>It is time to start diversifying sensor types from one (temperature) to four. This means
-a rewrite of the Jupyter cell code to shard source datafiles to <code class="docutils literal notranslate"><span class="pre">redux&lt;yyyy&gt;</span></code> folders.</p>
-<p>Since we are adding three types of sensor: We begin by showing input data variable
-names and corresponding redux data variable names for all four:</p>
-<p>sea_water_temperature                      –&gt;    temperature
-sea_water_practical_salinity               –&gt;    salinity<br />
-sea_water_density                          –&gt;    density<br />
-do_fast_sample-corrected_dissolved_oxygen  –&gt;    dissolvedoxygen</p>
-<p>The code should attempt to do all four types by checking for the existence of an
-output file first. If the output file already exists: Do not attempt to write the
-profile.</p>
-<p>The output folders are <code class="docutils literal notranslate"><span class="pre">~/redux&lt;yyyy&gt;</span></code>.</p>
-<p>The filename format for each redux profile <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file is slightly different than before, as follows:</p>
-<ul class="simple">
-<li><p>The filename format will be <code class="docutils literal notranslate"><span class="pre">AAA_SSS_TTT_BBB_YYYY_DDD_PPPPP_Q_VVVV.nc</span></code></p>
-<ul>
-<li><p>These are to be filled in as follows for now:</p>
-<ul>
-<li><p>AAA  = Array name: Using <code class="docutils literal notranslate"><span class="pre">RCA</span></code> for Regional Cabled Array</p></li>
-<li><p>SSS  = Site: Using <code class="docutils literal notranslate"><span class="pre">sb</span></code> for Oregon Slope Base</p></li>
-<li><p>TTT  = Platform: Use <code class="docutils literal notranslate"><span class="pre">sp</span></code> for shallow profiler</p></li>
-<li><p>BBB  = Observation type, one of:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code> for temperature</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">salinity</span></code> for salinity</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code> for density</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dissolvedoxygen</span></code> for dissolved oxygen</p></li>
-</ul>
-</li>
-<li><p>YYYY  = four digit year</p></li>
-<li><p>DDD   = three digit Julian day as in 027 for January 27</p></li>
-<li><p>PPPPP = Profile index drawn from the <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> tables</p></li>
-<li><p>Q     = This profile’s index relative to the data acquisition day: a number from 1 to 9</p></li>
-<li><p>VVV   = Version number: Use <code class="docutils literal notranslate"><span class="pre">V1</span></code></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>For input: The code checks all source folders, named by year <code class="docutils literal notranslate"><span class="pre">2014_ctd</span></code>, <code class="docutils literal notranslate"><span class="pre">2015_ctd</span></code> etcetera through <code class="docutils literal notranslate"><span class="pre">2026_ctd</span></code>.
-These are in the base location <code class="docutils literal notranslate"><span class="pre">~/ooidata/rca/sb/scalar/</span></code>.</p>
-</section>
-<section id="next">
-<h2>Next<a class="headerlink" href="#next" title="Link to this heading">#</a></h2>
-<p>This is the most recent specification for the sensor data bundle plotter.</p>
-<p>The Jupyter cell code bundle chart generator will accommodate one or two sensor types out of four
-sensor types which are namely { temperature, salinity, density, dissolved oxygen }. The choice of
-how many (1 or 2) and which one or ones is managed by User choice.</p>
-<p>The charts will have fixed range on the x-axis with defaults as follows:</p>
-<p>temperature         low    7.0     high   20.0
-salinity            low   32.0     high   34.0
-density             low 1024.0     high 1028.0
-dissolved oxygen    low   50.0     high  300.0</p>
-<p>These are presented as default-on-Enter so the User can type in alternative values.</p>
-<p>There will be four additional buttons in the control area laid out horizontally with
-labels “–”, “-”, “+”, “++”. These will affect the current value of the index0 slider.
-The “-” and “+” buttons will decrement / increment the index0 slider value by 1 profile.
-The “–” and “++” buttons will decrement / increment the index0 slider by half of the
-nProfiles value. Tapping any of these four buttons updates the chart.</p>
-<p>In the case of 1 sensor type plots: The plot width is as before.</p>
-<p>In the case of 2 sensor type plots: The x-axis will be extended to give more horizontal
-extent and the two fixed sensor ranges will be offset from one another so that the resulting
-sensor bundle traces will not (ideally) overlap.</p>
-<p>In detail: Suppose the x-axis range for sensor 1 is a to b. For sensor 2 it is from c to d.
-Then the bundle chart range will accommodate both by having the sensor 1 axis running from
-a to (2b - a); and the sensor 2 axis will run from (2c - d) to d.</p>
-<p>As a concrete example: temperature in range 7 to 20 deg C means that the x-axis should
-run from 7 to 33 deg C. If sensor 2 is salinity with range 32 to 34 then the chart should
-have range 30 to 34.</p>
-<p>Be sure to include a diagnostic print statement along these lines:</p>
-<p>sensor 1 has range 7 to 20; chart has range 7 to 33 to left-justify.
-sensor 2 has range 32 to 34; chart has range 30 to 34 to right-justify.</p>
-<p>Both sensor x-axis labels will be printed below the chart, one above the other, labeled.
-This will include two tick mark bars, labeled for the respective sensors in the same
-color ink.</p>
-</section>
-<section id="shallow-profiler">
-<h2>Shallow Profiler<a class="headerlink" href="#shallow-profiler" title="Link to this heading">#</a></h2>
-<section id="build-commands">
-<h3>Build commands<a class="headerlink" href="#build-commands" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/argosy</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code></p></li>
-</ul>
 </section>
 <section id="goals-constraints">
-<h3>Goals, constraints<a class="headerlink" href="#goals-constraints" title="Link to this heading">#</a></h3>
+<h2>Goals, constraints<a class="headerlink" href="#goals-constraints" title="Link to this heading">#</a></h2>
 <p>Goal: Characterize the upper 200 meters of the water column (the photic / epipelagic zone) nine
 times per day at three sites: sensors described below. Observing interval is
 2015 to present.</p>
@@ -1261,7 +525,6 @@ times per day at three sites: sensors described below. Observing interval is
 </ul>
 <p>Ascent and descent interval metadata is available from GitHub.
 - Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p>
-</section>
 </section>
 <section id="ooi-data-access">
 <h2>OOI data access<a class="headerlink" href="#ooi-data-access" title="Link to this heading">#</a></h2>
@@ -1325,7 +588,7 @@ times per day at three sites: sensors described below. Observing interval is
 <span class="ne">---&gt; </span><span class="mi">56</span>     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/rob/argosy/tmpdata/parexample.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;d401065a-06c8-41cf-a1e8-188f1f9ea874&#39;]
+<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/rob/argosy/tmpdata/parexample.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;3d64ca20-0785-418f-92f6-c334a72610c6&#39;]
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -1916,24 +1179,6 @@ First 4 matching profiles:
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../markdown-notebooks.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Notebooks with MyST Markdown</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="DataDownload.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Download</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1950,30 +1195,8 @@ First 4 matching profiles:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-notes">Technical Notes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-list-and-associated-file-label">Sensor list and associated file label</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-data-file-system-and-file-structure">Source data file system and file structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-profile-metadata">Using profile metadata</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-development-of-shallow-profile-metadata">Further development of shallow profile metadata</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-input-file-to-redux">Single Input File to <code class="docutils literal notranslate"><span class="pre">redux</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles">Jupyter notebook cell code: Bundle plots for temperature profiles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-can-the-ca-identify-mixed-layer-depth-from-a-text-description">Experiment: Can the CA identify mixed layer depth from a text description?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld-generator">TMLD generator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-the-ctd-files-in-a-to-do-file">List the CTD files in a “to do” file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-compilation-from-many-source-ctd-files">Temperature compilation from many source CTD files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle-animation">Bundle animation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordering-data-from-the-data-access-page-once-logged-into-ooi">Ordering data from the Data Access page once logged into OOI</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-for-expansion-temperature-2015-through-2025">Prepare for expansion: Temperature 2015 through 2025</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-year-redux-generator">Multi-year redux generator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-the-two-visualization-cells-bundle-charts-and-bundle-animation">Refreshing the two visualization cells: Bundle charts and bundle animation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-needs-a-title">SECTION NEEDS A TITLE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-sensor-list-to-4-temperature-salinity-density-dissolved-oxygen">Expand sensor list to 4: temperature, salinity, density, dissolved oxygen</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next">Next</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler">Shallow Profiler</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-commands">Build commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-constraints">Goals, constraints</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-data-access">OOI data access</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-types">Sensor types</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler-science-pod">Shallow profiler “science pod”</a></li>
@@ -1994,7 +1217,7 @@ First 4 matching profiles:
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Rob Fatland
 </p>
 
   </div>
