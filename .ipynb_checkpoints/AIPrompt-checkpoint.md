@@ -4,14 +4,41 @@
 ## Introduction for humans
 
 
-This document is a project summary together with prompts for a Coding Assistant (CA). 
-$CA_0$ is Q Developer from AWS, powered by Claude Sonnet. The Q Dev successor Kiro 
-(also from AWS) is "agentic" and the intent is to substitute that in at some point. 
+This document is an `argosy` Jupyter book project summary together with prompts for 
+a Coding Assistant (CA). $CA_0$ was Q Developer from AWS, powered by Claude Sonnet. 
+$CA_1$ is the Q Developer successor *kiro* also provided by AWS. kiro is 
+"Agentic" and is integrated with its own variant of the VS Code IDE. 
 
 
-In addition to summarizing and providing prompts at the bottom of the file, this
+This document:
+
+
+- acts as a "master" markdown document describing the project
+- summarizes OOI data resources
+- describes the basic data acquisition and visualization workflow
+- refers to additional markdown 
+- and providing prompts at the bottom of the file, this
 document states some goals and records progress. New CA sessions can get up to speed
 by scanning this context.
+
+
+The `argosy` repo being a Jupyter book is amenable to a sequence of **build** commands
+provided the currently active conda environment includes `jupyter-book` and `ghp-import`.
+
+
+```
+cd ~/argosy
+jupyter-book build .
+ghp-import -n -p -f _build/html
+git pull
+git add .
+git commit -m 'commit comment'
+git push
+```
+
+
+[Argosy Jupyter Book link](https://robfatland.github.io/argosy/intro.html)
+
 
 
 ## Introduction for a coding agent (aka coding assistant (CA))

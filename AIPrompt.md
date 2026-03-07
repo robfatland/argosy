@@ -12,6 +12,7 @@ $CA_1$ is the Q Developer successor *kiro* also provided by AWS. kiro is
 
 This document:
 
+
 - acts as a "master" markdown document describing the project
 - summarizes OOI data resources
 - describes the basic data acquisition and visualization workflow
@@ -34,6 +35,9 @@ git add .
 git commit -m 'commit comment'
 git push
 ```
+
+
+[Argosy Jupyter Book link](https://robfatland.github.io/argosy/intro.html)
 
 
 
