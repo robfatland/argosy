@@ -20,7 +20,7 @@ parts:
   chapters:
     - file: chapters/DataDownload
     - file: chapters/DataSharding
-    - file: chapters/Visualization
+    - file: chapters/Visualizations
 
 - caption: References
   chapters:
