@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>AI Prompt &#8212; My sample book</title>
+    <title>AI Prompt &#8212; Argosy</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -62,6 +62,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'AIPrompt';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Umbrella" href="Umbrella.html" />
+    <link rel="prev" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -124,8 +126,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -153,8 +153,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
   
   
 </a></div>
@@ -180,15 +180,19 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Boilerplate</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">AI Prompt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AnalysisConcepts.html">Analysis Concepts</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapters/ShallowProfiler.html">Temporary holder for bits of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard complex multi-sensor datasets into individual sensors and single profiles</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -248,7 +252,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -265,7 +269,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FAIPrompt.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FAIPrompt.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -390,10 +394,15 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-for-humans">Introduction for humans</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-for-a-coding-agent-aka-coding-assistant-ca">Introduction for a coding agent (aka coding assistant (CA))</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-library-installations">Python library installations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-for-a-coding-agent-coding-assistant-ca">Introduction for a coding agent (coding assistant (CA))</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-sketch-of-the-initial-workflow">A sketch of the initial workflow</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-data-download">Task 1: Data Download</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-data-download">Task 1: Data Download</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-order">Data order</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data-order">Download data order</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-bundle-plotter-and-other-visualizations">Task 3: Bundle plotter and other visualizations</a></li>
 </ul>
@@ -409,9 +418,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-list-and-associated-file-label">Sensor list and associated file label</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-data-file-system-and-file-structure">Source data file system and file structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-profile-metadata">Using profile metadata</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-development-of-shallow-profile-metadata">Further development of shallow profile metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-metadata">Reference metadata</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-input-file-to-redux">Single Input File to <code class="docutils literal notranslate"><span class="pre">redux</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-1">Visualization 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-part-1">Visualization Part 1</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles">Jupyter notebook cell code: Bundle plots for temperature profiles</a></li>
 </ul>
 </li>
@@ -429,8 +438,21 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-for-expansion-temperature-2015-through-2025">Prepare for expansion: Temperature 2015 through 2025</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-year-redux-generator">Multi-year redux generator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-the-two-visualization-cells-bundle-charts-and-bundle-animation">Refreshing the two visualization cells: Bundle charts and bundle animation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-needs-a-title">SECTION NEEDS A TITLE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sensor-table">The Sensor Table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-download">Data Download</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table">Sensor table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-source-file-data-variables">Explore source file data variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table-columns">Sensor table columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Sensor table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table-notes">sensor table notes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity">Velocity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-irradiance">Spectral Irradiance</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrophotometer">Spectrophotometer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen">Dissolved Oxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitrate">Nitrate</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharding-and-shard-files">Sharding and shard files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-sensor-bundle-mean-std-charts">Multi-sensor Bundle / Mean-std charts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-made">Progress made</a></li>
@@ -477,26 +499,35 @@ a Coding Assistant (CA). <span class="math notranslate nohighlight">\(CA_0\)</sp
 document states some goals and records progress. New CA sessions can get up to speed
 by scanning this context.</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repo being a Jupyter book is amenable to a sequence of <strong>build</strong> commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ~/argosy
-jupyter-book build .
-ghp-import -n -p -f _build/html`
-git pull
-git add .
-git commit -m &#39;commit comment&#39;
-git push
+<p>The <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repo being a Jupyter book is amenable to a sequence of <strong>build</strong> commands
+provided the currently active conda environment includes <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code> and <code class="docutils literal notranslate"><span class="pre">ghp-import</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">argosy</span>
+<span class="n">jupyter</span><span class="o">-</span><span class="n">book</span> <span class="n">build</span> <span class="o">.</span>
+<span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">f</span> <span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+<span class="n">git</span> <span class="n">pull</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;commit comment&#39;</span>
+<span class="n">git</span> <span class="n">push</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">sequence:</span></code>add .; commit -m “remark”; git push`</p>
+<p><a class="reference external" href="https://robfatland.github.io/argosy/intro.html">Argosy Jupyter Book link</a></p>
 </section>
-<section id="introduction-for-a-coding-agent-aka-coding-assistant-ca">
-<h2>Introduction for a coding agent (aka coding assistant (CA))<a class="headerlink" href="#introduction-for-a-coding-agent-aka-coding-assistant-ca" title="Link to this heading">#</a></h2>
+<section id="python-library-installations">
+<h2>Python library installations<a class="headerlink" href="#python-library-installations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">miniconda</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">h5netcdf</span></code> (or <code class="docutils literal notranslate"><span class="pre">netcdf4</span></code>)</p></li>
+<li><p>jupyter lab/book</p></li>
+</ul>
+</section>
+<section id="introduction-for-a-coding-agent-coding-assistant-ca">
+<h2>Introduction for a coding agent (coding assistant (CA))<a class="headerlink" href="#introduction-for-a-coding-agent-coding-assistant-ca" title="Link to this heading">#</a></h2>
 <p>This effort concerns organizing oceanography data starting with the
 Ocean Observatories Initiative Regional Cabled Array shallow profilers.
 The idea is to transition from the archival data system to a more
 interpretable form of the data; and then to visualize, interpret and
 further explore this data.</p>
-<p>This markdown file is intended as context for a Coding Assistant (CA).</p>
 <p>A CA is likely to be running as a VSCode IDE extension. At the start of a chat session it
 has no context.</p>
 <p>To see the file structure: This work exists on a Windows PC in the WSL2 home file system.
@@ -591,6 +622,45 @@ the initial simple case (temperature profiles as a function of depth over severa
 <p>Three tasks:</p>
 <section id="task-1-data-download">
 <h3>Task 1: Data Download<a class="headerlink" href="#task-1-data-download" title="Link to this heading">#</a></h3>
+<section id="data-order">
+<h4>Data order<a class="headerlink" href="#data-order" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Log in to OOI <a class="reference external" href="https://ooinet.oceanobservatories.org/data_access">access page</a> with an established account</p></li>
+<li><p>LHS filters: Array, Cable, Platform, Instrument</p></li>
+<li><p>Data Catalog box (bottom center)</p>
+<ul>
+<li><p><em><strong>Do not try and use the time window interface</strong></em></p></li>
+<li><p><em><strong>+</strong></em> Action button: Download table appears top center</p>
+<ul class="simple">
+<li><p>Also: Data availability plot, center center</p></li>
+</ul>
+</li>
+<li><p>Top center: Download button generates a data order</p>
+<ul>
+<li><p><em><strong>Select datasets with Stream type == <code class="docutils literal notranslate"><span class="pre">Science</span></code></strong></em></p></li>
+<li><blockquote>
+<div><p>Pop up to finalize order</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Calendars: Type in time range manually e.g. <code class="docutils literal notranslate"><span class="pre">2015-01-01</span> <span class="pre">00:00:00.0</span></code></p></li>
+<li><p>Optional:</p>
+<ul>
+<li><p>Un-check the box for <strong>Download All Parameters</strong></p></li>
+<li><p>Use ctrl-click to select parameters of interest</p></li>
+</ul>
+</li>
+<li><p>Submit the order</p></li>
+<li><p>“Order ready” email sent to account usually &lt; 2 hours</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="download-data-order">
+<h4>Download data order<a class="headerlink" href="#download-data-order" title="Link to this heading">#</a></h4>
 <p>Retrieve NetCDF files from the OOINET staging area populated via a manual data order.
 The file retrieval / management code resides in the notebook <code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code>.</p>
 <p>OOINET filename example:</p>
@@ -620,6 +690,7 @@ addition to data from descents and rest intervals. In short the file is a dense 
 information that can be overwhelming to work with. Note this file covers a period of time
 in 2018. It will prove convenient to break up these files by sensor and by individual
 profile (herein ‘sharding’) and to compartmentalize sharded data by year.</p>
+</section>
 </section>
 <section id="task-2-data-sharding">
 <h3>Task 2: Data Sharding<a class="headerlink" href="#task-2-data-sharding" title="Link to this heading">#</a></h3>
@@ -990,21 +1061,27 @@ This is done using an <code class="docutils literal notranslate"><span class="pr
 <section id="using-profile-metadata">
 <h2>Using profile metadata<a class="headerlink" href="#using-profile-metadata" title="Link to this heading">#</a></h2>
 <p>Profile metadata for both shallow and deep profilers is retained in a public GitHub
-repo as a set of CSV files delineated by platform and year. The first column of a
-profile CSV file is an index (a profile counter) that begins at 1 at the start of the
-(example:) RCA OSB shallow profiler deployment in July 9 2015. Today the index exceeds
-20,000. In addition to the index column this file has 3 additional columns.</p>
-<p>A shallow profiler divides its time between three phases: Ascent, Descent, and Rest.
-The metadata CSV file therefore continues with three additional columns associated
-with the start time of an ascent, the peak time of that ascent, and the time that the
-profiler returns to the support platform at 200m depth. The associated column names
-are <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">peak</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
-<p>The GitHub repository organization is ‘OOI-CabledArray’. The repository of interest is
-‘profileIndices’. The RCA Data Manager who built this is Wendi Ruef.</p>
-<p>The repository has been cloned to localhost ~ as <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code>.</p>
+repository as a set of CSV files delineated by platform and year. Each row of a
+metadata file corresponds to a unique profile.</p>
+<p>The first column of the profile CSV file is a global index (a profile counter) specific
+to that profiler. The value in this column begins at 1 at the start of the profiler
+operation. Example: RCA OSB shallow profiler deployment in July 9 2015 begins with profile</p>
+<ol class="arabic simple">
+<li><p>This global index for this shallow profiler exceeds 20,000 in early 2026.</p></li>
+</ol>
+<p>In addition to the global index column, the metadata file has 3 additional columns.
+A profiler is in one of three phases and consequently divides its time between them:
+Ascent, Descent, and Rest. The three additional profileIndices metadata columns are
+associated with the start time of ascent, the peak time of that ascent, and the time
+that the profiler completes its descent, returning to its support structure.
+The associated column names are <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">peak</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
+<p>The GitHub repository <strong>Organization</strong> is ‘OOI-CabledArray’. The repository of
+interest is ‘profileIndices’.</p>
+<p>For the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> project this repository is cloned to localhost: <code class="docutils literal notranslate"><span class="pre">~/profileIndices</span></code>.
+Details:</p>
 <ul class="simple">
-<li><p>Wendi Ruef (RCA): <code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p></li>
-<li><p>Clone to localhost WSL ~/profileIndices</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">https://github.com/OOI-CabledArray/profileIndices</span></code></p></li>
+<li><p>Clone to localhost WSL <code class="docutils literal notranslate"><span class="pre">~/profileIndices</span></code></p></li>
 <li><p>Profiles are broken down by array and site identifier, then by year</p>
 <ul>
 <li><p>Array CE = Coastal Endurance, associated with the Oregon Offshore site (‘OS’)</p></li>
@@ -1046,22 +1123,23 @@ are <code class="docutils literal notranslate"><span class="pre">start</span></c
 </ul>
 </li>
 </ul>
-<p>To select data from the Slope Base shallow profiler CTD during 2018: Use the time
-ranges present in the file <code class="docutils literal notranslate"><span class="pre">~/profileIndices/RS01SBPS_profiles_2018.csv</span></code>.</p>
-<p>Note: Some sensors operate continuously (such as CTD temperature). Other operate
-at a lower duty cycle / during selected phases.</p>
+<p>To select profile time-series data from a sensor/instrument on the Oregon Slope Base shallow
+profiler: Use time ranges in <code class="docutils literal notranslate"><span class="pre">~/profileIndices/RS01SBPS_profiles_2018.csv</span></code>.</p>
+<p>Note: Some sensors operate continuously (such as CTD temperature). Others operate
+at a lower duty cycle, for example only during selected phases of a profile. Most
+sensors operate (at least) during ascent with two notable exceptions: <code class="docutils literal notranslate"><span class="pre">pH</span></code> and <code class="docutils literal notranslate"><span class="pre">pCO2</span></code>.</p>
 <p>For an instrument / sensor that operates on ascent the time range for a given
-profile would be given by columns 2 and 3: start and peak. Other cases will be
-elaborated as they come up.</p>
-<p>Times are given in format ‘yyyy-MM-dd hh:mm:ss’.</p>
+profile would be given by columns 2 and 3: <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">peak</span></code>. For a descending
+instrument the time range would be defined by <code class="docutils literal notranslate"><span class="pre">peak</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
+<p>Time format: <code class="docutils literal notranslate"><span class="pre">yyyy-MM-dd</span> <span class="pre">hh:mm:ss</span></code>.</p>
 <p>Note: Noon and midnight profiles tend to have longer duration owing to a slower descent profile.</p>
 </section>
-<section id="further-development-of-shallow-profile-metadata">
-<h2>Further development of shallow profile metadata<a class="headerlink" href="#further-development-of-shallow-profile-metadata" title="Link to this heading">#</a></h2>
-<p>This is an idea but not implemented yet.</p>
-<p>In this phase the goal is to produce the extensive <code class="docutils literal notranslate"><span class="pre">redux</span></code> dataset.
-It will be of further red zone use to build out additional metadata.</p>
-<p>Here is one design concept</p>
+<section id="reference-metadata">
+<h2>Reference metadata<a class="headerlink" href="#reference-metadata" title="Link to this heading">#</a></h2>
+<p>This idea is elaborated but not fully implemented.</p>
+<p>Goal: Produce a data availability/quality description for the sharded dataset.
+This should be built when it helps achieve a specific goal.</p>
+<p>Example design concept:</p>
 <ul class="simple">
 <li><p>CSV file</p>
 <ul>
@@ -1168,8 +1246,8 @@ a diagnostic remark.</p>
 <p>Warning: A prior version of the code program produced this error:</p>
 <p><code class="docutils literal notranslate"><span class="pre">/tmp/ipykernel_206172/2169783661.py:91:</span> <span class="pre">PerformanceWarning:</span> <span class="pre">DataFrame</span> <span class="pre">is</span> <span class="pre">highly</span> <span class="pre">fragmented.</span> <span class="pre">(etcetera)</span></code></p>
 </section>
-<section id="visualization-1">
-<h2>Visualization 1<a class="headerlink" href="#visualization-1" title="Link to this heading">#</a></h2>
+<section id="visualization-part-1">
+<h2>Visualization Part 1<a class="headerlink" href="#visualization-part-1" title="Link to this heading">#</a></h2>
 <p>Visualization sections are numbered in sequence with sub-topic to follow:</p>
 <section id="jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles">
 <h3>Jupyter notebook cell code: Bundle plots for temperature profiles<a class="headerlink" href="#jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles" title="Link to this heading">#</a></h3>
@@ -1469,8 +1547,8 @@ option: The temperature range will be fixed at 7 deg C to 20 deg C. (19 deg C wa
 <p>The animation output mp4 file should be written in the ~ folder.</p>
 <p>The code handles zero / nan mean cases gracefully.</p>
 </section>
-<section id="section-needs-a-title">
-<h2>SECTION NEEDS A TITLE<a class="headerlink" href="#section-needs-a-title" title="Link to this heading">#</a></h2>
+<section id="data-download">
+<h2>Data Download<a class="headerlink" href="#data-download" title="Link to this heading">#</a></h2>
 <p>This task is to upgrade the Jupyter cell code to perform a bulk download of NetCDF source files
 from one or more URLs. Each URL corresponds roughly to a calendar year where for now we are working
 with CTD files.</p>
@@ -1521,55 +1599,146 @@ re-starting after only partial completion. Here is the functionality description
 <li><p>Download the <code class="docutils literal notranslate"><span class="pre">.nc</span></code> NetCDF files and ignore the <code class="docutils literal notranslate"><span class="pre">.ncml</span></code> files</p></li>
 </ul>
 </section>
-<section id="the-sensor-table">
-<h2>The Sensor Table<a class="headerlink" href="#the-sensor-table" title="Link to this heading">#</a></h2>
-<p>We now define the sensor table as a comprehensive list of sensor types for the shallow
-profiler. For the moment this resides in this file; but will eventually be written as
-a standalone CSV file.</p>
+<section id="sensor-table">
+<h2>Sensor table<a class="headerlink" href="#sensor-table" title="Link to this heading">#</a></h2>
+<section id="explore-source-file-data-variables">
+<h3>Explore source file data variables<a class="headerlink" href="#explore-source-file-data-variables" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;~/argosy/tmpdata/ctdexample.nc&#39;</span><span class="p">)</span>
+<span class="n">ds</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Source file structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dimension</span>
+    <span class="n">obs</span><span class="p">(</span><span class="n">ervation</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">time</span> <span class="n">using</span> <span class="n">swap_dims</span><span class="p">()</span>
+
+<span class="n">coordinates</span>
+    <span class="n">observation</span>
+    <span class="n">lat</span>
+    <span class="n">lon</span>
+    <span class="n">depth</span>
+    <span class="n">time</span>
+
+<span class="n">data</span> <span class="n">variables</span>
+    <span class="n">sea_water_practical_salinity</span>        <span class="n">Note</span> <span class="n">use</span> <span class="n">of</span> <span class="n">prefix</span> <span class="s2">&quot;sea_water_&quot;</span> <span class="k">for</span> <span class="n">research</span> <span class="n">analysis</span>
+    <span class="o">&lt;</span><span class="n">many</span> <span class="n">other</span> <span class="n">types</span><span class="o">&gt;</span>
+
+<span class="n">attributes</span>
+    <span class="o">&lt;</span><span class="n">many</span><span class="p">;</span> <span class="n">ignoring</span> <span class="k">for</span> <span class="n">now</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="sensor-table-columns">
+<h3>Sensor table columns<a class="headerlink" href="#sensor-table-columns" title="Link to this heading">#</a></h3>
+<p>The <strong>sensor table</strong> is a comprehensive list of sensor types for the shallow profiler.
+This will eventually be written to a standalone reference CSV file.</p>
 <p>Premise: Jupyter cell code in the <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> notebook shards multiple types of
 source ‘instrument’ NetCDF datafiles to produce single-sensor shard files, one file
 per profile. Shards are written into folders spanning single years; with folder names
-<code class="docutils literal notranslate"><span class="pre">~/redux&lt;yyyy&gt;</span></code> where <code class="docutils literal notranslate"><span class="pre">&lt;yyyy&gt;</span></code> is a four-digit year. In the course of going from
-complicated instrument file to much simpler/smaller shard files to visualizations to
-analysis we need consistent metadata; so the sensor table localizes that metadata
-to a single resource.</p>
-<p>Sensors correspond to rows of the sensor table, eventually to be written as a CSV file.
-Not included in the sensor table are <code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code>: These are ancillary data:
-<code class="docutils literal notranslate"><span class="pre">time</span></code> as dimension/coordinate and <code class="docutils literal notranslate"><span class="pre">depth</span></code> as data variable (XArray terminology).</p>
+<code class="docutils literal notranslate"><span class="pre">~/redux&lt;yyyy&gt;</span></code> where <code class="docutils literal notranslate"><span class="pre">&lt;yyyy&gt;</span></code> is a four-digit year. The sensor table localizes the
+metadata concerned with managing the sensor data.</p>
+<p>Sensors correspond to rows of the sensor table. Not included in the sensor table are
+<code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code> which are ancillary: <code class="docutils literal notranslate"><span class="pre">time</span></code> as dimension/coordinate and <code class="docutils literal notranslate"><span class="pre">depth</span></code>
+as data variable (XArray terminology). These define the two-dimensional framework for
+for the sensor data.</p>
 <p>Here is the sensor table column information, columns going left to right.
-Format: column content, short column name, some elaboration</p>
-<ul class="simple">
-<li><p>sensor name,          sensor,  a descriptive “normal text” name</p></li>
-<li><p>source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF FLORT</p></li>
-<li><p>ooinet download key,  key,     short abbreviation of sensor name used in download folder names</p></li>
-<li><p>sensor data variable, datavar, for the science data variable e.g. <code class="docutils literal notranslate"><span class="pre">sea_water_temperature</span></code></p></li>
-<li><p>shard data variable,  shard,   the sensor shard name is used in <code class="docutils literal notranslate"><span class="pre">redux</span></code> shard files e.g. <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc</span></code></p></li>
-<li><p>acquisition side:     side,    <code class="docutils literal notranslate"><span class="pre">ascent</span></code> or <code class="docutils literal notranslate"><span class="pre">descent</span></code> (mostly ascent; pCO2 and pH are the notable descending acquisitions)</p></li>
-<li><p>data extreme low,     xlow,    well below the expected data minimum</p></li>
-<li><p>data extreme high,    xhigh,   well above the expected data maximum</p></li>
-</ul>
-<p>Sensor table:</p>
+Format of this table: column content, short column name, some elaboration</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- sensor name,          sensor,  a descriptive &quot;normal text&quot; name
+- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF, FLORT
+- ooinet download key,  key,     short abbreviation of instrument name used in download folder name
+- sensor data variable, datavar, the science data variable of interest for this sensor e.g. `sea_water_temperature`
+- shard sensor name,    shard,   for `redux` sensor filename; e.g. RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc
+- acquisition side:     side,    `ascent` or `descent` (mostly ascent; pCO2 and pH are the notable descending acquisitions)
+- data extreme low,     xlow,    well below the expected data minimum
+- data extreme high,    xhigh,   well above the expected data maximum
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Sensor table<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sensor,         instrum,  key,  datavar,                             shard,           side,     xlow,  xhigh
 temperature,      CTDPF,  ctd,  sea_water_temperature,               temperature,     ascent,    6.0,   20.0
 salinity,         CTDPF,  ctd,  sea_water_practical_salinity,        salinity,        ascent,   32.0,   36.0
 density,          CTDPF,  ctd,  sea_water_density,                   density,         ascent, 1024.0, 1028.0
 dissolved oxygen, CTDPF,  ctd,  corrected_dissolved_oxygen,          dissolvedoxygen, ascent,   50.0,  300.0
-nitrate,          NITNR, nitr,                     ,                 nitrate,         ascent,    ???,    ???
+nitrate,          NITNR, nitr,  salinity_corrected_nitrate,          nitrate,         ascent,      0,     35
 CDOM,             FLORT, flor,  fluorometric_cdom,                   cdom,            ascent,    0.5,    4.5
 Chlorophyll-A,    FLORT, flor,  fluorometric_chlorophyll_a,          chlora,          ascent,    0.0,    1.5
 backscatter,      FLORT, flor,  optical_backscatter,                 backscatter,     ascent,    0.0,    0.006
-pCO2,             PCO2W, pco2,    ?,                                 pco2,           descent,  200.0, 1200.0
-pH,               PHSEN,   ph,    ?,                                 ph,             descent,    7.6,    8.2
-PAR,              PARAD,  par,    ?,                                 par,             ascent,    ???,    ???
-velocity,         VELPT,  vel,    ?,                                 vel,             ascent,    ???,    ???
-spectralirrad,    SPKIR,  irr,    ?,                                 irr,             ascent,    ???,    ???
-opticalabsorb,    OPTAA,   oa,
-beamattenuation,  OPTAA,   ba,
+pCO2,             PCO2W, pco2,  pco2_seawater,                       pco2,           descent,  200.0, 1200.0
+pH,               PHSEN,   ph,  ph_seawater,                         ph,             descent,    7.6,    8.2
+PAR,              PARAD,  par,    ?,                                 par,             ascent,      0,    300
+velocity,         VELPT,  vel,  east-north-up,                       vel,             ascent,    -.4,     .4
+spectralirrad,    SPKIR,  irr,  si412-443-490-510-555-620-683,       irr,             ascent,      0,     15
+opticalabsorb,    OPTAA,   oa,  73 channels,                         oa,              ascent,    ???,    ???
+beamattenuation,  OPTAA,   ba,  73 channels,                         ba,              ascent,    ???,    ???
 </pre></div>
 </div>
-<p>Unless noted each sensor is <em>scalar</em> (single numerical value per sample). The four exceptions
-are <code class="docutils literal notranslate"><span class="pre">velocity</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral</span> <span class="pre">irradiance</span></code>, <code class="docutils literal notranslate"><span class="pre">optical</span> <span class="pre">absorption</span></code> and <code class="docutils literal notranslate"><span class="pre">beam</span> <span class="pre">attenuation</span></code>. The latter
-two sensors are both produced by a spectrophotometer (OPTAA).</p>
+</section>
+<section id="sensor-table-notes">
+<h3>sensor table notes<a class="headerlink" href="#sensor-table-notes" title="Link to this heading">#</a></h3>
+<p>Most sensor data is <em>scalar</em> (single numerical value per sample) with four exceptions:
+<code class="docutils literal notranslate"><span class="pre">velocity</span></code> (3), <code class="docutils literal notranslate"><span class="pre">spectral</span> <span class="pre">irradiance</span></code> (7), <code class="docutils literal notranslate"><span class="pre">optical</span> <span class="pre">absorption</span></code> (80?) and <code class="docutils literal notranslate"><span class="pre">beam</span> <span class="pre">attenuation</span></code> (80?).
+The latter two are produced by a spectrophotometer (OPTAA).</p>
+<section id="velocity">
+<h4>Velocity<a class="headerlink" href="#velocity" title="Link to this heading">#</a></h4>
+<p>current</p>
+<p>east                      ‘Current: East’<br />
+north                     ‘Current: North’
+up                        ‘Current: Vertical’</p>
+</section>
+<section id="spectral-irradiance">
+<h4>Spectral Irradiance<a class="headerlink" href="#spectral-irradiance" title="Link to this heading">#</a></h4>
+<p>si412                     ‘Spectral Irradiance 412nm’
+si443                     ‘Spectral Irradiance 443nm’
+si490                     ‘Spectral Irradiance 490nm’
+si510                     ‘Spectral Irradiance 510nm’
+si555                     ‘Spectral Irradiance 555nm’
+si620                     ‘Spectral Irradiance 620nm’
+si683                     ‘Spectral Irradiance 683nm’</p>
+</section>
+<section id="spectrophotometer">
+<h4>Spectrophotometer<a class="headerlink" href="#spectrophotometer" title="Link to this heading">#</a></h4>
+<p>Incomplete: Has to be two sensors: Optical absorbance and beam attenuation;
+apparently 73 channels for each.</p>
+<p>c001
+c002
+…
+c073</p>
+</section>
+<section id="dissolved-oxygen">
+<h4>Dissolved Oxygen<a class="headerlink" href="#dissolved-oxygen" title="Link to this heading">#</a></h4>
+<p><strong>It seems that Dissolved Oxygen is identical to the DO found bundled in the
+CTD data files rendering the separate DO product redundant.</strong></p>
+<p>Data variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sea_water_practical_salinity</span>
+<span class="n">sea_water_temperature</span>
+<span class="n">corrected_dissolved_oxygen</span>
+</pre></div>
+</div>
+<p>This is from working with the CA and should be verified with the OOI staff. First the CA claims that
+DO files are distinct from dissolved oxygen found in CTD files. Quoting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">### Why OOI Created Separate DO Files</span>
+
+    
+<span class="n">Instrument</span> <span class="n">separation</span><span class="p">:</span> <span class="n">The</span> <span class="n">dedicated</span> <span class="n">DO</span> <span class="n">files</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">Aanderaa</span> <span class="n">oxygen</span> <span class="n">optode</span> <span class="p">(</span><span class="n">a</span> <span class="n">standalone</span> <span class="n">sensor</span><span class="p">),</span> 
+<span class="k">while</span> <span class="n">CTD</span> <span class="n">files</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">SBE</span> <span class="mi">52</span><span class="o">-</span><span class="n">MP</span> <span class="n">CTD</span> <span class="n">package</span><span class="o">.</span> <span class="n">They</span><span class="s1">&#39;re physically different instruments...</span>
+</pre></div>
+</div>
+<p>Comparison shows both CTD streams and the DO data identical.
+To Do: Confirm from the OOI site: <code class="docutils literal notranslate"><span class="pre">corrected_dissolved_oxygen</span></code> from the CTD file is science-ready data.</p>
+</section>
+<section id="nitrate">
+<h4>Nitrate<a class="headerlink" href="#nitrate" title="Link to this heading">#</a></h4>
+<p>For OOI RCA nitrate measurements using SUNA (Submersible Ultraviolet Nitrate Analyzer)
+sensors: Initial observation is a UV absorption spectrum measured with light passing
+through a sample. The nitrate dark sample data is taken with the light source <em>off</em>:
+electronic noise, detector dark current and ambient light (no nitrate signal).
+Corrected Nitrate = Sample Data - Dark Sample Data. A subsequent salinity correction
+arrives at <code class="docutils literal notranslate"><span class="pre">salinity_corrected_nitrate</span></code>.</p>
+</section>
+</section>
 </section>
 <section id="sharding-and-shard-files">
 <h2>Sharding and shard files<a class="headerlink" href="#sharding-and-shard-files" title="Link to this heading">#</a></h2>
@@ -1931,7 +2100,6 @@ sensors that operate on descent only.</p>
 <ul class="simple">
 <li><p>revamp animations</p></li>
 <li><p>curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb</p></li>
-<li></li>
 </ul>
 </section>
 </section>
@@ -1966,6 +2134,24 @@ sensors that operate on descent only.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="markdown-notebooks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Notebooks with MyST Markdown</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Umbrella.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Umbrella</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1983,10 +2169,15 @@ sensors that operate on descent only.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-for-humans">Introduction for humans</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-for-a-coding-agent-aka-coding-assistant-ca">Introduction for a coding agent (aka coding assistant (CA))</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-library-installations">Python library installations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-for-a-coding-agent-coding-assistant-ca">Introduction for a coding agent (coding assistant (CA))</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-sketch-of-the-initial-workflow">A sketch of the initial workflow</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-data-download">Task 1: Data Download</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-data-download">Task 1: Data Download</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-order">Data order</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data-order">Download data order</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-bundle-plotter-and-other-visualizations">Task 3: Bundle plotter and other visualizations</a></li>
 </ul>
@@ -2002,9 +2193,9 @@ sensors that operate on descent only.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-list-and-associated-file-label">Sensor list and associated file label</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-data-file-system-and-file-structure">Source data file system and file structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-profile-metadata">Using profile metadata</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-development-of-shallow-profile-metadata">Further development of shallow profile metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-metadata">Reference metadata</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-input-file-to-redux">Single Input File to <code class="docutils literal notranslate"><span class="pre">redux</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-1">Visualization 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-part-1">Visualization Part 1</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-cell-code-bundle-plots-for-temperature-profiles">Jupyter notebook cell code: Bundle plots for temperature profiles</a></li>
 </ul>
 </li>
@@ -2022,8 +2213,21 @@ sensors that operate on descent only.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-for-expansion-temperature-2015-through-2025">Prepare for expansion: Temperature 2015 through 2025</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-year-redux-generator">Multi-year redux generator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-the-two-visualization-cells-bundle-charts-and-bundle-animation">Refreshing the two visualization cells: Bundle charts and bundle animation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#section-needs-a-title">SECTION NEEDS A TITLE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sensor-table">The Sensor Table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-download">Data Download</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table">Sensor table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-source-file-data-variables">Explore source file data variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table-columns">Sensor table columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Sensor table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table-notes">sensor table notes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity">Velocity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-irradiance">Spectral Irradiance</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrophotometer">Spectrophotometer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen">Dissolved Oxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitrate">Nitrate</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharding-and-shard-files">Sharding and shard files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-sensor-bundle-mean-std-charts">Multi-sensor Bundle / Mean-std charts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-made">Progress made</a></li>
@@ -2055,7 +2259,7 @@ sensors that operate on descent only.</p>
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Rob Fatland
 </p>
 
   </div>
