@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sensor Information &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SensorInformation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Boilerplate</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/ShallowProfiler.html">Temporary holder for bits of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reference/glossary.html">Glossaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FSensorInformation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/SensorInformation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Sensor Information</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keys-for-shallow-profile-sensor-data">Keys for shallow profile sensor data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-library-installations">Python library installations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordering-data">ordering data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler-data-variable-names-of-interest-by-instrument-sensor">Shallow profiler data variable names of interest by instrument/sensor</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen">Dissolved Oxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitrate">nitrate</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitratedark">nitratedark</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fluorometer">fluorometer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pco2">pco2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ph">ph</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#par">par</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-that-the-csv-profile-table-selects-ascent-data-properly">Verify that the CSV profile table selects ascent data properly</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen-note">Dissolved Oxygen note</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sensor-information">
+<h1>Sensor Information<a class="headerlink" href="#sensor-information" title="Link to this heading">#</a></h1>
+<p>This file describes the sensor data in transit from data order NetCDF files from OOINET
+to sharded profiles on localhost, mirrored to S3. See also the <code class="docutils literal notranslate"><span class="pre">ShallowProfiler.ipynb</span></code> notebook.</p>
+<p>The present focus:</p>
+<ul class="simple">
+<li><p>Obtain source data from the OOINET data product servers</p>
+<ul>
+<li><p>Oregon Slope Base shallow profiler</p></li>
+<li><p>Span from 2015 through 31-DEC-2025</p></li>
+<li><p>List sensors including instruments and scalar or vector type</p></li>
+<li><p>Master directory will be in an S3 bucket called <code class="docutils literal notranslate"><span class="pre">epipelargosy</span></code> in a folder called <code class="docutils literal notranslate"><span class="pre">ooidata</span></code></p>
+<ul>
+<li><p>The sub-structure of the <code class="docutils literal notranslate"><span class="pre">ooidata</span></code> folder is as follows:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ooidata/rca</span></code> is data from the Regional Cabled Array</p></li>
+<li><p>Three <code class="docutils literal notranslate"><span class="pre">rca</span></code> subdirectories: <code class="docutils literal notranslate"><span class="pre">oo</span></code>, <code class="docutils literal notranslate"><span class="pre">sb</span></code>, <code class="docutils literal notranslate"><span class="pre">ab</span></code>…</p>
+<ul>
+<li><p>…respectively for Oregon Offshore, Slope Base, Axial Base shallow profilers</p></li>
+</ul>
+</li>
+<li><p>Subdirs of <code class="docutils literal notranslate"><span class="pre">sb</span></code> are <code class="docutils literal notranslate"><span class="pre">scalar</span></code> and <code class="docutils literal notranslate"><span class="pre">vector</span></code> as categories of instrument/sensor</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">vector</span></code> is nominally reserved for 3 instruments</p>
+<ul>
+<li><p>current</p></li>
+<li><p>spectral irradiance</p></li>
+<li><p>spectrophotometers</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scalar</span></code> is nominally reserved for instrument datasets:</p>
+<ul>
+<li><p>CTD</p></li>
+<li><p>Fluorometer</p></li>
+<li><p>Nitrate</p></li>
+<li><p>PAR</p></li>
+<li><p>pCO2</p></li>
+<li><p>pH</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ooidata</span></code> also contains tracking files: <code class="docutils literal notranslate"><span class="pre">discovery_summary.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">ooi_data_inventory.json</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The S3 bucket can be mounted on localhost i.e. a development machine using this command:</p></li>
+</ul>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~;</span> <span class="pre">mount-s3</span> <span class="pre">epipelargosy</span> <span class="pre">s3</span> <span class="pre">--allow-delete</span></code></p>
+<ul class="simple">
+<li><p>WSL access and Windows home access notes</p>
+<ul>
+<li><p>Note that this lands in the home directory of the WSL Ubuntu filesystem</p>
+<ul>
+<li><p>I will refer to this as <code class="docutils literal notranslate"><span class="pre">~</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> is accessible by the Coding Assistant (CA (Q Developer))</p>
+<ul>
+<li><p>This is on the first Dev Machine referred to as “the Dell”</p></li>
+<li><p>It uses the <code class="docutils literal notranslate"><span class="pre">wsl</span></code> command in PowerShell to do this</p>
+<ul>
+<li><p>This has not been verified on the second Dev Machine “the Surface”</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/mnt/c/Users/&lt;uname&gt;</span></code> is accessible by the CA if needed</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Mirroring S3 bucket versions of the data</p>
+<ul>
+<li><p>It may be necessary to create mirror versions of <code class="docutils literal notranslate"><span class="pre">ooidata</span></code> in <code class="docutils literal notranslate"><span class="pre">~</span></code></p></li>
+<li><p>These two development machines are laptops with 1TB drives</p></li>
+</ul>
+</li>
+<li><p>The following section is metadata for the shallow profiler system</p>
+<ul>
+<li><p>This includes a list of instruments and associated sensors</p>
+<ul>
+<li><p>These should match up with data files provided by OOINET</p></li>
+<li><p>Some sensor types may be qualified; and may be synthetic or derived</p></li>
+<li><p>A single NetCDF data file will correspond to an Instrument</p>
+<ul>
+<li><p>Examples NetCDF data files have been imported to ~/argosy/tmpdata</p></li>
+<li><p>Filename format: <instrument name><a class="reference external" href="http://example.nc">example.nc</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="keys-for-shallow-profile-sensor-data">
+<h2>Keys for shallow profile sensor data<a class="headerlink" href="#keys-for-shallow-profile-sensor-data" title="Link to this heading">#</a></h2>
+<p>These key names avoid spaces and underscores. Inside a given NetCDF file (Instrument)
+there will be several data types listed corresponding to sensors. These data type / sensor names
+in the data files are different than what I am defining and using. The official (from data file)
+versions of the sensor names are given in quotes to the right of the sensor names.</p>
+<p>Format:</p>
+<ul class="simple">
+<li><p>No indent: Category: One of ‘dimension’, ‘coordinate’, ‘scalar’, ‘vector’</p></li>
+<li><p>Single indent: Dimension/coordinate type (for those categories), otherwise: instrument</p></li>
+<li><p>Double indent: Sensor associated with the above instrument</p></li>
+</ul>
+<p>Source data variable keys can be listed for dataset <code class="docutils literal notranslate"><span class="pre">ds</span></code> via: <code class="docutils literal notranslate"><span class="pre">ds.data_vars.keys()</span></code>.
+The CTD parameters of interest are included below.</p>
+<p>The following table maps from source file to XArray Dataset to output redux (shard) files.</p>
+<p>Dataset category, one of { dimension, coordinate, data variable, attribute }</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dimension</span>
+    <span class="n">obs</span><span class="p">(</span><span class="n">ervation</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">time</span> <span class="n">using</span> <span class="n">swap_dims</span><span class="p">()</span>
+
+<span class="n">coordinates</span>
+    <span class="n">observation</span>
+    <span class="n">lat</span>
+    <span class="n">lon</span>
+    <span class="n">depth</span>
+    <span class="n">time</span>
+
+<span class="n">data</span> <span class="n">variables</span>
+    <span class="n">sea_water_practical_salinity</span>        <span class="n">Note</span> <span class="n">use</span> <span class="n">of</span> <span class="n">prefix</span> <span class="s2">&quot;sea_water_&quot;</span> <span class="k">for</span> <span class="n">research</span> <span class="n">analysis</span>
+    <span class="o">&lt;</span><span class="n">many</span> <span class="n">other</span> <span class="n">types</span><span class="o">&gt;</span>
+
+<span class="n">attributes</span>
+    <span class="o">&lt;</span><span class="n">many</span><span class="p">;</span> <span class="n">ignoring</span> <span class="k">for</span> <span class="n">now</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Scalar datasets are virtually all with the exception of current, spectral irradiance and
+the spectrophotometer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Instrument</span>  <span class="n">redux</span> <span class="n">name</span>          <span class="n">human</span> <span class="n">readable</span>              <span class="n">source</span> <span class="n">data</span> <span class="n">variable</span> <span class="n">name</span>
+<span class="n">CTD</span>                                                                            
+            <span class="n">pressure</span>            <span class="n">Pressure</span>                    <span class="n">sea_water_pressure</span> 
+            <span class="n">conductivity</span>        <span class="n">Conductivity</span>                <span class="n">sea_water_electrical_conductivity</span>
+            <span class="n">temperature</span>         <span class="n">Temperature</span> <span class="p">(</span><span class="n">deg</span> <span class="n">C</span><span class="p">)</span>         <span class="n">sea_water_temperature</span>
+            <span class="n">salinity</span>            <span class="n">Salinity</span>                    <span class="n">sea_water_practical_salinity</span>
+            <span class="n">density</span>             <span class="n">Density</span> <span class="p">(</span><span class="n">kg</span> <span class="n">m</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>            <span class="n">sea_water_density</span>
+<span class="n">dissolvedoxygen</span>
+        <span class="n">dissolvedoxygen</span>         <span class="n">Dissolved</span> <span class="n">Oxygen</span>            <span class="n">do_fast_sample</span><span class="o">-</span><span class="n">corrected_dissolved_oxygen</span>     
+</pre></div>
+</div>
+<p>The above table needs to be extended to what is started below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nitrate
+        nitrate                 Nitrate Concentration   
+nitratedark
+        nitratedark
+fluorometer
+        chlora                    &#39;Chlorophyll-A&#39;
+        fdom                      &#39;Fluorescent DOM&#39;
+        backscatter               &#39;Particulate Backscatter&#39;
+pco2
+        pco2                      &#39;CO2 Concentration&#39;
+ph
+        ph                        &#39;pH&#39;
+par
+        par                       &#39;Phot. Avail Radiation&#39;
+
+vector instruments
+current
+    east                      &#39;Current: East&#39;          
+    north                     &#39;Current: North&#39;
+    up                        &#39;Current: Vertical&#39;
+spectralirradiance
+    si412                     &#39;Spectral Irradiance 412nm&#39;
+    si443                     &#39;Spectral Irradiance 443nm&#39;
+    si490                     &#39;Spectral Irradiance 490nm&#39;
+    si510                     &#39;Spectral Irradiance 510nm&#39;
+    si555                     &#39;Spectral Irradiance 555nm&#39;
+    si620                     &#39;Spectral Irradiance 620nm&#39;
+    si683                     &#39;Spectral Irradiance 683nm&#39;
+spectrophotometer
+    c001                      ?
+    c002
+    ...
+    c073
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>conductivity:(3.2,3.7)
+density:(1024, 1028)
+pressure:(0.,200.)
+salinity:(32, 34)
+temperature:(7, 11)
+chlora:(0.,1.5)
+backscatter:(0.00,0.006)
+fdom:(0.5,4.5)
+si412:(0.0, 15.0)
+si443:(0.0, 15.0)
+si490:(0.0, 15.0)
+si510:(0.0, 15.0)
+si555:(0.0, 15.0)
+si620:(0.0, 15.0)
+si683:(0.0, 15.0)
+nitrate:(0., 35.)
+nitratedark:(0., 35.)
+pco2:(200.0, 1200.0)
+dissolvedoxygen:(50.0, 300.)
+par:(0.0, 300.)
+ph:(7.6, 8.2),
+east:(-0.4, 0.4),
+north:(-0.4, 0.4),
+up:(-0.4, 0.4) }
+spectrophotometer: ?
+</pre></div>
+</div>
+<p>Here is ‘simplest’ code to elaborate details of a particular Instrument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;~/argosy/tmpdata/ctdexample.nc&#39;</span><span class="p">)</span>
+<span class="n">ds</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Missing information to go in above: Ascent / Descent and Midnight / Noon qualifiers.</p>
+<section id="python-library-installations">
+<h3>Python library installations<a class="headerlink" href="#python-library-installations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">miniconda</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">h5netcdf</span></code> (or <code class="docutils literal notranslate"><span class="pre">netcdf4</span></code>)</p></li>
+</ul>
+</section>
+<section id="ordering-data">
+<h3>ordering data<a class="headerlink" href="#ordering-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Log in to OOI using an established User account</p></li>
+<li><p>Navigate to the <a class="reference external" href="https://ooinet.oceanobservatories.org/data_access">access page</a></p></li>
+<li><p>Use the LHS filters to narrow results appearing in the Data Catalog box (bottom center)</p>
+<ul>
+<li><p><em><strong>Do not try and use the time window interface</strong></em></p></li>
+</ul>
+</li>
+<li><p>For a dataset of interest: Click the <em><strong>+</strong></em> Action button</p>
+<ul>
+<li><p>This mysteriously features the word <strong>Plot</strong> in hover text</p></li>
+<li><p>The result of this click: A new table appears top center</p>
+<ul>
+<li><p>Also appearing: A data availability plot, center center</p></li>
+</ul>
+</li>
+<li><p>The new table features an Action column with a Download button</p></li>
+<li><p>Use the Download button to generate a data order</p>
+<ul>
+<li><p><em><strong>Be sure to select a dataset with Stream type == Science</strong></em></p></li>
+<li><p>This should bring up a pop up for finalizing the data order</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>For the pop-up data order</p>
+<ul>
+<li><p>Use the calendars to specify a time range</p></li>
+<li><p>Un-check the box for <strong>Download All Parameters</strong></p></li>
+<li><p>Use ctrl-click to select parameters of interest</p></li>
+<li><p>Submit the order; turnaround time will be on the order of hours</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="shallow-profiler-data-variable-names-of-interest-by-instrument-sensor">
+<h3>Shallow profiler data variable names of interest by instrument/sensor<a class="headerlink" href="#shallow-profiler-data-variable-names-of-interest-by-instrument-sensor" title="Link to this heading">#</a></h3>
+<section id="dissolved-oxygen">
+<h4>Dissolved Oxygen<a class="headerlink" href="#dissolved-oxygen" title="Link to this heading">#</a></h4>
+<p><strong>It seems that Dissolved Oxygen is identical to the DO found bundled in the
+CTD data files rendering the separate DO product redundant.</strong></p>
+<p>Data variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sea_water_practical_salinity</span>
+<span class="n">sea_water_temperature</span>
+<span class="n">corrected_dissolved_oxygen</span>
+</pre></div>
+</div>
+</section>
+<section id="nitrate">
+<h4>nitrate<a class="headerlink" href="#nitrate" title="Link to this heading">#</a></h4>
+<p>Data variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nutnr_nitrogen_in_nitrate</span>
+<span class="n">nitrate_concentration</span>
+<span class="n">sea_water_practical_salinity</span>
+<span class="n">salinity_corrected_nitrate</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">salinity_corrected_nitrate</span></code>: Includes both salinity and dark corrections.</p>
+<p>** More detail:** For OOI RCA nitrate measurements using SUNA (Submersible Ultraviolet Nitrate Analyzer)
+sensors: The nitrate sample data is an actual measurement of nitrate concentration in seawater. It
+is obtained via a UV absorption spectrum measured with light passing through the sample.
+The nitrate dark sample data is a baseline measurement taken with the light source <em>off</em>.
+It captures electronic noise, detector dark current and ambient light (but no nitrate
+signal). The dark sample is subtracted from the light sample to remove instrumental
+artifacts: Corrected Nitrate = Sample Data - Dark Sample Data</p>
+</section>
+<section id="nitratedark">
+<h4>nitratedark<a class="headerlink" href="#nitratedark" title="Link to this heading">#</a></h4>
+<p>Data variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nutnr_nitrogen_in_nitrate</span>
+<span class="n">nitrate_concentration</span>
+</pre></div>
+</div>
+</section>
+<section id="fluorometer">
+<h4>fluorometer<a class="headerlink" href="#fluorometer" title="Link to this heading">#</a></h4>
+<p>Data variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fluorometric_cdom</span>
+<span class="n">seawater_scattering_coefficient</span>
+<span class="n">sea_water_practical_salinity</span>
+<span class="n">total_volume_scattering_coefficient</span>
+<span class="n">fluorometric_chlorophyll_a</span>
+<span class="n">optical_backscatter</span>
+<span class="n">sea_water_temperature</span>
+</pre></div>
+</div>
+</section>
+<section id="pco2">
+<h4>pco2<a class="headerlink" href="#pco2" title="Link to this heading">#</a></h4>
+<p>Variables:
+int_ctd_pressure
+pco2_seawater</p>
+</section>
+<section id="ph">
+<h4>ph<a class="headerlink" href="#ph" title="Link to this heading">#</a></h4>
+<p>Variables:
+sea_water_practical_salinity
+ph_seawater</p>
+</section>
+<section id="par">
+<h4>par<a class="headerlink" href="#par" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="verify-that-the-csv-profile-table-selects-ascent-data-properly">
+<h3>Verify that the CSV profile table selects ascent data properly<a class="headerlink" href="#verify-that-the-csv-profile-table-selects-ascent-data-properly" title="Link to this heading">#</a></h3>
+<p>This code generates a plot of temperature against depth for four consecutive profiles.
+The profiles are in a color sequence: red, orange, green, blue. Time ranges are pulled
+from the appropriate CSV file. The data are then pulled from the <code class="docutils literal notranslate"><span class="pre">ctdexample.nc</span></code> data
+file. The plot y-axis is depth (from 0 to 200 m) and temperature as the x-axis (from
+6 deg C to 16 deg C). Here is the code that runs in a Jupyter notebook cell:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Load profile times and text &gt; datetimes for columns 2, 3, 4</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;~/profileIndices/RS01SBPS_profiles_2018.csv&#39;</span><span class="p">)</span>
+<span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+<span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">])</span>
+<span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+
+<span class="c1"># Load CTD data</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;/home/rob/argosy/tmpdata/ctdexample.nc&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find profiles that overlap with CTD data</span>
+<span class="n">ctd_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">ctd_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">matching</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">[(</span><span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">ctd_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">ctd_end</span><span class="p">)]</span>
+
+<span class="c1"># Select 4 consecutive profiles</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">matching</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">profile</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+    <span class="n">peak_time</span> <span class="o">=</span> <span class="n">profile</span><span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Select data for this profile (ascent: start to peak)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;=</span> <span class="n">peak_time</span><span class="p">)</span>
+    <span class="n">profile_data</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Ensure depth is positive</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">depth</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="o">-</span><span class="n">depth</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;procedure was obliged to reverse sign of depth data&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Plot temperature vs depth</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">profile_data</span><span class="p">[</span><span class="s1">&#39;sea_water_temperature&#39;</span><span class="p">],</span> <span class="n">depth</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (°C)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (m)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;CTD Temperature Profiles - Slope Base, 2018&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># plt.savefig(&#39;/home/rob/argosy/temperature_profiles.png&#39;, dpi=150)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Next we want a Python program that will downloaded all the files from a successful data
+order. Once the data are on order (see procedure above) an email is sent to the User
+account email address carrying two links: A THREDDS server link and a direct download
+link.</p>
+<p>Here is an example, the direct
+<a class="reference external" href="https://downloads.oceanobservatories.org/async_results/kilroy1618&#64;gmail.com/20260103T003554734Z-RS01SBPS-SF01A-3C-PARADA101-streamed-parad_sa_sample">download link for sb PAR 2015 – 2025</a>.</p>
+<p>In the DataDownload.ipynb notebook we now have a Python cell that copies data files from an order
+on the OOINET server to localhost. In detail what this code does:</p>
+<ul class="simple">
+<li><p>input download link and target folder (instrument + time range)</p>
+<ul>
+<li><p>example <code class="docutils literal notranslate"><span class="pre">~/s3/ooidata/rca/sb/scalar/2015_2025_par</span></code></p></li>
+</ul>
+</li>
+<li><p>create the folder if it does not yet exist (the User may create this in advance)</p></li>
+<li><p>discover the names and sizes of all files at the download link</p>
+<ul>
+<li><p>Creates an initial Download Manifest that may be modified below</p></li>
+</ul>
+</li>
+<li><p>print the total data volume and the mean size of all files with a <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file extension</p></li>
+<li><p>modify the Download Manifest as follows:</p>
+<ul>
+<li><p>input from the User a response to ‘Skip CTD files?’ &gt; response string <code class="docutils literal notranslate"><span class="pre">userskip</span></code></p>
+<ul>
+<li><p>if userskip == “n”: No change to Download Manifest</p></li>
+<li><p>else:               Remove <code class="docutils literal notranslate"><span class="pre">.nc</span></code> files containing <code class="docutils literal notranslate"><span class="pre">ctdpf</span></code> or <code class="docutils literal notranslate"><span class="pre">CTDPF</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>For Download Manifest again print total data volume</p></li>
+<li><p>ask for a <code class="docutils literal notranslate"><span class="pre">y</span></code> confirmation to proceed &gt; download the files to the target directory</p></li>
+</ul>
+<p>We are now moving to a new Python program that will initially run in a notebook cell:</p>
+<ul class="simple">
+<li><p>input a NetCDF file folder on localhost</p></li>
+<li><p>make a list of all NetCDF files in that folder</p></li>
+</ul>
+</section>
+</section>
+<section id="dissolved-oxygen-note">
+<h2>Dissolved Oxygen note<a class="headerlink" href="#dissolved-oxygen-note" title="Link to this heading">#</a></h2>
+<p>This is from working with the CA and should be verified with the OOI staff. First the CA claims that
+DO files are distinct from dissolved oxygen found in CTD files. Quoting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">### Why OOI Created Separate DO Files</span>
+
+    
+<span class="n">Instrument</span> <span class="n">separation</span><span class="p">:</span> <span class="n">The</span> <span class="n">dedicated</span> <span class="n">DO</span> <span class="n">files</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">Aanderaa</span> <span class="n">oxygen</span> <span class="n">optode</span> <span class="p">(</span><span class="n">a</span> <span class="n">standalone</span> <span class="n">sensor</span><span class="p">),</span> 
+<span class="k">while</span> <span class="n">CTD</span> <span class="n">files</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">SBE</span> <span class="mi">52</span><span class="o">-</span><span class="n">MP</span> <span class="n">CTD</span> <span class="n">package</span><span class="o">.</span> <span class="n">They</span><span class="s1">&#39;re physically different instruments...</span>
+</pre></div>
+</div>
+<p>However I then did a comparison (using CA-generated code) which showed that both CTD streams and
+the DO were all identical. Confirm from the OOI site: <code class="docutils literal notranslate"><span class="pre">corrected_dissolved_oxygen</span></code> from
+the CTD file is science-ready data.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keys-for-shallow-profile-sensor-data">Keys for shallow profile sensor data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-library-installations">Python library installations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordering-data">ordering data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shallow-profiler-data-variable-names-of-interest-by-instrument-sensor">Shallow profiler data variable names of interest by instrument/sensor</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen">Dissolved Oxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitrate">nitrate</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitratedark">nitratedark</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fluorometer">fluorometer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pco2">pco2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ph">ph</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#par">par</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-that-the-csv-profile-table-selects-ascent-data-properly">Verify that the CSV profile table selects ascent data properly</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen-note">Dissolved Oxygen note</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

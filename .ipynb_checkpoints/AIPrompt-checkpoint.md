@@ -14,7 +14,7 @@ document states some goals and records progress. New CA sessions can get up to s
 by scanning this context.
 
 
-## Introduction for a coding agent (aka coding assistant)
+## Introduction for a coding agent (aka coding assistant (CA))
 
 
 This effort concerns organizing oceanography data starting with the
@@ -41,9 +41,8 @@ standalone or in an IPython notebook cell.
 The CA is directed to scan this document in its entirety. 
 
 
-The penultimate heading is **Pending ideas**. This section is not a CA prompt; it is
-notes I want to have on hand for developing later propmts.
-
+The penultimate heading is **Pending**. This section is not a CA prompt; it is
+notes for later propmts.
 
 
 The final prompt in this file is found at the bottom of the file under 
@@ -59,6 +58,95 @@ meta-prompt, for example:
 
 As a **Next** prompt is resolved (often with some iteration) the prompt text is
 typically integrated into the body of the document; with a new **Next** prompt to follow.
+
+
+## Glossary
+
+
+shallow profiler, profile: A *shallow profiler* is a positively buoyant pod-shaped 
+structure roughly two meters in diameter moored in the ocean at 200m depth to a holding 
+platform by means of a cable wrapped about a spool. Under normal operating conditions
+a winch unwinds the cable over the course of about 45 minutes. As the cable 
+spools out the shallow profiler floats upward, typically to 20 meters of the surface.
+Once it reaches the apex of this ascent the process is reversed and the pod returns to 
+its resting location on the holding platform at a depth of 200 meters. During this 
+ascent/descent profiling process several attached sensors record data. Each ascent/descent 
+cycle is a *profile*. There are nine planned profiles per day, two of which at local
+noon and local midnight feature a slower descent to permit certain sensors to better 
+equilibrate (notably pH and pCO2).
+
+
+Midnight profile: One of two extended profiles during any given day, running at local midnight
+
+
+Noon profile: One of two extended profiles during any given day, running at local noon
+
+
+profile chart: Sensor data from a profile is often represented as a 2D *profile chart*.
+The x-axis is the sensor value and the y-axis is depth. For a shallow profiler the
+depth range runs from 200 meters at the bottom to 0 meters at the top of the chart.
+
+
+bundle: A set of profiles considered collectively is often referred to as a *bundle*.
+Most commonly the profiles in a bundle are consecutive in time. However a bundle may
+be assembled using other criteria, for example profiles acquired at noon on consecutive
+days.
+
+
+bundle chart: A profile chart containing multiple profiles, i.e. a bundle. In this 
+Jupyter book bundle charts can be changed dynamically by means of two sliders: The
+first corresponding to the first profile of the bundle and the second corresponding
+to how many profiles are in the bundle. 
+
+
+curtain plot: A static chart of sensor data for many consecutive profiles as follows:
+The horizontal axis is time, typically months to years. The vertical axis is depth as 
+described for bundle charts. Sensor data is encoded using a colormap. This places 
+consecutive profiles as adjacent vertical lines of color in the curtain plot. Curtain
+plots are good for showing trends in sensor data with depth that develop over seasonal
+time frames. 
+
+
+redux: Data from shallow profiles represent snapshots of the upper water column; placed
+in the OOI data archive with the idea that they can be recovered or brought back for 
+further analysis. `redux` meaning `brought back` is an identifying label used in folder
+labels for shallow profiler (and other platform) data that has been brought back for
+analysis. 
+
+
+shard: A *shard* is a NetCDF data file containing observational data from a single sensor 
+(raster or vector) from a single profile. The name comes from the origin data files 
+that typically cover multiple sensors over many days and hence many profiles.
+
+
+red zone ('the challenge of the last 20 yards'): A sub-project with the objective being
+to aggregate and organize OOI data for scientific analysis.
+- In particular I may use *red zone format* to mean 'data ready for scientific analysis'.
+- As a synonymous term I introduce the term 'Interpretable Data' abbreviated ID
+- A second synonymous term: `redux` data
+    - These are sensor profiles written as individual NetCDF files.
+    - The term `redux` is intended to evoke *revived* from the compound OOINET files to a form of ID
+
+
+umbrella: A sub-project of this work with the objective being to extend the interpretable data from
+the initial simple case (temperature profiles as a function of depth over several weeks)...
+    - extending in time over the full duration of the OOI
+    - extending to other scalar sensor types (PAR, pCO2, chlorophyll fluorescence, etc)
+    - extending to vector sensor types (velocity, spectral irradiance, spectrophotometer sensors)
+    - extending to specialized OOI sensors (sonar, ADCP)
+    - extending to additional shallow profiler sites: From Oregon Slope Base to Oregon Offshore and Axial Seamount
+    - extending to data beyond OOI
+        - circulation models such as ROMS
+        - NOAA NDBC surface buoy data
+        - ARGO biogeochemical drifters
+        - satellite remote sensing: sea surface temperature, surface chlorophyll, mean sea level anomaly
+        - in situ gliders
+        - referential data compilations: BCO DMO, GLODAP
+
+
+
+- `SensorInformation.md` is a supporting document relating native datafile structure to red zone format.
+- `ShallowProfiler.ipynb` is a supporting document in the same vein
 
 
 ## A sketch of the initial workflow
@@ -101,19 +189,12 @@ Breakdown of this filename:
 - `.nc` indicates file format is NetCDF
 
 
-This data file bundles many sensors plus engineering and quality control data. It includes data from
-157 ascents of the shallow profiler profile in addition to data from descents and rest intervals.
-In short the file is very overloaded and -- perhaps -- can be overwhelming to think about, particularly
-since there are another ten-or-so sensor types in addition to the four sensors built into the 
-shallow profiler CTD, namely temperature, dissolved oxygen, density, and salinity (in relation to
-depth).
-
-
-The shallow profiler ascends from its docking platform at 200 meters depth to near the surface. 
-Data in this file are chronological.
-
-
-Note this file covers a period of time in 2018. It will prove convenient to compartmentalize data by year.
+This data file combines together multiple sensors plus associated engineering and quality 
+control data. This example includes data from 157 ascents of the shallow profiler profile in 
+addition to data from descents and rest intervals. In short the file is a dense amalgam of
+information that can be overwhelming to work with. Note this file covers a period of time 
+in 2018. It will prove convenient to break up these files by sensor and by individual
+profile (herein 'sharding') and to compartmentalize sharded data by year.
 
 
 ### Task 2: Data Sharding
@@ -171,23 +252,6 @@ with season, possible sensor artifacts, and so on.
 ## Special terminology
 
 
-- Red Zone ('the challenge of the last 20 yards'): Aggregate and organize OOI data for scientific analysis.
-    - In particular I may use *red zone format* to mean 'data ready for scientific analysis'.
-    - As a synonymous term I introduce the term 'Interpretable Data' abbreviated ID
-    - A second synonymous term: `redux` data
-        - These are sensor profiles written as individual NetCDF files.
-        - The term `redux` is intended to evoke *revived* from the compound OOINET files to a form of ID
-- Umbrella: The notion of extending the interpretable data
-    - The first expansion is to other sensor types (for example PAR, pCO2, etc)
-    - The second expansion is to specialized instruments in OOI (sonar, spectrophotometers)
-    - The third expansion is from the Slope Base site to other sites
-    - The fourth expansion is data from other programs: Models, surface buoy data, ARGO, satellite remote sensing, gliders and so on
-- Bundle plot: Returning to the shallow profiler: Multiple profiles from a sensor displayed together as a bundle
-    - This might potentially include a stride; for example "only noon profiles"
-- Midnight profile: One of two extended profiles during any given day, running at local midnight
-- Noon profile: One of two extended profiles during any given day, running at local noon
-- `SensorInformation.md` is a supporting document relating native datafile structure to red zone format.
-- `ShallowProfiler.ipynb` is a supporting document in the same vein
     
 
 ## Reference websites
@@ -891,53 +955,93 @@ re-starting after only partial completion. Here is the functionality description
 
 
 
-## Expand sensor list to 4: temperature, salinity, density, dissolved oxygen
+## The Sensor Table
     
     
-It is time to start diversifying sensor types from one (temperature) to four. This means
-a rewrite of the Jupyter cell code to shard source datafiles to `redux<yyyy>` folders. 
+We now define the sensor table as a comprehensive list of sensor types for the shallow 
+profiler. For the moment this resides in this file; but will eventually be written as
+a standalone CSV file. 
     
     
-Since we are adding three types of sensor: We begin by showing input data variable 
-names and corresponding redux data variable names for all four:
+Premise: Jupyter cell code in the `DataSharding.ipynb` notebook shards multiple types of 
+source 'instrument' NetCDF datafiles to produce single-sensor shard files, one file
+per profile. Shards are written into folders spanning single years; with folder names
+`~/redux<yyyy>` where `<yyyy>` is a four-digit year. In the course of going from 
+complicated instrument file to much simpler/smaller shard files to visualizations to
+analysis we need consistent metadata; so the sensor table localizes that metadata
+to a single resource.
     
     
-sea_water_temperature                      -->    temperature
-sea_water_practical_salinity               -->    salinity                    
-sea_water_density                          -->    density           
-do_fast_sample-corrected_dissolved_oxygen  -->    dissolvedoxygen
+Sensors correspond to rows of the sensor table, eventually to be written as a CSV file.
+Not included in the sensor table are `time` and `depth`: These are ancillary data: 
+`time` as dimension/coordinate and `depth` as data variable (XArray terminology).
     
     
-The code should attempt to do all four types by checking for the existence of an
-output file first. If the output file already exists: Do not attempt to write the 
-profile. 
+Here is the sensor table column information, columns going left to right.
+Format: column content, short column name, some elaboration
+
+
+- sensor name,          sensor,  a descriptive "normal text" name
+- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF FLORT
+- ooinet download key,  key,     short abbreviation of sensor name used in download folder names
+- sensor data variable, datavar, for the science data variable e.g. `sea_water_temperature`
+- shard data variable,  shard,   the sensor shard name is used in `redux` shard files e.g. `RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc`
+- acquisition side:     side,    `ascent` or `descent` (mostly ascent; pCO2 and pH are the notable descending acquisitions)
+- data extreme low,     xlow,    well below the expected data minimum
+- data extreme high,    xhigh,   well above the expected data maximum
 
     
-The output folders are `~/redux<yyyy>`.
+Sensor table:
+    
+```
+sensor,         instrum,  key,  datavar,                             shard,           side,     xlow,  xhigh
+temperature,      CTDPF,  ctd,  sea_water_temperature,               temperature,     ascent,    6.0,   20.0
+salinity,         CTDPF,  ctd,  sea_water_practical_salinity,        salinity,        ascent,   32.0,   36.0
+density,          CTDPF,  ctd,  sea_water_density,                   density,         ascent, 1024.0, 1028.0
+dissolved oxygen, CTDPF,  ctd,  corrected_dissolved_oxygen,          dissolvedoxygen, ascent,   50.0,  300.0
+nitrate,          NITNR, nitr,                     ,                 nitrate,         ascent,    ???,    ???
+CDOM,             FLORT, flor,  fluorometric_cdom,                   cdom,            ascent,    0.5,    4.5
+Chlorophyll-A,    FLORT, flor,  fluorometric_chlorophyll_a,          chlora,          ascent,    0.0,    1.5
+backscatter,      FLORT, flor,  optical_backscatter,                 backscatter,     ascent,    0.0,    0.006
+pCO2,             PCO2W, pco2,    ?,                                 pco2,           descent,  200.0, 1200.0
+pH,               PHSEN,   ph,    ?,                                 ph,             descent,    7.6,    8.2
+PAR,              PARAD,  par,    ?,                                 par,             ascent,    ???,    ???
+velocity,         VELPT,  vel,    ?,                                 vel,             ascent,    ???,    ???
+spectralirrad,    SPKIR,  irr,    ?,                                 irr,             ascent,    ???,    ???
+opticalabsorb,    OPTAA,   oa,
+beamattenuation,  OPTAA,   ba,
+```
+    
+Unless noted each sensor is *scalar* (single numerical value per sample). The four exceptions
+are `velocity`, `spectral irradiance`, `optical absorption` and `beam attenuation`. The latter
+two sensors are both produced by a spectrophotometer (OPTAA).
+
+
+## Sharding and shard files
+    
+    
+The shard code inventory output files to avoid reproducing effort. As noted shard folders are `~/redux<YYYY>`.
 
     
-The filename format for each redux profile `.nc` file is slightly different than before, as follows:
+The filename format for each shard (profile) `.nc` file:
     
     
-- The filename format will be `AAA_SSS_TTT_BBB_YYYY_DDD_PPPPP_Q_VVVV.nc`
-    - These are to be filled in as follows for now:
-        - AAA  = Array name: Using `RCA` for Regional Cabled Array
-        - SSS  = Site: Using `sb` for Oregon Slope Base
-        - TTT  = Platform: Use `sp` for shallow profiler
-        - BBB  = Observation type, one of:
-            - `temperature` for temperature
-            - `salinity` for salinity
-            - `density` for density
-            - `dissolvedoxygen` for dissolved oxygen
-        - YYYY  = four digit year
-        - DDD   = three digit Julian day as in 027 for January 27
-        - PPPPP = Profile index drawn from the `profileIndices` tables
-        - Q     = This profile's index relative to the data acquisition day: a number from 1 to 9
-        - VVV   = Version number: Use `V1`
+- Nine name fields: `AAA_SSS_TTT_BBB_YYYY_DDD_PPPPP_Q_VVVV.nc`
+    - AAA  = Array name: Using `RCA` for Regional Cabled Array
+    - SSS  = Site: `sb` for (Oregon) Slope Base
+    - TTT  = Platform: `sp` for shallow profiler
+    - BBB  = Sensor type; the shard name taken from the sensor table:
+        - `dissolvedoxygen` for dissolved oxygen
+    - YYYY  = four digit year of this profile
+    - DDD   = three digit Julian day of this profile
+    - PPPPP = Global profile index from the `profileIndices` resource
+    - Q     = Day-relative profile: a number from 1 to 9
+    - VVV   = Version label: Initially `V1`
     
     
-For input: The code checks all source folders, named by year `2014_ctd`, `2015_ctd` etcetera through `2026_ctd`.
-These are in the base location `~/ooidata/rca/sb/scalar/`. 
+Instrument input folders by year: `2014_ctd`, `2015_ctd` etcetera through `2026_ctd`.
+These are in the base location `~/ooidata/rca/sb/scalar/`. These files are downloaded
+from OOI using code in the `DataDownload.ipynb` notebook. 
 
 
     
@@ -1145,6 +1249,7 @@ The std render is not correct.
 
 ## Shard rewrite
     
+    
 The `DataSharding.ipynb` primary sharding cell was rewritten. It generalizes instruments to include both
 CTDPF and FLORT instruments (source files). The SENSOR_MAP is also expanded with key information: 
 
@@ -1167,59 +1272,7 @@ It is time to revisit Visualization, specifically bundle charts. We now have sev
 nitrate pending. 
     
 
-In passing: 
-Organize the sensors as a sensor table in a CSV file: Describe the sensor array for
-shallow profilers. Not included in this table are `time` and `depth`: These are always 
-ancillary data: `time` as dimension/coordinate and `depth` as data variable.
-    
-    
-For the subsequent table here is { column content (left to right), short column name, elaboration }:
 
-
-- sensor name,          sensor,  a descriptive "normal text" name
-- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF FLORT
-- ooinet download key,  key,     short abbreviation of sensor name used in download folder names
-- sensor data variable, datavar, for the science data variable e.g. `sea_water_temperature`
-- shard data variable,  shard,   used in `redux` shard files e.g. `RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc`
-- acquisition side:     side,    `ascent` or `descent`
-- data extreme low,     xlow,    well below the expected data minimum
-- data extreme high,    xhigh,   well above the expected data maximum
-
-    
-Sensor table:
-    
-```
-sensor,         instrum,  key,  datavar,                             shard,           side,     xlow,  xhigh
-temperature,      CTDPF,  ctd,  sea_water_temperature,               temperature,     ascent,    6.0,   20.0
-salinity,         CTDPF,  ctd,  sea_water_practical_salinity,        salinity,        ascent,   32.0,   36.0
-density,          CTDPF,  ctd,  sea_water_density,                   density,         ascent, 1024.0, 1028.0
-dissolved oxygen, CTDPF,  ctd,  corrected_dissolved_oxygen,          dissolvedoxygen, ascent,   50.0,  300.0
-nitrate,          NITNR, nitr,                     ,                 nitrate,         ascent,    ???,    ???
-CDOM,             FLORT, flor,  fluorometric_cdom,                   cdom,            ascent,    0.5,    4.5
-Chlorophyll-A,    FLORT, flor,  fluorometric_chlorophyll_a,          chlora,          ascent,    0.0,    1.5
-backscatter,      FLORT, flor,  optical_backscatter,                 backscatter,     ascent,    0.0,    0.006
-pCO2,             PCO2W, pco2,    ?,                                 pco2,           descent,  200.0, 1200.0
-pH,               PHSEN,   ph,    ?,                                 ph,             descent,    7.6,    8.2
-PAR,              PARAD,  par,    ?,                                 par,             ascent,    ???,    ???
-velocity,         VELPT,  vel,    ?,                                 vel,             ascent,    ???,    ???
-spectralirrad,    SPKIR,
-opticalabsorb,    OPTAA,
-beamattenuation,  OPTAA,
-```
-    
-### Notes on the above sensor table
-
-- sensors
-- instruments
-    - OPTAA is a spectrophotometer with two sensors (see above)
-        - This is a vector instrument because the sensors produce more than one value per sample
-        - Specifically we have multiple wavelengths / channels
-- keys
-- data variables
-- shards
-- sides
-- xlow
-- xhigh
 
 ## Visualization: Bundle chart
 
@@ -1337,26 +1390,11 @@ in that the descent stage (between time `peak` and time `end` in profileIndices)
 longer in order to allow for sensor equilibration, specifically for the pCO2 and pH 
 sensors that operate on descent only. 
 
-## Next for Rob (not kiro)
-    
-Logical inconsistencies and areas needing clarification:
-
-Dissolved oxygen variable name inconsistency (lines ~650 vs earlier):
-
-- Earlier: do_fast_sample-corrected_dissolved_oxygen
-- Later in sensor table: corrected_dissolved_oxygen
-- Which is correct? This could cause code failures.
-    
-Profile count calculation confusion (line ~1050):
+## Profile count calculation confusion (line ~1050):
 
 - The diagnostic shows "4394 profiles" for 2015 but then says it should show "578 profiles (3285 possible)"
 - The document correctly identifies this as counting shard files (4 sensors × ~1100 profiles ≈ 4400)
 - But the logic needs clarification: Are you counting unique profiles or total shard files?
-
-Incomplete sensor table:
-
-- Several sensors have ? for critical fields (nitrate datavar, pCO2/pH instrument codes, PAR ranges)
-- This makes the table less useful as a reference
 
 Time zone handling ambiguity:
 
@@ -1393,11 +1431,14 @@ Missing "Next" section:
 Recommendations:
 
 - Create a data dictionary section consolidating all variable names with their exact spellings
-- Add a glossary defining terms like "bundle", "redux", "shard" for new readers
 - Resolve the incomplete sensor table entries
 - Add explicit DST handling (or use pytz/zoneinfo)
 - Clarify the profile counting logic throughout
 - Consider adding a troubleshooting section for common errors
 
     
-The document is quite usable as-is for someone familiar with the project, but these clarifications would make it more robust and easier for others (or future you) to work with.
+## To Do
+
+- revamp animations
+- curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb
+- 

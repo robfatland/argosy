@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Analysis Concepts &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AnalysisConcepts';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Boilerplate</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/ShallowProfiler.html">Temporary holder for bits of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reference/glossary.html">Glossaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FAnalysisConcepts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/AnalysisConcepts.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Analysis Concepts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt">Prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#response">Response</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-orthogonal-function-eof-principal-component-analysis">Empirical Orthogonal Function (EOF) / Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-clustering-of-vertical-profiles">Unsupervised Clustering of Vertical Profiles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-layer-depth-mld-dynamics-with-multi-sensor-validation">Mixed Layer Depth (MLD) Dynamics with Multi-Sensor Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-resolved-anomaly-detection-and-event-characterization">Depth-Resolved Anomaly Detection and Event Characterization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-analysis-of-vertical-structure-evolution">Spectral Analysis of Vertical Structure Evolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-water-column-fingerprinting">Integrated Water Column “Fingerprinting”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-to-spectral-graph-theory">Pivot to spectral graph theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-graph-construction">Core Graph Construction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-time-similarity-graph">Depth-Time Similarity Graph</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-evolution-graph-visibility-graph">Temporal Evolution Graph (Visibility Graph)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-correlation-graph">Sensor Correlation Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-layer-depth-network">Multi-Layer Depth Network</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistent-homology-mapper-algorithm">Persistent Homology + Mapper Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specific-spectral-graph-metrics-for-oceanography">Specific Spectral Graph Metrics for Oceanography</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-implementation-strategy">Recommended Implementation Strategy</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analysis-concepts">
+<h1>Analysis Concepts<a class="headerlink" href="#analysis-concepts" title="Link to this heading">#</a></h1>
+<section id="prompt">
+<h2>Prompt<a class="headerlink" href="#prompt" title="Link to this heading">#</a></h2>
+<p>There are 11 scalar sensors (scalar: one data value per sample) and four vector sensors
+(more than one data value per sample). The total count on the vector side is about 153
+data values per sample. In the shallow profiler framework these sensors can be said
+to instantaneously observe the water column (on a time scale of ten years) across a
+depth range of 180 meters. Hence we have a time axis (10 years), a depth axis, and
+11 scalar + 150 vector values per sample. List some possible approaches to analyzing
+this data with the scientific objective in mind of better characterizing the upper
+water column or epipelagic zone in this part of the northeast Pacific ocean.</p>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Link to this heading">#</a></h2>
+<p>Given the rich multidimensional dataset (time × depth × {11 scalars / 150 vector components)
+spanning 10 years and 180 meters of the epipelagic zone, here are five analytical approaches:</p>
+<section id="empirical-orthogonal-function-eof-principal-component-analysis">
+<h3>Empirical Orthogonal Function (EOF) / Principal Component Analysis<a class="headerlink" href="#empirical-orthogonal-function-eof-principal-component-analysis" title="Link to this heading">#</a></h3>
+<p>Decompose the spatiotemporal variability to identify dominant modes of water column structure.
+This would reveal:</p>
+<ul class="simple">
+<li><p>Primary patterns of vertical stratification and their temporal evolution</p></li>
+<li><p>Coupled behavior between scalar and vector measurements (e.g., how temperature gradients relate to current patterns)</p></li>
+<li><p>Seasonal vs. interannual modes of variability</p></li>
+<li><p>Potential identification of “regime shifts” in the epipelagic zone</p></li>
+<li><p>Implementation: Flatten depth profiles into feature vectors, apply EOF analysis separately to scalars and vectors, then examine correlations between their principal components.</p></li>
+</ul>
+</section>
+<section id="unsupervised-clustering-of-vertical-profiles">
+<h3>Unsupervised Clustering of Vertical Profiles<a class="headerlink" href="#unsupervised-clustering-of-vertical-profiles" title="Link to this heading">#</a></h3>
+<p>Use machine learning (k-means, hierarchical clustering, or Gaussian
+mixture models) to identify distinct “water column states”.</p>
+<ul class="simple">
+<li><p>Classify profiles into categories (e.g., “well-mixed”, “strongly stratified”, “upwelling signature”)</p></li>
+<li><p>Track frequency and duration of each state over the 10-year period</p></li>
+<li><p>Identify transition patterns between states and their environmental drivers</p></li>
+<li><p>Create a “state space” representation showing how the system moves through different configurations</p></li>
+<li><p>Value: This creates an objective taxonomy of epipelagic conditions without assuming functional forms.</p></li>
+</ul>
+</section>
+<section id="mixed-layer-depth-mld-dynamics-with-multi-sensor-validation">
+<h3>Mixed Layer Depth (MLD) Dynamics with Multi-Sensor Validation<a class="headerlink" href="#mixed-layer-depth-mld-dynamics-with-multi-sensor-validation" title="Link to this heading">#</a></h3>
+<p>Since you already looked at TMLD (Temperature Mixed Layer Depth), extend this:</p>
+<ul class="simple">
+<li><p>Calculate MLD using multiple criteria: temperature, density, salinity, dissolved oxygen, fluorescence</p></li>
+<li><p>Quantify agreement/disagreement between different MLD definitions</p></li>
+<li><p>Correlate MLD variations with vector data (current shear, spectral irradiance attenuation)</p></li>
+<li><p>Build predictive models for MLD evolution using lagged correlations with meteorological forcing</p></li>
+<li><p>Novel aspect: The vector sensors (especially spectral data) could reveal bio-optical signatures of mixing events.</p></li>
+</ul>
+</section>
+<section id="depth-resolved-anomaly-detection-and-event-characterization">
+<h3>Depth-Resolved Anomaly Detection and Event Characterization<a class="headerlink" href="#depth-resolved-anomaly-detection-and-event-characterization" title="Link to this heading">#</a></h3>
+<p>Identify and catalog “interesting events” across the 10-year record:</p>
+<ul class="simple">
+<li><p>Upwelling events (temperature, nutrient, chlorophyll signatures)</p></li>
+<li><p>Phytoplankton blooms (fluorescence, backscatter, oxygen supersaturation)</p></li>
+<li><p>Internal wave passages (isopycnal displacement, current oscillations)</p></li>
+<li><p>Storm mixing events (erosion of stratification)</p></li>
+<li><p>Approach: Use multivariate anomaly detection (e.g., isolation forests, autoencoders) trained on “typical” profiles to flag unusual conditions, then manually characterize event types</p></li>
+</ul>
+</section>
+<section id="spectral-analysis-of-vertical-structure-evolution">
+<h3>Spectral Analysis of Vertical Structure Evolution<a class="headerlink" href="#spectral-analysis-of-vertical-structure-evolution" title="Link to this heading">#</a></h3>
+<p>Treat each depth as a time series and apply spectral methods:</p>
+<ul class="simple">
+<li><p>Identify dominant temporal frequencies at each depth (diurnal, tidal, seasonal, interannual)</p></li>
+<li><p>Use wavelet analysis to capture non-stationary periodicities</p></li>
+<li><p>Examine phase relationships between depths (e.g., how surface signals propagate downward)</p></li>
+<li><p>Cross-spectral analysis between scalar and vector components to identify coupled oscillations</p></li>
+<li><p>Insight: This reveals the “memory” of the system at different depths and timescales</p>
+<ul>
+<li><p>e.g., surface layers respond to daily forcing while deeper layers show seasonal patterns.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="integrated-water-column-fingerprinting">
+<h3>Integrated Water Column “Fingerprinting”<a class="headerlink" href="#integrated-water-column-fingerprinting" title="Link to this heading">#</a></h3>
+<p>Create composite indices that integrate multiple sensors:</p>
+<ul class="simple">
+<li><p>Productivity Index: Combine chlorophyll, PAR, nutrients, oxygen</p></li>
+<li><p>Stratification Index: Combine temperature, salinity, density gradients</p></li>
+<li><p>Mixing Intensity: Combine current shear, density stability, backscatter variability</p></li>
+<li><p>Track these indices over time to create a holistic view of epipelagic zone “health” and variability.</p></li>
+</ul>
+<p>AI recommendation: Start with approach clustering: Exploratory, will inform other approaches.
+The clustering results can guide which specific processes (MLD dynamics, events, spectral
+features) deserve deeper investigation. The EOF analysis would be a strong second step
+to understand the dominant modes within each cluster.</p>
+</section>
+</section>
+<section id="pivot-to-spectral-graph-theory">
+<h2>Pivot to spectral graph theory<a class="headerlink" href="#pivot-to-spectral-graph-theory" title="Link to this heading">#</a></h2>
+<p>Polemic: The water column is not just a collection of measurements. It is a dynamical
+system whose structure can be encoded as a graph, where spectral methods reveal
+that structure’s fundamental properties.</p>
+<p>Spectral graph theory naturally handles the multi-scale, multi-sensor
+nature of the data. It doesn’t assume linearity (unlike PCA) and can
+reveal non-obvious relationships. The eigenvalue spectrum provides a
+compact summary of system complexity, and the eigenvectors give you
+interpretable “modes” of water column behavior.</p>
+<section id="core-graph-construction">
+<h3>Core Graph Construction<a class="headerlink" href="#core-graph-construction" title="Link to this heading">#</a></h3>
+<section id="depth-time-similarity-graph">
+<h4>Depth-Time Similarity Graph<a class="headerlink" href="#depth-time-similarity-graph" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Nodes: Each profile (time point) becomes a node</p></li>
+<li><p>Edges: Complete graph with edges weighted by profile similarity</p>
+<ul>
+<li><p>use a kernel function</p>
+<ul>
+<li><p>Gaussian kernel on multivariate distance (all 11 scalars + vector summaries)</p></li>
+<li><p>Edge weight reflects how similar two water column states are</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Spectral Analysis:</p>
+<ul>
+<li><p>Graph Laplacian eigenvalues reveal the intrinsic dimensionality of water column states</p></li>
+<li><p>Fiedler vector (2nd eigenvector) often reveals natural clustering/transitions</p></li>
+<li><p>Spectral clustering identifies coherent regimes more robustly than k-means</p></li>
+<li><p>Diffusion maps embed high-dimensional profiles into low-dimensional manifolds</p></li>
+</ul>
+</li>
+</ul>
+<p>Oceanographic Insight: The eigenvalue spectrum tells you how many “fundamental modes”
+characterize the epipelagic zone. A large spectral gap suggests distinct regimes
+(e.g., summer stratification vs. winter mixing).</p>
+</section>
+</section>
+<section id="temporal-evolution-graph-visibility-graph">
+<h3>Temporal Evolution Graph (Visibility Graph)<a class="headerlink" href="#temporal-evolution-graph-visibility-graph" title="Link to this heading">#</a></h3>
+<p>Construction: Use horizontal visibility graph algorithm on time series of
+integrated metrics (e.g., total water column heat content, integrated chlorophyll)</p>
+<ul class="simple">
+<li><p>Nodes: Time points</p></li>
+<li><p>Edges: Connect time points that are “mutually visible” in the time series</p></li>
+<li><p>Spectral Analysis</p>
+<ul>
+<li><p>Degree distribution reveals temporal complexity (periodic vs. chaotic)</p></li>
+<li><p>Clustering coefficient indicates memory/persistence</p></li>
+<li><p>Spectral entropy quantifies predictability</p></li>
+</ul>
+</li>
+</ul>
+<p>Oceanographic Insight: Distinguishes between regular seasonal cycles and
+chaotic/turbulent periods. High spectral entropy suggests external forcing dominates.</p>
+</section>
+<section id="sensor-correlation-graph">
+<h3>Sensor Correlation Graph<a class="headerlink" href="#sensor-correlation-graph" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Nodes: Each of your 11 scalar + 150 vector components</p></li>
+<li><p>Edges: Weighted by correlation (or mutual information) across all time-depth samples</p></li>
+<li><p>Spectral Analysis:</p>
+<ul>
+<li><p>Community detection identifies groups of co-varying sensors</p></li>
+<li><p>Graph cuts reveal which sensors provide redundant vs. unique information</p></li>
+<li><p>Centrality measures identify “keystone” sensors that capture system state</p></li>
+</ul>
+</li>
+</ul>
+<p>Oceanographic Insight: Discovers emergent relationships (e.g., “bio-optical cluster”,
+“physical stratification cluster”). Could guide sensor prioritization for future deployments.</p>
+<section id="multi-layer-depth-network">
+<h4>Multi-Layer Depth Network<a class="headerlink" href="#multi-layer-depth-network" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Structure: Each depth level is a separate graph layer</p>
+<ul>
+<li><p>Nodes: Time points at each depth Intra-layer</p></li>
+<li><p>Edges: Connect temporally adjacent measurements at the same depth</p></li>
+<li><p>Inter-layer edges: Connect the same time point across depths (vertical coupling)</p></li>
+</ul>
+</li>
+<li><p>Spectral Analysis</p>
+<ul>
+<li><p>Supra-Laplacian captures both temporal evolution and vertical coupling</p></li>
+<li><p>Eigenvectors reveal depth-dependent temporal patterns</p></li>
+<li><p>Can identify depths that are strongly coupled vs. decoupled</p></li>
+<li><p>Algebraic connectivity quantifies vertical coherence</p></li>
+</ul>
+</li>
+</ul>
+<p>Oceanographic Insight: Reveals how surface forcing propagates downward,
+identifies the pycnocline as a “bottleneck” in the graph structure.</p>
+</section>
+</section>
+<section id="persistent-homology-mapper-algorithm">
+<h3>Persistent Homology + Mapper Algorithm<a class="headerlink" href="#persistent-homology-mapper-algorithm" title="Link to this heading">#</a></h3>
+<p>Hybrid approach: Use Mapper to create a graph representation of the high-dimensional data manifold Process:</p>
+<ul class="simple">
+<li><p>Project data to 2-3D using PCA or diffusion maps</p></li>
+<li><p>Cover the projection with overlapping bins</p></li>
+<li><p>Cluster data within each bin</p></li>
+<li><p>Create graph where nodes are clusters, edges connect overlapping clusters</p></li>
+<li><p>Spectral Analysis:</p>
+<ul>
+<li><p>Standard graph spectral methods on the resulting Mapper graph</p></li>
+<li><p>Persistent homology tracks topological features (loops, voids) across scales</p></li>
+</ul>
+</li>
+</ul>
+<p>Oceanographic Insight: Reveals the “shape” of your data - e.g., does the epipelagic
+zone cycle through states in a loop (seasonal), or explore a more complex manifold?</p>
+</section>
+<section id="specific-spectral-graph-metrics-for-oceanography">
+<h3>Specific Spectral Graph Metrics for Oceanography<a class="headerlink" href="#specific-spectral-graph-metrics-for-oceanography" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Algebraic Connectivity (Fiedler Value)</p>
+<ul>
+<li><p>Measures how “well-connected” the water column is</p></li>
+<li><p>Low values → strong stratification (surface decoupled from depth)</p></li>
+<li><p>High values → well-mixed conditions</p></li>
+</ul>
+</li>
+<li><p>Spectral Gap</p>
+<ul>
+<li><p>Large gap → distinct regimes (e.g., upwelling vs. non-upwelling)</p></li>
+<li><p>Small gap → continuous gradation of states</p></li>
+</ul>
+</li>
+<li><p>Heat Kernel Signature</p>
+<ul>
+<li><p>Characterizes each profile by how “information” diffuses through the graph</p></li>
+<li><p>Profiles with similar signatures are dynamically similar even if instantaneously different</p></li>
+</ul>
+</li>
+<li><p>Graph Fourier Transform</p>
+<ul>
+<li><p>Decompose spatial (depth) patterns into “graph frequencies”</p></li>
+<li><p>Low frequencies = large-scale vertical structure</p></li>
+<li><p>High frequencies = fine-scale features (e.g., thin layers)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="recommended-implementation-strategy">
+<h3>Recommended Implementation Strategy<a class="headerlink" href="#recommended-implementation-strategy" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Start with Depth-Time Similarity Graph</p>
+<ul>
+<li><p>Construct graph with ~3,000-9,000 nodes (daily profiles over 10 years)</p></li>
+<li><p>Compute Laplacian eigenspectrum</p></li>
+<li><p>Apply spectral clustering to identify regimes</p></li>
+<li><p>Visualize using diffusion map embedding</p></li>
+</ul>
+</li>
+<li><p>Progress to the Sensor Correlation Graph (SCG)</p>
+<ul>
+<li><p>Identify sensor communities</p></li>
+<li><p>Use this to create “super-nodes” (sensor groups) for a reduced representation</p></li>
+</ul>
+</li>
+<li><p>Integrate this with the Multi-Layer Depth Network</p>
+<ul>
+<li><p>Examine how spectral properties change with depth</p></li>
+<li><p>Identify critical depths where graph structure changes</p></li>
+</ul>
+</li>
+<li><p>Software Tools</p>
+<ul>
+<li><p>NetworkX (Python): General graph analysis</p></li>
+<li><p>graph-tool (Python): Fast spectral methods for large graphs</p></li>
+<li><p>PyGSP (Python): Graph signal processing, includes graph Fourier transforms</p></li>
+<li><p>giotto-tda (Python): Persistent homology and Mapper</p></li>
+<li><p>igraph (R/Python): Efficient community detection</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt">Prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#response">Response</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-orthogonal-function-eof-principal-component-analysis">Empirical Orthogonal Function (EOF) / Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-clustering-of-vertical-profiles">Unsupervised Clustering of Vertical Profiles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-layer-depth-mld-dynamics-with-multi-sensor-validation">Mixed Layer Depth (MLD) Dynamics with Multi-Sensor Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-resolved-anomaly-detection-and-event-characterization">Depth-Resolved Anomaly Detection and Event Characterization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-analysis-of-vertical-structure-evolution">Spectral Analysis of Vertical Structure Evolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-water-column-fingerprinting">Integrated Water Column “Fingerprinting”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-to-spectral-graph-theory">Pivot to spectral graph theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-graph-construction">Core Graph Construction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-time-similarity-graph">Depth-Time Similarity Graph</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-evolution-graph-visibility-graph">Temporal Evolution Graph (Visibility Graph)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-correlation-graph">Sensor Correlation Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-layer-depth-network">Multi-Layer Depth Network</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistent-homology-mapper-algorithm">Persistent Homology + Mapper Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specific-spectral-graph-metrics-for-oceanography">Specific Spectral Graph Metrics for Oceanography</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-implementation-strategy">Recommended Implementation Strategy</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

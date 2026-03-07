@@ -1,0 +1,112 @@
+Traceback (most recent call last):
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+This code intentionally disabled until revisited with intent.
+
+"""
+Generate CSV file tracking CTD temperature profile status for OOI RCA Slope Base shallow profiler.
+Creates rca_sb_ctd_temp_profile_status.csv with daily profile availability (2014-2025).
+"""
+
+import csv
+import datetime
+from pathlib import Path
+
+def is_leap_year(year):
+    """Check if year is a leap year."""
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+def get_days_in_year(year):
+    """Get number of days in year."""
+    return 366 if is_leap_year(year) else 365
+
+def julian_to_date(year, julian_day):
+    """Convert Julian day to dd-MON-yyyy format."""
+    date = datetime.datetime(year, 1, 1) + datetime.timedelta(days=julian_day - 1)
+    return date.strftime("%d-%b-%Y").upper()
+
+def generate_profile_status_csv():
+    """Generate the profile status CSV file."""
+    
+    output_file = Path("rca_sb_ctd_temp_profile_status.csv")
+    
+    # Define year range
+    start_year = 2014
+    end_year = 2025
+    
+    # Column headers
+    headers = ['year', 'julian_day', 'date', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Total', 'Noon', 'Midnight']
+    
+    total_days = 0
+    total_profiles = 0
+    
+    with open(output_file, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        
+        # Write headers
+        writer.writerow(headers)
+        
+        # Generate rows for each year
+        for year in range(start_year, end_year + 1):
+            days_in_year = get_days_in_year(year)
+            
+            for julian_day in range(1, days_in_year + 1):
+                date_str = julian_to_date(year, julian_day)
+                
+                # Initialize profile columns (1-9) as 0 (will be populated when processing actual data)
+                profiles = [0] * 9
+                
+                # Calculate totals
+                total_profiles_day = sum(profiles)
+                
+                # Placeholder values for noon and midnight profile indices
+                noon_profile = 0  # Will be determined from actual profile timing
+                midnight_profile = 0  # Will be determined from actual profile timing
+                
+                # Write row
+                row = [year, julian_day, date_str] + profiles + [total_profiles_day, noon_profile, midnight_profile]
+                writer.writerow(row)
+                
+                total_days += 1
+                total_profiles += total_profiles_day
+    
+    # Print diagnostics
+    print(f"Generated {output_file}")
+    print(f"Total days: {total_days}")
+    print(f"Date range: {start_year} - {end_year}")
+    print(f"Years covered: {end_year - start_year + 1}")
+    print(f"Current mean profiles per day: {total_profiles / total_days:.2f}")
+    print(f"Expected profiles per day when populated: 9")
+    print(f"File ready for population with actual profile data")
+
+if __name__ == "__main__":
+    generate_profile_status_csv()
+------------------
+
+[0;36m  Cell [0;32mIn[6], line 1[0;36m[0m
+[0;31m    This code intentionally disabled until revisited with intent.[0m
+[0m         ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+SyntaxError: invalid syntax (779943982.py, line 1)
+

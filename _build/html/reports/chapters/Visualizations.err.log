@@ -1,0 +1,385 @@
+Traceback (most recent call last):
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import matplotlib.pyplot as plt
+import xarray as xr
+from pathlib import Path
+import ipywidgets as widgets
+from IPython.display import display
+import numpy as np
+from datetime import datetime, timedelta
+
+def get_input_with_default(prompt, default):
+    """Get user input with default value."""
+    response = input(f"{prompt} ").strip()
+    return response if response else str(default)
+
+# Sensor configuration
+SENSORS = {
+    'temperature': {'low': 7.0, 'high': 20.0, 'units': '°C', 'color': 'red'},
+    'salinity': {'low': 32.0, 'high': 34.0, 'units': 'PSU', 'color': 'blue'},
+    'density': {'low': 1024.0, 'high': 1028.0, 'units': 'kg/m³', 'color': 'black'},
+    'dissolvedoxygen': {'low': 50.0, 'high': 300.0, 'units': 'µmol/kg', 'color': 'cyan'},
+    'cdom': {'low': 0.0, 'high': 2.5, 'units': 'ppb', 'color': 'brown'},
+    'chlora': {'low': 0.0, 'high': 1.5, 'units': 'µg/L', 'color': 'green'},
+    'backscatter': {'low': 0.0, 'high': 0.002, 'units': 'm⁻¹sr⁻¹', 'color': 'gray'}
+}
+
+# Get year range
+start_year = int(get_input_with_default("Start year (default 2015):", "2015"))
+end_year = int(get_input_with_default("End year (default 2016):", "2016"))
+
+print(f"\nScanning redux folders from {start_year} to {end_year}...")
+available_years = []
+for year in range(start_year, end_year + 1):
+    redux_dir = Path(f"~/redux{year}").expanduser()
+    if redux_dir.exists():
+        profile_count = len(list(redux_dir.glob("*.nc")))
+        if profile_count > 0:
+            print(f"  redux{year}: {profile_count} profiles")
+            available_years.append(year)
+
+if not available_years:
+    print("No years found")
+else:
+    print(f"\nUsing years: {available_years}")
+    
+    # Select number of sensors
+    num_sensors = int(get_input_with_default("How many sensors to plot? (1 or 2, default 2):", "2"))
+    
+    selected_sensors = []
+    sensor_configs = []
+    
+    # Select sensors
+    for i in range(num_sensors):
+        print(f"\nSensor {i+1} - Available types:")
+        for idx, sensor in enumerate(SENSORS.keys(), 1):
+            print(f"  {idx}. {sensor}")
+        
+        default_choice = 1 if i == 0 else 2
+        sensor_choice = input(f"Select sensor {i+1} (1-7, default {default_choice}): ").strip()
+        sensor_idx = int(sensor_choice) if sensor_choice else default_choice
+        selected_sensor = list(SENSORS.keys())[sensor_idx - 1]
+        
+        selected_sensors.append(selected_sensor)
+        sensor_configs.append({
+            'name': selected_sensor, 
+            'low': SENSORS[selected_sensor]['low'], 
+            'high': SENSORS[selected_sensor]['high'], 
+            'units': SENSORS[selected_sensor]['units'],
+            'color': SENSORS[selected_sensor]['color'],
+            'mode': 'bundle'
+        })
+        
+        print(f"  Selected: {selected_sensor}")
+    
+    # Load profile files for each sensor
+    all_profile_files = {}
+    for sensor in selected_sensors:
+        profile_files = []
+        for year in available_years:
+            redux_dir = Path(f"~/redux{year}").expanduser()
+            year_files = sorted(list(redux_dir.glob(f"*_{sensor}_*.nc")))
+            profile_files.extend(year_files)
+        all_profile_files[sensor] = profile_files
+        print(f"\n{sensor}: {len(profile_files)} profiles")
+    
+    # Use the sensor with most profiles for indexing
+    max_profiles = max(len(files) for files in all_profile_files.values())
+    
+    if max_profiles == 0:
+        print("No profiles found")
+    else:
+        def extract_profile_info(filename):
+            """Extract year, day, and profile number from filename."""
+            parts = filename.stem.split('_')
+            year = int(parts[4])
+            doy = int(parts[5])
+            profile_num = int(parts[7])
+            return year, doy, profile_num
+        
+        def check_time_gap(files, start_idx, end_idx):
+            """Check if there's a >2 day gap between consecutive profiles."""
+            if len(files) == 0 or start_idx >= len(files):
+                return False
+            for i in range(start_idx, min(end_idx - 1, len(files) - 1)):
+                parts1 = files[i].stem.split('_')
+                parts2 = files[i + 1].stem.split('_')
+                
+                year1, doy1 = int(parts1[4]), int(parts1[5])
+                year2, doy2 = int(parts2[4]), int(parts2[5])
+                
+                date1 = datetime(year1, 1, 1) + timedelta(days=doy1 - 1)
+                date2 = datetime(year2, 1, 1) + timedelta(days=doy2 - 1)
+                
+                if (date2 - date1).days > 2:
+                    return True
+            return False
+        
+        def plot_bundle(nProfiles, index0, low1, high1, mode1, low2=None, high2=None, mode2=None):
+            """Plot a bundle of consecutive profiles."""
+            
+            if nProfiles == 0:
+                plt.figure(figsize=(10, 8))
+                plt.text(0.5, 0.5, 'Select nProfiles > 0', ha='center', va='center', transform=plt.gca().transAxes)
+                plt.show()
+                return
+            
+            start_idx = index0 - 1
+            end_idx = min(start_idx + nProfiles, max_profiles)
+            
+            if start_idx >= max_profiles:
+                plt.figure(figsize=(10, 8))
+                plt.text(0.5, 0.5, f'Index {index0} exceeds available profiles', ha='center', va='center', transform=plt.gca().transAxes)
+                plt.show()
+                return
+            
+            # Update sensor configs with slider values
+            sensor_configs[0]['low'] = low1
+            sensor_configs[0]['high'] = high1
+            sensor_configs[0]['mode'] = mode1
+            if num_sensors == 2:
+                sensor_configs[1]['low'] = low2
+                sensor_configs[1]['high'] = high2
+                sensor_configs[1]['mode'] = mode2
+            
+            # Create figure
+            fig, ax1 = plt.subplots(figsize=(12, 8))
+            
+            # Create second axis if needed
+            if num_sensors == 2:
+                ax2 = ax1.twiny()
+                axes = [ax1, ax2]
+            else:
+                axes = [ax1]
+            
+            # Check for time gap
+            first_sensor_files = all_profile_files[selected_sensors[0]]
+            has_time_gap = check_time_gap(first_sensor_files, start_idx, end_idx)
+            
+            # Plot each sensor
+            for sensor_idx, (sensor, config, ax) in enumerate(zip(selected_sensors, sensor_configs, axes)):
+                profile_files = all_profile_files[sensor]
+                
+                if config['mode'] == 'bundle':
+                    # Plot individual profiles
+                    for i in range(start_idx, min(end_idx, len(profile_files))):
+                        try:
+                            ds = xr.open_dataset(profile_files[i])
+                            sensor_data = ds[sensor].values
+                            depth = ds['depth'].values
+                            
+                            valid_mask = ~(np.isnan(sensor_data) | np.isnan(depth))
+                            if np.any(valid_mask):
+                                data_clean = sensor_data[valid_mask]
+                                depth_clean = depth[valid_mask]
+                                ax.plot(data_clean, depth_clean, '-', color=config['color'], markersize=1, alpha=0.6, linewidth=1)
+                        except Exception:
+                            continue
+                else:
+                    # Calculate mean and std
+                    depth_grid = np.linspace(0, 200, 200)
+                    interpolated_data = []
+                    
+                    for i in range(start_idx, min(end_idx, len(profile_files))):
+                        try:
+                            ds = xr.open_dataset(profile_files[i])
+                            sensor_data = ds[sensor].values
+                            depth = ds['depth'].values
+                            
+                            valid_mask = ~(np.isnan(sensor_data) | np.isnan(depth))
+                            if np.any(valid_mask) and len(depth[valid_mask]) > 1:
+                                depth_clean = depth[valid_mask]
+                                data_clean = sensor_data[valid_mask]
+                                
+                                # Sort by depth (ascending) for interpolation
+                                sort_idx = np.argsort(depth_clean)
+                                depth_sorted = depth_clean[sort_idx]
+                                data_sorted = data_clean[sort_idx]
+                                
+                                interp_data = np.interp(depth_grid, depth_sorted, data_sorted, left=np.nan, right=np.nan)
+                                
+                                if np.any(~np.isnan(interp_data)):
+                                    interpolated_data.append(interp_data)
+                        except Exception:
+                            continue
+
+                    # Need at least 2 profiles to calculate std
+                    if len(interpolated_data) >= 2:
+                        data_array = np.array(interpolated_data)
+                        
+                        # Count valid (non-NaN) values at each depth
+                        valid_counts = np.sum(~np.isnan(data_array), axis=0)
+                        
+                        # Only calculate stats where we have at least 2 valid values
+                        if np.any(valid_counts >= 2):
+                            # Only compute mean/std for depths with enough data
+                            mask = valid_counts >= 2
+                            mean = np.full(len(depth_grid), np.nan)
+                            std = np.full(len(depth_grid), np.nan)
+                            
+                            mean[mask] = np.nanmean(data_array[:, mask], axis=0)
+                            std[mask] = np.nanstd(data_array[:, mask], axis=0)
+                            
+                            # Only plot where we have valid mean
+                            valid = ~np.isnan(mean)
+                            if np.any(valid):
+                                ax.plot(mean[valid], depth_grid[valid], '-', color='black', linewidth=3)
+                                ax.plot((mean + std)[valid], depth_grid[valid], '-', color='black', linewidth=1, alpha=0.7)
+                                ax.plot((mean - std)[valid], depth_grid[valid], '-', color='black', linewidth=1, alpha=0.7)
+                    elif len(interpolated_data) == 1:
+                        # Only one profile, just plot it as mean without std
+                        data_array = np.array(interpolated_data)
+                        mean = data_array[0]
+                        valid = ~np.isnan(mean)
+                        if np.any(valid):
+                            ax.plot(mean[valid], depth_grid[valid], '-', color='black', linewidth=3)
+                            
+                            
+                # Set up axes
+                ax.set_xlabel(f'{config["name"].capitalize()} ({config["units"]})', fontsize=12, color=config['color'])
+                ax.set_xlim(config['low'], config['high'])
+                ax.tick_params(axis='x', labelcolor=config['color'])
+                
+                if sensor_idx == 1:
+                    ax.xaxis.set_label_position('top')
+            
+            # Set y-axis on primary axis
+            ax1.set_ylabel('Depth (m)', fontsize=12)
+            ax1.set_ylim(200, 0)
+            ax1.grid(True, alpha=0.3)
+            
+            # Add Time Gap warning
+            if has_time_gap:
+                ax1.text(0.95, 0.05, 'Time Gap', transform=ax1.transAxes,
+                       fontsize=20, fontweight='bold', ha='right', va='bottom',
+                       bbox=dict(boxstyle='round', facecolor='white', edgecolor='black', linewidth=2))
+            
+            # Title
+            if len(first_sensor_files) > start_idx:
+                first_year, first_doy, first_profile = extract_profile_info(first_sensor_files[start_idx])
+                last_idx = min(end_idx - 1, len(first_sensor_files) - 1)
+                last_year, last_doy, last_profile = extract_profile_info(first_sensor_files[last_idx])
+                title = f'{first_year}-{first_doy:03d}-{first_profile} to {last_year}-{last_doy:03d}-{last_profile}'
+                fig.suptitle(title, fontsize=14)
+            
+            plt.tight_layout()
+            plt.show()
+        
+        # Create interactive widgets
+        nProfiles_slider = widgets.IntSlider(value=1, min=0, max=180, step=1, description='nProfiles:', continuous_update=False)
+        index0_slider = widgets.IntSlider(value=1, min=1, max=max_profiles, step=1, description='index0:', continuous_update=True)
+        
+        # Range sliders and mode toggle for sensor 1
+        default_low1 = sensor_configs[0]['low']
+        default_high1 = sensor_configs[0]['high']
+        low1_slider = widgets.FloatSlider(value=default_low1, min=0, max=default_high1, step=(default_high1)/100, 
+                                          description=f'{sensor_configs[0]["name"]} low:', continuous_update=False, readout_format='.3f')
+        high1_slider = widgets.FloatSlider(value=default_high1, min=default_high1/2, max=2*default_high1, step=(default_high1)/100,
+                                           description=f'{sensor_configs[0]["name"]} high:', continuous_update=False, readout_format='.3f')
+        mode1_toggle = widgets.ToggleButtons(options=['bundle', 'meanstd'], value='bundle', description=f'{sensor_configs[0]["name"]} mode:')
+        
+        if num_sensors == 2:
+            default_low2 = sensor_configs[1]['low']
+            default_high2 = sensor_configs[1]['high']
+            low2_slider = widgets.FloatSlider(value=default_low2, min=0, max=default_high2, step=(default_high2)/100,
+                                              description=f'{sensor_configs[1]["name"]} low:', continuous_update=False, readout_format='.3f')
+            high2_slider = widgets.FloatSlider(value=default_high2, min=default_high2/2, max=2*default_high2, step=(default_high2)/100,
+                                               description=f'{sensor_configs[1]["name"]} high:', continuous_update=False, readout_format='.3f')
+            mode2_toggle = widgets.ToggleButtons(options=['bundle', 'meanstd'], value='bundle', description=f'{sensor_configs[1]["name"]} mode:')
+        
+        # Navigation buttons
+        def on_minus_minus(b):
+            step = max(1, nProfiles_slider.value // 2)
+            index0_slider.value = max(1, index0_slider.value - step)
+        
+        def on_minus(b):
+            index0_slider.value = max(1, index0_slider.value - 1)
+        
+        def on_plus(b):
+            index0_slider.value = min(max_profiles, index0_slider.value + 1)
+        
+        def on_plus_plus(b):
+            step = max(1, nProfiles_slider.value // 2)
+            index0_slider.value = min(max_profiles, index0_slider.value + step)
+        
+        btn_minus_minus = widgets.Button(description='--')
+        btn_minus = widgets.Button(description='-')
+        btn_plus = widgets.Button(description='+')
+        btn_plus_plus = widgets.Button(description='++')
+        
+        btn_minus_minus.on_click(on_minus_minus)
+        btn_minus.on_click(on_minus)
+        btn_plus.on_click(on_plus)
+        btn_plus_plus.on_click(on_plus_plus)
+        
+        nav_buttons = widgets.HBox([btn_minus_minus, btn_minus, btn_plus, btn_plus_plus])
+        
+        # Create interactive plot
+        if num_sensors == 1:
+            interactive_plot = widgets.interactive(plot_bundle, nProfiles=nProfiles_slider, index0=index0_slider,
+                                                   low1=low1_slider, high1=high1_slider, mode1=mode1_toggle)
+        else:
+            interactive_plot = widgets.interactive(plot_bundle, nProfiles=nProfiles_slider, index0=index0_slider,
+                                                   low1=low1_slider, high1=high1_slider, mode1=mode1_toggle,
+                                                   low2=low2_slider, high2=high2_slider, mode2=mode2_toggle)
+        
+        # Display widgets
+        display(interactive_plot)
+        display(nav_buttons)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mStdinNotImplementedError[0m                  Traceback (most recent call last)
+Cell [0;32mIn[1], line 26[0m
+[1;32m     15[0m SENSORS [38;5;241m=[39m {
+[1;32m     16[0m     [38;5;124m'[39m[38;5;124mtemperature[39m[38;5;124m'[39m: {[38;5;124m'[39m[38;5;124mlow[39m[38;5;124m'[39m: [38;5;241m7.0[39m, [38;5;124m'[39m[38;5;124mhigh[39m[38;5;124m'[39m: [38;5;241m20.0[39m, [38;5;124m'[39m[38;5;124munits[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124m°C[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mcolor[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124mred[39m[38;5;124m'[39m},
+[1;32m     17[0m     [38;5;124m'[39m[38;5;124msalinity[39m[38;5;124m'[39m: {[38;5;124m'[39m[38;5;124mlow[39m[38;5;124m'[39m: [38;5;241m32.0[39m, [38;5;124m'[39m[38;5;124mhigh[39m[38;5;124m'[39m: [38;5;241m34.0[39m, [38;5;124m'[39m[38;5;124munits[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124mPSU[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mcolor[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124mblue[39m[38;5;124m'[39m},
+[0;32m   (...)[0m
+[1;32m     22[0m     [38;5;124m'[39m[38;5;124mbackscatter[39m[38;5;124m'[39m: {[38;5;124m'[39m[38;5;124mlow[39m[38;5;124m'[39m: [38;5;241m0.0[39m, [38;5;124m'[39m[38;5;124mhigh[39m[38;5;124m'[39m: [38;5;241m0.002[39m, [38;5;124m'[39m[38;5;124munits[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124mm⁻¹sr⁻¹[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mcolor[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124mgray[39m[38;5;124m'[39m}
+[1;32m     23[0m }
+[1;32m     25[0m [38;5;66;03m# Get year range[39;00m
+[0;32m---> 26[0m start_year [38;5;241m=[39m [38;5;28mint[39m(get_input_with_default([38;5;124m"[39m[38;5;124mStart year (default 2015):[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m2015[39m[38;5;124m"[39m))
+[1;32m     27[0m end_year [38;5;241m=[39m [38;5;28mint[39m(get_input_with_default([38;5;124m"[39m[38;5;124mEnd year (default 2016):[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m2016[39m[38;5;124m"[39m))
+[1;32m     29[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mScanning redux folders from [39m[38;5;132;01m{[39;00mstart_year[38;5;132;01m}[39;00m[38;5;124m to [39m[38;5;132;01m{[39;00mend_year[38;5;132;01m}[39;00m[38;5;124m...[39m[38;5;124m"[39m)
+
+Cell [0;32mIn[1], line 11[0m, in [0;36mget_input_with_default[0;34m(prompt, default)[0m
+[1;32m      9[0m [38;5;28;01mdef[39;00m [38;5;21mget_input_with_default[39m(prompt, default):
+[1;32m     10[0m [38;5;250m    [39m[38;5;124;03m"""Get user input with default value."""[39;00m
+[0;32m---> 11[0m     response [38;5;241m=[39m [38;5;28minput[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mprompt[38;5;132;01m}[39;00m[38;5;124m [39m[38;5;124m"[39m)[38;5;241m.[39mstrip()
+[1;32m     12[0m     [38;5;28;01mreturn[39;00m response [38;5;28;01mif[39;00m response [38;5;28;01melse[39;00m [38;5;28mstr[39m(default)
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/ipykernel/kernelbase.py:1201[0m, in [0;36mKernel.raw_input[0;34m(self, prompt)[0m
+[1;32m   1199[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28mself[39m[38;5;241m.[39m_allow_stdin:
+[1;32m   1200[0m     msg [38;5;241m=[39m [38;5;124m"[39m[38;5;124mraw_input was called, but this frontend does not support input requests.[39m[38;5;124m"[39m
+[0;32m-> 1201[0m     [38;5;28;01mraise[39;00m StdinNotImplementedError(msg)
+[1;32m   1202[0m [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_input_request(
+[1;32m   1203[0m     [38;5;28mstr[39m(prompt),
+[1;32m   1204[0m     [38;5;28mself[39m[38;5;241m.[39m_parent_ident[[38;5;124m"[39m[38;5;124mshell[39m[38;5;124m"[39m],
+[1;32m   1205[0m     [38;5;28mself[39m[38;5;241m.[39mget_parent([38;5;124m"[39m[38;5;124mshell[39m[38;5;124m"[39m),
+[1;32m   1206[0m     password[38;5;241m=[39m[38;5;28;01mFalse[39;00m,
+[1;32m   1207[0m )
+
+[0;31mStdinNotImplementedError[0m: raw_input was called, but this frontend does not support input requests.
+StdinNotImplementedError: raw_input was called, but this frontend does not support input requests.
+
