@@ -37,7 +37,7 @@ File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/back
 [0;32m---> 56[0m     value [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_cache[key]
 [1;32m     57[0m     [38;5;28mself[39m[38;5;241m.[39m_cache[38;5;241m.[39mmove_to_end(key)
 
-[0;31mKeyError[0m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/rob/argosy/tmpdata/parexample.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '3d64ca20-0785-418f-92f6-c334a72610c6']
+[0;31mKeyError[0m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/rob/argosy/tmpdata/parexample.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), 'ca915fa3-e501-4a63-aa86-2baf46192f97']
 
 During handling of the above exception, another exception occurred:
 
