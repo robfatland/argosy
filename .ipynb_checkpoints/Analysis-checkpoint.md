@@ -17,8 +17,8 @@ water column or epipelagic zone in this part of the northeast Pacific ocean.
 ## Response
 
 
-Given the rich multidimensional dataset (time × depth × {11 scalars / 150 vector components) 
-spanning 10 years and 180 meters of the epipelagic zone, here are five analytical approaches:
+Given the rich multidimensional dataset (time × depth × {11 scalars / 4 vector }) 
+spanning 10 years and 200 meters of the epipelagic zone, here are five analytical approaches:
 
 
 ### Empirical Orthogonal Function (EOF) / Principal Component Analysis
@@ -243,9 +243,13 @@ zone cycle through states in a loop (seasonal), or explore a more complex manifo
     - Compute Laplacian eigenspectrum
     - Apply spectral clustering to identify regimes
     - Visualize using diffusion map embedding
+
+
 - Progress to the Sensor Correlation Graph (SCG)
     - Identify sensor communities
     - Use this to create "super-nodes" (sensor groups) for a reduced representation
+    
+    
 - Integrate this with the Multi-Layer Depth Network
     - Examine how spectral properties change with depth
     - Identify critical depths where graph structure changes
@@ -259,4 +263,226 @@ zone cycle through states in a loop (seasonal), or explore a more complex manifo
     - igraph (R/Python): Efficient community detection
 
 
+## Spectral Graph Analysis
 
+
+### Modules 1 and 2
+
+
+Data preparation: Load and interpolate the sensor data by profile, result being an un-normalized feature matrix.
+The output 2D table captures three dimensions of information: profile (time), sensor type and depth (binned).
+
+
+- `feature_matrix.npy` is a `numpy` binary array file: { n-sensors x n-depth-bins columns } X { n-profiles rows }. This is referred
+to as a feature matrix, as in "what is the feature measurement for temperature at 80 meters depth in a particular profile?"
+- `feature_names.pkl` is a Python pickle file containing a list of { n-sensors x n-depth-bins } (e.g. 7 x 91 = 637)
+strings, one per column of the feature matrix. Each string is formatted as "{sensor}_{depth}m", e.g. "temperature_0m", "temperature_2m", ..., "backscatter_180m". This is the column key for the feature matrix - it tells you what physical quantity each column represents.
+
+
+The feature matrix together with the feature names form the core data structure for the graph analysis: 
+The feature matrix is the numerical data, and feature_names is its labeled column index. 
+
+
+- rows are individual profiles per the global numbering from `profileIndices`
+- columns have a fast and a slow dimension
+    - fast is depth bins (2 meters per bin)
+    - slow is sensor (currently 7 types)
+
+
+
+### Module 3
+
+
+Module 3 reads both `feature_matrix.py` and `feature_names.pkl`. It normalizes the matrix,
+handles missing data, and writes the results as `feature_matrix_normalized.npy` which has 
+the same shape as `feature_matrix` but with z-score values instead of physical units.
+
+
+### Module 4
+
+
+- Let nProf be the number of profiles in consideration
+- The source data from Module 3 has 
+    - column count = nSensors x nBins {nS x nB} 
+    - row count = nProf
+    - An individual row is the {nS x nB} characterization of a profile
+- The output matrices are square nProf rows x nProf columns
+    - First output: Calculated squared Euclidean distance matrix: Distances between all pairs of profiles
+        - Calculated from z-scores weights all sensors and depths equally
+    - Second output: Similarity matrix: Apply a Gaussian kernel to produce weights on \[0, 1\]. 
+    - Third output: A sparse *adjacency matrix* with strong weights retained, weak weights set to 0
+        - Called an n-NN for n-Nearest Neighbors graph
+
+
+### Module 5
+
+
+- Analyze the adjacency matrix
+    - Compute eigenvalues and eigenvectors
+    - 
+
+
+### Module 6
+
+
+
+### Module 7
+
+
+
+### Pending modifications
+
+- Various control parameters for modules 1-7
+    - depth bin size (initially 2 meters)
+- Modules should always announce (print) what they are doing as they start and that they are done when they stop.
+- To accommodate pH and pCO2 we will need more metadata on which profiles are 
+midnight / noon runs.
+- It is worth thinking about tidal correction and 'blowdown' correction: When
+a current transverse to the anchor axis effectively lowers the shallow profiler
+resting structure in the water column.
+- We want to take a pre-analysis cleaning pass over the data
+- We want to accommodate and flag coincident excursions from multiple sensors
+- We want to flag "thin layer blips"
+
+
+
+## Ingest these prompt / responses
+
+
+### Prompt on cluster counts
+
+
+Describe how I should be thinking about module 6, particularly with the idea of running it iteratively to get a reasonable number of clusters. I ran it once for just 2018 and got 10 clusters, most of which looked reasonable. And then I ran it again for a four year span 2016 through 2019 and it arrived at just two clusters as the default.
+
+
+#### Response on two runs, namely 2018 vs 2016--2019
+
+
+The two results are actually telling you something real, not contradicting each other.
+
+
+What the silhouette score is optimizing
+
+
+Silhouette measures how well-separated clusters are relative to their internal cohesion. With 4 years of data the dominant signal is the seasonal cycle - summer stratified vs. winter mixed. That contrast is so strong it overwhelms everything else, so k=2 wins the silhouette contest. With just 2018 the seasonal signal is still present but the algorithm has more resolution to find finer structure within seasons, so k=10 emerges.
+
+
+How to think about the hierarchy
+
+
+The clusters exist at multiple scales simultaneously:
+
+
+Scale 1 (coarse): 2 clusters = winter mixing vs. summer stratification
+Scale 2 (medium): ~4-6 clusters = spring transition, summer stratified, fall transition, winter mixed, upwelling events
+Scale 3 (fine): 10+ clusters = sub-seasonal states, bloom events, anomalous profiles
+
+
+The "right" number depends on your scientific question, not the silhouette score.
+
+
+Iterative approach I'd recommend
+
+
+Start with the 4-year run and override the default. Force k=4, k=6, k=8, k=10 and look at the cluster temporal plots each time. You're looking for:
+
+
+Clusters that are seasonally coherent (good)
+
+
+Clusters that are temporally scattered with no pattern (probably over-split noise)
+
+
+Two clusters that always co-occur in the same season (probably should be merged)
+
+
+The elbow plot from Module 6 is more useful than the silhouette score here - look for where adding another cluster stops meaningfully reducing inertia.
+
+
+The 2018 result as a reference
+
+
+Your 10-cluster 2018 result is valuable ground truth. Run the 4-year analysis at k=10 and compare - do the same physical states appear? Do they recur across years? That cross-validation tells you whether the clusters are robust oceanographic regimes or artifacts of a single year's data.
+
+
+
+### Prompt on z-score
+
+
+What is z-score?
+
+
+#### z-score response
+
+
+The z-score of a single value x is:
+
+
+z = (x - mean) / std
+
+
+It answers: "how many standard deviations is this value from the mean of its distribution?"
+
+
+So if temperature at 10m has a mean of 12°C and std of 2°C, then a measurement of 16°C has z-score = (16-12)/2 = 2.0. A measurement of 10°C has z-score = -1.0.
+
+
+Z-score normalization (what Module 3 does) applies this transformation to every column of the feature matrix independently. Each of the 637 columns gets its own mean and std computed, then every value in that column is replaced by its z-score.
+
+
+The result: every column has mean=0 and std=1 regardless of its original units.
+
+
+Why this matters for the distance calculation: Without it, the Euclidean distance would be dominated by whichever sensor has the largest absolute values. Density ranges from 1024-1028 kg/m³. Dissolved oxygen ranges from 50-300 µmol/kg. Salinity ranges from 32-34 PSU. If you compute raw distances, the dissolved oxygen differences (hundreds of units) would swamp the salinity differences (single units), even if salinity is equally informative oceanographically.
+
+
+After z-score normalization every sensor contributes on equal footing - a 1-std deviation change in temperature counts the same as a 1-std deviation change in chlorophyll. The distance then measures "how unusual is this profile" in a sensor-agnostic way.
+
+
+
+
+### prompt similarity to adjacency
+
+
+Describe again the progression: From similarity (what is it? Inner product of column i and j?) to adjacency (edge weights on what range?)
+
+
+#### response
+
+
+Good question - similarity here is not an inner product. Let me be precise.
+
+
+Squared Euclidean distance (Module 4, what's actually computed):
+
+
+sq_d_ij = sum over all 637 features of (x_ik - x_jk)^2
+
+
+Range: [0, ∞). Zero means identical profiles, large means very different.
+
+
+Similarity via Gaussian kernel (still Module 4):
+
+
+s_ij = exp(-sq_d_ij / (2 * sigma^2))
+
+
+Range: (0, 1]. Every pair gets a similarity value. s=1 means identical, s→0 means very different. This is the full similarity_matrix - dense, every entry nonzero.
+
+
+Adjacency matrix (also Module 4, after the k-NN or epsilon-ball step):
+
+
+This is where sparsification happens. For k-NN, most entries of similarity_matrix are zeroed out - only the k strongest similarities per node survive as edges. So:
+
+
+Retained edges: weight in (0, 1], same values as similarity_matrix
+Dropped edges: set to exactly 0
+Range of nonzero entries: (0, 1].
+
+
+So the distinction is: similarity_matrix is the complete dense pairwise similarity, adjacency is the sparse graph where weak connections have been pruned to zero. The Laplacian is then built from the adjacency, not the full similarity matrix.
+
+
+An inner product would give you cosine similarity, which measures the angle between two profile vectors. That's a valid alternative but it conflates magnitude with direction - two profiles with the same shape but different absolute values would appear similar. The Euclidean distance approach treats absolute differences as meaningful, which is appropriate here since the features are z-score normalized.

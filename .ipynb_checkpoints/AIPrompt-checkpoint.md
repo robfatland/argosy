@@ -4,26 +4,29 @@
 ## Introduction for humans
 
 
-This document is an `argosy` Jupyter book project summary together with prompts for 
-a Coding Assistant (CA). $CA_0$ was Q Developer from AWS, powered by Claude Sonnet. 
-$CA_1$ is the Q Developer successor *kiro* also provided by AWS. kiro is 
-"Agentic" and is integrated with its own variant of the VS Code IDE. 
+This `argosy` repository is a Jupyter book on the analysis of oceanographic data.
 
 
-This document:
+This markdown file is a project summary used to develop prompts for a Coding Assistant (CA). 
+$CA_0$ was Q Developer (AWS), powered by Claude Sonnet. $CA_1$ is the more current agentic
+*kiro* (also AWS), integrated with the VS Code IDE. Document features include:
 
 
-- acts as a "master" markdown document describing the project
-- summarizes OOI data resources
-- describes the basic data acquisition and visualization workflow
-- refers to additional markdown 
-- and providing prompts at the bottom of the file, this
-document states some goals and records progress. New CA sessions can get up to speed
-by scanning this context.
+- the "master" markdown document that describes the `argosy` project
+- summarizes particular Ocean Observatories Initiative (OOI) data resources
+- describes data acquisition and visualization workflow
+- refers to additional markdown files
+    - `Analysis.md` data exploration ideas
+    - `Umbrella.md` expansion perspective (see glossary below)
+    - Describe data filtering / cleaning
+- acts as a log: tracks train of thought / next steps
+- provides a `tail` prompt at the bottom of the file
+    - Heading is `## Next`
+    - Usually read by the CA upon a prompt in the session box
+    - Completed prompts are integrated into the log
 
 
-The `argosy` repo being a Jupyter book is amenable to a sequence of **build** commands
-provided the currently active conda environment includes `jupyter-book` and `ghp-import`.
+`argosy` as a Jupyter book is amenable to **build** commands `jupyter-book` and `ghp-import`.
 
 
 ```
@@ -37,7 +40,7 @@ git push
 ```
 
 
-[Argosy Jupyter Book link](https://robfatland.github.io/argosy/intro.html)
+Published [Argosy Jupyter Book link](https://robfatland.github.io/argosy/intro.html)
 
 
 ## Python library installations
@@ -49,53 +52,33 @@ git push
 - jupyter lab/book
 
 
-## Introduction for a coding agent (coding assistant (CA))
+## Introduction for a coding agent / assistant (CA)
 
 
 This effort concerns organizing oceanography data starting with the
 Ocean Observatories Initiative Regional Cabled Array shallow profilers. 
 The idea is to transition from the archival data system to a more 
 interpretable form of the data; and then to visualize, interpret and
-further explore this data. 
+further explore this data.
 
 
-A CA is likely to be running as a VSCode IDE extension. At the start of a chat session it 
-has no context.
+This work exists on a Windows PC in the WSL2 home file system, specifically `~/argosy`.
+Within `argosy` there are Jupyter notebooks, markdown files and standalone
+Python programs. I will indicate whether requested code is intended for
+standalone Python or Jupyter (IPython) notebook cell. 
 
 
-To see the file structure: This work exists on a Windows PC in the WSL2 home file system.
-Folders of interest at this time include `reduxYYYY` and `argosy`. Within `argosy` there
-are Jupyter notebooks, markdown files (including this `AIPrompt.md` file, and standalone
-Python programs. When asking for code I will indicate whether it is to be run as a 
-standalone or in an IPython notebook cell. 
-
-
-The CA is directed to scan this document in its entirety. 
-
-
-The penultimate heading is **Pending**. This section is not a CA prompt; it is
-notes for later propmts.
-
-
-The final prompt in this file is found at the bottom of the file under 
-the heading **Next**.
-
-
-The line range of this prompt will often be provided to the CA in the IDE chat window as a 
-meta-prompt, for example:
+The **Next** prompt is generally composed and then referenced as a line range 
+(in this file) from the prompt window. Example:
 
 
 "Get the next prompt from lines 1118 - 1160 of `AIPrompt.md`."
 
 
-As a **Next** prompt is resolved (often with some iteration) the prompt text is
-typically integrated into the body of the document; with a new **Next** prompt to follow.
-
-
 ## Glossary
 
 
-shallow profiler, profile: A *shallow profiler* is a positively buoyant pod-shaped 
+- shallow profiler, profile: A *shallow profiler* is a positively buoyant pod-shaped 
 structure roughly two meters in diameter moored in the ocean at 200m depth to a holding 
 platform by means of a cable wrapped about a spool. Under normal operating conditions
 a winch unwinds the cable over the course of about 45 minutes. As the cable 
@@ -108,30 +91,30 @@ noon and local midnight feature a slower descent to permit certain sensors to be
 equilibrate (notably pH and pCO2).
 
 
-Midnight profile: One of two extended profiles during any given day, running at local midnight
+- Midnight profile: One of two extended profiles during any given day, running at local midnight
 
 
-Noon profile: One of two extended profiles during any given day, running at local noon
+- Noon profile: One of two extended profiles during any given day, running at local noon
 
 
-profile chart: Sensor data from a profile is often represented as a 2D *profile chart*.
+- profile chart: Sensor data from a profile is often represented as a 2D *profile chart*.
 The x-axis is the sensor value and the y-axis is depth. For a shallow profiler the
 depth range runs from 200 meters at the bottom to 0 meters at the top of the chart.
 
 
-bundle: A set of profiles considered collectively is often referred to as a *bundle*.
+- bundle: A set of profiles considered collectively is often referred to as a *bundle*.
 Most commonly the profiles in a bundle are consecutive in time. However a bundle may
 be assembled using other criteria, for example profiles acquired at noon on consecutive
 days.
 
 
-bundle chart: A profile chart containing multiple profiles, i.e. a bundle. In this 
+- bundle chart: A profile chart containing multiple profiles, i.e. a bundle. In this 
 Jupyter book bundle charts can be changed dynamically by means of two sliders: The
 first corresponding to the first profile of the bundle and the second corresponding
 to how many profiles are in the bundle. 
 
 
-curtain plot: A static chart of sensor data for many consecutive profiles as follows:
+- curtain plot: A static chart of sensor data for many consecutive profiles as follows:
 The horizontal axis is time, typically months to years. The vertical axis is depth as 
 described for bundle charts. Sensor data is encoded using a colormap. This places 
 consecutive profiles as adjacent vertical lines of color in the curtain plot. Curtain
@@ -139,175 +122,47 @@ plots are good for showing trends in sensor data with depth that develop over se
 time frames. 
 
 
-redux: Data from shallow profiles represent snapshots of the upper water column; placed
+- redux: Data from shallow profiles represent snapshots of the upper water column; placed
 in the OOI data archive with the idea that they can be recovered or brought back for 
 further analysis. `redux` meaning `brought back` is an identifying label used in folder
 labels for shallow profiler (and other platform) data that has been brought back for
 analysis. 
 
 
-shard: A *shard* is a NetCDF data file containing observational data from a single sensor 
+- shard: A *shard* is a NetCDF data file containing observational data from a single sensor 
 (raster or vector) from a single profile. The name comes from the origin data files 
 that typically cover multiple sensors over many days and hence many profiles.
 
 
-red zone ('the challenge of the last 20 yards'): A sub-project with the objective being
-to aggregate and organize OOI data for scientific analysis.
-- In particular I may use *red zone format* to mean 'data ready for scientific analysis'.
-- As a synonymous term I introduce the term 'Interpretable Data' abbreviated ID
-- A second synonymous term: `redux` data
-    - These are sensor profiles written as individual NetCDF files.
-    - The term `redux` is intended to evoke *revived* from the compound OOINET files to a form of ID
+- red zone: 'The challenge of the last 20 yards'; refers to the thematic objective 
+of analyzing OOI data. The premise here being that there is an obstacle to analysis
+where the sensor data is balled up with engineering data in large (500MB) complicated
+NetCDF files which are in turn "hidden" within a sometimes opaque and confusing data
+system.
+    - *Red zone format* means 'data that is ready for scientific analysis'.
+    - A synonym: 'Interpretable Data' (ID)
+    - Another associated term `redux` refers to the act of bringing (data) back
+    - Another associated term `shard` refers to data subsetting (see below)
 
-
-umbrella: A sub-project of this work with the objective being to extend the interpretable data from
-the initial simple case (temperature profiles as a function of depth over several weeks)...
-    - extending in time over the full duration of the OOI
-    - extending to other scalar sensor types (PAR, pCO2, chlorophyll fluorescence, etc)
-    - extending to vector sensor types (velocity, spectral irradiance, spectrophotometer sensors)
-    - extending to specialized OOI sensors (sonar, ADCP)
-    - extending to additional shallow profiler sites: From Oregon Slope Base to Oregon Offshore and Axial Seamount
-    - extending to data beyond OOI
-        - circulation models such as ROMS
-        - NOAA NDBC surface buoy data
-        - ARGO biogeochemical drifters
-        - satellite remote sensing: sea surface temperature, surface chlorophyll, mean sea level anomaly
-        - in situ gliders
-        - referential data compilations: BCO DMO, GLODAP
-
+- umbrella: Extending the data purview to many resources / sensors / projects
+    - start: temperature profiles over several weeks
+    - extend:
+        - in time over the full duration of the OOI
+        - to other scalar sensor types (PAR, pCO2, chlorophyll fluorescence, etc)
+        - to vector sensor types (velocity, spectral irradiance, spectrophotometer sensors)
+        - to specialized OOI sensors (sonar, ADCP)
+        - other shallow profiler sites: Oregon Slope Base > Oregon Offshore, Axial Seamount
+        - to data beyond OOI
+            - circulation models such as ROMS
+            - NOAA NDBC surface buoy data
+            - ARGO biogeochemical drifters
+            - satellite remote sensing: SST, surface chlorophyll, mean sea level anomaly
+            - gliders
+            - compilations: BCO DMO, GLODAP
 
 
 - `SensorInformation.md` is a supporting document relating native datafile structure to red zone format.
 - `ShallowProfiler.ipynb` is a supporting document in the same vein
-
-
-## A sketch of the initial workflow
-
-
-Three tasks:
-
-
-### Task 1: Data Download
-
-
-#### Data order
-
-
-- Log in to OOI [access page](https://ooinet.oceanobservatories.org/data_access) with an established account
-- LHS filters: Array, Cable, Platform, Instrument
-- Data Catalog box (bottom center)
-    - ***Do not try and use the time window interface***
-    - ***+*** Action button: Download table appears top center
-        - Also: Data availability plot, center center
-    - Top center: Download button generates a data order
-        - ***Select datasets with Stream type == `Science`***
-        - > Pop up to finalize order
-            - Calendars: Type in time range manually e.g. `2015-01-01 00:00:00.0`
-            - Optional:
-                - Un-check the box for **Download All Parameters**
-                - Use ctrl-click to select parameters of interest
-            - Submit the order
-            - "Order ready" email sent to account usually < 2 hours
-
-
-#### Download data order
-
-
-Retrieve NetCDF files from the OOINET staging area populated via a manual data order. 
-The file retrieval / management code resides in the notebook `DataDownload.ipynb`.
-
-
-OOINET filename example:
-
-
-`deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc`
-
-
-Breakdown of this filename:
-
-
-- `deploymentNNNN` refers to the fourth operational phases; each deployment typically months to a year in duration
-- `RS` identifies the Regional Cabled Array
-- `01` TBD
-- `SB` refers to the (Oregon) Slope Base site
-- `PS` is "Profiler (Shallow)" i.e. the Shallow Profiler at the Oregon Slope Base site
-- `SF` TBD
-- `01A` TBD
-- `2A` TBD
-- `CTDPF` is a CTD instrument (multiple sensors)
-- `A102` TBD
-- `streamed` TBD
-- `ctdpf` is a second (lower case) reference to the CTD
-- `sbe43` TBD
-- `sample` TBD
-- `20180208T000000.840174-20180226T115959.391002` is a UTC time range for the sensor data in this file
-- `.nc` indicates file format is NetCDF
-
-
-This data file combines together multiple sensors plus associated engineering and quality 
-control data. This example includes data from 157 ascents of the shallow profiler profile in 
-addition to data from descents and rest intervals. In short the file is a dense amalgam of
-information that can be overwhelming to work with. Note this file covers a period of time 
-in 2018. It will prove convenient to break up these files by sensor and by individual
-profile (herein 'sharding') and to compartmentalize sharded data by year.
-
-
-### Task 2: Data Sharding
-
-
-Break downloaded data into individual files in an organizing directory structure. Code for this
-and related operations is in `DataSharding.ipynb`.
-
-
-One output file (a shard) corresponds to one ascent profile and one sensor type, for
-example temperature data. Many such files profiles (shards) are written to a directory labeled by
-year. Each single-sensor ascent shard file is about 100kb in comparison with source files that
-are typically 500MB. 
-
-
-Shard folder name example: `~/redux2018`
-
-
-Shard ascent filename example: `RCA_sb_sp_temperature_2018_296_6261_7_V1.nc`
-
-
-Breakdown of this filename:
-
-
-- `RCA` = Regional Cabled Array
-- `sb` = (Oregon) Slope Base
-- `sp` = Shallow Profiler
-- `temperature` = sensor type
-- `2018` = year of this profile
-- `296` = Julian day of this profile
-- `6261` = global index of this profile (see `profileIndices` below)
-- `7` = daily index of this profile, a number from 1 to 9
-- `V1` = version number of this shard operation
-- `.nc` = file type NetCDF
-
-
-
-### Task 3: Bundle plotter and other visualizations
-
-
-Working from sharded data build out both interactive visualizations and data animation generators.
-Code for this and related tasks is in `Visualizations.ipynb`.
-
-
-A bundle plotter is a double-slider visualization tool running in a Jupyter notebook 
-cell that plots $N$ consecutive profiles together (slider 1) starting at profile T 
-(slider 2). Slider 2 can be dragged through time so as to scan this sensor's view of 
-the epipelagic zone: We can notice anomalies, seasonal trends, mixed layer depth changes 
-with season, possible sensor artifacts, and so on.
-
-
-<Place a screenshot here.>
-    
-
-## Special terminology
-
-
-    
 
 ## Reference websites
 
@@ -325,7 +180,7 @@ with season, possible sensor artifacts, and so on.
     - Zenodo
 
 
-## Red Zone Goals
+## Red Zone Goals / Development Narrative
 
 
 - Begin: Isolate a spatiotemporal dataset as a *first run* at the redzone workflow
@@ -394,21 +249,136 @@ This is at much lower task resolution.
     - Includes containerization as appropriate
 
 
-## CA behavior
+## A sketch of the initial workflow
 
 
-- The acronym CA refers by default to a Coding Assistant aka Coding Agent
-- The CA should not modify this file unless invited to do so
-- The CA is encouraged to create focused markdown documentation files
-    - Cover narrow topics
-    - Name format: `CA_<Topic>.md`.
-- The CA will be directed in the **Next** prompt on the context of the code
-    - Typically it will be code that runs in a Jupyter notebook cell
-    - Less typically it will be a standalone Python program
-- The CA should always place a comment at or near the top of code
-    - Comment is between one and four lines in length
-    - Comment briefly tells what this code does
-    - Comment briefly indicates where this execution occurs in the workflow
+Three tasks:
+
+
+### Task 1: Data Download
+
+
+#### Data order
+
+
+- Log in to OOI [access page](https://ooinet.oceanobservatories.org/data_access) with an established account
+- LHS filters: Array, Cable, Platform, Instrument
+- Data Catalog box (bottom center)
+    - ***Do not try and use the time window interface***
+    - ***+*** Action button: Download table appears top center
+        - Also: Data availability plot, center center
+    - Top center: Download button generates a data order
+        - ***Select datasets with Stream type == `Science`***
+        - > Pop up to finalize order
+            - Calendars: Type in time range manually e.g. `2015-01-01 00:00:00.0`
+            - Optional:
+                - Un-check the box for **Download All Parameters**
+                - Use ctrl-click to select parameters of interest
+            - Submit the order
+            - "Order ready" email sent to account usually < 2 hours
+
+
+#### Download data order
+
+
+Retrieve NetCDF files from the OOINET staging area populated via a manual data order. 
+The file retrieval / management code resides in the notebook `DataDownload.ipynb`.
+
+
+OOINET filename example:
+
+
+`deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc`
+
+
+Breakdown of this filename:
+
+
+- `deploymentNNNN` refers to the fourth operational phases; each deployment typically months to a year in duration
+- `RS` identifies the Regional Cabled Array
+- `01` TBD
+- `SB` refers to the (Oregon) Slope Base site
+- `PS` is "Profiler (Shallow)" i.e. the Shallow Profiler at the Oregon Slope Base site
+- `SF` TBD
+- `01A` TBD
+- `2A` TBD
+- `CTDPF` is a CTD instrument (multiple sensors)
+- `A102` TBD
+- `streamed` TBD
+- `ctdpf` is a second (lower case) reference to the CTD
+- `sbe43` TBD
+- `sample` TBD
+- `20180208T000000.840174-20180226T115959.391002` is a UTC time range for the sensor data in this file
+- `.nc` indicates file format is NetCDF
+
+
+This data file combines together multiple sensors plus associated engineering and quality 
+control data. This example includes data from 157 cycles of the shallow profiler: ascent,
+descent, rest. These source files are dense amalgams of information that can be overwhelming 
+to work with. 
+
+
+### Task 2: Data Sharding
+
+
+It will prove convenient to 'shard' (break up) source files by sensor type and by 
+individual profile; and then to compartmentalize shards by year (folder name `redux<YYYY>`).
+Code for this and related operations is in `DataSharding.ipynb`.
+
+
+One output file (a shard) corresponds to one ascent profile and one sensor type, for
+example temperature data. Many such files profiles (shards) are written to a directory labeled by
+year. Each single-sensor ascent shard file is about 100kb in comparison with source files that
+are typically 500MB. 
+
+
+Shard folder name example: `~/redux2018`
+
+
+Shard filename example: `RCA_sb_sp_temperature_2018_296_6261_7_V1.nc`
+
+
+Breakdown of this filename:
+
+
+- `RCA` = Regional Cabled Array
+- `sb` = (Oregon) Slope Base
+- `sp` = Shallow Profiler
+- `temperature` = sensor type
+- `2018` = year of this profile
+- `296` = Julian day of this profile
+- `6261` = global index of this profile (see `profileIndices` below)
+- `7` = daily index of this profile, a number from 1 to 9
+- `V1` = version number of this shard operation
+- `.nc` = file type NetCDF
+
+
+
+### Task 3: Bundle plotter and other visualizations
+
+
+Working from sharded data build out both interactive visualizations and data 
+animation generators. Code for this and related tasks is in `Visualizations.ipynb`.
+
+
+A bundle plotter is an interactive visualization tool running in a Jupyter notebook 
+cell that plots $N$ (slider 1) consecutive profiles together starting at profile $T$
+(slider 2). Slider 2 can be dragged through time to scan the evolution of the epipelagic
+through the lens of a given sensor.  anomalies, seasonal trends, mixed layer depth changes 
+with season, possible sensor artifacts, and so on.
+
+
+<Place a screenshot here.>
+
+
+## LLM / AI Guidelines
+    
+    
+- Do not modify this file
+- Do place a comment at the top of code
+    - one to four lines
+    - what the code does
+    - workflow context
 
 
 ## Code locations in relation to workflow tasks
@@ -675,10 +645,6 @@ Example design concept:
         - Midnight likewise
 
 
-A second metadata file will describe active profiling intervals and gaps. 
-
-
-
 ## Single Input File to `redux`
 
 
@@ -774,14 +740,12 @@ Create a code block to run in a Jupyter notebook cell that will generate bundle 
     - profile is a day-relative profile number from 1 to 9
 
 
-## Experiment: Can the Q Developer CA identify mixed layer depth from a text description? 
-
-
-A naive attempt produced a non-result. However the AI2 "AstaLabs" release of AutoDiscovery made significant
-progress; which I will not attempt to capture here. A human-driven ETMLD picker program was written in Python.
-This is not Jupyter cell code because my set-up is not supporting interactive mouse clicks. Here is the 
-specification for the program:
-
+## Estimated Temperature Mixed Layer Depth (ETMLD)
+    
+    
+A human-driven ETMLD picker program was written in Python. This is not Jupyter cell code because 
+the Jupyter configuration does not support interactive chart location selection.
+    
 
 - Generate a CSV file with three columns, resides in `~argosy`.
     - First column = profile index as recorded in the profile filename in ~/redux2018
@@ -1629,5 +1593,6 @@ Recommendations:
     
 ## To Do
 
+- redo backscatter shard: optical_backscatter, not total_volume_scattering_etcetera
 - revamp animations
 - curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb
