@@ -21,92 +21,131 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-This code intentionally disabled until revisited with intent.
-
-"""
-Generate CSV file tracking CTD temperature profile status for OOI RCA Slope Base shallow profiler.
-Creates rca_sb_ctd_temp_profile_status.csv with daily profile availability (2014-2025).
-"""
-
-import csv
-import datetime
-from pathlib import Path
-
-def is_leap_year(year):
-    """Check if year is a leap year."""
-    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
-
-def get_days_in_year(year):
-    """Get number of days in year."""
-    return 366 if is_leap_year(year) else 365
-
-def julian_to_date(year, julian_day):
-    """Convert Julian day to dd-MON-yyyy format."""
-    date = datetime.datetime(year, 1, 1) + datetime.timedelta(days=julian_day - 1)
-    return date.strftime("%d-%b-%Y").upper()
-
-def generate_profile_status_csv():
-    """Generate the profile status CSV file."""
-    
-    output_file = Path("rca_sb_ctd_temp_profile_status.csv")
-    
-    # Define year range
-    start_year = 2014
-    end_year = 2025
-    
-    # Column headers
-    headers = ['year', 'julian_day', 'date', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Total', 'Noon', 'Midnight']
-    
-    total_days = 0
-    total_profiles = 0
-    
-    with open(output_file, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        
-        # Write headers
-        writer.writerow(headers)
-        
-        # Generate rows for each year
-        for year in range(start_year, end_year + 1):
-            days_in_year = get_days_in_year(year)
-            
-            for julian_day in range(1, days_in_year + 1):
-                date_str = julian_to_date(year, julian_day)
-                
-                # Initialize profile columns (1-9) as 0 (will be populated when processing actual data)
-                profiles = [0] * 9
-                
-                # Calculate totals
-                total_profiles_day = sum(profiles)
-                
-                # Placeholder values for noon and midnight profile indices
-                noon_profile = 0  # Will be determined from actual profile timing
-                midnight_profile = 0  # Will be determined from actual profile timing
-                
-                # Write row
-                row = [year, julian_day, date_str] + profiles + [total_profiles_day, noon_profile, midnight_profile]
-                writer.writerow(row)
-                
-                total_days += 1
-                total_profiles += total_profiles_day
-    
-    # Print diagnostics
-    print(f"Generated {output_file}")
-    print(f"Total days: {total_days}")
-    print(f"Date range: {start_year} - {end_year}")
-    print(f"Years covered: {end_year - start_year + 1}")
-    print(f"Current mean profiles per day: {total_profiles / total_days:.2f}")
-    print(f"Expected profiles per day when populated: 9")
-    print(f"File ready for population with actual profile data")
-
-if __name__ == "__main__":
-    generate_profile_status_csv()
+import xarray as xr
+d = xr.open_dataset('/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc')
+d
 ------------------
 
-[0;36m  Cell [0;32mIn[6], line 1[0;36m[0m
-[0;31m    This code intentionally disabled until revisited with intent.[0m
-[0m         ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/file_manager.py:211[0m, in [0;36mCachingFileManager._acquire_with_cache_info[0;34m(self, needs_lock)[0m
+[1;32m    210[0m [38;5;28;01mtry[39;00m:
+[0;32m--> 211[0m     file [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_cache[[38;5;28mself[39m[38;5;241m.[39m_key]
+[1;32m    212[0m [38;5;28;01mexcept[39;00m [38;5;167;01mKeyError[39;00m:
 
-SyntaxError: invalid syntax (779943982.py, line 1)
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/lru_cache.py:56[0m, in [0;36mLRUCache.__getitem__[0;34m(self, key)[0m
+[1;32m     55[0m [38;5;28;01mwith[39;00m [38;5;28mself[39m[38;5;241m.[39m_lock:
+[0;32m---> 56[0m     value [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_cache[key]
+[1;32m     57[0m     [38;5;28mself[39m[38;5;241m.[39m_cache[38;5;241m.[39mmove_to_end(key)
+
+[0;31mKeyError[0m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '5e79b10c-d20f-4d55-bf83-9af6fdfe6ea3']
+
+During handling of the above exception, another exception occurred:
+
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+Cell [0;32mIn[2], line 2[0m
+[1;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mxarray[39;00m [38;5;28;01mas[39;00m [38;5;21;01mxr[39;00m
+[0;32m----> 2[0m d [38;5;241m=[39m xr[38;5;241m.[39mopen_dataset([38;5;124m'[39m[38;5;124m/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc[39m[38;5;124m'[39m)
+[1;32m      3[0m d
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/api.py:566[0m, in [0;36mopen_dataset[0;34m(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)[0m
+[1;32m    554[0m decoders [38;5;241m=[39m _resolve_decoders_kwargs(
+[1;32m    555[0m     decode_cf,
+[1;32m    556[0m     open_backend_dataset_parameters[38;5;241m=[39mbackend[38;5;241m.[39mopen_dataset_parameters,
+[0;32m   (...)[0m
+[1;32m    562[0m     decode_coords[38;5;241m=[39mdecode_coords,
+[1;32m    563[0m )
+[1;32m    565[0m overwrite_encoded_chunks [38;5;241m=[39m kwargs[38;5;241m.[39mpop([38;5;124m"[39m[38;5;124moverwrite_encoded_chunks[39m[38;5;124m"[39m, [38;5;28;01mNone[39;00m)
+[0;32m--> 566[0m backend_ds [38;5;241m=[39m backend[38;5;241m.[39mopen_dataset(
+[1;32m    567[0m     filename_or_obj,
+[1;32m    568[0m     drop_variables[38;5;241m=[39mdrop_variables,
+[1;32m    569[0m     [38;5;241m*[39m[38;5;241m*[39mdecoders,
+[1;32m    570[0m     [38;5;241m*[39m[38;5;241m*[39mkwargs,
+[1;32m    571[0m )
+[1;32m    572[0m ds [38;5;241m=[39m _dataset_from_backend_dataset(
+[1;32m    573[0m     backend_ds,
+[1;32m    574[0m     filename_or_obj,
+[0;32m   (...)[0m
+[1;32m    584[0m     [38;5;241m*[39m[38;5;241m*[39mkwargs,
+[1;32m    585[0m )
+[1;32m    586[0m [38;5;28;01mreturn[39;00m ds
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/netCDF4_.py:590[0m, in [0;36mNetCDF4BackendEntrypoint.open_dataset[0;34m(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, format, clobber, diskless, persist, lock, autoclose)[0m
+[1;32m    569[0m [38;5;28;01mdef[39;00m [38;5;21mopen_dataset[39m(  [38;5;66;03m# type: ignore[override]  # allow LSP violation, not supporting **kwargs[39;00m
+[1;32m    570[0m     [38;5;28mself[39m,
+[1;32m    571[0m     filename_or_obj: [38;5;28mstr[39m [38;5;241m|[39m os[38;5;241m.[39mPathLike[Any] [38;5;241m|[39m BufferedIOBase [38;5;241m|[39m AbstractDataStore,
+[0;32m   (...)[0m
+[1;32m    587[0m     autoclose[38;5;241m=[39m[38;5;28;01mFalse[39;00m,
+[1;32m    588[0m ) [38;5;241m-[39m[38;5;241m>[39m Dataset:
+[1;32m    589[0m     filename_or_obj [38;5;241m=[39m _normalize_path(filename_or_obj)
+[0;32m--> 590[0m     store [38;5;241m=[39m NetCDF4DataStore[38;5;241m.[39mopen(
+[1;32m    591[0m         filename_or_obj,
+[1;32m    592[0m         mode[38;5;241m=[39mmode,
+[1;32m    593[0m         [38;5;28mformat[39m[38;5;241m=[39m[38;5;28mformat[39m,
+[1;32m    594[0m         group[38;5;241m=[39mgroup,
+[1;32m    595[0m         clobber[38;5;241m=[39mclobber,
+[1;32m    596[0m         diskless[38;5;241m=[39mdiskless,
+[1;32m    597[0m         persist[38;5;241m=[39mpersist,
+[1;32m    598[0m         lock[38;5;241m=[39mlock,
+[1;32m    599[0m         autoclose[38;5;241m=[39mautoclose,
+[1;32m    600[0m     )
+[1;32m    602[0m     store_entrypoint [38;5;241m=[39m StoreBackendEntrypoint()
+[1;32m    603[0m     [38;5;28;01mwith[39;00m close_on_error(store):
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/netCDF4_.py:391[0m, in [0;36mNetCDF4DataStore.open[0;34m(cls, filename, mode, format, group, clobber, diskless, persist, lock, lock_maker, autoclose)[0m
+[1;32m    385[0m kwargs [38;5;241m=[39m [38;5;28mdict[39m(
+[1;32m    386[0m     clobber[38;5;241m=[39mclobber, diskless[38;5;241m=[39mdiskless, persist[38;5;241m=[39mpersist, [38;5;28mformat[39m[38;5;241m=[39m[38;5;28mformat[39m
+[1;32m    387[0m )
+[1;32m    388[0m manager [38;5;241m=[39m CachingFileManager(
+[1;32m    389[0m     netCDF4[38;5;241m.[39mDataset, filename, mode[38;5;241m=[39mmode, kwargs[38;5;241m=[39mkwargs
+[1;32m    390[0m )
+[0;32m--> 391[0m [38;5;28;01mreturn[39;00m [38;5;28mcls[39m(manager, group[38;5;241m=[39mgroup, mode[38;5;241m=[39mmode, lock[38;5;241m=[39mlock, autoclose[38;5;241m=[39mautoclose)
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/netCDF4_.py:338[0m, in [0;36mNetCDF4DataStore.__init__[0;34m(self, manager, group, mode, lock, autoclose)[0m
+[1;32m    336[0m [38;5;28mself[39m[38;5;241m.[39m_group [38;5;241m=[39m group
+[1;32m    337[0m [38;5;28mself[39m[38;5;241m.[39m_mode [38;5;241m=[39m mode
+[0;32m--> 338[0m [38;5;28mself[39m[38;5;241m.[39mformat [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mds[38;5;241m.[39mdata_model
+[1;32m    339[0m [38;5;28mself[39m[38;5;241m.[39m_filename [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mds[38;5;241m.[39mfilepath()
+[1;32m    340[0m [38;5;28mself[39m[38;5;241m.[39mis_remote [38;5;241m=[39m is_remote_uri([38;5;28mself[39m[38;5;241m.[39m_filename)
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/netCDF4_.py:400[0m, in [0;36mNetCDF4DataStore.ds[0;34m(self)[0m
+[1;32m    398[0m [38;5;129m@property[39m
+[1;32m    399[0m [38;5;28;01mdef[39;00m [38;5;21mds[39m([38;5;28mself[39m):
+[0;32m--> 400[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_acquire()
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/netCDF4_.py:394[0m, in [0;36mNetCDF4DataStore._acquire[0;34m(self, needs_lock)[0m
+[1;32m    393[0m [38;5;28;01mdef[39;00m [38;5;21m_acquire[39m([38;5;28mself[39m, needs_lock[38;5;241m=[39m[38;5;28;01mTrue[39;00m):
+[0;32m--> 394[0m     [38;5;28;01mwith[39;00m [38;5;28mself[39m[38;5;241m.[39m_manager[38;5;241m.[39macquire_context(needs_lock) [38;5;28;01mas[39;00m root:
+[1;32m    395[0m         ds [38;5;241m=[39m _nc4_require_group(root, [38;5;28mself[39m[38;5;241m.[39m_group, [38;5;28mself[39m[38;5;241m.[39m_mode)
+[1;32m    396[0m     [38;5;28;01mreturn[39;00m ds
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/contextlib.py:137[0m, in [0;36m_GeneratorContextManager.__enter__[0;34m(self)[0m
+[1;32m    135[0m [38;5;28;01mdel[39;00m [38;5;28mself[39m[38;5;241m.[39margs, [38;5;28mself[39m[38;5;241m.[39mkwds, [38;5;28mself[39m[38;5;241m.[39mfunc
+[1;32m    136[0m [38;5;28;01mtry[39;00m:
+[0;32m--> 137[0m     [38;5;28;01mreturn[39;00m [38;5;28mnext[39m([38;5;28mself[39m[38;5;241m.[39mgen)
+[1;32m    138[0m [38;5;28;01mexcept[39;00m [38;5;167;01mStopIteration[39;00m:
+[1;32m    139[0m     [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m([38;5;124m"[39m[38;5;124mgenerator didn[39m[38;5;124m'[39m[38;5;124mt yield[39m[38;5;124m"[39m) [38;5;28;01mfrom[39;00m [38;5;28;01mNone[39;00m
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/file_manager.py:199[0m, in [0;36mCachingFileManager.acquire_context[0;34m(self, needs_lock)[0m
+[1;32m    196[0m [38;5;129m@contextlib[39m[38;5;241m.[39mcontextmanager
+[1;32m    197[0m [38;5;28;01mdef[39;00m [38;5;21macquire_context[39m([38;5;28mself[39m, needs_lock[38;5;241m=[39m[38;5;28;01mTrue[39;00m):
+[1;32m    198[0m [38;5;250m    [39m[38;5;124;03m"""Context manager for acquiring a file."""[39;00m
+[0;32m--> 199[0m     file, cached [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_acquire_with_cache_info(needs_lock)
+[1;32m    200[0m     [38;5;28;01mtry[39;00m:
+[1;32m    201[0m         [38;5;28;01myield[39;00m file
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/backends/file_manager.py:217[0m, in [0;36mCachingFileManager._acquire_with_cache_info[0;34m(self, needs_lock)[0m
+[1;32m    215[0m     kwargs [38;5;241m=[39m kwargs[38;5;241m.[39mcopy()
+[1;32m    216[0m     kwargs[[38;5;124m"[39m[38;5;124mmode[39m[38;5;124m"[39m] [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_mode
+[0;32m--> 217[0m file [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_opener([38;5;241m*[39m[38;5;28mself[39m[38;5;241m.[39m_args, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[1;32m    218[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_mode [38;5;241m==[39m [38;5;124m"[39m[38;5;124mw[39m[38;5;124m"[39m:
+[1;32m    219[0m     [38;5;66;03m# ensure file doesn't get overridden when opened again[39;00m
+[1;32m    220[0m     [38;5;28mself[39m[38;5;241m.[39m_mode [38;5;241m=[39m [38;5;124m"[39m[38;5;124ma[39m[38;5;124m"[39m
+
+File [0;32msrc/netCDF4/_netCDF4.pyx:2463[0m, in [0;36mnetCDF4._netCDF4.Dataset.__init__[0;34m()[0m
+
+File [0;32msrc/netCDF4/_netCDF4.pyx:2026[0m, in [0;36mnetCDF4._netCDF4._ensure_nc_success[0;34m()[0m
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: b'/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc'
+FileNotFoundError: [Errno 2] No such file or directory: b'/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc'
 
