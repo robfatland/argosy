@@ -19,10 +19,14 @@ the vicinity of the Regional Cabled Array.
 
 
 Oregon Slope Base (informal abbreviation in this book "sb") is located at 42.754°N, 124.839°W.
-The "Port Orford" NDBC station 46015 is at the same location. 
+The "Port Orford" NDBC station 46015 is 200 km away (not adjacent). This topic is relegated
+to `~/argosy/NDBC` for the time being.
 
 
 [46015 dedicated web page](https://www.ndbc.noaa.gov/station_page.php?station=46015)
+
+
+The following quote seems to be in error: 
 
 
 ```
@@ -30,7 +34,7 @@ NDBC buoy 46015 "Port Orford" 42.754 N 124.839 W
 ```
 
 
-Compare 
+Shallow profiler coordinates:
 
 
 ```
@@ -73,7 +77,7 @@ def distance_approximate(lat_a_dd, lon_a_dd, lat_b_dd = 44.6, lon_b_dd = -124.)
 
 I downloaded and placed an example text table file: 
 Standard Meteorological Data, NDBC Buoy 46015, hourly for 2016. 
-This is placed for scrutiny in ~/argosy with filename `NDBC46015h2016.txt`. 
+This is placed for scrutiny in` ~/argosy/NDBC` with filename `NDBC46015h2016.txt`. 
 The first two rows act as type/units doubled column headers:
 
 
@@ -82,7 +86,9 @@ The first two rows act as type/units doubled column headers:
 #yr  mo dy hr mn degT m/s  m/s     m   sec   sec degT   hPa  degC  degC  degC   mi    ft
 ```
 
+
 These 18 columns are interpreted in order from left to right:
+
 
 - Year (Note: Date is UTC)
 - Month

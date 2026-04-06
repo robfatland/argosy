@@ -450,7 +450,7 @@ Describe again the progression: From similarity (what is it? Inner product of co
 #### response
 
 
-Good question - similarity here is not an inner product. Let me be precise.
+Similarity here is not an inner product.
 
 
 Squared Euclidean distance (Module 4, what's actually computed):
@@ -459,7 +459,7 @@ Squared Euclidean distance (Module 4, what's actually computed):
 sq_d_ij = sum over all 637 features of (x_ik - x_jk)^2
 
 
-Range: [0, ∞). Zero means identical profiles, large means very different.
+Range: \[ 0, $\infty$). Zero means identical profiles, large means very different.
 
 
 Similarity via Gaussian kernel (still Module 4):
@@ -486,3 +486,17 @@ So the distinction is: similarity_matrix is the complete dense pairwise similari
 
 
 An inner product would give you cosine similarity, which measures the angle between two profile vectors. That's a valid alternative but it conflates magnitude with direction - two profiles with the same shape but different absolute values would appear similar. The Euclidean distance approach treats absolute differences as meaningful, which is appropriate here since the features are z-score normalized.
+
+
+
+## aside on AI2 Asta
+
+    
+I ran 20 experiments using AutoDiscovery on 81 x 4 profile files: { density, dissolved oxygen, salinity, temperature }. 
+Files were for 2016, January 1 -- 9, 9 profiles per day. I borrowed text from `AIPrompt.md` to write up context for 
+the data exploration. Of the 324 upload files a number (40+) had to be reloaded; so that is an obstacle.
+
+
+URL: `https://autodiscovery.allen.ai/runs/3d1b04de-de13-4a16-b6e4-43b6f874fb28`
+    
+

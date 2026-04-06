@@ -102,11 +102,5 @@ labelOA28 = 'Optical Absorption ch 28'
 # s=s.rename({'optical_absorption':'oa', 'beam_attenuation':'ba'})
 # s.to_netcdf('../RepositoryData/rca/optaa/2021-MAR-13_thru_16_chs_28_and_56.nc')
 #
-#################
-# Time series metadata load function
-#################
-# Read in pre-processed profiler metadata for subsequent time-series subsetting.
-# Shallow profiler metadata are timestamps for Ascent / Descent / Rest. These are stored 
-#   as one-year-duration CSV files in the Profiles subfolder; are read into a Pandas 
-#   Dataframe. Columns correspond to ascent start time and so on, as noted in the code.
+
 
