@@ -287,6 +287,9 @@ system.
 ### Development Narrative
 
 
+This is a simplified description of how this Jupyter Book is being built.
+
+
 - Begin: Isolate a spatiotemporal dataset as a *first run* at the redzone workflow
     - From the OOI observatory (many arrays) narrow the focus to the Regional Cabled Array (RCA)
     - From the RCA distribution across many hundreds of kilometers: narrow to a single site and platform
@@ -330,6 +333,11 @@ system.
     
 
 ## Umbrella goals
+
+
+The "umbrella" is an abstraction for "using other data resources beyond the shallow profiler
+at Oregon Slope Base". This includes remote sensing data evoking the umbrella canopy above
+the the umbrella pole corresponding to the profilers.
 
 
 ### Instruments/sensors/data streams beyond the shallow profiler 

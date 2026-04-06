@@ -417,6 +417,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data-order">Download data order</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-raw-data-files">Degenerate source / raw data files</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-postprocessing">Task 3: PostProcessing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-visualizations">Task 4: Visualizations</a></li>
@@ -749,6 +750,7 @@ system.</p>
 <h2>Red Zone Goals<a class="headerlink" href="#red-zone-goals" title="Link to this heading">#</a></h2>
 <section id="development-narrative">
 <h3>Development Narrative<a class="headerlink" href="#development-narrative" title="Link to this heading">#</a></h3>
+<p>This is a simplified description of how this Jupyter Book is being built.</p>
 <ul class="simple">
 <li><p>Begin: Isolate a spatiotemporal dataset as a <em>first run</em> at the redzone workflow</p>
 <ul>
@@ -828,6 +830,9 @@ system.</p>
 </section>
 <section id="umbrella-goals">
 <h2>Umbrella goals<a class="headerlink" href="#umbrella-goals" title="Link to this heading">#</a></h2>
+<p>The “umbrella” is an abstraction for “using other data resources beyond the shallow profiler
+at Oregon Slope Base”. This includes remote sensing data evoking the umbrella canopy above
+the the umbrella pole corresponding to the profilers.</p>
 <section id="instruments-sensors-data-streams-beyond-the-shallow-profiler">
 <h3>Instruments/sensors/data streams beyond the shallow profiler<a class="headerlink" href="#instruments-sensors-data-streams-beyond-the-shallow-profiler" title="Link to this heading">#</a></h3>
 <p>This is at much lower task resolution.</p>
@@ -902,41 +907,43 @@ system.</p>
 </ul>
 </li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~</span>  <span class="o">-----</span>  <span class="n">argosy</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">respository</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">Book</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~  -----  argosy is the respository for the Jupyter Book
+                 home directory `~/argosy` is used for working scripts and markdown
+                 ----- chapters subfolder: Jupyter Book chapters
  
-   <span class="o">-----</span>  <span class="n">ooi</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">root</span> <span class="n">data</span> <span class="n">folder</span>
-              <span class="o">-----</span> <span class="n">ooinet</span>
-                           <span class="o">-----</span> <span class="n">rca</span>
-                                     <span class="o">-----</span> <span class="n">AxialBase</span>
-                                                     <span class="o">-----</span> <span class="p">(</span><span class="n">follow</span> <span class="n">pattern</span> <span class="n">of</span> <span class="n">SlopeBase</span><span class="p">)</span>
-                                     <span class="o">-----</span> <span class="n">OregonOffshore</span>
-                                                     <span class="o">-----</span> <span class="p">(</span><span class="n">follow</span> <span class="n">pattern</span> <span class="n">of</span> <span class="n">SlopeBase</span><span class="p">)</span>
-                                     <span class="o">-----</span> <span class="n">SlopeBase</span>
-                                                     <span class="o">-----</span> <span class="n">scalar</span>
-                                                                  <span class="o">-----</span> <span class="o">&lt;</span><span class="n">year</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">instrument</span><span class="o">&gt;</span>
-                                                                  <span class="o">-----</span> <span class="o">...</span><span class="n">etcetera</span><span class="p">:</span> <span class="n">many</span> <span class="n">of</span> <span class="n">these</span>
-                                                     <span class="o">-----</span> <span class="n">vector</span>
-                                                                  <span class="o">-----</span> <span class="o">&lt;</span><span class="n">year</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">instrument</span><span class="o">&gt;</span>
-                                                                  <span class="o">-----</span> <span class="n">etcetera</span> <span class="n">many</span> <span class="n">of</span> <span class="n">these</span>
-              <span class="o">-----</span> <span class="n">profileIndices</span> <span class="p">(</span><span class="n">metadata</span> <span class="n">timestamps</span> <span class="k">for</span> <span class="n">profile</span> <span class="n">ascent</span><span class="o">/</span><span class="n">descent</span> <span class="n">intervals</span><span class="p">)</span>
-              <span class="o">-----</span> <span class="n">redux</span> 
-                          <span class="o">-----</span> <span class="n">redux2014</span>
-                          <span class="o">-----</span> <span class="n">redux2015</span>
-                          <span class="o">-----</span> <span class="n">redux2016</span>
-                          <span class="o">-----</span> <span class="ow">and</span> <span class="n">so</span> <span class="n">on</span> <span class="n">through</span> <span class="mi">2026</span>
-                          <span class="o">-----</span> <span class="n">redux2026</span> <span class="n">note</span> <span class="n">redux</span><span class="o">&lt;</span><span class="n">yyyy</span><span class="o">&gt;</span> <span class="n">holds</span> <span class="n">many</span> <span class="n">many</span> <span class="p">(</span><span class="n">small</span><span class="p">)</span> <span class="n">NetCDF</span> <span class="n">data</span> <span class="n">files</span>
-              <span class="o">-----</span> <span class="n">postproc</span>
-                             <span class="o">-----</span> <span class="n">pp01</span>
-                             <span class="o">-----</span> <span class="n">pp02</span>
-                             <span class="o">-----</span> <span class="n">pp03</span>
-                             <span class="o">-----</span> <span class="n">pp04</span>
-                             <span class="o">-----</span> <span class="ow">and</span> <span class="n">so</span> <span class="n">on</span> <span class="k">as</span> <span class="n">methods</span> <span class="n">develop</span>
-              <span class="o">-----</span> <span class="n">analysis</span> 
-                             <span class="o">-----</span> <span class="n">sga</span> <span class="k">for</span> <span class="n">spectral</span> <span class="n">graph</span> <span class="n">analysis</span> 
-                             <span class="o">-----</span> <span class="n">clustering</span>
-                             <span class="o">-----</span> <span class="ow">and</span> <span class="n">so</span> <span class="n">on</span> <span class="k">for</span> <span class="n">other</span> <span class="n">methods</span>
-              <span class="o">-----</span> <span class="n">visualizations</span>
-                                   <span class="o">-----</span> <span class="n">TBD</span><span class="p">;</span> <span class="k">for</span> <span class="n">static</span> <span class="n">images</span> <span class="ow">and</span> <span class="n">animations</span>
+~  -----  ooi is the root data folder
+              ----- ooinet
+                           ----- rca
+                                     ----- AxialBase
+                                                     ----- (follow pattern of SlopeBase)
+                                     ----- OregonOffshore
+                                                     ----- (follow pattern of SlopeBase)
+                                     ----- SlopeBase
+                                                     ----- scalar
+                                                                  ----- &lt;year&gt;_&lt;instrument&gt;
+                                                                  ----- ...etcetera: many of these
+                                                     ----- vector
+                                                                  ----- &lt;year&gt;_&lt;instrument&gt;
+                                                                  ----- etcetera many of these
+              ----- profileIndices (metadata timestamps for profile ascent/descent intervals)
+              ----- redux 
+                          ----- redux2014
+                          ----- redux2015
+                          ----- redux2016
+                          ----- and so on through 2026
+                          ----- redux2026 note redux&lt;yyyy&gt; holds many many (small) NetCDF data files
+              ----- postproc
+                             ----- pp01
+                             ----- pp02
+                             ----- pp03
+                             ----- pp04
+                             ----- and so on as methods develop
+              ----- analysis 
+                             ----- sga for spectral graph analysis 
+                             ----- clustering
+                             ----- and so on for other methods
+              ----- visualizations
+                                   ----- TBD; for static images and animations
               
 </pre></div>
 </div>
@@ -957,6 +964,7 @@ notebook. The files are moved to a temporary folder <code class="docutils litera
 <li><p>Data comes from the OOINET server, ‘ready’ notification by email</p></li>
 <li><p>URLs copied into download script: See <code class="docutils literal notranslate"><span class="pre">~/argosy/chapters/DataDownload.ipynb</span></code></p></li>
 <li><p>Data &gt; localhost <code class="docutils literal notranslate"><span class="pre">~/ooi/ooinet/rca/Site/{scalar</span> <span class="pre">or</span> <span class="pre">vector}/&lt;year_instrument&gt;/fnm.nc</span></code></p></li>
+<li><p>Additional step: Scan for and delete superfluous (time-overlap) data files</p></li>
 </ul>
 </li>
 <li><p>(2) Automated: Sharding from above source/raw files to <code class="docutils literal notranslate"><span class="pre">~/ooi/redux/redux2018/etcetera</span></code></p>
@@ -973,15 +981,19 @@ notebook. The files are moved to a temporary folder <code class="docutils litera
 </li>
 <li><p>(3) Automated: Post-processing</p>
 <ul>
-<li><p>Shard files are evaluated based on various criteria</p></li>
-<li><p>Results are written to folders <code class="docutils literal notranslate"><span class="pre">~/ooi/postproc/ppNN</span></code></p></li>
+<li><p>Shard files are evaluated based on various criteria</p>
+<ul>
+<li><p>Example: profile signal is kinked at the bottom or top of the profile</p></li>
+<li><p>Example: various filtering strategies to try and reduce noise etc</p></li>
+<li><p>A given post-processing strategy is assigned a two-digit number NN: 01, 02, …</p></li>
+</ul>
+</li>
+<li><p>Post-processing results written to folders <code class="docutils literal notranslate"><span class="pre">~/ooi/postproc/pp&lt;NN&gt;</span></code></p></li>
 </ul>
 </li>
 <li><p>(4) Interactive: Visualizations</p>
 <ul>
-<li><p>Bundle charts</p></li>
-<li><p>Animations</p></li>
-<li><p>And so on</p></li>
+<li><p>Bundle charts, Curtain charts, Animations etcetera</p></li>
 </ul>
 </li>
 <li><p>(5) Interactive: Analysis</p>
@@ -1116,6 +1128,10 @@ Jupyter cell in the <code class="docutils literal notranslate"><span class="pre"
 </li>
 </ul>
 </section>
+</section>
+<section id="degenerate-source-raw-data-files">
+<h3>Degenerate source / raw data files<a class="headerlink" href="#degenerate-source-raw-data-files" title="Link to this heading">#</a></h3>
+<p>Cells 2 and 3 of <code class="docutils literal notranslate"><span class="pre">~/argosy/chapters/DataDownload.ipynb</span></code> address</p>
 </section>
 <section id="task-2-data-sharding">
 <h3>Task 2: Data Sharding<a class="headerlink" href="#task-2-data-sharding" title="Link to this heading">#</a></h3>
@@ -2184,6 +2200,7 @@ need to revisit a good procedure for getting cell code blocks from notebooks to 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data-order">Download data order</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-raw-data-files">Degenerate source / raw data files</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-postprocessing">Task 3: PostProcessing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-visualizations">Task 4: Visualizations</a></li>

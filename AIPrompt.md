@@ -287,6 +287,9 @@ system.
 ### Development Narrative
 
 
+This is a simplified description of how this Jupyter Book is being built.
+
+
 - Begin: Isolate a spatiotemporal dataset as a *first run* at the redzone workflow
     - From the OOI observatory (many arrays) narrow the focus to the Regional Cabled Array (RCA)
     - From the RCA distribution across many hundreds of kilometers: narrow to a single site and platform
@@ -332,6 +335,11 @@ system.
 ## Umbrella goals
 
 
+The "umbrella" is an abstraction for "using other data resources beyond the shallow profiler
+at Oregon Slope Base". This includes remote sensing data evoking the umbrella canopy above
+the the umbrella pole corresponding to the profilers.
+
+
 ### Instruments/sensors/data streams beyond the shallow profiler 
 
 
@@ -357,6 +365,7 @@ This is at much lower task resolution.
 
 
 ## file system
+
 
 - As noted `~/argosy` is the WSL location of this repository.
 - We do not want the repo folder to include data files.
@@ -384,8 +393,10 @@ This is at much lower task resolution.
 
 ```
 ~  -----  argosy is the respository for the Jupyter Book
+                 home directory `~/argosy` is used for working scripts and markdown
+                 ----- chapters subfolder: Jupyter Book chapters
  
-   -----  ooi is the root data folder
+~  -----  ooi is the root data folder
               ----- ooinet
                            ----- rca
                                      ----- AxialBase
@@ -443,6 +454,7 @@ Tasks:
     - Data comes from the OOINET server, 'ready' notification by email
     - URLs copied into download script: See `~/argosy/chapters/DataDownload.ipynb`
     - Data > localhost `~/ooi/ooinet/rca/Site/{scalar or vector}/<year_instrument>/fnm.nc`
+    - Additional step: Scan for and delete superfluous (time-overlap) data files
 - (2) Automated: Sharding from above source/raw files to `~/ooi/redux/redux2018/etcetera`
     - These NetCDF shard files are sorted by profile sequence and sensor (not instrument)
     - Hence the CTD instrument produces 4 shard sensor types:
@@ -451,11 +463,12 @@ Tasks:
     - See `~/argosy/chapters/DataSharding.ipynb`
 - (3) Automated: Post-processing
     - Shard files are evaluated based on various criteria
-    - Results are written to folders `~/ooi/postproc/ppNN`
+        - Example: profile signal is kinked at the bottom or top of the profile
+        - Example: various filtering strategies to try and reduce noise etc
+        - A given post-processing strategy is assigned a two-digit number NN: 01, 02, ...
+    - Post-processing results written to folders `~/ooi/postproc/pp<NN>`
 - (4) Interactive: Visualizations
-    - Bundle charts
-    - Animations
-    - And so on
+    - Bundle charts, Curtain charts, Animations etcetera
 - (5) Interactive: Analysis
     - Spectral graph analysis
     - Clustering
@@ -560,6 +573,10 @@ Jupyter cell in the `DownloadData.ipynb` notebook.
     - Some downloaded files will have a time dimension that crosses the year boundary
 
 
+### Degenerate source / raw data files
+
+
+Cells 2 and 3 of `~/argosy/chapters/DataDownload.ipynb` address 
 
 ### Task 2: Data Sharding
 
