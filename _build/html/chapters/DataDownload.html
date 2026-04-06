@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Shard" href="DataSharding.html" />
-    <link rel="prev" title="Analysis Concepts" href="../AnalysisConcepts.html" />
+    <link rel="prev" title="Umbrella" href="../Umbrella.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,13 +184,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AIPrompt.html">AI Prompt</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AnalysisConcepts.html">Analysis Concepts</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataSharding.html">Shard</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Visualizations.html">Visualizations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -369,7 +367,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -385,6 +385,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-datasets-from-ooinet-to-localhost">Copy datasets from OOINET to localhost.</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -396,28 +404,60 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="data-download">
 <h1>Data Download<a class="headerlink" href="#data-download" title="Link to this heading">#</a></h1>
-<p>This notebook deals with transferring datasets from OOINET (and possibly other
-resources such as the PO-DAAC) to localhost.</p>
-<p>The data order is easily done manually although it gets a bit tedious if one does it in 1-year blocks.
-The resulting links are placed in a text file with one URL per line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2015 done https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235914738Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2016 done https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235958368Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2017      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260208T000033389Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2018 done https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/?
-2019 done https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/?
-2020 done https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/?
-2021 done https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235434950Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2022      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235535508Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2023      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235629121Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2024      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235701343Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
-2025      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235802626Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
+<section id="copy-datasets-from-ooinet-to-localhost">
+<h2>Copy datasets from OOINET to localhost.<a class="headerlink" href="#copy-datasets-from-ooinet-to-localhost" title="Link to this heading">#</a></h2>
+<p>The data order is manual. Resulting links are placed in <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code>, one URL per line, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="o">.</span><span class="n">oceanobservatories</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">async_results</span><span class="o">/</span><span class="n">kilroy1618</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="mi">20260207</span><span class="n">T235914738Z</span><span class="o">-</span><span class="n">RS01SBPS</span><span class="o">-</span><span class="n">SF01A</span><span class="o">-</span><span class="mi">2</span><span class="n">A</span><span class="o">-</span><span class="n">CTDPFA102</span><span class="o">-</span><span class="n">streamed</span><span class="o">-</span><span class="n">ctdpf_sbe43_sample</span>
 </pre></div>
 </div>
-<p>We want the code in the cell below to read this file and go to each link in succession,
-downloading the data to a corresponding localhost folder.</p>
+<p>Here is what the three cells in this notebook do:</p>
+<ul>
+<li><p>First cell: From links in <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> download source data files</p>
+<ul>
+<li><blockquote>
+<div><p>corresponding localhost folders `~/ooi/ooinet/rca/SlopeBase/{scalar | vector}/<yyyy>_<instrum></p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Second cell: Scan for redundant source data files, step one</p>
+<ul class="simple">
+<li><p>Creates a bash script in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code> that deletes superfluous files</p></li>
+</ul>
+</li>
+<li><p>Third cell: Scan remaining files for “minimum cover” files</p>
+<ul class="simple">
+<li><p>This is the minimum number of files that cover the entirety of available time</p></li>
+<li><p>Creates a bash script again that deletes superfluous files</p></li>
+</ul>
+</li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># coding: utf-8</span>
+
+<span class="c1"># # Data Download</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># This notebook copies datasets from OOINET to localhost.</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># The data order is manual.</span>
+<span class="c1"># The resulting links are placed in the text file `~/argosy/download_link_list.txt`: One URL per line:</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># ```</span>
+<span class="c1"># https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235914738Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample</span>
+<span class="c1"># ```</span>
+<span class="c1">#</span>
+<span class="c1"># We want the code in the cell below to read this file and go to each link in succession,</span>
+<span class="c1"># downloading the data to a corresponding localhost folder.</span>
+
+<span class="c1"># In[8]:</span>
+
+
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -431,140 +471,125 @@ downloading the data to a corresponding localhost folder.</p>
     <span class="k">return</span> <span class="kc">None</span>
 
 <span class="k">def</span> <span class="nf">is_file_complete</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if file exists and is complete (non-zero size).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if file exists and is non-zero size.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">filepath</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="n">filepath</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
 <span class="k">def</span> <span class="nf">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file from URL to destination.&quot;&quot;&quot;</span>
+    <span class="n">temp_file</span> <span class="o">=</span> <span class="n">destination</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
         <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-        
-        <span class="c1"># Download to temporary file first</span>
-        <span class="n">temp_file</span> <span class="o">=</span> <span class="n">destination</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">)</span>
-        
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-        
-        <span class="c1"># Rename to final name only if download completed</span>
+
         <span class="n">temp_file</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="c1"># Clean up temp file if it exists</span>
         <span class="k">if</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="n">temp_file</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">False</span>
 
 <span class="k">def</span> <span class="nf">bulk_download</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="s2">&quot;ctd&quot;</span><span class="p">,</span> <span class="n">ooi_instrument</span><span class="o">=</span><span class="s2">&quot;CTDPF&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bulk download Instrument files from URL list with restart tolerance.&quot;&quot;&quot;</span>
-    
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bulk download instrument files from URL list with restart tolerance.&quot;&quot;&quot;</span>
+
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running bulk_download for instrument type = </span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2"> (OOI: </span><span class="si">{</span><span class="n">ooi_instrument</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
     <span class="c1"># Read URL list</span>
     <span class="n">url_list_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/download_link_list.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
-    
     <span class="k">if</span> <span class="ow">not</span> <span class="n">url_list_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File not found: </span><span class="si">{</span><span class="n">url_list_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span>
-    
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
-    
+
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> URLs to process</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    
-    <span class="c1"># Base folder</span>
-    <span class="n">base_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooidata/rca/sb/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
-    
-    <span class="c1"># Check that year folders exist</span>
+
+    <span class="c1"># Base folder for all instrument/year source data</span>
+    <span class="n">base_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooi/ooinet/rca/SlopeBase/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Base folder does not exist: </span><span class="si">{</span><span class="n">base_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Create year folders as needed</span>
     <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">):</span>
         <span class="n">year_folder</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">year_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Destination folder does not exist: </span><span class="si">{</span><span class="n">year_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please create all required year folders before running download&quot;</span><span class="p">)</span>
-            <span class="k">return</span>
-    
+        <span class="n">year_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="n">total_downloaded</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">total_skipped</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">total_already_complete</span> <span class="o">=</span> <span class="mi">0</span>
-    
-    <span class="c1"># Process each URL</span>
+    <span class="n">total_skipped</span>    <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_complete</span>   <span class="o">=</span> <span class="mi">0</span>
+
     <span class="k">for</span> <span class="n">url_idx</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== URL </span><span class="si">{</span><span class="n">url_idx</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        
+
         <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Get directory listing</span>
             <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
             <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-            
-            <span class="c1"># Parse HTML to find .nc files with matching instrument</span>
-            <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+            <span class="n">soup</span>  <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
             <span class="n">links</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
-            
-            <span class="n">nc_files</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
-                <span class="n">href</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">href</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.nc&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">href</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.ncml&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ooi_instrument</span> <span class="ow">in</span> <span class="n">href</span><span class="p">:</span>
-                    <span class="n">nc_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">href</span><span class="p">)</span>
-            
-            <span class="c1"># Count already downloaded files</span>
+
+            <span class="n">nc_files</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span>
+                <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.nc&#39;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.ncml&#39;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">ooi_instrument</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="p">]</span>
+
             <span class="n">already_downloaded</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">to_download</span> <span class="o">=</span> <span class="p">[]</span>
-            
+
             <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">nc_files</span><span class="p">:</span>
                 <span class="n">year</span> <span class="o">=</span> <span class="n">parse_year_from_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">continue</span>
-                    
-                <span class="n">dest_folder</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="n">dest_file</span> <span class="o">=</span> <span class="n">dest_folder</span> <span class="o">/</span> <span class="n">filename</span>
-                
+                <span class="n">dest_file</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">/</span> <span class="n">filename</span>
                 <span class="k">if</span> <span class="n">is_file_complete</span><span class="p">(</span><span class="n">dest_file</span><span class="p">):</span>
                     <span class="n">already_downloaded</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">to_download</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">filename</span><span class="p">,</span> <span class="n">year</span><span class="p">))</span>
-            
-            <span class="c1"># Print diagnostics</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total .nc files: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nc_files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Already downloaded: </span><span class="si">{</span><span class="n">already_downloaded</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total .nc files:       </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nc_files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Already downloaded:    </span><span class="si">{</span><span class="n">already_downloaded</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Remaining to download: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">to_download</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            
-            <span class="n">total_already_complete</span> <span class="o">+=</span> <span class="n">already_downloaded</span>
-            
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_download</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="n">total_complete</span> <span class="o">+=</span> <span class="n">already_downloaded</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">to_download</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  All files complete, skipping</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">continue</span>
-            
-            <span class="c1"># Download remaining files</span>
+
             <span class="k">for</span> <span class="n">file_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">to_download</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="n">dest_folder</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="n">dest_file</span> <span class="o">=</span> <span class="n">dest_folder</span> <span class="o">/</span> <span class="n">filename</span>
-                
-                <span class="n">file_url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">file_idx</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">to_download</span><span class="p">)</span><span class="si">}</span><span class="s2">] Downloading </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
-                
+                <span class="n">dest_file</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">/</span> <span class="n">filename</span>
+                <span class="n">file_url</span>  <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">file_idx</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">to_download</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+
                 <span class="k">if</span> <span class="n">download_file</span><span class="p">(</span><span class="n">file_url</span><span class="p">,</span> <span class="n">dest_file</span><span class="p">):</span>
                     <span class="n">total_downloaded</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="n">file_size</span> <span class="o">=</span> <span class="n">dest_file</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Complete: </span><span class="si">{</span><span class="n">file_size</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Complete: </span><span class="si">{</span><span class="n">dest_file</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">total_skipped</span> <span class="o">+=</span> <span class="mi">1</span>
-            
+
             <span class="nb">print</span><span class="p">()</span>
-                    
+
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Error processing URL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">continue</span>
-    
+
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== Download Summary ===&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files already complete: </span><span class="si">{</span><span class="n">total_already_complete</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files newly downloaded: </span><span class="si">{</span><span class="n">total_downloaded</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files failed/skipped: </span><span class="si">{</span><span class="n">total_skipped</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    
-    <span class="c1"># Report files by year</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files already complete:  </span><span class="si">{</span><span class="n">total_complete</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files newly downloaded:  </span><span class="si">{</span><span class="n">total_downloaded</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files failed/skipped:    </span><span class="si">{</span><span class="n">total_skipped</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total files by year:&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">):</span>
         <span class="n">year_folder</span> <span class="o">=</span> <span class="n">base_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -573,72 +598,733 @@ downloading the data to a corresponding localhost folder.</p>
             <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> files&quot;</span><span class="p">)</span>
 
-<span class="c1"># Instrument keys for download localhost folders:</span>
-<span class="c1">#   CTD uses ctd / CTDPF</span>
-<span class="c1">#   Fluorometer (FLORT) uses flor / FLORT</span>
-                
-<span class="c1"># Run the bulk download</span>
-<span class="n">bulk_download</span><span class="p">(</span><span class="s2">&quot;flor&quot;</span><span class="p">,</span> <span class="s2">&quot;FLORT&quot;</span><span class="p">)</span>
+
+<span class="c1"># Instrument key -&gt; OOI instrument code mapping (from Sensor Table):</span>
+<span class="c1">#   ctd   -&gt; CTDPF</span>
+<span class="c1">#   flor  -&gt; FLORT</span>
+<span class="c1">#   ph    -&gt; PHSEN</span>
+<span class="c1">#   pco2  -&gt; PCO2W</span>
+<span class="c1">#   nitr  -&gt; NUTNR</span>
+<span class="c1">#   par   -&gt; PARAD</span>
+<span class="c1">#   vel   -&gt; VELPT</span>
+<span class="c1">#   irr   -&gt; SPKIR</span>
+<span class="c1">#   oa/ba -&gt; OPTAA</span>
+
+<span class="c1"># Run the bulk download - uncomment as needed:</span>
+<span class="n">bulk_download</span><span class="p">(</span><span class="s2">&quot;ctd&quot;</span><span class="p">,</span>  <span class="s2">&quot;CTDPF&quot;</span><span class="p">)</span>
+<span class="c1"># bulk_download(&quot;flor&quot;, &quot;FLORT&quot;)</span>
+<span class="c1"># bulk_download(&quot;ph&quot;,   &quot;PHSEN&quot;)</span>
+<span class="c1"># bulk_download(&quot;pco2&quot;, &quot;PCO2W&quot;)</span>
+<span class="c1"># bulk_download(&quot;nitr&quot;, &quot;NUTNR&quot;)</span>
+<span class="c1"># bulk_download(&quot;par&quot;,  &quot;PARAD&quot;)</span>
+<span class="c1"># bulk_download(&quot;vel&quot;,  &quot;VELPT&quot;)</span>
+<span class="c1"># bulk_download(&quot;irr&quot;,  &quot;SPKIR&quot;)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running bulk_download for instrument type = flor (OOI: FLORT)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running bulk_download for instrument type = ctd (OOI: CTDPF)
 Found 3 URLs to process
 
 === URL 1/3 ===
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260302T160213452Z-RS01SBPS-SF01A-2D-PHSENA101-streamed-phsen_data_record
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total .nc files: 0
-  Already downloaded: 0
-  Remaining to download: 0
-  All files complete, skipping
-
-=== URL 2/3 ===
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260228T182215784Z-RS01SBPS-SF01A-4B-VELPTD102-streamed-velpt_velocity_data
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total .nc files:       31
+  Already downloaded:    9
+  Remaining to download: 22
+  [1/22] deployment0001_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20141231T235959.533995-20150424T172450.573911.nc -&gt; 2014_ctd/
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total .nc files: 0
-  Already downloaded: 0
-  Remaining to download: 0
-  All files complete, skipping
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">178</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> files&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="c1"># Instrument key -&gt; OOI instrument code mapping (from Sensor Table):</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span> <span class="c1">#   ctd   -&gt; CTDPF</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span> <span class="c1">#   flor  -&gt; FLORT</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span> 
+<span class="g g-Whitespace">    </span><span class="mi">177</span> <span class="c1"># Run the bulk download - uncomment as needed:</span>
+<span class="ne">--&gt; </span><span class="mi">178</span> <span class="n">bulk_download</span><span class="p">(</span><span class="s2">&quot;ctd&quot;</span><span class="p">,</span>  <span class="s2">&quot;CTDPF&quot;</span><span class="p">)</span>
 
-=== URL 3/3 ===
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260302T161427022Z-RS01SBPS-SF01A-4F-PCO2WA101-streamed-pco2w_a_sami_data_record
+<span class="nn">Cell In[1], line 140,</span> in <span class="ni">bulk_download</span><span class="nt">(instrument, ooi_instrument)</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="n">file_url</span>  <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">file_idx</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">to_download</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">140</span> <span class="k">if</span> <span class="n">download_file</span><span class="p">(</span><span class="n">file_url</span><span class="p">,</span> <span class="n">dest_file</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="n">total_downloaded</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Complete: </span><span class="si">{</span><span class="n">dest_file</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+
+<span class="nn">Cell In[1], line 51,</span> in <span class="ni">download_file</span><span class="nt">(url, destination)</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">51</span>     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/requests/models.py:816,</span> in <span class="ni">Response.iter_content.&lt;locals&gt;.generate</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">814</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">815</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">816</span>         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">chunk_size</span><span class="p">,</span> <span class="n">decode_content</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">817</span>     <span class="k">except</span> <span class="n">ProtocolError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">818</span>         <span class="k">raise</span> <span class="n">ChunkedEncodingError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/urllib3/response.py:628,</span> in <span class="ni">HTTPResponse.stream</span><span class="nt">(self, amt, decode_content)</span>
+<span class="g g-Whitespace">    </span><span class="mi">626</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span>     <span class="k">while</span> <span class="ow">not</span> <span class="n">is_fp_closed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">628</span>         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="o">=</span><span class="n">amt</span><span class="p">,</span> <span class="n">decode_content</span><span class="o">=</span><span class="n">decode_content</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">630</span>         <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">631</span>             <span class="k">yield</span> <span class="n">data</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/urllib3/response.py:567,</span> in <span class="ni">HTTPResponse.read</span><span class="nt">(self, amt, decode_content, cache_content)</span>
+<span class="g g-Whitespace">    </span><span class="mi">564</span> <span class="n">fp_closed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="p">,</span> <span class="s2">&quot;closed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">566</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_catcher</span><span class="p">():</span>
+<span class="ne">--&gt; </span><span class="mi">567</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">fp_closed</span> <span class="k">else</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">568</span>     <span class="k">if</span> <span class="n">amt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>         <span class="n">flush_decoder</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/urllib3/response.py:533,</span> in <span class="ni">HTTPResponse._fp_read</span><span class="nt">(self, amt)</span>
+<span class="g g-Whitespace">    </span><span class="mi">530</span>     <span class="k">return</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="c1"># StringIO doesn&#39;t like amt=None</span>
+<span class="ne">--&gt; </span><span class="mi">533</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span> <span class="k">if</span> <span class="n">amt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/http/client.py:466,</span> in <span class="ni">HTTPResponse.read</span><span class="nt">(self, amt)</span>
+<span class="g g-Whitespace">    </span><span class="mi">463</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">amt</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">464</span>     <span class="c1"># clip the read to the &quot;end of response&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">465</span>     <span class="n">amt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+<span class="ne">--&gt; </span><span class="mi">466</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">467</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span> <span class="ow">and</span> <span class="n">amt</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">468</span>     <span class="c1"># Ideally, we would raise IncompleteRead if the content-length</span>
+<span class="g g-Whitespace">    </span><span class="mi">469</span>     <span class="c1"># wasn&#39;t satisfied, but it might break compatibility.</span>
+<span class="g g-Whitespace">    </span><span class="mi">470</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_close_conn</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/socket.py:706,</span> in <span class="ni">SocketIO.readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">706</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>     <span class="k">except</span> <span class="n">timeout</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_occurred</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/ssl.py:1278,</span> in <span class="ni">SSLSocket.recv_into</span><span class="nt">(self, buffer, nbytes, flags)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1274</span>     <span class="k">if</span> <span class="n">flags</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1275</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1276</span>           <span class="s2">&quot;non-zero flags not allowed in calls to recv_into() on </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+<span class="g g-Whitespace">   </span><span class="mi">1277</span>           <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1278</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1279</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1280</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/ssl.py:1134,</span> in <span class="ni">SSLSocket.read</span><span class="nt">(self, len, buffer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1132</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1133</span>     <span class="k">if</span> <span class="n">buffer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1134</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1135</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1136</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total .nc files: 0
-  Already downloaded: 0
-  Remaining to download: 0
-  All files complete, skipping
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Jupyter cell: CTD file overlap audit</span>
+<span class="c1"># Identifies redundant CTD files and plots time coverage bars</span>
+<span class="c1"># This is part one: It identifies files that are entirely overlapped by other files and adds them</span>
+<span class="c1">#   to a deletion script. After running this script there should be no more red files; just yellow</span>
+<span class="c1">#   and possibly blue. See the next cell for a further cleaning step.</span>
 
-=== Download Summary ===
-Files already complete: 0
-Files newly downloaded: 0
-Files failed/skipped: 0
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-Total files by year:
-  2015: 3 files
-  2016: 12 files
-  2017: 6 files
-  2018: 9 files
-  2019: 10 files
-  2020: 5 files
-  2021: 11 files
-  2022: 12 files
-  2023: 9 files
-  2024: 10 files
-  2025: 8 files
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CTD File Overlap Audit&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="n">BASE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooi/ooinet/rca/SlopeBase/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">YEARS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">)</span>
+
+<span class="c1"># --- Parse time range from filename ---</span>
+<span class="k">def</span> <span class="nf">parse_time_range</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract start and end datetime from CTD filename.&quot;&quot;&quot;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;_(\d</span><span class="si">{8}</span><span class="s1">T\d</span><span class="si">{6}</span><span class="s1">)\.\d+-(\d</span><span class="si">{8}</span><span class="s1">T\d</span><span class="si">{6}</span><span class="s1">)\.\d+\.nc$&#39;</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">T%H%M%S&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">fmt</span><span class="p">)</span>
+        <span class="n">end</span>   <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">fmt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+<span class="c1"># --- Collect all CTD files ---</span>
+<span class="n">all_files</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">YEARS</span><span class="p">:</span>
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">BASE</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_ctd&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.nc&quot;</span><span class="p">)):</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">parse_time_range</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">end</span><span class="p">:</span>
+            <span class="n">all_files</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total CTD files found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Detect overlaps ---</span>
+<span class="c1"># Sort by start time</span>
+<span class="n">all_files</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+
+<span class="n">overlaps</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">all_files</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">all_files</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="c1"># If b starts after a ends, no overlap possible for any later j</span>
+        <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]:</span>
+            <span class="k">break</span>
+        <span class="c1"># Overlap: b starts before a ends</span>
+        <span class="n">overlap_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+        <span class="n">overlap_end</span>   <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">],</span>   <span class="n">b</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+        <span class="n">overlap_days</span>  <span class="o">=</span> <span class="p">(</span><span class="n">overlap_end</span> <span class="o">-</span> <span class="n">overlap_start</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">86400</span>
+        <span class="n">overlaps</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;file_a&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;file_b&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;overlap_start&#39;</span><span class="p">:</span> <span class="n">overlap_start</span><span class="p">,</span>
+            <span class="s1">&#39;overlap_end&#39;</span><span class="p">:</span>   <span class="n">overlap_end</span><span class="p">,</span>
+            <span class="s1">&#39;overlap_days&#39;</span><span class="p">:</span>  <span class="n">overlap_days</span>
+        <span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Overlapping file pairs: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">overlaps</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Overlap details:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ov</span> <span class="ow">in</span> <span class="n">overlaps</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  A: </span><span class="si">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;file_a&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  B: </span><span class="si">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;file_b&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Overlap: </span><span class="si">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;overlap_start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;overlap_end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;overlap_days&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> days)&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Identify redundant files ---</span>
+<span class="c1"># A file is redundant if its entire time range is covered by another file</span>
+<span class="n">redundant</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_files</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_files</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># f is fully contained within g</span>
+        <span class="k">if</span> <span class="n">g</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">g</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">g</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]:</span>
+            <span class="n">redundant</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;redundant&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;covered_by&#39;</span><span class="p">:</span> <span class="n">g</span><span class="p">})</span>
+            <span class="k">break</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Fully redundant files (entirely covered by another): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">redundant</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">redundant</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  REDUNDANT: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;redundant&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  COVERED BY: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;covered_by&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Strategy recommendation ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;STRATEGY RECOMMENDATION&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">script_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_overlaps.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No overlaps detected - CTD files appear clean.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">script_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Removed stale delete_overlaps.sh)&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">redundant</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">total_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;redundant&#39;</span><span class="p">][</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">redundant</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Delete </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">redundant</span><span class="p">)</span><span class="si">}</span><span class="s2"> fully redundant files (</span><span class="si">{</span><span class="n">total_size</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB recoverable)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For partial overlaps: Keep the file with the longer time span.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Write shell script</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;#!/bin/bash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;# Auto-generated by ctd_overlap_audit.py&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;# Deletes fully redundant CTD files (time range entirely covered by another file)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">redundant</span><span class="p">:</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;# Covered by: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;covered_by&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rm </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;redundant&#39;</span><span class="p">][</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="n">script_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+    <span class="n">script_path</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="mo">0o755</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Deletion script written to: </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Review and run with:  bash </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span><span class="si">}</span><span class="s2"> partial overlaps found but no fully redundant files.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For each overlapping pair: Keep the file with the longer time span.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Partial overlaps may require trimming rather than deletion.&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Plot: time coverage bars ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Generating coverage plot...&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">)))</span>
+
+<span class="c1"># Color: red if redundant, orange if overlapping, blue otherwise</span>
+<span class="n">redundant_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;redundant&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">redundant</span><span class="p">}</span>
+<span class="n">overlap_names</span>   <span class="o">=</span> <span class="p">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;file_a&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ov</span> <span class="ow">in</span> <span class="n">overlaps</span><span class="p">}</span> <span class="o">|</span> <span class="p">{</span><span class="n">ov</span><span class="p">[</span><span class="s1">&#39;file_b&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ov</span> <span class="ow">in</span> <span class="n">overlaps</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_files</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">redundant_names</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="k">elif</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">overlap_names</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;steelblue&#39;</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]),</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+
+<span class="c1"># Format x-axis as dates</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis_date</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;File index (chronological)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CTD File Time Coverage (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span><span class="si">}</span><span class="s1"> files)</span><span class="se">\n</span><span class="s1">&#39;</span>
+             <span class="sa">f</span><span class="s1">&#39;Blue=clean  Orange=overlapping  Red=redundant&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+<span class="c1"># Legend</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Patch</span>
+<span class="n">legend_elements</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Clean&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span>    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Overlapping&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Redundant (fully covered)&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/ctd_coverage.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plot saved to ~/argosy/ctd_coverage.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CTD File Overlap Audit
+============================================================
+Total CTD files found: 40
+Overlapping file pairs: 48
+
+Overlap details:
+
+  A: deployment0001_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20141231T235959.533995-20150518T000000.646750.nc
+  B: deployment0001_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150424T172451.574121-20150705T235959.089334.nc
+  Overlap: 2015-04-24 to 2015-05-18 (23.3 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150708T220539.700577-20151130T000000.854900.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151107T011757.231076-20160203T075108.287602.nc
+  Overlap: 2015-11-07 to 2015-11-30 (22.9 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150708T220539.700577-20151130T000000.854900.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
+  Overlap: 2015-11-12 to 2015-11-30 (17.0 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150708T220539.700577-20151130T000000.854900.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
+  Overlap: 2015-11-29 to 2015-11-30 (0.0 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151107T011757.231076-20160203T075108.287602.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
+  Overlap: 2015-11-12 to 2016-02-03 (82.3 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151107T011757.231076-20160203T075108.287602.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
+  Overlap: 2015-11-29 to 2016-02-03 (65.3 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
+  Overlap: 2015-11-29 to 2016-03-01 (92.8 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
+  Overlap: 2016-02-03 to 2016-03-01 (27.4 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
+  Overlap: 2016-03-01 to 2016-03-01 (0.0 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
+  Overlap: 2016-02-03 to 2016-03-24 (49.9 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
+  Overlap: 2016-03-01 to 2016-03-24 (22.5 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
+  Overlap: 2016-03-01 to 2016-05-16 (75.3 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160324T050506.085710-20160711T000000.025662.nc
+  Overlap: 2016-03-24 to 2016-05-16 (52.8 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160515T235959.558758-20160716T111049.607585.nc
+  Overlap: 2016-05-15 to 2016-05-16 (0.0 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160324T050506.085710-20160711T000000.025662.nc
+  Overlap: 2016-03-24 to 2016-06-22 (90.3 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160515T235959.558758-20160716T111049.607585.nc
+  Overlap: 2016-05-15 to 2016-06-22 (37.5 days)
+
+  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160324T050506.085710-20160711T000000.025662.nc
+  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160515T235959.558758-20160716T111049.607585.nc
+  Overlap: 2016-05-15 to 2016-07-11 (56.0 days)
+
+  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180710T170527.140820-20181217T000000.485697.nc
+  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T055959.112187-20190311T180000.560954.nc
+  Overlap: 2018-11-25 to 2018-12-17 (21.8 days)
+
+  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180710T170527.140820-20181217T000000.485697.nc
+  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T235959.746938-20190318T000000.207331.nc
+  Overlap: 2018-11-25 to 2018-12-17 (21.0 days)
+
+  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T055959.112187-20190311T180000.560954.nc
+  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T235959.746938-20190318T000000.207331.nc
+  Overlap: 2018-11-25 to 2019-03-11 (105.8 days)
+
+  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T055959.112187-20190311T180000.560954.nc
+  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20190311T175959.560630-20190614T051242.692351.nc
+  Overlap: 2019-03-11 to 2019-03-11 (0.0 days)
+
+  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T235959.746938-20190318T000000.207331.nc
+  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20190311T175959.560630-20190614T051242.692351.nc
+  Overlap: 2019-03-11 to 2019-03-18 (6.3 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20200803T164413.888856-20201130T225829.341226.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201122T235959.198893-20210315T000000.016139.nc
+  Overlap: 2020-11-22 to 2020-11-30 (8.0 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20200803T164413.888856-20201130T225829.341226.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
+  Overlap: 2020-11-27 to 2020-11-30 (3.0 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201122T235959.198893-20210315T000000.016139.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
+  Overlap: 2020-11-27 to 2021-03-15 (107.0 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201122T235959.198893-20210315T000000.016139.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210314T235959.016346-20210705T000000.595883.nc
+  Overlap: 2021-03-14 to 2021-03-15 (0.0 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210314T235959.016346-20210705T000000.595883.nc
+  Overlap: 2021-03-14 to 2021-03-19 (4.5 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210317T085642.860957-20210804T190841.180708.nc
+  Overlap: 2021-03-17 to 2021-03-19 (2.1 days)
+
+  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210314T235959.016346-20210705T000000.595883.nc
+  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210317T085642.860957-20210804T190841.180708.nc
+  Overlap: 2021-03-17 to 2021-07-05 (109.6 days)
+
+  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210824T233256.569856-20211223T063248.370115.nc
+  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211217T175959.876304-20220405T180000.708918.nc
+  Overlap: 2021-12-17 to 2021-12-23 (5.5 days)
+
+  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210824T233256.569856-20211223T063248.370115.nc
+  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211219T235959.593037-20220411T000000.661721.nc
+  Overlap: 2021-12-19 to 2021-12-23 (3.3 days)
+
+  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211217T175959.876304-20220405T180000.708918.nc
+  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211219T235959.593037-20220411T000000.661721.nc
+  Overlap: 2021-12-19 to 2022-04-05 (106.8 days)
+
+  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211217T175959.876304-20220405T180000.708918.nc
+  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211223T063249.370230-20220902T204459.535113.nc
+  Overlap: 2021-12-23 to 2022-04-05 (103.5 days)
+
+  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211219T235959.593037-20220411T000000.661721.nc
+  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211223T063249.370230-20220902T204459.535113.nc
+  Overlap: 2021-12-23 to 2022-04-11 (108.7 days)
+
+  A: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20220915T181349.594332-20230116T000000.532180.nc
+  B: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230101T000000.149650-20230120T115959.534201.nc
+  Overlap: 2023-01-01 to 2023-01-16 (15.0 days)
+
+  A: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20220915T181349.594332-20230116T000000.532180.nc
+  B: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230105T055959.511165-20230224T084327.668331.nc
+  Overlap: 2023-01-05 to 2023-01-16 (10.8 days)
+
+  A: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230101T000000.149650-20230120T115959.534201.nc
+  B: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230105T055959.511165-20230224T084327.668331.nc
+  Overlap: 2023-01-05 to 2023-01-20 (15.2 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230817T212929.521060-20240212T000000.874083.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
+  Overlap: 2023-12-28 to 2024-02-12 (45.8 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230817T212929.521060-20240212T000000.874083.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
+  Overlap: 2024-01-25 to 2024-02-12 (17.8 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230817T212929.521060-20240212T000000.874083.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
+  Overlap: 2024-02-11 to 2024-02-12 (0.0 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
+  Overlap: 2024-01-25 to 2024-04-17 (83.3 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
+  Overlap: 2024-02-11 to 2024-04-17 (65.5 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240417T115959.202701-20240809T063045.498432.nc
+  Overlap: 2024-04-17 to 2024-04-17 (0.0 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
+  Overlap: 2024-02-11 to 2024-05-06 (84.0 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240417T115959.202701-20240809T063045.498432.nc
+  Overlap: 2024-04-17 to 2024-05-06 (18.5 days)
+
+  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
+  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240417T115959.202701-20240809T063045.498432.nc
+  Overlap: 2024-04-17 to 2024-07-02 (75.8 days)
+
+  A: deployment0012_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240809T203132.739326-20241216T000000.135762.nc
+  B: deployment0012_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20241122T072830.648546-20250805T142747.771470.nc
+  Overlap: 2024-11-22 to 2024-12-16 (23.7 days)
+
+  A: deployment0014_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20250814T232320.067702-20251215T000000.085007.nc
+  B: deployment0014_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20251123T101006.524654-20260101T000000.312004.nc
+  Overlap: 2025-11-23 to 2025-12-15 (21.6 days)
+
+Fully redundant files (entirely covered by another): 0
+
+============================================================
+STRATEGY RECOMMENDATION
+============================================================
+48 partial overlaps found but no fully redundant files.
+For each overlapping pair: Keep the file with the longer time span.
+Partial overlaps may require trimming rather than deletion.
+
+Generating coverage plot...
+</pre></div>
+</div>
+<img alt="../_images/8d18d51f525b357c95fa38586e35b6196a87fc4f3447884f59409c2903c5811e.png" src="../_images/8d18d51f525b357c95fa38586e35b6196a87fc4f3447884f59409c2903c5811e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Plot saved to ~/argosy/ctd_coverage.png
 </pre></div>
 </div>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="o">.</span><span class="n">oceanobservatories</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">async_results</span><span class="o">/</span><span class="n">kilroy1618</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="mi">20260227</span><span class="n">T230024166Z</span><span class="o">-</span><span class="n">RS01SBPS</span><span class="o">-</span><span class="n">SF01A</span><span class="o">-</span><span class="mi">3</span><span class="n">A</span><span class="o">-</span><span class="n">FLORTD101</span><span class="o">-</span><span class="n">streamed</span><span class="o">-</span><span class="n">flort_d_data_record</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="o">.</span><span class="n">oceanobservatories</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">async_results</span><span class="o">/</span><span class="n">kilroy1618</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="mi">20260227</span><span class="n">T225128469Z</span><span class="o">-</span><span class="n">RS01SBPS</span><span class="o">-</span><span class="n">SF01A</span><span class="o">-</span><span class="mi">3</span><span class="n">A</span><span class="o">-</span><span class="n">FLORTD101</span><span class="o">-</span><span class="n">streamed</span><span class="o">-</span><span class="n">flort_d_data_record</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="o">.</span><span class="n">oceanobservatories</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">async_results</span><span class="o">/</span><span class="n">kilroy1618</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="mi">20260227</span><span class="n">T230123122Z</span><span class="o">-</span><span class="n">RS01SBPS</span><span class="o">-</span><span class="n">SF01A</span><span class="o">-</span><span class="mi">3</span><span class="n">A</span><span class="o">-</span><span class="n">FLORTD101</span><span class="o">-</span><span class="n">streamed</span><span class="o">-</span><span class="n">flort_d_data_record</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Jupyter cell: CTD minimum cover analysis</span>
+<span class="c1"># Finds the minimal set of files that preserves full time coverage,</span>
+<span class="c1"># then generates a deletion script for all others.</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CTD Minimum Cover Analysis&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="n">BASE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooi/ooinet/rca/SlopeBase/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">YEARS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">parse_time_range</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;_(\d</span><span class="si">{8}</span><span class="s1">T\d</span><span class="si">{6}</span><span class="s1">)\.\d+-(\d</span><span class="si">{8}</span><span class="s1">T\d</span><span class="si">{6}</span><span class="s1">)\.\d+\.nc$&#39;</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">T%H%M%S&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">fmt</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+<span class="c1"># --- Collect all CTD files ---</span>
+<span class="n">all_files</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">YEARS</span><span class="p">:</span>
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">BASE</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_ctd&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.nc&quot;</span><span class="p">)):</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">parse_time_range</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">end</span><span class="p">:</span>
+            <span class="n">all_files</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="n">end</span><span class="p">})</span>
+
+<span class="n">all_files</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total CTD files: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Greedy interval cover algorithm ---</span>
+<span class="c1"># At each step: among all files whose start &lt;= current frontier,</span>
+<span class="c1"># pick the one with the furthest end time. Advance frontier. Repeat.</span>
+<span class="c1"># This is the classic greedy minimum interval cover and is optimal.</span>
+
+<span class="k">def</span> <span class="nf">minimum_cover</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the minimal subset of files that covers the same</span>
+<span class="sd">    total time span as all files combined, with no gaps.</span>
+<span class="sd">    Files must be sorted by start time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="n">keep</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Work through the timeline left to right</span>
+    <span class="n">frontier</span> <span class="o">=</span> <span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>   <span class="c1"># earliest start</span>
+    <span class="n">end_of_all</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">)</span>
+
+    <span class="n">remaining</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">frontier</span> <span class="o">&lt;</span> <span class="n">end_of_all</span><span class="p">:</span>
+        <span class="c1"># Candidates: all files that start at or before the current frontier</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">remaining</span> <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">frontier</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="c1"># Gap in coverage - advance frontier to next file start</span>
+            <span class="n">next_file</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">remaining</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+            <span class="n">frontier</span> <span class="o">=</span> <span class="n">next_file</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+            <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">next_file</span><span class="p">]</span>
+
+        <span class="c1"># Pick the candidate with the furthest end time</span>
+        <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+        <span class="n">keep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best</span><span class="p">)</span>
+        <span class="n">remaining</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">best</span><span class="p">)</span>
+
+        <span class="c1"># Everything else that started before or at frontier and ends</span>
+        <span class="c1"># before or at best.end is now redundant given best</span>
+        <span class="n">newly_redundant</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">remaining</span>
+            <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">frontier</span> <span class="ow">and</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">newly_redundant</span><span class="p">:</span>
+            <span class="n">deletable</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">remaining</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">frontier</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Any remaining files not yet classified</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">remaining</span><span class="p">:</span>
+        <span class="c1"># Check if covered by the keep set</span>
+        <span class="n">covered</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keep</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">covered</span><span class="p">:</span>
+            <span class="n">deletable</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">keep</span><span class="p">,</span> <span class="n">deletable</span>
+
+<span class="n">keep</span><span class="p">,</span> <span class="n">deletable</span> <span class="o">=</span> <span class="n">minimum_cover</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files needed for full coverage: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files deletable without losing coverage: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">deletable</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">deletable</span><span class="p">:</span>
+    <span class="n">total_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">deletable</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recoverable space: </span><span class="si">{</span><span class="n">total_size</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Write deletion script ---</span>
+<span class="n">script_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_overlaps2.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">deletable</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;#!/bin/bash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;# Auto-generated by ctd_minimum_cover.py&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;# Deletes CTD files whose coverage is fully provided by other files.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;# The remaining files preserve complete time coverage.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deletable</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]):</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rm </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">script_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+    <span class="n">script_path</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="mo">0o755</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Deletion script written to: </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Review and run with:  bash </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No deletable files found - set is already minimal.&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Plot ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">)))</span>
+
+<span class="n">keep_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">keep</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_files</span><span class="p">):</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;steelblue&#39;</span> <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">keep_names</span> <span class="k">else</span> <span class="s1">&#39;orange&#39;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">i</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]),</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis_date</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;File index (chronological)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CTD Minimum Cover (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span><span class="si">}</span><span class="s1"> files)</span><span class="se">\n</span><span class="s1">&#39;</span>
+             <span class="sa">f</span><span class="s1">&#39;Blue=keep (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep</span><span class="p">)</span><span class="si">}</span><span class="s1">)  Orange=deletable (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">deletable</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Patch</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Keep (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span>    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Deletable (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">deletable</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plot_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/ctd_minimum_cover.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">plot_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plot saved to </span><span class="si">{</span><span class="n">plot_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CTD Minimum Cover Analysis
+============================================================
+Total CTD files: 29
+Files needed for full coverage: 29
+Files deletable without losing coverage: 0
+
+No deletable files found - set is already minimal.
+</pre></div>
+</div>
+<img alt="../_images/c52b421fe7b22c1ab4b0edd51b3271e09710aeb3d7399bea2bafe3eae0543d69.png" src="../_images/c52b421fe7b22c1ab4b0edd51b3271e09710aeb3d7399bea2bafe3eae0543d69.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Plot saved to /home/rob/argosy/ctd_minimum_cover.png
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -672,12 +1358,12 @@ Total files by year:
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../AnalysisConcepts.html"
+       href="../Umbrella.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Analysis Concepts</p>
+        <p class="prev-next-title">Umbrella</p>
       </div>
     </a>
     <a class="right-next"
@@ -695,6 +1381,21 @@ Total files by year:
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-datasets-from-ooinet-to-localhost">Copy datasets from OOINET to localhost.</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

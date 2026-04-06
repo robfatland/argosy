@@ -1,0 +1,136 @@
+Traceback (most recent call last):
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/rob/miniconda3/envs/argo-env2/lib/python3.11/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Module 1: Load and prepare profile data for graph analysis
+# This module loads shard files and creates a structured dataset
+
+import xarray as xr
+import numpy as np
+import pandas as pd
+from pathlib import Path
+from datetime import datetime
+import warnings
+warnings.filterwarnings('ignore')
+
+def get_input_with_default(prompt, default):
+    """Get user input with default value."""
+    response = input(f"{prompt} ").strip()
+    return response if response else str(default)
+
+# Configuration
+SENSORS = ['temperature', 'salinity', 'density', 'dissolvedoxygen', 'cdom', 'chlora', 'backscatter']
+STANDARD_DEPTHS = np.linspace(0, 180, 91)  # 2m resolution
+
+# Get year range
+start_year = int(get_input_with_default("Start year (default 2018):", "2018"))
+end_year = int(get_input_with_default("End year (default 2018):", "2018"))
+
+print(f"\nLoading profile data from {start_year} to {end_year}...")
+
+# Collect all profile files
+all_profiles = {}
+for sensor in SENSORS:
+    profile_files = []
+    for year in range(start_year, end_year + 1):
+        redux_dir = Path(f"~/redux{year}").expanduser()
+        if redux_dir.exists():
+            year_files = sorted(list(redux_dir.glob(f"*_{sensor}_*.nc")))
+            profile_files.extend(year_files)
+    all_profiles[sensor] = profile_files
+    print(f"  {sensor}: {len(profile_files)} files")
+
+# Use temperature as reference (most complete)
+reference_files = all_profiles['temperature']
+n_profiles = len(reference_files)
+
+print(f"\nTotal profiles to process: {n_profiles}")
+
+# Extract profile metadata
+def extract_profile_metadata(filename):
+    """Extract metadata from filename."""
+    parts = filename.stem.split('_')
+    year = int(parts[4])
+    doy = int(parts[5])
+    profile_idx = int(parts[6])
+    profile_num = int(parts[7])
+    
+    # Convert to datetime
+    date = datetime(year, 1, 1) + pd.Timedelta(days=doy - 1)
+    
+    return {
+        'year': year,
+        'doy': doy,
+        'profile_idx': profile_idx,
+        'profile_num': profile_num,
+        'date': date
+    }
+
+# Build profile index
+print("\nBuilding profile index...")
+profile_metadata = []
+for i, ref_file in enumerate(reference_files):
+    if (i + 1) % 500 == 0:
+        print(f"  Processed {i + 1}/{n_profiles}")
+    metadata = extract_profile_metadata(ref_file)
+    metadata['index'] = i
+    profile_metadata.append(metadata)
+
+profile_index = pd.DataFrame(profile_metadata)
+print(f"\nProfile index created: {len(profile_index)} profiles")
+print(f"Date range: {profile_index['date'].min()} to {profile_index['date'].max()}")
+
+# Save for later use
+profile_index.to_csv('profile_index.csv', index=False)
+print("\nProfile index saved to profile_index.csv")
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mStdinNotImplementedError[0m                  Traceback (most recent call last)
+Cell [0;32mIn[1], line 22[0m
+[1;32m     19[0m STANDARD_DEPTHS [38;5;241m=[39m np[38;5;241m.[39mlinspace([38;5;241m0[39m, [38;5;241m180[39m, [38;5;241m91[39m)  [38;5;66;03m# 2m resolution[39;00m
+[1;32m     21[0m [38;5;66;03m# Get year range[39;00m
+[0;32m---> 22[0m start_year [38;5;241m=[39m [38;5;28mint[39m(get_input_with_default([38;5;124m"[39m[38;5;124mStart year (default 2018):[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m2018[39m[38;5;124m"[39m))
+[1;32m     23[0m end_year [38;5;241m=[39m [38;5;28mint[39m(get_input_with_default([38;5;124m"[39m[38;5;124mEnd year (default 2018):[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m2018[39m[38;5;124m"[39m))
+[1;32m     25[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mLoading profile data from [39m[38;5;132;01m{[39;00mstart_year[38;5;132;01m}[39;00m[38;5;124m to [39m[38;5;132;01m{[39;00mend_year[38;5;132;01m}[39;00m[38;5;124m...[39m[38;5;124m"[39m)
+
+Cell [0;32mIn[1], line 14[0m, in [0;36mget_input_with_default[0;34m(prompt, default)[0m
+[1;32m     12[0m [38;5;28;01mdef[39;00m [38;5;21mget_input_with_default[39m(prompt, default):
+[1;32m     13[0m [38;5;250m    [39m[38;5;124;03m"""Get user input with default value."""[39;00m
+[0;32m---> 14[0m     response [38;5;241m=[39m [38;5;28minput[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mprompt[38;5;132;01m}[39;00m[38;5;124m [39m[38;5;124m"[39m)[38;5;241m.[39mstrip()
+[1;32m     15[0m     [38;5;28;01mreturn[39;00m response [38;5;28;01mif[39;00m response [38;5;28;01melse[39;00m [38;5;28mstr[39m(default)
+
+File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/ipykernel/kernelbase.py:1201[0m, in [0;36mKernel.raw_input[0;34m(self, prompt)[0m
+[1;32m   1199[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28mself[39m[38;5;241m.[39m_allow_stdin:
+[1;32m   1200[0m     msg [38;5;241m=[39m [38;5;124m"[39m[38;5;124mraw_input was called, but this frontend does not support input requests.[39m[38;5;124m"[39m
+[0;32m-> 1201[0m     [38;5;28;01mraise[39;00m StdinNotImplementedError(msg)
+[1;32m   1202[0m [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_input_request(
+[1;32m   1203[0m     [38;5;28mstr[39m(prompt),
+[1;32m   1204[0m     [38;5;28mself[39m[38;5;241m.[39m_parent_ident[[38;5;124m"[39m[38;5;124mshell[39m[38;5;124m"[39m],
+[1;32m   1205[0m     [38;5;28mself[39m[38;5;241m.[39mget_parent([38;5;124m"[39m[38;5;124mshell[39m[38;5;124m"[39m),
+[1;32m   1206[0m     password[38;5;241m=[39m[38;5;28;01mFalse[39;00m,
+[1;32m   1207[0m )
+
+[0;31mStdinNotImplementedError[0m: raw_input was called, but this frontend does not support input requests.
+StdinNotImplementedError: raw_input was called, but this frontend does not support input requests.
+
