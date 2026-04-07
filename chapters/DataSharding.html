@@ -405,6 +405,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-temperature-mixed-layer-depth-estimates-interactive-on-pause">Generate Temperature Mixed Layer Depth estimates: Interactive (on pause)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-count-check">Profile count check</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-parity-with-localhost-redux">S3 Parity With localhost (redux)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midnight-and-noon-profiles">midnight and noon profiles</a></li>
 </ul>
             </nav>
         </div>
@@ -688,7 +689,7 @@ No years selected
 <span class="ne">---&gt; </span><span class="mi">56</span>     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">move_to_end</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;5e79b10c-d20f-4d55-bf83-9af6fdfe6ea3&#39;]
+<span class="ne">KeyError</span>: [&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;, (&#39;/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc&#39;,), &#39;r&#39;, ((&#39;clobber&#39;, True), (&#39;diskless&#39;, False), (&#39;format&#39;, &#39;NETCDF4&#39;), (&#39;persist&#39;, False)), &#39;d3362dc4-7d53-4cca-ba4e-26c202529856&#39;]
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -2037,6 +2038,235 @@ a dedicated Python program <code class="docutils literal notranslate"><span clas
 </div>
 </div>
 </section>
+<section id="midnight-and-noon-profiles">
+<h2>midnight and noon profiles<a class="headerlink" href="#midnight-and-noon-profiles" title="Link to this heading">#</a></h2>
+<p>This block of code analyzes the <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> data to identify noon and midnight profiles.
+These are written to two CSV files in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>: <code class="docutils literal notranslate"><span class="pre">profiles_midnight.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">profiles_noon.csv</span></code>.
+On 06-APR-2026 this code produced the following table of profile counts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Year</span>    <span class="n">Midnight</span>      <span class="n">Noon</span>   <span class="n">Active</span> <span class="n">Days</span>
+  <span class="o">----</span>    <span class="o">--------</span>      <span class="o">----</span>   <span class="o">-----------</span>
+  <span class="mi">2015</span>          <span class="mi">66</span>        <span class="mi">78</span>            <span class="mi">97</span>
+  <span class="mi">2016</span>         <span class="mi">327</span>       <span class="mi">330</span>           <span class="mi">342</span>
+  <span class="mi">2017</span>         <span class="mi">155</span>       <span class="mi">159</span>           <span class="mi">161</span>
+  <span class="mi">2018</span>         <span class="mi">204</span>       <span class="mi">211</span>           <span class="mi">218</span>
+  <span class="mi">2019</span>         <span class="mi">233</span>       <span class="mi">235</span>           <span class="mi">243</span>
+  <span class="mi">2020</span>         <span class="mi">141</span>       <span class="mi">143</span>           <span class="mi">146</span>
+  <span class="mi">2021</span>         <span class="mi">330</span>       <span class="mi">331</span>           <span class="mi">336</span>
+  <span class="mi">2022</span>         <span class="mi">262</span>       <span class="mi">264</span>           <span class="mi">265</span>
+  <span class="mi">2023</span>         <span class="mi">154</span>       <span class="mi">159</span>           <span class="mi">161</span>
+  <span class="mi">2024</span>         <span class="mi">255</span>       <span class="mi">256</span>           <span class="mi">263</span>
+  <span class="mi">2025</span>         <span class="mi">314</span>       <span class="mi">313</span>           <span class="mi">326</span>
+ <span class="n">Total</span>        <span class="mi">2441</span>      <span class="mi">2479</span>          <span class="mi">2558</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Profile duration histograms + UTC noon/midnight verification</span>
+<span class="sd">Oregon Slope Base shallow profiler (RS01SBPS)</span>
+
+<span class="sd">Three histograms with 2-minute bin widths, x-axis fixed 0-250 minutes:</span>
+<span class="sd">  1. Ascent duration  (start -&gt; peak)</span>
+<span class="sd">  2. Descent duration (peak -&gt; end)</span>
+<span class="sd">  3. Total duration   (start -&gt; end)</span>
+
+<span class="sd">Also writes:</span>
+<span class="sd">  ~/argosy/profiles_midnight.csv</span>
+<span class="sd">  ~/argosy/profiles_noon.csv</span>
+
+<span class="sd">And prints a per-year summary table to stdout.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">zoneinfo</span> <span class="kn">import</span> <span class="n">ZoneInfo</span>
+
+<span class="c1"># ── Config ────────────────────────────────────────────────────────────────────</span>
+<span class="n">SITE_TZ</span>             <span class="o">=</span> <span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;America/Los_Angeles&quot;</span><span class="p">)</span>
+<span class="n">PROFILE_INDICES_DIR</span> <span class="o">=</span> <span class="s2">&quot;/home/rob/ooi/profileIndices&quot;</span>
+<span class="n">SITE_PATTERN</span>        <span class="o">=</span> <span class="s2">&quot;RS01SBPS_profiles_*.csv&quot;</span>
+<span class="n">OUTPUT_PNG</span>          <span class="o">=</span> <span class="s2">&quot;/home/rob/argosy/SlopeBaseProfileHistograms.png&quot;</span>
+<span class="n">OUT_MIDNIGHT</span>        <span class="o">=</span> <span class="s2">&quot;/home/rob/argosy/profiles_midnight.csv&quot;</span>
+<span class="n">OUT_NOON</span>            <span class="o">=</span> <span class="s2">&quot;/home/rob/argosy/profiles_noon.csv&quot;</span>
+
+<span class="n">MIN_GAP_HOURS</span> <span class="o">=</span> <span class="mf">20.0</span>   <span class="c1"># minimum separation between same-class profiles</span>
+
+<span class="c1"># ── Load all RS01SBPS profileIndices files ────────────────────────────────────</span>
+<span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PROFILE_INDICES_DIR</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">SITE_PATTERN</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2"> RS01SBPS profileIndices files:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;peak&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total profiles loaded: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">pi</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">pi</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Compute durations ─────────────────────────────────────────────────────────</span>
+<span class="n">pi</span><span class="p">[</span><span class="s2">&quot;ascent_min&quot;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span>  <span class="o">-</span> <span class="n">pi</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">60.0</span>
+<span class="n">pi</span><span class="p">[</span><span class="s2">&quot;descent_min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span>   <span class="o">-</span> <span class="n">pi</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">60.0</span>
+<span class="n">pi</span><span class="p">[</span><span class="s2">&quot;total_min&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span>   <span class="o">-</span> <span class="n">pi</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">60.0</span>
+
+<span class="n">valid</span> <span class="o">=</span> <span class="n">pi</span><span class="p">[(</span><span class="n">pi</span><span class="p">[</span><span class="s2">&quot;ascent_min&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pi</span><span class="p">[</span><span class="s2">&quot;descent_min&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Profiles with valid durations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Histogram helper ──────────────────────────────────────────────────────────</span>
+<span class="n">BIN_WIDTH</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">X_MIN</span><span class="p">,</span> <span class="n">X_MAX</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">250</span>
+<span class="n">BINS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X_MIN</span><span class="p">,</span> <span class="n">X_MAX</span> <span class="o">+</span> <span class="n">BIN_WIDTH</span><span class="p">,</span> <span class="n">BIN_WIDTH</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">duration_histogram</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">counts</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">BINS</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                               <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="n">nonzero</span> <span class="o">=</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">edges</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">nonzero</span><span class="p">:</span>
+        <span class="c1"># &#39;m&#39; above leftmost non-zero bin</span>
+        <span class="n">min_count</span><span class="p">,</span> <span class="n">min_edge</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nonzero</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">min_edge</span> <span class="o">+</span> <span class="n">BIN_WIDTH</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">min_count</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+        <span class="c1"># &#39;M&#39; above rightmost non-zero bin; &#39;M&gt;&#39; shifted left if beyond x-axis</span>
+        <span class="n">max_count</span><span class="p">,</span> <span class="n">max_edge</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nonzero</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">max_center</span> <span class="o">=</span> <span class="n">max_edge</span> <span class="o">+</span> <span class="n">BIN_WIDTH</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">max_center</span> <span class="o">&gt;</span> <span class="n">X_MAX</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">X_MAX</span> <span class="o">-</span> <span class="mi">4</span><span class="p">,</span> <span class="n">max_count</span><span class="p">,</span> <span class="s1">&#39;M&gt;&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">max_center</span><span class="p">,</span> <span class="n">max_count</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">X_MIN</span><span class="p">,</span> <span class="n">X_MAX</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Duration (minutes)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="n">BIN_WIDTH</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="c1"># ── Plot ──────────────────────────────────────────────────────────────────────</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Oregon Slope Base Shallow Profiler — Profile Durations (RS01SBPS)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+
+<span class="n">duration_histogram</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;ascent_min&quot;</span><span class="p">],</span>  <span class="s2">&quot;Ascent Duration</span><span class="se">\n</span><span class="s2">(start to peak)&quot;</span><span class="p">,</span>  <span class="s2">&quot;#2196F3&quot;</span><span class="p">)</span>
+<span class="n">duration_histogram</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;descent_min&quot;</span><span class="p">],</span> <span class="s2">&quot;Descent Duration</span><span class="se">\n</span><span class="s2">(peak to end)&quot;</span><span class="p">,</span>   <span class="s2">&quot;#FF9800&quot;</span><span class="p">)</span>
+<span class="n">duration_histogram</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;total_min&quot;</span><span class="p">],</span>   <span class="s2">&quot;Total Duration</span><span class="se">\n</span><span class="s2">(start to end)&quot;</span><span class="p">,</span>    <span class="s2">&quot;#4CAF50&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">OUTPUT_PNG</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Chart saved to </span><span class="si">{</span><span class="n">OUTPUT_PNG</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Classify profiles ─────────────────────────────────────────────────────────</span>
+<span class="k">def</span> <span class="nf">classify_peak</span><span class="p">(</span><span class="n">utc_ts</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">utc_ts</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s2">&quot;UTC&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">SITE_TZ</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span>
+    <span class="k">if</span> <span class="mi">11</span> <span class="o">&lt;=</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">13</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;noon&quot;</span>
+    <span class="k">elif</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="mi">23</span> <span class="ow">or</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;midnight&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;other&quot;</span>
+
+<span class="n">valid</span><span class="p">[</span><span class="s2">&quot;peak_class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">classify_peak</span><span class="p">)</span>
+
+<span class="c1"># ── Build filtered noon / midnight tables ─────────────────────────────────────</span>
+<span class="k">def</span> <span class="nf">build_special_profiles</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From profiles classified as `label` by local peak hour:</span>
+<span class="sd">      - at least MIN_GAP_HOURS between consecutive retained entries</span>
+<span class="sd">        (enforces one per day)</span>
+<span class="sd">    Returns DataFrame with columns: profile, start, peak, end</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;peak_class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">kept</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">last_start</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">subset</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">last_start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">last_start</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">3600</span> <span class="o">&gt;=</span> <span class="n">MIN_GAP_HOURS</span><span class="p">:</span>
+            <span class="n">kept</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="n">last_start</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">kept</span><span class="p">)[[</span><span class="s2">&quot;profile&quot;</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;peak&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">midnight_df</span> <span class="o">=</span> <span class="n">build_special_profiles</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="s2">&quot;midnight&quot;</span><span class="p">)</span>
+<span class="n">noon_df</span>     <span class="o">=</span> <span class="n">build_special_profiles</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="s2">&quot;noon&quot;</span><span class="p">)</span>
+
+<span class="n">midnight_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">OUT_MIDNIGHT</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">noon_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">OUT_NOON</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Wrote </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">midnight_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> midnight profiles to </span><span class="si">{</span><span class="n">OUT_MIDNIGHT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wrote </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">noon_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> noon profiles to </span><span class="si">{</span><span class="n">OUT_NOON</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Per-year summary table ────────────────────────────────────────────────────</span>
+<span class="n">midnight_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">midnight_df</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">noon_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">noon_df</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+
+<span class="c1"># Count active days per year: UTC days with at least one non-noon/non-midnight profile</span>
+<span class="n">other_profiles</span> <span class="o">=</span> <span class="n">valid</span><span class="p">[</span><span class="n">valid</span><span class="p">[</span><span class="s2">&quot;peak_class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;other&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">other_profiles</span><span class="p">[</span><span class="s2">&quot;utc_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other_profiles</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<span class="n">other_profiles</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">other_profiles</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">active_days</span> <span class="o">=</span> <span class="n">other_profiles</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">)[</span><span class="s2">&quot;utc_date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
+<span class="n">all_years</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">midnight_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">])</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">noon_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">])</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">active_days</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">── Per-year midnight / noon profile counts ──────────────────────────────&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Year&#39;</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;Midnight&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;Noon&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;Active Days&#39;</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;----&#39;</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;--------&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;----&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;-----------&#39;</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">total_days</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">all_years</span><span class="p">:</span>
+    <span class="n">n_mid</span>  <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">midnight_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">yr</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">n_noon</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">noon_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span>     <span class="o">==</span> <span class="n">yr</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">n_days</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">active_days</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">yr</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">total_days</span> <span class="o">+=</span> <span class="n">n_days</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">yr</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">n_mid</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">n_noon</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">n_days</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Total&#39;</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">midnight_df</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">noon_df</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">total_days</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 12 RS01SBPS profileIndices files:
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2015.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2016.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2017.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2018.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2019.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2020.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2021.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2022.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2023.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2024.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2025.csv
+  /home/rob/ooi/profileIndices/RS01SBPS_profiles_2026.csv
+
+Total profiles loaded: 22129
+Date range: 2015-07-09 16:19:00 to 2026-01-02 10:04:00
+Profiles with valid durations: 22129
+
+Chart saved to /home/rob/argosy/SlopeBaseProfileHistograms.png
+
+Wrote 2443 midnight profiles to /home/rob/argosy/profiles_midnight.csv
+Wrote 2480 noon profiles to /home/rob/argosy/profiles_noon.csv
+
+── Per-year midnight / noon profile counts ──────────────────────────────
+  Year    Midnight      Noon   Active Days
+  ----    --------      ----   -----------
+  2015          66        78            97
+  2016         327       330           342
+  2017         155       159           161
+  2018         204       211           218
+  2019         233       235           243
+  2020         141       143           146
+  2021         330       331           336
+  2022         262       264           265
+  2023         154       159           161
+  2024         255       256           263
+  2025         314       313           326
+  2026           2         1             2
+ Total        2443      2480          2560
+</pre></div>
+</div>
+<img alt="../_images/012ced46bfec8f54f06abc660efa6f3cc636f0b5221682a0d8ec76b6d605e503.png" src="../_images/012ced46bfec8f54f06abc660efa6f3cc636f0b5221682a0d8ec76b6d605e503.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -2118,6 +2348,7 @@ a dedicated Python program <code class="docutils literal notranslate"><span clas
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-temperature-mixed-layer-depth-estimates-interactive-on-pause">Generate Temperature Mixed Layer Depth estimates: Interactive (on pause)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-count-check">Profile count check</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-parity-with-localhost-redux">S3 Parity With localhost (redux)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midnight-and-noon-profiles">midnight and noon profiles</a></li>
 </ul>
   </nav></div>
 

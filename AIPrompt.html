@@ -415,10 +415,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-data-download">Task 1: Data Download</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#order-datasets-from-ooinet-task-0-manual">Order datasets from OOINET (‘task 0, manual’)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data-order">Download data order</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-raw-data-files">Degenerate source / raw data files</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-raw-data-files">Degenerate source / raw data files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#midnight-and-noon-profiles">midnight and noon profiles</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-postprocessing">Task 3: PostProcessing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-visualizations">Task 4: Visualizations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-analysis">Task 5: Analysis</a></li>
@@ -582,14 +585,18 @@ data from the Ocean Observatories Initiative Regional Cabled Array shallow profi
 The idea is to transition from the archival data system to a more
 interpretable form of the data; and then to visualize, interpret and
 further explore this data.</p>
-<p>This work exists on a Windows PC in the WSL2 home file system, specifically <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>.
-Within <code class="docutils literal notranslate"><span class="pre">argosy</span></code> there are Jupyter notebooks, markdown files and standalone
-Python programs.</p>
-<p>Code prompts will indicate whether requested code is intended for
-standalone Python or Jupyter (IPython) notebook cell.</p>
-<p>The <strong>Next</strong> prompt at the end of this file is generally composed as many lines of text
-and then referenced by a line range (in this file) from the prompt window.</p>
-<p>Example: “Get the prompt from lines 1118 - 1160 of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code>.”</p>
+<p>This work runs primarily on a Windows PC (assume this as default) in the WSL home file
+system, specifically <code class="docutils literal notranslate"><span class="pre">/home/username/argosy</span></code>. Within the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repo are Jupyter notebooks,
+markdown files, standalone Python modules file (<code class="docutils literal notranslate"><span class="pre">.py</span></code>) and other supporting files.
+The Python interpreter associated with execution of code is a <code class="docutils literal notranslate"><span class="pre">miniconda</span></code> installation
+with the default key <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment being <code class="docutils literal notranslate"><span class="pre">argo-env2</span></code>.</p>
+<p>When prompted for code: Write the code in a new <code class="docutils literal notranslate"><span class="pre">.py</span></code> file in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code> but do not run
+it. The prompt will indicate whether the code is to run as a module or be copied to a
+Jupyter notebook cell and run there. For example chart interaction will tend to run as
+a module (see TMLD) whereas the bundle plot visualization will run in a Jupyter notebook.</p>
+<p>The <strong>Next</strong> section at the end of this file is generally where prompts are composed.
+The prompt line range is then referenced from the prompt window in the (<code class="docutils literal notranslate"><span class="pre">kiro</span></code>) VS Code IDE.</p>
+<p>Example: “Run on the prompt from lines 1118 - 1160 of <code class="docutils literal notranslate"><span class="pre">AIPrompt.md</span></code>.”</p>
 </section>
 <section id="ooi-observatory">
 <h2>OOI observatory<a class="headerlink" href="#ooi-observatory" title="Link to this heading">#</a></h2>
@@ -616,6 +623,13 @@ Oregon Slope Base site, the initial focus of this work.</p>
 known variously as the photic or epipelagic zone. There are three sites in the RCA where
 a sensor assembly called a shallow profiler is used to profile the upper water column
 nine times per day: Oregon Slope Base, Oregon Offshore and Axial Slope Base.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Site</span> <span class="n">name</span>           <span class="n">Latitude</span>  <span class="n">Longitude</span>   <span class="n">Depth</span> <span class="p">(</span><span class="n">m</span><span class="p">)</span>  <span class="n">D</span><span class="o">-</span><span class="n">offshore</span> <span class="p">(</span><span class="n">km</span><span class="p">)</span>
+<span class="o">-----------------</span>   <span class="o">--------</span>  <span class="o">---------</span>   <span class="o">---------</span>  <span class="o">---------------</span>
+<span class="n">Oregon</span> <span class="n">Offshore</span>     <span class="mf">44.37</span>     <span class="o">-</span><span class="mf">124.96</span>      <span class="mi">577</span>        <span class="mi">67</span>
+<span class="n">Oregon</span> <span class="n">Slope</span> <span class="n">Base</span>   <span class="mf">44.53</span>     <span class="o">-</span><span class="mf">125.39</span>     <span class="mi">2910</span>       <span class="mi">101</span>
+<span class="n">Axial</span> <span class="n">Base</span>          <span class="mf">45.83</span>     <span class="o">-</span><span class="mf">129.75</span>     <span class="mi">2620</span>       <span class="mi">453</span> 
+</pre></div>
+</div>
 <p>In this work the term <em>Instrument</em> indicates an aggregation of one or more <em>Sensors</em>.
 For example a fluorescence <em>instrument</em> consists of three sensors: One for
 fluorescent dissolved organic matter, one for chlorophyll, and one that measures
@@ -976,7 +990,28 @@ notebook. The files are moved to a temporary folder <code class="docutils litera
 <li><p>The naming system post-raw-files is tied to the <strong>Sensor Table</strong></p></li>
 </ul>
 </li>
+<li><p>Other instruments produce one or more shard sensor datasets</p>
+<ul>
+<li><p>Again see the <strong>Sensor Table</strong> for more elaboration</p></li>
+<li><p>Most instruments produce ‘single value per observation’ data</p>
+<ul>
+<li><p>These I refer to as <em>scalar</em> sensors</p></li>
+</ul>
+</li>
+<li><p>Exception: Four instruments produce multiple-value observations</p>
+<ul>
+<li><p>For: velocity, spectral irradiance, optical absorption and beam attenuation</p></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>See <code class="docutils literal notranslate"><span class="pre">~/argosy/chapters/DataSharding.ipynb</span></code></p></li>
+<li><p>Some sensors are activated only during local-midnight and local-noon profiles</p>
+<ul>
+<li><p>To identify when these happen there is a code block added to <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code></p></li>
+<li><p>This cell generates CSV files for midnight profiles and for noon profiles</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>(3) Automated: Post-processing</p>
@@ -1128,10 +1163,20 @@ Jupyter cell in the <code class="docutils literal notranslate"><span class="pre"
 </li>
 </ul>
 </section>
-</section>
 <section id="degenerate-source-raw-data-files">
-<h3>Degenerate source / raw data files<a class="headerlink" href="#degenerate-source-raw-data-files" title="Link to this heading">#</a></h3>
-<p>Cells 2 and 3 of <code class="docutils literal notranslate"><span class="pre">~/argosy/chapters/DataDownload.ipynb</span></code> address</p>
+<h4>Degenerate source / raw data files<a class="headerlink" href="#degenerate-source-raw-data-files" title="Link to this heading">#</a></h4>
+<p>Cells 2 and 3 of <code class="docutils literal notranslate"><span class="pre">~/argosy/chapters/DataDownload.ipynb</span></code> address redundancy in source data files.
+Together they eliminate any source / raw data files with time ranges that are covered by other
+source / raw data files for the same instrument. The particular focus in on CTD files that are
+delivered (by default) along with other instrument files. So if we download pH and pCO2 and
+nitrate files we may accidentally download multiple copies of the simultaneous CTD files.</p>
+<p>The process is simplified by the source / raw data files containing their time range in the
+filename itself.</p>
+<p>The code in cell 2 of <code class="docutils literal notranslate"><span class="pre">DataDownloads.ipynb</span></code> looks for files with time range bounded by other
+(single) files and creates a script to delete them . The code in cell 3 of <code class="docutils literal notranslate"><span class="pre">DataDownloads.ipynb</span></code>
+looks for files with time range bounded by multiple other files and creates a script to
+delete them.</p>
+</section>
 </section>
 <section id="task-2-data-sharding">
 <h3>Task 2: Data Sharding<a class="headerlink" href="#task-2-data-sharding" title="Link to this heading">#</a></h3>
@@ -1161,6 +1206,37 @@ the same ‘by year’ folder.</p>
 </ul>
 <p>The version number for sharding anticipates future improvements, for
 example using QA/QC metadata to evaluate usability of a particular profile.</p>
+<section id="midnight-and-noon-profiles">
+<h4>midnight and noon profiles<a class="headerlink" href="#midnight-and-noon-profiles" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> cell concerned with identifying midnight and noon profiles
+produced this table on 06-APR-2026:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Year</span>    <span class="n">Midnight</span>      <span class="n">Noon</span>   <span class="n">Active</span> <span class="n">Days</span>
+  <span class="o">----</span>    <span class="o">--------</span>      <span class="o">----</span>   <span class="o">-----------</span>
+  <span class="mi">2015</span>          <span class="mi">66</span>        <span class="mi">78</span>            <span class="mi">97</span>
+  <span class="mi">2016</span>         <span class="mi">327</span>       <span class="mi">330</span>           <span class="mi">342</span>
+  <span class="mi">2017</span>         <span class="mi">155</span>       <span class="mi">159</span>           <span class="mi">161</span>
+  <span class="mi">2018</span>         <span class="mi">204</span>       <span class="mi">211</span>           <span class="mi">218</span>
+  <span class="mi">2019</span>         <span class="mi">233</span>       <span class="mi">235</span>           <span class="mi">243</span>
+  <span class="mi">2020</span>         <span class="mi">141</span>       <span class="mi">143</span>           <span class="mi">146</span>
+  <span class="mi">2021</span>         <span class="mi">330</span>       <span class="mi">331</span>           <span class="mi">336</span>
+  <span class="mi">2022</span>         <span class="mi">262</span>       <span class="mi">264</span>           <span class="mi">265</span>
+  <span class="mi">2023</span>         <span class="mi">154</span>       <span class="mi">159</span>           <span class="mi">161</span>
+  <span class="mi">2024</span>         <span class="mi">255</span>       <span class="mi">256</span>           <span class="mi">263</span>
+  <span class="mi">2025</span>         <span class="mi">314</span>       <span class="mi">313</span>           <span class="mi">326</span>
+ <span class="n">Total</span>        <span class="mi">2441</span>      <span class="mi">2479</span>          <span class="mi">2558</span>
+</pre></div>
+</div>
+<p>This indicates that the numbers of successful midnight and noon profile days are similar
+to one another in each year as we would expect. Also both are a little less than the
+number of days each year in which at least one of the other 7 profiles ran, also to be
+expected.</p>
+<p>The lists of midnight and noon profiles are kept in these two CSV files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">argosy</span><span class="o">/</span><span class="n">profiles_midnight</span><span class="o">.</span><span class="n">csv</span> <span class="n">With</span> <span class="n">columns</span> <span class="n">index</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">peak</span><span class="p">,</span> <span class="n">end</span>
+<span class="o">~/</span><span class="n">argosy</span><span class="o">/</span><span class="n">profiles_noon</span><span class="o">.</span><span class="n">csv</span>     <span class="n">Ditto</span>
+</pre></div>
+</div>
+<p>The code also produces histograms of ascent, descent and total profile durations.</p>
+</section>
 </section>
 <section id="task-3-postprocessing">
 <h3>Task 3: PostProcessing<a class="headerlink" href="#task-3-postprocessing" title="Link to this heading">#</a></h3>
@@ -2101,13 +2177,16 @@ sensors that operate on descent only.</p>
 </section>
 <section id="next">
 <h2>Next<a class="headerlink" href="#next" title="Link to this heading">#</a></h2>
-<p>All of the code needs to be checked against the new file system defined above in the
-<code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">system</span></code> section, circa line 355 or so.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>First 
-</pre></div>
-</div>
-<p>step is a review / revision of this document. Then review the code and update it (will
-need to revisit a good procedure for getting cell code blocks from notebooks to the CA).</p>
+<p>Before turning to PostProcessing and related topics: Let’s get a start on curtain plots. These
+plots encode data with color. As a first example let’s use salinity data over the interval of
+2024 through 2025. The color table used should correspond to about the central 80% of the
+dynamic range of the data over this interval. The vertical axis is depth with 0 at the top of
+the chart and 200 meters at the bottom. The horizontal axis is time, running from 01-JAN-2024
+through 31-DEC-2025. While processing the data for the plot: There should be a “by 10%”
+progress tracking printout. The chart should be pretty large. When no profile is available
+do nothing; the background of the plot is white.</p>
+<p>Write this code to run in a Jupyter cell (Visualizations.ipynb), saving it to ~/argosy/chapters
+as <code class="docutils literal notranslate"><span class="pre">curtain_plot.py</span></code>.</p>
 </section>
 </section>
 
@@ -2198,10 +2277,13 @@ need to revisit a good procedure for getting cell code blocks from notebooks to 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-data-download">Task 1: Data Download</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#order-datasets-from-ooinet-task-0-manual">Order datasets from OOINET (‘task 0, manual’)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data-order">Download data order</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-raw-data-files">Degenerate source / raw data files</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-raw-data-files">Degenerate source / raw data files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-data-sharding">Task 2: Data Sharding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#midnight-and-noon-profiles">midnight and noon profiles</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-postprocessing">Task 3: PostProcessing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-visualizations">Task 4: Visualizations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-analysis">Task 5: Analysis</a></li>
