@@ -99,20 +99,24 @@ interpretable form of the data; and then to visualize, interpret and
 further explore this data.
 
 
-This work exists on a Windows PC in the WSL2 home file system, specifically `~/argosy`.
-Within `argosy` there are Jupyter notebooks, markdown files and standalone
-Python programs. 
+This work runs primarily on a Windows PC (assume this as default) in the WSL home file 
+system, specifically `/home/username/argosy`. Within the `argosy` repo are Jupyter notebooks, 
+markdown files, standalone Python modules file (`.py`) and other supporting files. 
+The Python interpreter associated with execution of code is a `miniconda` installation 
+with the default key `conda` environment being `argo-env2`.
 
 
-Code prompts will indicate whether requested code is intended for
-standalone Python or Jupyter (IPython) notebook cell. 
+When prompted for code: Write the code in a new `.py` file in `~/argosy` but do not run
+it. The prompt will indicate whether the code is to run as a module or be copied to a
+Jupyter notebook cell and run there. For example chart interaction will tend to run as
+a module (see TMLD) whereas the bundle plot visualization will run in a Jupyter notebook.
 
 
-The **Next** prompt at the end of this file is generally composed as many lines of text
-and then referenced by a line range (in this file) from the prompt window. 
+The **Next** section at the end of this file is generally where prompts are composed.
+The prompt line range is then referenced from the prompt window in the (`kiro`) VS Code IDE. 
 
 
-Example: "Get the prompt from lines 1118 - 1160 of `AIPrompt.md`."
+Example: "Run on the prompt from lines 1118 - 1160 of `AIPrompt.md`."
 
 
 ## OOI observatory 
@@ -148,7 +152,16 @@ Oregon Slope Base site, the initial focus of this work.
 This study begins with a characterization of the upper 200 meters of the water column, 
 known variously as the photic or epipelagic zone. There are three sites in the RCA where 
 a sensor assembly called a shallow profiler is used to profile the upper water column 
-nine times per day: Oregon Slope Base, Oregon Offshore and Axial Slope Base. 
+nine times per day: Oregon Slope Base, Oregon Offshore and Axial Slope Base.
+
+
+```
+Site name           Latitude  Longitude   Depth (m)  D-offshore (km)
+-----------------   --------  ---------   ---------  ---------------
+Oregon Offshore     44.37     -124.96      577        67
+Oregon Slope Base   44.53     -125.39     2910       101
+Axial Base          45.83     -129.75     2620       453 
+```
 
 
 In this work the term *Instrument* indicates an aggregation of one or more *Sensors*.
@@ -460,7 +473,16 @@ Tasks:
     - Hence the CTD instrument produces 4 shard sensor types:
         - Temperature, Salinity, Density, Dissolved Oxygen (with time and depth)
         - The naming system post-raw-files is tied to the **Sensor Table**
+    - Other instruments produce one or more shard sensor datasets
+        - Again see the **Sensor Table** for more elaboration
+        - Most instruments produce 'single value per observation' data
+            - These I refer to as *scalar* sensors
+        - Exception: Four instruments produce multiple-value observations
+            - For: velocity, spectral irradiance, optical absorption and beam attenuation
     - See `~/argosy/chapters/DataSharding.ipynb`
+    - Some sensors are activated only during local-midnight and local-noon profiles
+        - To identify when these happen there is a code block added to `DataSharding.ipynb`
+        - This cell generates CSV files for midnight profiles and for noon profiles
 - (3) Automated: Post-processing
     - Shard files are evaluated based on various criteria
         - Example: profile signal is kinked at the bottom or top of the profile
@@ -573,10 +595,25 @@ Jupyter cell in the `DownloadData.ipynb` notebook.
     - Some downloaded files will have a time dimension that crosses the year boundary
 
 
-### Degenerate source / raw data files
+#### Degenerate source / raw data files
 
 
-Cells 2 and 3 of `~/argosy/chapters/DataDownload.ipynb` address 
+Cells 2 and 3 of `~/argosy/chapters/DataDownload.ipynb` address redundancy in source data files. 
+Together they eliminate any source / raw data files with time ranges that are covered by other 
+source / raw data files for the same instrument. The particular focus in on CTD files that are
+delivered (by default) along with other instrument files. So if we download pH and pCO2 and 
+nitrate files we may accidentally download multiple copies of the simultaneous CTD files. 
+
+
+The process is simplified by the source / raw data files containing their time range in the
+filename itself. 
+
+
+The code in cell 2 of `DataDownloads.ipynb` looks for files with time range bounded by other
+(single) files and creates a script to delete them . The code in cell 3 of `DataDownloads.ipynb` 
+looks for files with time range bounded by multiple other files and creates a script to 
+delete them. 
+
 
 ### Task 2: Data Sharding
 
@@ -617,6 +654,50 @@ Breakdown of this filename:
 
 The version number for sharding anticipates future improvements, for 
 example using QA/QC metadata to evaluate usability of a particular profile.
+
+
+#### midnight and noon profiles
+
+
+The `DataSharding.ipynb` cell concerned with identifying midnight and noon profiles
+produced this table on 06-APR-2026:
+
+
+```
+Year    Midnight      Noon   Active Days
+  ----    --------      ----   -----------
+  2015          66        78            97
+  2016         327       330           342
+  2017         155       159           161
+  2018         204       211           218
+  2019         233       235           243
+  2020         141       143           146
+  2021         330       331           336
+  2022         262       264           265
+  2023         154       159           161
+  2024         255       256           263
+  2025         314       313           326
+ Total        2441      2479          2558
+ ```
+
+
+This indicates that the numbers of successful midnight and noon profile days are similar 
+to one another in each year as we would expect. Also both are a little less than the 
+number of days each year in which at least one of the other 7 profiles ran, also to be
+expected.
+
+
+The lists of midnight and noon profiles are kept in these two CSV files:
+
+
+```
+~/argosy/profiles_midnight.csv With columns index, start, peak, end
+~/argosy/profiles_noon.csv     Ditto
+```
+
+
+The code also produces histograms of ascent, descent and total profile durations.
+
 
 
 ### Task 3: PostProcessing
@@ -1646,11 +1727,15 @@ sensors that operate on descent only.
     
 ## Next
     
+Before turning to PostProcessing and related topics: Let's get a start on curtain plots. These
+plots encode data with color. As a first example let's use salinity data over the interval of
+2024 through 2025. The color table used should correspond to about the central 80% of the
+dynamic range of the data over this interval. The vertical axis is depth with 0 at the top of
+the chart and 200 meters at the bottom. The horizontal axis is time, running from 01-JAN-2024
+through 31-DEC-2025. While processing the data for the plot: There should be a "by 10%"
+progress tracking printout. The chart should be pretty large. When no profile is available
+do nothing; the background of the plot is white.
     
-All of the code needs to be checked against the new file system defined above in the 
-`file system` section, circa line 355 or so. 
+Write this code to run in a Jupyter cell (Visualizations.ipynb), saving it to ~/argosy/chapters
+as `curtain_plot.py`.
     
-    
-    First 
-step is a review / revision of this document. Then review the code and update it (will 
-need to revisit a good procedure for getting cell code blocks from notebooks to the CA).
