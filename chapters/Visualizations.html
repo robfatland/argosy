@@ -1238,6 +1238,10 @@ document.write(`
 <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">figtext</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> 
+            <span class="s2">&quot;Curtain Plot: Time x Depth for Oregon Slope Base shallow profiler. Contour lines are isohale / isotherms. These data from a fixed (Eulerian) site help identify advection events.&quot;</span><span class="p">,</span> 
+            <span class="n">wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">OUTPUT_PNG</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Curtain plot saved to </span><span class="si">{</span><span class="n">OUTPUT_PNG</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1308,7 +1312,7 @@ Processing Temperature...
 Curtain plot saved to /home/rob/argosy/chapters/curtain_salinity_2024_2025.png
 </pre></div>
 </div>
-<img alt="../_images/7975ea0de16713542b77d1929af930934b1ca5c97d1f31790266604abb5d227b.png" src="../_images/7975ea0de16713542b77d1929af930934b1ca5c97d1f31790266604abb5d227b.png" />
+<img alt="../_images/e2ada012dac97270870edbf25911bee5649681f907b5026714319a7fad1d479b.png" src="../_images/e2ada012dac97270870edbf25911bee5649681f907b5026714319a7fad1d479b.png" />
 </div>
 </div>
 </section>

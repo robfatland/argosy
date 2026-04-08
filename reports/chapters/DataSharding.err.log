@@ -38,7 +38,7 @@ File [0;32m~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/xarray/back
 [0;32m---> 56[0m     value [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_cache[key]
 [1;32m     57[0m     [38;5;28mself[39m[38;5;241m.[39m_cache[38;5;241m.[39mmove_to_end(key)
 
-[0;31mKeyError[0m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), 'd3362dc4-7d53-4cca-ba4e-26c202529856']
+[0;31mKeyError[0m: [<class 'netCDF4._netCDF4.Dataset'>, ('/home/rob/redux2022/RCA_sb_sp_ph_2022_331_15377_1_V1.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '6e2e68d9-ee8f-4a68-896e-d04a4e6016d4']
 
 During handling of the above exception, another exception occurred:
 
