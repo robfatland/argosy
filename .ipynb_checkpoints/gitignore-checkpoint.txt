@@ -1,0 +1,10 @@
+*.npy
+*.npz
+*.pkl
+*.nc
+*.h5
+*.mp4
+*.parquet
+processing_log.csv
+profiles_midnight.csv
+profiles_noon.csv
