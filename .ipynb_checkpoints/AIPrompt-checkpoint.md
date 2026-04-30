@@ -393,6 +393,10 @@ This is at much lower task resolution.
 ## file system
 
 
+This section describes both the repository (code + markdown) file system 
+at `~/argosy` and the associated data file system at `~/ooi`.
+
+
 - As noted `~/argosy` is the WSL location of this repository.
 - We do not want the repo folder to include data files.
 - The root folder for data is in the WSL filesystem at `~/ooi`
@@ -416,6 +420,16 @@ This is at much lower task resolution.
     - This operates on sharded (redux) data with results > `~/ooi/postproc/pp<NN>`
 - Data analysis methods operate on `redux` or `postproc` versions of the data
     - Results are written to `~/ooi/analysis/<subfolder>`
+    - So far there are two: `analysis/clustering` and `analysis/sga`
+        - `sga` refers to spectral graph analysis
+- Profile Indices provided by the RCA data team reside in `~/ooi/profileIndices`
+- Visualizations (typically pngs produced from charts) reside in `~/ooi/visualizations/`
+    - The intent here is to set up category subfolders
+
+
+The following is a schematic of the `argosy` and `ooi` file systems consistent with
+the bullet breakdwon above. 
+
 
 ```
 ~  -----  argosy is the respository for the Jupyter Book
@@ -460,7 +474,7 @@ This is at much lower task resolution.
 
 
 Note: Under the "umbrella expansion" topic the only steps so far are looking into the National Data Buoy Center
-data. Results are temporarily in `~/argosy/NDBC`.
+data. Results are temporarily in `~/argosy/NDBC`. Pursue this further: Expand the folder structure in `~/ooi`.
 
 
 Note: In `~/argosy` there are some residual files that need to be sorted. For example `tmld` is an acronym
