@@ -448,9 +448,11 @@ the bullet breakdwon above.
                                                                   ----- <year>_<instrument>
                                                                   ----- ...etcetera: many of these
                                                      ----- vector
-                                                                  ----- <year>_<instrument>
+                                                                  ----- <year>_<instrument> (vel, irr, oa, ba)
                                                                   ----- etcetera many of these
               ----- profileIndices (metadata timestamps for profile ascent/descent intervals)
+              ----- metadata (other (derived) metadata; do not collide with the profileIndices repo)
+                          ----- README.md
               ----- redux 
                           ----- redux2014
                           ----- redux2015
@@ -468,7 +470,7 @@ the bullet breakdwon above.
                              ----- clustering
                              ----- and so on for other methods
               ----- visualizations
-                                   ----- TBD; for static images and animations
+                             ----- depth histograms, profile duration histograms, etcetera
               
 ```
 
@@ -517,7 +519,7 @@ Tasks:
         - A given post-processing strategy is assigned a two-digit number NN: 01, 02, ...
     - Post-processing results written to folders `~/ooi/postproc/pp<NN>`
 - (4) Interactive: Visualizations
-    - Bundle charts, Curtain charts, Animations etcetera
+    - Bundle charts, Curtain plots, Animations etcetera
 - (5) Interactive: Analysis
     - Spectral graph analysis
     - Clustering
@@ -758,6 +760,11 @@ cell that plots $N$ (slider 1) consecutive profiles together starting at profile
 (slider 2). Slider 2 can be dragged through time to scan the evolution of the epipelagic
 through the lens of a given sensor.  anomalies, seasonal trends, mixed layer depth changes 
 with season, possible sensor artifacts, and so on.
+
+A curtain plot encodes data values as colors on a color map. Depth is y axis down from
+the surface, time is the x axis typically spanning months to years. Each profile becomes 
+a thin vertical line. Collectively the effect is a curtain. The code also superimposes
+iso-sensor lines making it visually easier to track depth variability with time.
     
 
 ### Task 5: Analysis
@@ -913,6 +920,13 @@ Note: Noon and midnight profiles tend to have longer duration owing to a slower 
 profile. Descent has built-in pauses allowing the sensors to equilibrate.
 
 
+Note: Derived information concerning profiles, for example like the indices of the
+noon profiles, are not to be written into the repo directory `profileIndices`. It
+should be treated as read-only so that it can be updated from GitHub without 
+erasing important metadata. Such metadata goes into the parallel `metadata` folder, 
+**not** `profileIndices`. 
+
+
 ## reference metadata
 
 
@@ -996,9 +1010,9 @@ The filename format for each redux profile `.nc` file:
         - `dissolvedoxygen` for dissolved oxygen
     - YYYY  = four digit year
     - DDD   = three digit Julian day as in 027 for January 27
-    - PPPPP = Profile index drawn from the `profileIndices` tables
-    - Q     = This profile's index relative to the data acquisition day: a number from 1 to 9
-    - VVV   = Version number: Use `V1` at this time
+    - PPPPP = global profile index drawn from the `profileIndices` tables
+    - Q     = this profile's index relative to the data acquisition day: a number from 1 to 9
+    - VVV   = version number: Use `V1` at this time
 
 
 An output filename example: `RCA_sb_sp_temperature_2018_003_3752_4_V1.nc`.
@@ -1045,7 +1059,7 @@ the Jupyter configuration does not support interactive chart location selection.
     
 
 - Generate a CSV file with three columns, resides in `~/argosy/TMLD`.
-    - First column = profile index as recorded in the profile filename in ~/ooi/redux/redux2018
+    - First column = global profile index as recorded in the profile filename in ~/ooi/redux/redux2018
     - Second column is `Estimated TMLD`
         - 'Estimated Temperature Mixed Layer Depth' (meters, positive downward)
     - Third column = temperature at that depth for that profile
@@ -1193,7 +1207,8 @@ attributes
     
     
 The **sensor table** is a comprehensive list of sensor types for the shallow profiler. 
-This will eventually be written to a standalone reference CSV file. 
+This is written to a standalone reference CSV file: `~/argosy/sensortable.csv`.
+Vector sensor details are in companion files: `vcurrent.csv`, `vspectralirr.csv`, `vspectrophot.csv`.
     
     
 Premise: Jupyter cell code in the `DataSharding.ipynb` notebook shards multiple types of 
@@ -1241,7 +1256,7 @@ Chlorophyll-A,    FLORT, flor,  fluorometric_chlorophyll_a,   chlora,          a
 backscatter,      FLORT, flor,  optical_backscatter,          backscatter,     ascent,    0.0,    0.006
 pCO2,             PCO2W, pco2,  pco2_seawater,                pco2,           descent,  200.0, 1200.0
 pH,               PHSEN,   ph,  ph_seawater,                  ph,             descent,    7.6,    8.2
-PAR,              PARAD,  par,  ?,                            par,             ascent,      0,    300
+PAR,              PARAD,  par,  par_counts_output,            par,             ascent,      0,    300
 velocity,         VELPT,  vel,  (vector)x3,                   vel,             ascent,    -.4,     .4
 spectralirrad,    SPKIR,  irr,  (vector)x7,                   irr,             ascent,      0,     15
 opticalabsorb,    OPTAA,   oa,  (vector)x73,                  oa,              ascent,    .15,    .25
@@ -1254,7 +1269,7 @@ The table above needs a consistent convention for vector sensors. `vel` is `east
 resolved yet but each has 73 values. 
     
 
-Also need to look up the datavar for `PAR`.
+PAR datavar is `par_counts_output` (calibrated L1 product, units: µmol photons m⁻² s⁻¹).
     
     
 #### Velocity
@@ -1350,7 +1365,7 @@ arrives at `salinity_corrected_nitrate`.
 Visualization sections are numbered in sequence with sub-topic to follow:
     
 
-Create a code block to run in a Jupyter notebook cell that will generate bundle plots as follows:
+#### bundle plots
 
 
 - Use matplotlib
@@ -1371,151 +1386,11 @@ Create a code block to run in a Jupyter notebook cell that will generate bundle 
     - doy is day of year or Julian day
     - profile is a day-relative profile number from 1 to 9
 
-    
-### Vis 2
-    
-    
-#### Bundle animation
-    
 
-- Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.
-- This code will run in a Jupyter cell
-- The input questions take on the default value if the User just hits Enter.
-    - Start by asking "Include TMLD estimate in the visualization? Default is no. [y/n]" 
-    - Then ask "How many profiles in the bundle? Default is 18 (two days)" refer to this as N
-    - Then ask "How many seconds delay between frames? (0.1 sec):" refer to this as d
-    - Then ask "Start date (default 01-JAN-2018):" refer to this as T0
-    - Then ask "End date (default 31-DEC-2018):" refer to this as T1
-- Start at T0 and continue to T1: To create an animated chart sequence
-    - The output file should be called 'temp_bundle_animation.mp4' followed by the appropriate file extension
-    - Each frame of the animation consists of N profiles bundled in one chart
-    - The horizontal axis is fixed at 7 deg C to 19 deg C, does not change from one frame to another
-    - The vertical axis is fixed as before from 200 meters to 0 meters
-    - Show N profiles per frame of the animation
-    - For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.
-    - If possible: Add in a 'hold time' per frame of d seconds
-    - If a time gap > 48 hours exists between any two consecutive profiles in a given bundle/frame: 
-        - This chart frame includes in large black letters at the lower right 'Time Gap'
-        - The Time Gap message persists until all N consecutive profiles do not have a time gap
-- Check that the output file exists and report its status
-
-    
-### Vis 3 
-    
-    
-#### curtain plots
-    
-    
-### Refreshing the two visualization cells: Bundle charts and bundle animation
-    
-
-This text is flagged 'reconciliation needed'
-    
-
-So far we have two visualizations: A bundle chart with two time sliders; and a bundle chart animation generator. 
-As in the previous step we want both of these to be written to cope with redux files distributed through single-year
-folders: redux2014, redux2015, ...and so on through..., redux2026. 
-    
-    
-We now have working bundle chart code running in a Jupyter notebook cell. 
-    
-    
-We also have a bundle animator; but it needs some modifications.
-
-    
-As with the bundle chart the animator features a pre-scan with User interaction, first to confirm using the various
-populated `~/ooi/redux/redux<yyyy>` folders. This sets up the year range of the animation.
-    
-    
-We want to give the User a new display mode as an option: Display the bundle (the default, as currently set up)
-or display a mean profile defined as follows: 
-    - The profiles in a given bundle are averaged to produce a 'mean profile'.
-        - This is displayed as a medium-heavy line
-    - The standard deviation is also calculated as a function of depth
-        - This is displayed as two + and - profiles relative to the mean profile using a thin line
-    
-    
-The last User input is animation start and end date. Revisit how the default values for these prompts are calculated. 
-The default start date should be the earliest date in the chosen folders/years; and the default end date should be 
-the latest date in the chosen folders/years.
-    
-    
-The bundle chart includes the Time Gap alert. This is also present in the animation so that is good. 
-
-    
-The bundle chart viewer gives the option to fix the x-axis for all bundle charts. For the animation: This is not an 
-option: The temperature range will be fixed at 7 deg C to 20 deg C. (19 deg C was too low for some of the data.)
-    
-    
-The animation output mp4 file should be written in the ~ folder.
-    
-    
-The code handles zero / nan mean cases gracefully.   
-    
- 
-### Multi-sensor Bundle / Mean-std charts
-    
-    
-This is the most recent specification for the sensor data bundle plotter. 
-    
-    
-    
-    
-One of the recurring 
-errors in recent revisions has been overlaying two horizontal axis ranges. This can be done in
-matplotlib with careful attention to `axis`. What we want to *avoid* is plotting data from two 
-different sensors using a single x-axis range. 
+More supporting text on bundle plot rendering: 
 
 
-The sensor data bundle plotter runs in a Jupyter cell.
-    
-
-It first inputs from the User what years should be included in the profile time range,
-corresponding to `~/ooi/redux/redux<yyyy>` folders.
-    
-    
-The code will accommodate one or two sensor types out of these four sensor types: 
- 
-    
-{ temperature, salinity, density, dissolved oxygen } 
-
-    
-The User is given a choice of 
-1 or 2 sensors (default is 2)
-Key for sensor 1 (1, 2, 3 or 4)
-Low range for sensor 1 (defaults given below)
-High range for sensor 1
-Choice of bundle plot or mean-std plot for sensor 1 (default is bundle)
-If 2 sensors are chosen the corresponding: 
-Key, Low, High, choice of bundle or mean-std for sensor 2
-
-    
-The charts will have fixed range on the x-axis with defaults taken from
-the **Sensor Table**.
-    
-    
-These are presented as default-on-Enter so the User can type in alternative values.
-
-
-There will be two control sliders to make this plot interactive. The first is the 
-number of profiles to include in the bundle (or mean-std calculation as the case may be).
-This is called the nProfiles slider. It ranges from 0 to 180 and is initialized to have
-a value of 1.
-    
-    
-The second slider chooses the first profile index of the current bundle. This is the 
-index0 slider.
-
-
-Changing slider values only creates a new chart when the left mouse button is 
-released.
-    
-    
-If the index0 slider plus the nProfiles values exceeds the available profiles then
-the chart simply plots the profiles that are available. 
-
-    
-There are to be four additional buttons in the control area laid out horizontally with
+There are additional buttons in the control area laid out horizontally with
 labels "--", "-", "+", "++". These affect the current value of the index0 slider. 
 The "-" and "+" buttons will decrement / increment the index0 slider value by 1 profile.
 The "--" and "++" buttons will decrement / increment the index0 slider by half of the
@@ -1550,13 +1425,41 @@ Include a diagnostic print statement along these lines:
     
 sensor 1 has range 7 to 20; chart first x-axis has range 7 to 33 to left-justify.
 sensor 2 has range 32 to 34; chart second x-axis has range 30 to 34 to right-justify.
+
+    
+### Vis 2
     
     
-Both sensor x-axis labels are to be printed below the chart, one above the other, labeled.
-This will include two tick mark bars, labeled for the respective sensors in the same 
-color ink. 
+#### Bundle animation
+    
 
+- Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.
+- This code will run in a Jupyter cell
+- The input questions take on the default value if the User just hits Enter.
+    - Start by asking "Include TMLD estimate in the visualization? Default is no. [y/n]" 
+    - Then ask "How many profiles in the bundle? Default is 18 (two days)" refer to this as N
+    - Then ask "How many seconds delay between frames? (0.1 sec):" refer to this as d
+    - Then ask "Start date (default 01-JAN-2018):" refer to this as T0
+    - Then ask "End date (default 31-DEC-2018):" refer to this as T1
+- Start at T0 and continue to T1: To create an animated chart sequence
+    - The output file should be called 'temp_bundle_animation.mp4' followed by the appropriate file extension
+    - Each frame of the animation consists of N profiles bundled in one chart
+    - The horizontal axis is fixed at 7 deg C to 19 deg C, does not change from one frame to another
+    - The vertical axis is fixed as before from 200 meters to 0 meters
+    - Show N profiles per frame of the animation
+    - For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.
+    - If possible: Add in a 'hold time' per frame of d seconds
+    - If a time gap > 48 hours exists between any two consecutive profiles in a given bundle/frame: 
+        - This chart frame includes in large black letters at the lower right 'Time Gap'
+        - The Time Gap message persists until all N consecutive profiles do not have a time gap
+- Check that the output file exists and report its status
 
+    
+### Vis 3 
+    
+    
+#### curtain plot
+    
 
 ### visualization questions, ideas
     
@@ -1610,7 +1513,7 @@ shard, profile, depth, value, color, markersize, opacity, text
 
     
 `shard` will be the sensor designation as found in shard filenames.
-`profile` will be the global profile Index as found in `profileIndices`.
+`profile` will be the global profile index as found in `profileIndices`.
 `depth` is depth in meters, positive downward
 `value` is a data value for this sensor type
 `color` is a marker color
@@ -1692,22 +1595,19 @@ Axis offset calculation (lines ~900-920):
 - The formula for offsetting two sensor ranges is clever but could use a worked example
 - The concrete example helps but doesn't match the formula exactly (should verify the math)
 
-Profile index terminology:
+Terminology for indexing profiles:
 
-- Sometimes "profile index" means global index from profileIndices
-- Sometimes it means day-relative (1-9)
-- Consider using distinct terms like "global_index" and "daily_profile_number"
+- "global profile index" means the ordinal global index across all time: From profileIndices
+- "daily profile number" refers to a particular day: Which profile this is in the range 1 -- 9
 
 
 
 ## CA Recommendations
 
     
-- Create a data dictionary section consolidating all variable names with their exact spellings
-- Resolve the incomplete sensor table entries
-- Add explicit DST handling (or use pytz/zoneinfo)
-- Clarify the profile counting logic throughout
-- Consider adding a troubleshooting section for common errors
+- None here at this time
+
+
 
     
 ## pending ideas
@@ -1744,8 +1644,8 @@ sensors that operate on descent only.
 - redo backscatter shard: optical_backscatter, not total_volume_scattering_etcetera
 - revamp animations
 - add curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb
-- clear identification of which profiles are midnight, which are noon, which are neither
-- fix PAR in the Sensor Table
+- ~~clear identification of which profiles are midnight, which are noon, which are neither~~ DONE: `profile_duration_histograms.py` and `~/ooi/metadata/`
+- ~~fix PAR in the Sensor Table~~ DONE: `par_counts_output`
 - 2020 T vs S has some odd behaviors
     - seems like a Wide Aneurism appears in salinity but + / - buttons do not behave as expected
         - some kind of hysteresis where there should not be any
@@ -1754,15 +1654,20 @@ sensors that operate on descent only.
     
 ## Next
     
-Before turning to PostProcessing and related topics: Let's get a start on curtain plots. These
-plots encode data with color. As a first example let's use salinity data over the interval of
-2024 through 2025. The color table used should correspond to about the central 80% of the
-dynamic range of the data over this interval. The vertical axis is depth with 0 at the top of
-the chart and 200 meters at the bottom. The horizontal axis is time, running from 01-JAN-2024
-through 31-DEC-2025. While processing the data for the plot: There should be a "by 10%"
-progress tracking printout. The chart should be pretty large. When no profile is available
-do nothing; the background of the plot is white.
-    
-Write this code to run in a Jupyter cell (Visualizations.ipynb), saving it to ~/argosy/chapters
-as `curtain_plot.py`.
-    
+
+### Troubleshooting
+
+-
+
+### Factotum work
+
+
+- Add nitrate, pco2, and par to the sharding pipeline in DataSharding.ipynb (code ready; awaiting data order)
+- Re-run sharding for those instruments (awaiting data)
+- Run pp01/02 for not-yet-done instruments (awaiting sharding)
+- Add pCO2, nitrate, PAR to bundle plot SENSORS dict once those sensors are sharded
+- Check the `argo-env2` installed libraries against the libraries listed at the top of this file
+- LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)
+- TMLD/ directory: Decide whether to keep tmld_estimates.csv as historical data; delete the empty tmld_selector.py
+- `20xx_do` folder: 33 DOFSTA files (2014-2025) from a separate fast-response DO instrument (DOFSTA102), NOT redundant with CTD-derived DO. Decide: distribute into year folders and integrate into sharding pipeline as a second DO source, or leave as-is?
+

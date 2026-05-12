@@ -1,0 +1,16 @@
+sensor,instrum,key,datavar,shard,side,xlow,xhigh
+temperature,CTDPF,ctd,sea_water_temperature,temperature,ascent,6.0,20.0
+salinity,CTDPF,ctd,sea_water_practical_salinity,salinity,ascent,32.0,36.0
+density,CTDPF,ctd,sea_water_density,density,ascent,1024.0,1028.0
+dissolved oxygen,CTDPF,ctd,corrected_dissolved_oxygen,dissolvedoxygen,ascent,50.0,300.0
+nitrate,NUTNR,nitr,salinity_corrected_nitrate,nitrate,ascent,0,35
+CDOM,FLORT,flor,fluorometric_cdom,cdom,ascent,0.5,4.5
+Chlorophyll-A,FLORT,flor,fluorometric_chlorophyll_a,chlora,ascent,0.0,1.5
+backscatter,FLORT,flor,optical_backscatter,backscatter,ascent,0.0,0.006
+pCO2,PCO2W,pco2,pco2_seawater,pco2,descent,200.0,1200.0
+pH,PHSEN,ph,ph_seawater,ph,descent,7.6,8.2
+PAR,PARAD,par,par_counts_output,par,ascent,0,300
+velocity,VELPT,vel,vcurrent.csv,vel,ascent,-0.4,0.4
+spectralirrad,SPKIR,irr,vspectralirr.csv,irr,ascent,0,15
+opticalabsorb,OPTAA,oa,vopticalabsorb.csv,oa,ascent,0.15,0.25
+beamattenuation,OPTAA,ba,vbeamatten.csv,ba,ascent,0.0,0.2

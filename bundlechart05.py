@@ -2,7 +2,7 @@
 #   - dynamic sensor selection
 #   - midnight / noon annotation
 #   - sensor count
-#     - 7/11 scalar (missing PAR, pH, pCO2, nitrate)
+#     - 8/11 scalar (missing pCO2, nitrate, PAR)
 #     - 0/4 vector (no vel, spec.irr., oa, ba)
 
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ from IPython.display import display
 import numpy as np
 from datetime import datetime, timedelta
 import pandas as pd
-import pytz
+from zoneinfo import ZoneInfo
 
 def get_input_with_default(prompt, default):
     """Get user input with default value."""
@@ -21,7 +21,7 @@ def get_input_with_default(prompt, default):
     return response if response else str(default)
 
 # Oregon Slope Base timezone info
-OREGON_TZ = pytz.timezone('America/Los_Angeles')
+OREGON_TZ = ZoneInfo('America/Los_Angeles')
 
 # Sensor configuration with colors that work well on white background
 SENSORS = {
@@ -31,12 +31,13 @@ SENSORS = {
     'dissolvedoxygen': {'low': 50.0, 'high': 300.0, 'units': 'µmol/kg', 'color': 'darkblue'},
     'cdom': {'low': 0.0, 'high': 2.5, 'units': 'ppb', 'color': 'brown'},
     'chlora': {'low': 0.0, 'high': 1.5, 'units': 'µg/L', 'color': 'green'},
-    'backscatter': {'low': 0.0, 'high': 0.002, 'units': 'm⁻¹sr⁻¹', 'color': 'gray'}
+    'backscatter': {'low': 0.0, 'high': 0.002, 'units': 'm⁻¹sr⁻¹', 'color': 'gray'},
+    'ph': {'low': 7.6, 'high': 8.2, 'units': '', 'color': 'purple'},
 }
 
 # Get year range
 start_year = int(get_input_with_default("Start year (default 2015):", "2015"))
-end_year = int(get_input_with_default("End year (default 2016):", "2016"))
+end_year = int(get_input_with_default(f"End year (default {start_year}):", str(start_year)))
 
 print(f"\nScanning redux folders from {start_year} to {end_year}...")
 available_years = []

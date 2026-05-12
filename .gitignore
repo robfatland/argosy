@@ -5,6 +5,7 @@
 *.h5
 *.mp4
 *.parquet
+.ipynb_checkpoints/
 processing_log.csv
 profiles_midnight.csv
 profiles_noon.csv

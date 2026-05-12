@@ -17,6 +17,8 @@ And prints a per-year summary table to stdout.
 import glob
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from zoneinfo import ZoneInfo
 
@@ -24,9 +26,9 @@ from zoneinfo import ZoneInfo
 SITE_TZ             = ZoneInfo("America/Los_Angeles")
 PROFILE_INDICES_DIR = "/home/rob/ooi/profileIndices"
 SITE_PATTERN        = "RS01SBPS_profiles_*.csv"
-OUTPUT_PNG          = "/home/rob/argosy/SlopeBaseProfileHistograms.png"
-OUT_MIDNIGHT        = "/home/rob/argosy/profiles_midnight.csv"
-OUT_NOON            = "/home/rob/argosy/profiles_noon.csv"
+OUTPUT_PNG          = "/home/rob/ooi/visualizations/SlopeBaseProfileHistograms.png"
+OUT_MIDNIGHT        = "/home/rob/ooi/metadata/ooi_rca_sb_midnight_global_profile_indices.csv"
+OUT_NOON            = "/home/rob/ooi/metadata/ooi_rca_sb_noon_global_profile_indices.csv"
 
 MIN_GAP_HOURS = 20.0   # minimum separation between same-class profiles
 
@@ -155,3 +157,8 @@ for yr in all_years:
     total_days += n_days
     print(f"{yr:>6}  {n_mid:>10}  {n_noon:>8}  {n_days:>12}")
 print(f"{'Total':>6}  {len(midnight_df):>10}  {len(noon_df):>8}  {total_days:>12}")
+
+# ── Summary with possible count ───────────────────────────────────────────────
+total_days_possible = (valid["end"].max() - valid["start"].min()).days + 1
+print(f"\nFound {len(midnight_df)} midnight profiles out of {total_days_possible} possible")
+print(f"Found {len(noon_df)} noon profiles out of {total_days_possible} possible")
