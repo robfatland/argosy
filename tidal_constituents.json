@@ -1,0 +1,230 @@
+{
+  "Oregon Offshore": {
+    "lat": 44.37,
+    "lon": -124.96,
+    "constituents": {
+      "m2": {
+        "amplitude_m": 0.826741,
+        "phase_deg": 223.9708,
+        "omega_deg_per_hr": 28.984104
+      },
+      "s2": {
+        "amplitude_m": 0.224511,
+        "phase_deg": 248.5777,
+        "omega_deg_per_hr": 30.0
+      },
+      "n2": {
+        "amplitude_m": 0.173925,
+        "phase_deg": 198.4349,
+        "omega_deg_per_hr": 28.43973
+      },
+      "k2": {
+        "amplitude_m": 0.060828,
+        "phase_deg": 242.5924,
+        "omega_deg_per_hr": 30.082137
+      },
+      "k1": {
+        "amplitude_m": 0.41512,
+        "phase_deg": 234.5105,
+        "omega_deg_per_hr": 15.041069
+      },
+      "o1": {
+        "amplitude_m": 0.256751,
+        "phase_deg": 218.8341,
+        "omega_deg_per_hr": 13.943036
+      },
+      "p1": {
+        "amplitude_m": 0.131034,
+        "phase_deg": 231.8182,
+        "omega_deg_per_hr": 14.958931
+      },
+      "q1": {
+        "amplitude_m": 0.045793,
+        "phase_deg": 211.6075,
+        "omega_deg_per_hr": 13.398661
+      },
+      "2n2": {
+        "amplitude_m": 0.019105,
+        "phase_deg": 173.991,
+        "omega_deg_per_hr": 27.895355
+      },
+      "m4": {
+        "amplitude_m": 0.001414,
+        "phase_deg": 225.0,
+        "omega_deg_per_hr": 57.968208
+      },
+      "ms4": {
+        "amplitude_m": 0.001,
+        "phase_deg": 270.0,
+        "omega_deg_per_hr": 58.984104
+      },
+      "mn4": {
+        "amplitude_m": 0.0,
+        "phase_deg": 0.0,
+        "omega_deg_per_hr": 57.423834
+      },
+      "mm": {
+        "amplitude_m": 0.005385,
+        "phase_deg": 158.1986,
+        "omega_deg_per_hr": 0.544375
+      },
+      "mf": {
+        "amplitude_m": 0.012649,
+        "phase_deg": 161.5651,
+        "omega_deg_per_hr": 1.098033
+      }
+    }
+  },
+  "Oregon Slope Base": {
+    "lat": 44.53,
+    "lon": -125.39,
+    "constituents": {
+      "m2": {
+        "amplitude_m": 0.823782,
+        "phase_deg": 225.1475,
+        "omega_deg_per_hr": 28.984104
+      },
+      "s2": {
+        "amplitude_m": 0.224544,
+        "phase_deg": 250.7581,
+        "omega_deg_per_hr": 30.0
+      },
+      "n2": {
+        "amplitude_m": 0.172409,
+        "phase_deg": 200.0115,
+        "omega_deg_per_hr": 28.43973
+      },
+      "k2": {
+        "amplitude_m": 0.060374,
+        "phase_deg": 243.4349,
+        "omega_deg_per_hr": 30.082137
+      },
+      "k1": {
+        "amplitude_m": 0.41363,
+        "phase_deg": 235.042,
+        "omega_deg_per_hr": 15.041069
+      },
+      "o1": {
+        "amplitude_m": 0.255055,
+        "phase_deg": 219.4317,
+        "omega_deg_per_hr": 13.943036
+      },
+      "p1": {
+        "amplitude_m": 0.12963,
+        "phase_deg": 231.8924,
+        "omega_deg_per_hr": 14.958931
+      },
+      "q1": {
+        "amplitude_m": 0.045793,
+        "phase_deg": 211.6075,
+        "omega_deg_per_hr": 13.398661
+      },
+      "2n2": {
+        "amplitude_m": 0.0201,
+        "phase_deg": 174.2894,
+        "omega_deg_per_hr": 27.895355
+      },
+      "m4": {
+        "amplitude_m": 0.001414,
+        "phase_deg": 225.0,
+        "omega_deg_per_hr": 57.968208
+      },
+      "ms4": {
+        "amplitude_m": 0.001,
+        "phase_deg": 270.0,
+        "omega_deg_per_hr": 58.984104
+      },
+      "mn4": {
+        "amplitude_m": 0.0,
+        "phase_deg": 0.0,
+        "omega_deg_per_hr": 57.423834
+      },
+      "mm": {
+        "amplitude_m": 0.005099,
+        "phase_deg": 168.6901,
+        "omega_deg_per_hr": 0.544375
+      },
+      "mf": {
+        "amplitude_m": 0.012649,
+        "phase_deg": 161.5651,
+        "omega_deg_per_hr": 1.098033
+      }
+    }
+  },
+  "Axial Base": {
+    "lat": 45.83,
+    "lon": -129.75,
+    "constituents": {
+      "m2": {
+        "amplitude_m": 0.791912,
+        "phase_deg": 237.1126,
+        "omega_deg_per_hr": 28.984104
+      },
+      "s2": {
+        "amplitude_m": 0.222272,
+        "phase_deg": 267.1633,
+        "omega_deg_per_hr": 30.0
+      },
+      "n2": {
+        "amplitude_m": 0.161756,
+        "phase_deg": 212.118,
+        "omega_deg_per_hr": 28.43973
+      },
+      "k2": {
+        "amplitude_m": 0.059841,
+        "phase_deg": 260.3803,
+        "omega_deg_per_hr": 30.082137
+      },
+      "k1": {
+        "amplitude_m": 0.393081,
+        "phase_deg": 240.7613,
+        "omega_deg_per_hr": 15.041069
+      },
+      "o1": {
+        "amplitude_m": 0.243249,
+        "phase_deg": 225.3331,
+        "omega_deg_per_hr": 13.943036
+      },
+      "p1": {
+        "amplitude_m": 0.123491,
+        "phase_deg": 238.2405,
+        "omega_deg_per_hr": 14.958931
+      },
+      "q1": {
+        "amplitude_m": 0.043417,
+        "phase_deg": 218.4537,
+        "omega_deg_per_hr": 13.398661
+      },
+      "2n2": {
+        "amplitude_m": 0.018111,
+        "phase_deg": 186.3402,
+        "omega_deg_per_hr": 27.895355
+      },
+      "m4": {
+        "amplitude_m": 0.001414,
+        "phase_deg": 225.0,
+        "omega_deg_per_hr": 57.968208
+      },
+      "ms4": {
+        "amplitude_m": 0.001,
+        "phase_deg": 270.0,
+        "omega_deg_per_hr": 58.984104
+      },
+      "mn4": {
+        "amplitude_m": 0.0,
+        "phase_deg": 0.0,
+        "omega_deg_per_hr": 57.423834
+      },
+      "mm": {
+        "amplitude_m": 0.006083,
+        "phase_deg": 170.5377,
+        "omega_deg_per_hr": 0.544375
+      },
+      "mf": {
+        "amplitude_m": 0.013601,
+        "phase_deg": 162.8973,
+        "omega_deg_per_hr": 1.098033
+      }
+    }
+  }
+}

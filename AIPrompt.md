@@ -1,36 +1,75 @@
 # AI Prompt
 
+To do managing this file: The heading structure under "Sensor table" is unusual — `### Why OOI Created Separate DO Files` sits at the same level as the other `### headings` but `#### Nitrate` is nested under it. This is reflected this as-is in the Contents. Reorganize that section (Nitrate belongs at the same level as other instruments).
+
 
 Contents
 
 
-- Introduction for humans
+- Introduction
+    - Publishing the `argosy` Jupyter book
 - Python libraries
-- Introduction for the CA
+- AI Guidelines
 - OOI observatory
-- Obstacles
+- OOINET challenges
 - Glossary
-- Websites
-- Red zone goals
+- websites
+- Red Zone Goals
 - Umbrella goals
+    - Instruments/sensors/data streams beyond the shallow profiler
 - file system
-- work flow
+- workflow
+    - Task 1: Data Download
+        - Order datasets from OOINET ('task 0, manual')
+        - Download data order
+        - Degenerate source / raw data files
+    - Task 2: Data Sharding
+        - midnight and noon profiles
+    - Task 3: PostProcessing
+    - Task 4: Visualizations
+    - Task 5: Analysis
+    - Task 6: Mirror localhost data folder to S3
 - raw data filenames
 - profile metadata
 - reference metadata
 - sharding
+    - translating source / raw input files to `~/ooi/redux/redux<YYYY>` folders / profile+sensor files
 - TMLD
-- process the full timespan
-- Sensor Table
+    - Estimated Temperature Mixed Layer Depth
+    - TMLD generator program
+- Process the full timespan
+    - Multi-year redux generator
+    - sensor compilation from many source \<instrum\> files
+- Sensor table
+    - Code to list datafile variables
+    - Sensor table columns
+    - Sensor table
+        - Velocity
+        - Spectral Irradiance
+        - Spectrophotometer
+        - Dissolved Oxygen
+    - Why OOI Created Separate DO Files
+        - Nitrate
 - Visualization
+    - Vis 1
+        - bundle plots
+    - Vis 2
+        - Bundle animation
+    - Vis 3
+        - curtain plot
+    - visualization questions, ideas
 - Midnight/Noon
+    - Adding MIDNIGHT/NOON and annotation file
+    - Refine MIDNIGHT / NOON single profile annotation
 - Tactics
-- CA recommendations
+- CA Recommendations
 - pending ideas
-- next
+- Next
+    - Troubleshooting
+    - Factotum work
 
 
-## Introduction for humans
+## Introduction
 
 
 This `argosy` repository is a Jupyter book on the analysis of oceanographic data.
@@ -59,7 +98,7 @@ This document's features include:
     - Completed prompts are integrated into the log
 
 
-### Publishing the Jupyter book version of `argosy`
+### Publishing the `argosy` Jupyter book
 
 
 The `argosy` repo is a Jupyter book. It is amenable to **build** commands: 
@@ -85,38 +124,46 @@ The published [Argosy Jupyter Book link](https://robfatland.github.io/argosy/int
 
 - Using `miniconda`
 - Install `matplotlib`, `pandas`
-- Install `xarray` and `h5netcdf` (or `netcdf4`)
+- Install `xarray` and `netcdf4`
 - jupyter lab/book
+- Need: libraries for tidal data
 
 
-## Introduction for the CA
+## AI Guidelines
 
 
 This project concerns organizing and exploring oceanography data starting with 
 data from the Ocean Observatories Initiative Regional Cabled Array shallow profilers. 
-The idea is to transition from the archival data system to a more 
-interpretable form of the data; and then to visualize, interpret and
-further explore this data.
+The idea is to translate source data to an interpretable format; and then to 
+visualize, analyze, and interpret this data.
 
 
-This work runs primarily on a Windows PC (assume this as default) in the WSL home file 
-system, specifically `/home/username/argosy`. Within the `argosy` repo are Jupyter notebooks, 
-markdown files, standalone Python modules file (`.py`) and other supporting files. 
-The Python interpreter associated with execution of code is a `miniconda` installation 
-with the default key `conda` environment being `argo-env2`.
+This `argosy` repo exists in the WSL home directory on a Windows PC. Within 
+`argosy` we have a Jupyter Book structure with additional files superimposed. 
+The order of the day is to build the analysis machinery; writing a Jupyter Book
+proper will follow later. 
 
 
-When prompted for code: Write the code in a new `.py` file in `~/argosy` but do not run
-it. The prompt will indicate whether the code is to run as a module or be copied to a
-Jupyter notebook cell and run there. For example chart interaction will tend to run as
-a module (see TMLD) whereas the bundle plot visualization will run in a Jupyter notebook.
+The Python interpreter associated with execution of code is a `miniconda` 
+installation. (Some tidying of environments is called for.)
 
 
-The **Next** section at the end of this file is generally where prompts are composed.
-The prompt line range is then referenced from the prompt window in the (`kiro`) VS Code IDE. 
+There are two interactive environments in play here: First a Jupyter lab via
+browser; and second the VS Code IDE variant `kiro` with the built-in AWS AI
+coding assistant built in. 
 
 
-Example: "Run on the prompt from lines 1118 - 1160 of `AIPrompt.md`."
+A code module, say `dosomething.py`, is often intended for translation to a Jupyter
+notebook cell.
+
+
+As a general principle: Updates and advances should be reflected in this markdown
+file or in related files that are pointed to here.
+
+
+The **Next** section at the end of this file is used to stage prompts for `kiro`.
+An example prompt in the IDE might then read: 'Follow the Next prompt starting
+from lines 1118 of `~/argosy/AIPrompt.md`.'
 
 
 ## OOI observatory 
@@ -178,11 +225,11 @@ a platform moored 200 meters below the surface. Mooring is by means
 of two cables that extend down to the sea floor.
 
 
-## Obstacles
+## OOINET challenges
 
 
 - OOI can be daunting to learn
-    - Dissolved oxygen example: There are three sensor streams for DO: Two in CTD files plus one in DO files.
+    - Dissolved oxygen example: Needs a write-up
     - What is the discovery path in the website documentation?
 
 
@@ -310,10 +357,7 @@ system.
 ## Red Zone Goals 
 
 
-### Development Narrative
-
-
-This is a simplified description of how this Jupyter Book is being built.
+This is a partial description of how this Jupyter Book is constructed.
 
 
 - Begin: Isolate a spatiotemporal dataset as a *first run* at the redzone workflow
@@ -344,24 +388,32 @@ This is a simplified description of how this Jupyter Book is being built.
     - Dissolved Oxygen, Salinity, Density, Backscatter, FDOM, Chlorophyll A
     - Following the same process as the temperature data
     - The visualization has to expand to permit intercomparison
-- Add additional data/sensor types
-    - Point current measurement (3-element vector)
+- Add the last four additional scalar sensors
     - PAR
     - pH
     - Nitrate 
     - pCO2
-    - Spectral Irradiance (7-element vector)
-- Add spectrophotometer data (approximately 70-element vector)
-    - Details TBD
-- Publish a Client
-    - Prototype as Jupyter Notebooks in the Argosy Jupyter Book
-    - Probably set up to read from a downloadable tar file
+- Add four vector sensors
+    - Point current measurement: east, north, up
+    - spectral irradiance: 7 wavelengths, downwelling
+    - instrument: spectrophotometer
+        - sensor: optical absorbance
+        - sensor: beam attenuation
+        - 73 elements (wavelengths)
+- Set up a file system structure (see section below)
+    - source data
+    - metadata including profile time boundaries
+    - separated sensor+profile data files ("sharding" (`redux`))
+    - post-processing versions of the sharded data
+- Build out analysis machinery
+    - Simple straightforward methods
+    - Spectral graph methods
     
 
 ## Umbrella goals
 
 
-The "umbrella" is an abstraction for "using other data resources beyond the shallow profiler
+"Umbrella" is an abstraction for "using other data resources beyond the shallow profiler
 at Oregon Slope Base". This includes remote sensing data evoking the umbrella canopy above
 the the umbrella pole corresponding to the profilers.
 
@@ -372,6 +424,7 @@ the the umbrella pole corresponding to the profilers.
 This is at much lower task resolution.
 
 
+- Use current sensors (ADCP etcetera) on the profiler platform for current
 - Extend the Oregon Slope Base workflow to the other two shallow profilers in the RCA
 - Incorporate NOAA sea surface state buoy data
 - Apply the methodology to the shallow profiler platform moored at 200 meters

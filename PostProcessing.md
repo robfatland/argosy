@@ -98,3 +98,14 @@ The script:
 | Excluded (depth > 50m) | 200 | 186 |
 | Included | 2279 | 2255 |
 | Total shards copied | 17,148 | 17,029 |
+
+
+## Tides and Current
+
+
+This concerns correcting profile data to align successive profiles in view of 
+current pressure on the shallow profiler platform and tidal variation.
+
+
+See the documentation in `SeaLevelDelta.md`. This describes using the OSU model
+to generate tidal offset at (lat, lon, time). 

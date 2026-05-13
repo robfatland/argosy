@@ -6,3 +6,6 @@
 2023      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235629121Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
 2024      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235701343Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
 2025      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260207T235802626Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
+????      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260302T160213452Z-RS01SBPS-SF01A-2D-PHSENA101-streamed-phsen_data_record
+????      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260228T182215784Z-RS01SBPS-SF01A-4B-VELPTD102-streamed-velpt_velocity_data
+????      https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260302T161427022Z-RS01SBPS-SF01A-4F-PCO2WA101-streamed-pco2w_a_sami_data_record
