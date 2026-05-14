@@ -91,6 +91,7 @@ This document's features include:
     - `Analysis.md`: Data exploration ideas
     - `Umbrella.md`: Expansion perspective (see glossary below)
     - `Cleaning.md`: Describes data filtering / cleaning
+    - `VectorData.md`: Discussion of vector sensor integration (velocity, spectral irradiance, spectrophotometer)
 - logs development, tracks train of thought / next steps
 - end of this file is a `tail` prompt
     - Heading is `## Next`
