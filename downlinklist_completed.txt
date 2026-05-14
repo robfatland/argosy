@@ -12,7 +12,6 @@
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260509T190055869Z-RS01SBPS-SF01A-4F-PCO2WA101-streamed-pco2w_a_sami_data_record
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260509T190420183Z-RS01SBPS-SF01A-4A-NUTNRA101-streamed-nutnr_a_sample
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260511T164223007Z-RS03AXPS-SF03A-4F-PCO2WA301-streamed-pco2w_a_sami_data_record
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260509T165113542Z-RS01SBPS-SF01A-3C-PARADA101-streamed-parad_sa_sample
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260513T201541319Z-RS01SBPS-SF01A-4F-PCO2WA101-streamed-pco2w_a_sami_data_record
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260302T161427022Z-RS01SBPS-SF01A-4F-PCO2WA101-streamed-pco2w_a_sami_data_record
 https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260513T205424673Z-RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample
