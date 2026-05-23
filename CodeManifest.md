@@ -9,12 +9,14 @@ Inventory of code files in the `~/argosy` repository.
 
 | File | Type | Description |
 |------|------|-------------|
-| `bundlechart05.py` | Module | Interactive bundle plot visualization with dual-sensor display, slider navigation, noon/midnight annotation, and mean±std mode. Runs in a Jupyter cell. |
 | `profile_duration_histograms.py` | Module | Computes ascent/descent/total duration histograms from profileIndices. Classifies noon and midnight profiles. Writes results to `~/ooi/metadata` and `~/ooi/visualizations`. |
 | `postprocess_special_profiles.py` | Module | Generates pp01 (noon) and pp02 (midnight) post-processed subsets from redux. Copies qualifying shards with V1→V2 rename, applies depth filter, generates depth histograms. |
 | `assess_synch.py` | Module | Compares file counts between local redux folders and S3 mirror by sensor and year. Flags mismatches. |
 | `redux_s3_synch.py` | Module | Syncs redux NetCDF shard files from localhost to the `epipelargosy` S3 bucket using AWS CLI. Logs progress; stops after 20 cumulative errors. |
+| `tidal_extract.py` | Module | Extracts tidal harmonic constituents from TPXO10 at 3 profiler sites, saves to JSON. Includes self-contained prediction function. |
+| `tidal_plot_may2026.py` | Module | Plots predicted tidal height for 3 sites over May 2026. |
 | `sensortable.csv` | Data | Sensor table CSV: sensor name, instrument, key, data variable, shard name, acquisition side, extreme low/high. |
+| `tidal_constituents.json` | Data | Extracted tidal harmonic constituents (amplitude, phase) for 3 sites, 14 constituents. |
 | `vcurrent.csv` | Data | Vector sensor channel enumeration for velocity (3 channels: east, north, up). |
 | `vspectralirr.csv` | Data | Vector sensor channel enumeration for spectral irradiance (7 wavelength channels). |
 | `vopticalabsorb.csv` | Data | Vector sensor channel enumeration for optical absorption (73 channels). |
@@ -30,7 +32,6 @@ Inventory of code files in the `~/argosy` repository.
 | `DataSharding.ipynb` | Notebook | Shards multi-sensor continuous-time source files into single-sensor single-profile NetCDF files in `~/ooi/redux/redux<YYYY>`. Also contains exploratory cells for pH, DO, and profile status tracking. |
 | `Visualizations.ipynb` | Notebook | Interactive bundle plots (dual sensor, slider navigation), curtain plots, and related visualizations of redux data. |
 | `SpectralGraphAnalysis.ipynb` | Notebook | Spectral graph analysis of profile data. |
-| `curtain_plot.py` | Module | Generates curtain plots (time × depth × color-encoded sensor value) for salinity and temperature. Runs in a Jupyter cell within `Visualizations.ipynb`. |
 
 
 ## TMLD directory (`~/argosy/TMLD`)
@@ -59,12 +60,18 @@ Inventory of code files in the `~/argosy` repository.
 
 | File | Description |
 |------|-------------|
-| `AIPrompt.md` | Project documentation and CA prompt composition. Contains sensor table, workflow, file system description, and development log. |
-| `Analysis.md` | Data exploration and analysis method ideas. |
-| `Umbrella.md` | Expansion perspective: extending beyond Oregon Slope Base shallow profiler. |
-| `PostProcessing.md` | Post-processing documentation: pp01 (noon) and pp02 (midnight) subset generation, filters, results. |
-| `Asta.md` | Notes (TBD). |
-| `shard_code_updated.md` | Notes on sharding code updates. |
+| `ProjectOverview.md` | Master project doc: introduction, AI guidelines, documentation structure, PDF generation. |
+| `Observatory.md` | OOI background, glossary, websites, OOINET challenges. |
+| `Workflow.md` | Data pipeline tasks 0–6, raw filenames, profile metadata, file system layout. |
+| `Sharding.md` | Redux file generation, filename conventions, multi-year processing, TMLD. |
+| `SensorTable.md` | Sensor table, data variables, vector sensor details. |
+| `Visualization.md` | Bundle plots, curtain plots, animations, Midnight/Noon annotation. |
+| `Goals.md` | Red Zone goals and Umbrella expansion goals. |
+| `Analysis.md` | Data exploration ideas, spectral graph analysis. |
+| `PostProcessing.md` | Post-processing: pp01 (noon) and pp02 (midnight) subset generation, filters, results. |
+| `CoincidencePlans.md` | Anomaly detection: auto-coincidence and hetero-coincidence. |
+| `Tactics.md` | Development notes, CA recommendations, pending ideas, Next prompts. |
+| `Umbrella.md` | Details on non-OOI data resources (NDBC, etc.). |
 | `intro.md` | Jupyter Book introduction page. |
 | `markdown.md` | Jupyter Book markdown example page. |
 | `markdown-notebooks.md` | Jupyter Book MyST notebook example page. |
