@@ -5,22 +5,28 @@ format: jb-book
 root: intro
 parts:
 
-- caption: Boilerplate
+- caption: Documentation
   chapters:
-    - file: markdown
-    - file: notebooks
-    - file: markdown-notebooks
-    - file: AIPrompt
-    - file: SensorInformation
-    - file: ShallowProfiler
+    - file: ArgosyOverview
+    - file: OOIObservatory
+    - file: SensorReference
+    - file: FileSystemWorkflow
+    - file: ProfileSharding
+    - file: VisualizationNotes
+    - file: PostProcessing
+    - file: VectorData
+    - file: Analysis
     - file: Umbrella
-    - file: AnalysisConcepts
+    - file: CodeManifest
+    - file: OOINETSlopeBaseDataStatus
+    - file: DevelopmentLog
 
 - caption: Chapters
   chapters:
     - file: chapters/DataDownload
     - file: chapters/DataSharding
     - file: chapters/Visualizations
+    - file: chapters/SpectralGraphAnalysis
 
 - caption: References
   chapters:
