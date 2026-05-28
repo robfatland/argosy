@@ -66,8 +66,20 @@ profiler: Use time ranges in `~/ooi/profileIndices/RS01SBPS_profiles_2018.csv`.
 
 
 Note: Some sensors operate continuously (such as CTD temperature). Others operate
-at a lower duty cycle, for example only during selected phases of a profile. Most
-sensors operate (at least) during ascent with two notable exceptions: `pH` and `pCO2`.
+at a lower duty cycle, for example only during selected phases of a profile. From
+2017 onward, three sensors operate exclusively on daily_index 4 (midnight) and 9
+(post-noon, ~13:40 local):
+
+- **Nitrate (NUTNR)**: operates on **ascent**, ~150 data points per profile, full depth range
+- **pCO2 (PCO2W)**: operates on **descent**, ~10 data points per profile
+- **pH (PHSEN)**: operates on **descent**, ~10 data points per profile. Note: pH shard
+  files exist for all 9 daily indices but only indices 4 and 9 contain usable data.
+
+All other scalar sensors (temperature, salinity, density, DO, chlorA, CDOM,
+backscatter, PAR) operate on ascent across all 9 daily profiles.
+
+In 2015–2016, nitrate, pCO2, and pH operated on more/all profiles before being
+restricted to the 4-and-9 pattern.
 
 
 For an instrument / sensor that operates on ascent the time range for a given 
@@ -78,8 +90,10 @@ instrument the time range would be defined by `peak` and `end`.
 Time format: `yyyy-MM-dd hh:mm:ss`.
     
 
-Note: Noon and midnight profiles tend to have longer duration owing to a slower descent 
-profile. Descent has built-in pauses allowing the sensors to equilibrate.
+Note: Noon and midnight profiles (daily_index 8 and 4 respectively) tend to have
+longer duration owing to a slower descent profile. Descent has built-in pauses
+allowing the chemical sensors (pCO2, pH) to equilibrate. Daily_index 9 (post-noon)
+also has an extended descent and is the second profile used by the restricted sensors.
 
 
 Note: Derived information concerning profiles, for example like the indices of the

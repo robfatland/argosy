@@ -7,12 +7,19 @@ Ideas on modifying redux data for analysis.
 
 
 pp01 (noon) and pp02 (midnight) are subsets of the redux dataset containing only profiles
-that ran at local noon or local midnight respectively. These profiles are distinguished by
-longer descent durations (equilibration pauses for pCO2 and pH sensors).
+that ran at local noon or local midnight respectively. These profiles correspond to
+daily_index 4 (midnight) and daily_index 9 (post-noon, ~13:40 local). They are
+distinguished by longer descent durations that allow equilibration time for the slower
+chemical sensors. From 2017 onward, three sensors operate exclusively on these two
+profiles: nitrate (ascent, ~150 pts/profile), pCO2 (descent, ~10 pts), and pH (descent,
+~10 pts). pH has shard files for all 9 daily indices but only indices 4 and 9 contain
+usable data.
 
 
 ### Source and filters
 
+
+**HSD sensors** (temperature, salinity, density, DO, cdom, chlora, backscatter, par):
 
 - Source: `~/ooi/redux/redux<yyyy>`
 - Filter 1: Only noon (or midnight) profiles per metadata CSV
@@ -22,7 +29,32 @@ longer descent durations (equilibration pauses for pCO2 and pH sensors).
     - Columns: `profile, start, peak, end`
 - Filter 2: Excluded profiles where shallowest recorded depth > 50m (`min(depth) > 50` means exclude)
     - Checked against the temperature shard
+- Filter 3: Sensor exclusions (see below)
 - Data: Byte-identical copies of redux shard files; V2 version tag indicates subset selection only
+
+**LSD sensors** (nitrate, pH, pCO2):
+
+- Source: `~/ooi/redux/redux<yyyy>` — only files with daily_index 4 or 9
+- Filter 1: Minimum valid data points (nitrate >= 50, pH >= 5, pCO2 >= 5)
+- Filter 2: Sensor exclusions (see below)
+- Data: Byte-identical copies; V2 version tag
+
+
+### Sensor exclusions
+
+Manual data quality exclusions are defined in `~/argosy/sensor_exclusions.csv`.
+This file is version-controlled in the argosy repo.
+
+Format: `sensor,start,end,reason`
+
+The postprocess script and the curtain plot cell both load this CSV and skip
+profiles whose mid-time falls within an exclusion window for the given sensor.
+
+Workflow for adding new exclusions:
+1. Observe anomaly in curtain plot or bundle plot
+2. Confirm boundaries by scanning daily median values in redux
+3. Add entry to `sensor_exclusions.csv` with precise date range and reason
+4. Re-run postprocess script and curtain plot to verify
 
 
 ### Folder structure
@@ -53,10 +85,14 @@ RCA_sb_sp_<sensor>_<yyyy>_<ddd>_<global_index>_<daily_index>_V2.nc
 ### Sensors included
 
 
-All scalar sensors present in redux for these profiles:
-- temperature, salinity, density, dissolvedoxygen, cdom, chlora, backscatter, ph (8 sensors)
-- Not yet sharded (deferred): pco2, nitrate, par, velocity, spectral irradiance, spectrophotometer
-- A missing shard for one sensor does not exclude other sensors for that profile
+Scalar sensors are present in redux. Vector sensors: Not yet.
+
+
+- scalar: temperature, salinity, density, dissolvedoxygen, cdom, chlora, backscatter, pH, pCO2, nitrate, par
+- vector: velocity, spectral irradiance, spectrophotometer (OA and BA)
+
+
+Logical or: A missing shard for one sensor does not exclude other sensors for that profile.
 
 
 ### Depth histograms
@@ -109,3 +145,94 @@ current pressure on the shallow profiler platform and tidal variation.
 
 See the documentation in `SeaLevelDelta.md`. This describes using the OSU model
 to generate tidal offset at (lat, lon, time). 
+
+
+## QC Filter
+
+
+### Motivation: Data quality flags in OOI source files
+
+
+OOI source NetCDF files include per-observation quality flags alongside the science
+data. Two flag systems are present:
+
+1. **QARTOD flags** (`<variable>_qartod_results`): Quality Assurance of Real-Time
+   Oceanographic Data. Uses integer codes: 1=Pass, 2=Not Evaluated, 3=Suspect,
+   4=Fail, 9=Missing Data.
+
+2. **OOI internal QC flags** (`<variable>_qc_results`): A bitmask-style system with
+   values like 13 and 29. Interpretation TBD — these appear to encode which specific
+   tests were applied and passed/failed.
+
+The QARTOD system is the more interpretable and actionable of the two.
+
+
+### Data study: CTD file from January 2018
+
+Source file examined:
+```
+~/ooi/ooinet/rca/SlopeBase/scalar/2018_ctd/
+  deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_
+  20180119T191420.236756-20180206T235959.424256.nc
+```
+
+This file contains 1,572,316 observations spanning 18 days.
+
+**QARTOD results by variable:**
+
+| Variable | Pass | Not Evaluated | Suspect | Fail |
+|----------|------|---------------|---------|------|
+| Temperature | 98.40% | 1.50% | **0.11%** (1,707 obs) | 0% |
+| Salinity | 98.50% | 1.50% | 0% | 0% |
+| Dissolved Oxygen | 98.50% | 1.50% | 0% | 0% |
+| Pressure | 100% | 0% | 0% | 0% |
+| Conductivity | 90.62% | 0% | **9.38%** (147,535 obs) | 0% |
+
+**Observations:**
+
+- **Temperature suspect (0.11%)**: 1,707 observations flagged. These may be spikes or
+  values outside the expected climatological range. Small enough to be isolated events
+  rather than systematic sensor failure.
+
+- **Conductivity suspect (9.38%)**: 147,535 observations flagged. This is significant
+  and likely corresponds to the known salinity dropout issue (clogged conductivity cell)
+  documented by the RCA data team. Notably, the derived salinity variable itself passes
+  its own qartod gross-range test — meaning the salinity values are within plausible
+  bounds even though the underlying conductivity measurement is flagged as suspect.
+
+- **Not Evaluated (1.5%)**: 23,521 observations across temperature, salinity, and DO.
+  These occur when ancillary data needed for the climatology test is unavailable.
+
+- **No Fail (4) or Missing (9) flags** in this file.
+
+- **Density has no qartod flags** — only the internal `_qc_results` field (89% at value 13,
+  11% at value 29). Density is a derived quantity (from T, S, P) so its quality depends
+  on the inputs.
+
+
+### Implications for post-processing
+
+A future QC-based filter (potentially pp03 or pp04) could:
+
+1. Exclude observations where `<variable>_qartod_results == 3` (Suspect) or `== 4` (Fail)
+   before sharding or during post-processing.
+
+2. For conductivity-flagged periods: Investigate whether the derived salinity and density
+   are actually compromised, or whether the flag is overly conservative.
+
+3. Track which profiles contain flagged data and produce a "profile quality score"
+   (fraction of observations passing qartod) to enable filtering at the profile level
+   rather than the observation level.
+
+4. The 1.5% "Not Evaluated" observations should be treated as Pass (no evidence of
+   problems; the test simply couldn't run).
+
+
+### Next steps
+
+- Examine flagged observations in the context of profiles: Are the suspect temperature
+  values concentrated in specific profiles, or scattered? Do they occur during ascent
+  (science data) or at rest (engineering data)?
+- Survey qartod flags across multiple years to determine if the conductivity issue is
+  deployment-specific or persistent.
+- Design and implement the filter as a post-processing step.

@@ -345,32 +345,49 @@ See `VisualizationNotes.md` for detailed visualization documentation.
 
 No text for this yet.
 
-### Task 6: Mirror localhost data folder to S3
-    
-
-Python standalone `redux_s3_synch.py` in `~/argosy` rewrite:
+### Task 6: Mirror localhost data to S3
 
 
-- Re-format that time in human-readable format. 
-- Order of operations:
-    - Fast index: List of sensors sorted alphabetically
-        - To date: 'density', 'dissolvedoxygen', 'salinity', 'temperature'
-    - Medium index: Profile sequence for a given day: 1, 2, ..., 9
-    - Slow index: Julian day for a given year
-    - Slowest index: Year
+The `~/ooi` data tree is mirrored to the S3 bucket `s3ooi` for reproducibility and
+portability (e.g. rebuilding the pipeline on an EC2 instance).
 
-Example 8-file sequence per the above (where `<ix>` is the appropriate profileIndices global index):
-    
+**Bucket:** `s3://s3ooi/`
+
+**Prefix structure mirrors localhost:**
 ```
-RCA_sb_sp_density_2024_217_<ix>_9_V1.nc
-RCA_sb_sp_dissolvedoxygen_2024_217_<ix>_9_V1.nc
-RCA_sb_sp_salinity_2024_217_<ix>_9_V1.nc
-RCA_sb_sp_temperature_2024_217_<ix>_9_V1.nc
-RCA_sb_sp_density_2024_218_<ix>_1_V1.nc
-RCA_sb_sp_dissolvedoxygen_2024_218_<ix>_1_V1.nc
-RCA_sb_sp_salinity_2024_218_<ix>_1_V1.nc
-RCA_sb_sp_temperature_2024_218_<ix>_1_V1.nc
+s3://s3ooi/ooinet/rca/SlopeBase/scalar/...    (source data)
+s3://s3ooi/ooinet/rca/SlopeBase/vector/...    (source data)
+s3://s3ooi/profileIndices/...                  (profile metadata)
+s3://s3ooi/metadata/...                        (derived metadata)
+s3://s3ooi/redux/redux2015/...                 (sharded profiles)
+s3://s3ooi/postproc/pp01/...                   (post-processed subsets)
+s3://s3ooi/visualizations/...                  (charts)
 ```
+
+**Sync commands (run individually to control what gets uploaded):**
+```bash
+aws s3 sync ~/ooi/ooinet/ s3://s3ooi/ooinet/
+aws s3 sync ~/ooi/profileIndices/ s3://s3ooi/profileIndices/
+aws s3 sync ~/ooi/metadata/ s3://s3ooi/metadata/
+aws s3 sync ~/ooi/redux/ s3://s3ooi/redux/
+aws s3 sync ~/ooi/postproc/ s3://s3ooi/postproc/
+aws s3 sync ~/ooi/visualizations/ s3://s3ooi/visualizations/
+```
+
+**Reconstruct on a new machine (e.g. EC2):**
+```bash
+aws s3 sync s3://s3ooi/ ~/ooi/
+```
+
+**Notes:**
+- `aws s3 sync` is incremental: it only transfers files that are new or modified
+  (compared by size and last-modified timestamp). Re-running the same command after
+  an interruption or after adding new data files will pick up where it left off
+  without re-uploading unchanged files.
+- Sync source data (`ooinet/`) before or during sharding — it reads from `ooinet/`
+  and writes to `redux/`, so there is no conflict.
+- Sync `redux/` only after sharding completes to avoid uploading partial results.
+- The legacy bucket `epipelargosy` is retired; `s3ooi` is the single mirror target.
 
 
 ## raw data filenames

@@ -66,7 +66,6 @@ Inventory of code files in the `~/argosy` repository.
 | `Sharding.md` | Redux file generation, filename conventions, multi-year processing, TMLD. |
 | `SensorTable.md` | Sensor table, data variables, vector sensor details. |
 | `Visualization.md` | Bundle plots, curtain plots, animations, Midnight/Noon annotation. |
-| `Goals.md` | Red Zone goals and Umbrella expansion goals. |
 | `Analysis.md` | Data exploration ideas, spectral graph analysis. |
 | `PostProcessing.md` | Post-processing: pp01 (noon) and pp02 (midnight) subset generation, filters, results. |
 | `CoincidencePlans.md` | Anomaly detection: auto-coincidence and hetero-coincidence. |

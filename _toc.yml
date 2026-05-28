@@ -14,6 +14,7 @@ parts:
     - file: ProfileSharding
     - file: VisualizationNotes
     - file: PostProcessing
+    - file: PP05_QCAnalysis
     - file: VectorData
     - file: Analysis
     - file: Umbrella
@@ -25,8 +26,10 @@ parts:
   chapters:
     - file: chapters/DataDownload
     - file: chapters/DataSharding
+    - file: chapters/MidnightNoon
     - file: chapters/Visualizations
     - file: chapters/SpectralGraphAnalysis
+    - file: chapters/StubWork
 
 - caption: References
   chapters:

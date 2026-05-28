@@ -1,0 +1,15 @@
+sensor,start,end,reason
+salinity,2015-12-22,2016-01-01,sustained ~1.5 PSU median depression
+density,2015-12-22,2016-01-01,derived from anomalous conductivity
+salinity,2016-07-27,2016-08-01,conductivity anomaly (min values 11-16 PSU; physically impossible)
+density,2016-07-27,2016-08-01,derived from anomalous conductivity
+salinity,2017-12-10,2018-01-01,gradual fouling (~1 PSU median drop)
+density,2017-12-10,2018-01-01,derived from anomalous conductivity
+salinity,2018-12-13,2018-12-24,conductivity anomaly (cause unknown; ~3 PSU drop)
+density,2018-12-13,2018-12-24,derived from anomalous conductivity
+salinity,2019-09-25,2019-09-28,multi-day anomaly (median 32.1 min 30.3)
+density,2019-09-25,2019-09-28,derived from anomalous conductivity
+salinity,2021-11-20,2021-12-03,conductivity cell fouling
+density,2021-11-20,2021-12-03,derived from fouled conductivity
+salinity,2025-10-23,2025-11-04,severe sustained event (median 29.5)
+density,2025-10-23,2025-11-04,derived from anomalous conductivity

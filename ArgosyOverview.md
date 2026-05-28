@@ -15,11 +15,12 @@ cd ~/argosy
 pandoc \
   ArgosyOverview.md \
   OOIObservatory.md \
-  SensorReference.md \
-  FileSystemWorkflow.md \
-  ProfileSharding.md \
-  VisualizationNotes.md \
+  SensorTable.md \
+  Workflow.md \
+  Sharding.md \
+  Visualization.md \
   PostProcessing.md \
+  PP05_QCAnalysis.md \
   VectorData.md \
   Analysis.md \
   Umbrella.md \
@@ -51,10 +52,10 @@ This project's documentation is split across the following focused files:
 
 - `ArgosyOverview.md` — (this file) Project introduction, AI guidelines, Python libraries, publishing instructions
 - `OOIObservatory.md` — OOI observatory description, sites, challenges, glossary, and reference websites
-- `SensorReference.md` — Sensor table with column descriptions, per-sensor notes, and reference to `sensortable.csv`
-- `FileSystemWorkflow.md` — File system layout, workflow tasks 0–6, data download details, raw data filenames, degenerate source files
-- `ProfileSharding.md` — Profile metadata, reference metadata, sharding details, shard filenames, midnight/noon profiles, TMLD
-- `VisualizationNotes.md` — Visualization tools: bundle plots, curtain plots, animations, midnight/noon annotation
+- `SensorTable.md` — Sensor table with column descriptions, per-sensor notes, and reference to `sensortable.csv`
+- `Workflow.md` — File system layout, workflow tasks 0–6, data download details, raw data filenames, degenerate source files
+- `Sharding.md` — Profile metadata, reference metadata, sharding details, shard filenames, midnight/noon profiles, TMLD
+- `Visualization.md` — Visualization tools: bundle plots, curtain plots, animations, midnight/noon annotation
 - `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, tactics, CA recommendations, pending ideas, and the Next prompt section
 
 

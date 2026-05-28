@@ -76,7 +76,16 @@ comprise the umbrella pole.
 ### Done: Data already incorporated
 
 
-- TODO: Describe the tidal model data
+- **Tidal model predictions**: Harmonic constituents for the three RCA shallow profiler sites
+  (Oregon Offshore, Oregon Slope Base, Axial Base) were extracted from the TPXO10-atlas-v2
+  global tidal model. The extraction script (`tidal_extract.py`) reads 14 constituents
+  (m2, s2, n2, k2, k1, o1, p1, q1, 2n2, m4, ms4, mn4, mm, mf) and saves amplitude,
+  phase, and angular frequency to `tidal_constituents.json`. This JSON file is self-contained:
+  tidal height can be predicted at any time for any of the three sites without the original
+  30 GB TPXO dataset. A plotting script (`tidal_plot_may2026.py`) demonstrates prediction
+  for May 2026. Reference: Egbert, G.D. and S.Y. Erofeeva, "Efficient inverse modeling of
+  barotropic ocean tides," *Journal of Atmospheric and Oceanic Technology*, 19, 183–204, 2002.
+  [TPXO home page](http://www.tpxo.net/)
 
 
 ### Instruments/sensors/data streams beyond the shallow profiler 
@@ -108,6 +117,7 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- Inquire about a shallow profiler conversation with A.Gray
 - Bundle plot "Scanning redux folders" message counts shard files rather than unique profiles.
   Replace with profile count from `profileIndices` plus maximum possible.
 - 2020 T vs S has odd behaviors: Wide aneurism in salinity; +/- buttons don't behave as expected.
@@ -140,6 +150,16 @@ This is at much lower task resolution.
 - Terminology for indexing profiles:
     - "global profile index" means the ordinal global index across all time: From profileIndices
     - "daily profile number" refers to a particular day: Which profile this is in the range 1 -- 9
+- Finding and using QC flags (qartod) for data exclusion filter: See `PostProcessing.md` QC Filter section.
+  Initial study shows 0.11% suspect temperature and 9.38% suspect conductivity in a 2018 CTD file.
+  Need to determine if flagged data falls within profiles (actionable) or at rest (ignorable).
+- Validation test: Calculate contour lines with independent code and compare with Vis.ipynb notebook
+  values produced for curtain plots. Reference data: `~/ooi/metadata/curtain_contour_values.csv`.
+- Revisit ChlorA and CDOM curtain plots: Can they be redeemed? (Dynamic range shifts across time make
+  single-colormap representation poor. Consider per-segment normalization or log scale.)
+- Place curtain plot at the top of the Vis notebook; and set up a control in the interactive bundle
+  chart to launch a bundle chart animation run.
+- Consolidate the bundle animation cells in Vis.ipynb (see analysis below).
 
 
 ## Pending To Do
@@ -158,8 +178,12 @@ This is at much lower task resolution.
 - Concerning NOON / MIDNIGHT determination:
     - Both NOON and MIDNIGHT profiles are distinct from the other seven possible profiles
 in that the descent stage (between time `peak` and time `end` in profileIndices) takes
-longer in order to allow for sensor equilibration, specifically for the pCO2 and pH 
-sensors that operate on descent only. 
+longer in order to allow for sensor equilibration. From 2017 onward, three sensors
+operate exclusively on daily_index 4 (midnight) and 9 (post-noon, ~13:40 local):
+        - **Nitrate**: ascent data, ~150 points/profile, full depth range
+        - **pCO2**: descent data, ~10 points/profile
+        - **pH**: descent data, ~10 points/profile (files exist for all 9 indices but only 4 and 9 have usable data)
+    - In 2015–2016 these sensors operated on more/all profiles before being restricted.
 - redo backscatter shard: optical_backscatter, not total_volume_scattering_etcetera
 - revamp animations
 - add curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb

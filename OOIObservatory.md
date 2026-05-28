@@ -132,16 +132,21 @@ that typically cover multiple sensors over many days and hence many profiles.
 
 
 - HITL, QA/QC, qartod: 'human in the loop', 'quality assurance / quality control', and
-'QA/QC of Real Time Oceanographic Data`. This is an important aspect of ensuring data 
-subjected to analysis are collected under nominal conditions. For example a salinity data 
-dropout observed in 2025 is due to a clogged conductivity cell. This was observed by the 
-RCA data team during their data review process and noted as an annotation.  A future goal 
-of `argosy` is to scan the netcdf source / raw file from OOINET to check the `qartod` tests: 
-`gross range` and `climatology`.  Significant dropouts such as this one -- when identified -- 
-are flagged there to avoid treating bad data like it is valid. An alternative is to download 
-annotations with the source / raw files; and scroll through these to see events of note for 
-the data. *Note: See workflow Step 3 PostProcessing (in `FileSystemWorkflow.md`). This is where filters for bad data
-can be instantiated.*
+'Quality Assurance of Real-Time Oceanographic Data' (QARTOD). QARTOD is an IOOS
+(Integrated Ocean Observing System) program that defines standardized quality control
+tests for oceanographic data. In OOI NetCDF files, qartod results appear as per-observation
+integer flags in variables named `<science_variable>_qartod_results`:
+    - 1 = Pass (data is good)
+    - 2 = Not Evaluated (test could not be applied)
+    - 3 = Suspect (data may be compromised)
+    - 4 = Fail (data is bad)
+    - 9 = Missing Data
+The two primary qartod tests applied are `gross_range` (value within physically plausible
+bounds) and `climatology` (value within expected seasonal range). See `PostProcessing.md`
+for a data study of qartod flags in CTD files.
+HITL refers to human review of flagged data. A salinity dropout observed in 2025 due to a
+clogged conductivity cell is an example of an issue caught by the RCA data team during
+their review process and noted as an annotation.
 
 
 - red zone: 'The challenge of the last 20 yards'; refers to the thematic objective 

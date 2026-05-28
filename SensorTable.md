@@ -64,6 +64,76 @@ Sensors correspond to rows of the sensor table. Not included in the sensor table
 `time` and `depth` which are ancillary: `time` as dimension/coordinate and `depth` 
 as data variable (XArray terminology). These define the two-dimensional framework for
 for the sensor data. 
+
+
+### Scalar sensor sampling categories
+
+
+The 11 scalar sensors fall into two categories based on sampling density and
+profiler operating mode.
+
+
+**High Sample Density (HSD)** sensors operate continuously during ascent on all
+9 daily profiles. They produce hundreds to thousands of data points per profile
+spanning the full 0–200m depth range. The profiler ascends at 5 cm/s, and these
+fast-response sensors sample at ~1 Hz or better.
+
+- Temperature (CTDPF)
+- Salinity (CTDPF)
+- Dissolved Oxygen (CTDPF)
+- Density (CTDPF, derived)
+- CDOM (FLORT)
+- Chlorophyll-A (FLORT)
+- Backscatter (FLORT)
+- PAR (PARAD)
+
+
+**Low Sample Density (LSD)** sensors operate only on daily_index 4 (midnight,
+~00:00 local) and daily_index 9 (post-noon, ~13:40 local). From 2017 onward
+these sensors are restricted to 2 profiles per day. In 2015–2016 they operated
+on more or all profiles.
+
+- Nitrate (NUTNR) — **ascent**, ~150 points/profile, full depth range
+- pCO2 (PCO2W) — **descent with stationary stops**, ~10 points/profile
+- pH (PHSEN) — **descent with stationary stops**, ~10 points/profile
+
+
+#### LSD sampling details
+
+
+**Nitrate (NUTNR, Sea-Bird SUNA V2):** A fast-response optical UV spectroscopy
+sensor that measures continuously while the profiler moves. It operates during
+the ascent phase (start → peak) of profiles 4 and 9, producing ~150 data points
+spanning the full depth range. The sensor is turned on only for these two
+extended profiles to manage power and lamp lifetime.
+Reference: [OOI Nitrate instrument class](https://oceanobservatories.org/instrument-class/nutnr)
+
+**pCO2 (PCO2W, Pro-Oceanus CO2-Pro):** Requires equilibration time at each
+measurement depth. The profiler stops at predefined depths during the descent
+phase (peak → end) of profiles 4 and 9, pausing long enough for the sensor to
+equilibrate. Produces ~10 measurements per profile. The V18 operations page
+specifically names CO2 as requiring stationary measurements.
+Reference: [Interactive Oceans: Shallow Profiler Moorings](https://interactiveoceans.washington.edu/technology/shallow-profiler-moorings/)
+
+**pH (PHSEN, Sunburst SAMI-pH):** A reagent-based colorimetric sensor that
+requires a pump cycle (reagent injection, color development, optical measurement)
+at each depth. Like pCO2, it operates during descent stops on profiles 4 and 9,
+producing ~10 measurements per profile. Note: pH shard files exist for all 9
+daily indices, but only indices 4 and 9 contain usable multi-depth data; the
+other 7 indices contain a single measurement at platform depth (~190m).
+Reference: [OOI pH instrument class](https://oceanobservatories.org/instrument-class/ph/),
+[Interactive Oceans: pH Sensors](https://interactiveoceans.washington.edu/instruments/ph/)
+
+
+#### Profiler operating mode reference
+
+
+The profiler makes 9 trips/day. It ascends at 5 cm/s and descends at 10 cm/s.
+Profiles 4 (midnight) and 9 (post-noon) have extended descent durations with
+automated step functions that stop the pod at specific depths for stationary
+measurements. Daily_index 8 is the true noon profile (peak ~12:00–12:30 local)
+but does not have the extended descent.
+Reference: [Interactive Oceans: Shallow Profiler Moorings V18](https://interactiveoceans.washington.edu/shallow-profiler-moorings-v18/)
     
     
 Here is the sensor table column information, columns going left to right.
