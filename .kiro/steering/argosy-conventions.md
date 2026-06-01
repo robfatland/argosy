@@ -64,4 +64,5 @@
   - pH has shard files for all 9 daily indices but only indices 4 and 9 contain usable data (others have too few valid points).
 - When appropriate: Finish a response with what the user should do next. This avoids forcing them to scan back up for action items.
 - When starting a new chat (usually due to context window full) be sure to read `ArgosyOverview.md` and any other markdown in the ~/argosy folder (repo root) to get up to speed on the project.
+- Operational procedures are indexed in `ArgosyOverview.md` → "Pointers to Key Actions". When adding a new procedure to any doc, also add a one-line pointer there.
 - Before running any long-running process that writes significant data (pp05, sharding, etc.), check Windows C: drive free space with `Get-PSDrive C`. If free space is 2GB or less, STOP and notify the user that the Windows drive is critically low — WSL will fail if the vhdx cannot grow.

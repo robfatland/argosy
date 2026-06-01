@@ -70,6 +70,41 @@ Mirrors redux layout:
 Each folder contains a `README.md` describing the processing steps.
 
 
+## Post-Processing 05: QC analysis dataset (pp05)
+
+pp05 is the quality-controlled analysis dataset covering all profiles (not just
+noon/midnight). It is **manifest-based**: no file copies, just a CSV listing which
+redux files pass QC.
+
+Script: `~/argosy/postprocess_pp05.py`
+Output: `~/ooi/metadata/pp05_manifest.csv`
+Full methodology: `~/argosy/PP05_QCAnalysis.md`
+
+### How files are selected
+
+- HSD sensors: all 9 daily profiles (PAR excludes index 3/4/5 nighttime)
+- LSD sensors: daily_index 4 and 9 only, minimum data point filter
+
+### How files are excluded
+
+- **Tier 1 (manual embargo):** `sensor_exclusions.csv` time windows
+- **Tier 2 (gross range):** >20% of values outside site-specific suspect range → exclude file
+
+### Manifest format
+
+```
+filepath, sensor, year, doy, global_idx, daily_idx, n_valid, n_suspect
+```
+
+Files with `n_suspect > 0` passed QC overall but contain some out-of-range values.
+Downstream code should NaN those individual values when loading.
+
+### Regeneration
+
+The script is resumable (appends per-year, skips completed years). To regenerate
+from scratch: delete `~/ooi/metadata/pp05_manifest.csv` and re-run.
+
+
 ### Shard filename convention
 
 
@@ -236,3 +271,107 @@ A future QC-based filter (potentially pp03 or pp04) could:
 - Survey qartod flags across multiple years to determine if the conductivity issue is
   deployment-specific or persistent.
 - Design and implement the filter as a post-processing step.
+
+
+## S3 Backup: Syncing ooinet to AWS
+
+The `~/ooi/ooinet/` directory (204 GB of source NetCDF files from OOINET) is
+backed up to S3. This allows the local copy to be deleted to free disk space,
+with the data retrievable from the cloud if re-sharding is ever needed.
+
+### Sync command
+
+```bash
+aws s3 sync ~/ooi/ooinet/ s3://s3ooi/ooinet/ --storage-class STANDARD_IA
+```
+
+- Uploads only new/changed files (compares size and modification time)
+- `STANDARD_IA`: ~$0.0125/GB/month (~$2.55/month for 204 GB)
+- One-directional: local → S3. Does not delete from S3 if deleted locally.
+- Safe to interrupt with Ctrl+C and restart — picks up where it left off.
+- Bandwidth throttle (optional): `aws configure set default.s3.max_bandwidth 25MB/s`
+
+### When to run
+
+Run overnight or when stepping away. The main impact is network bandwidth.
+Does not lock files or interfere with local reads. At 50 Mbps upload: ~9 hours
+for a full 200 GB sync.
+
+### Verification after sync
+
+```bash
+aws s3 ls s3://s3ooi/ooinet/ --recursive --summarize | tail -3
+```
+
+Compare object count and total size against:
+```bash
+du -sh ~/ooi/ooinet/
+find ~/ooi/ooinet -type f | wc -l
+```
+
+### After verification: freeing local space
+
+Once the sync is verified complete, `~/ooi/ooinet/` can be deleted locally to
+reclaim ~204 GB. Redux (18 GB) and postproc remain local as working datasets.
+To restore from S3 if needed:
+
+```bash
+aws s3 sync s3://s3ooi/ooinet/ ~/ooi/ooinet/
+```
+
+
+## Localhost Data Management
+
+### WSL virtual disk (ext4.vhdx)
+
+WSL stores its entire Linux filesystem in a single file on C: drive:
+```
+C:\Users\robfa\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc\LocalState\ext4.vhdx
+```
+
+Key behaviors:
+- The vhdx **grows** automatically as WSL writes data
+- It does **not shrink** automatically when data is deleted inside WSL
+- `df -h /` inside WSL reports virtual capacity, NOT actual C: drive free space
+- The real constraint is C: drive free space (check with `Get-PSDrive C` in PowerShell)
+
+### Checking actual free space
+
+From inside WSL, `df` is misleading. Always check from Windows:
+```powershell
+Get-PSDrive C | ForEach-Object { "C: Free: $([math]::Round($_.Free/1GB,1)) GB" }
+```
+
+### Compacting the vhdx (reclaiming C: space after deleting data in WSL)
+
+After deleting large amounts of data inside WSL, the vhdx retains its size on C:.
+To reclaim that space:
+
+1. Inside WSL, discard freed blocks: `sudo fstrim -v /`
+2. **Close Kiro/VS Code** (it holds the vhdx open via `\\wsl.localhost\` paths)
+3. Open Command Prompt **as Administrator**
+4. Run:
+```
+wsl --shutdown
+diskpart
+select vdisk file="C:\Users\robfa\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc\LocalState\ext4.vhdx"
+compact vdisk
+exit
+```
+
+Important: Kiro must be closed first — its file access keeps the vhdx locked.
+
+### When compaction is NOT needed
+
+If you delete data inside WSL and then write new data of similar size, the vhdx
+reuses the freed internal space without growing. Compaction is only needed when
+you want to reclaim C: space for other Windows programs. WSL itself is not
+constrained by the vhdx being "too large" — it can use all internal free space
+regardless of whether the vhdx has been compacted.
+
+### Current state (May 2026)
+
+- `~/ooi/ooinet/` deleted locally (204 GB), backed up to `s3://s3ooi/ooinet/`
+- vhdx is 288 GB on disk with ~75 GB used internally (~213 GB internal headroom)
+- C: drive has ~32 GB free (would be ~230 GB after successful compaction)
+- WSL can write ~200 GB of new data without any C: space issues

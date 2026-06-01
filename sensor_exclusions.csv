@@ -13,3 +13,13 @@ salinity,2021-11-20,2021-12-03,conductivity cell fouling
 density,2021-11-20,2021-12-03,derived from fouled conductivity
 salinity,2025-10-23,2025-11-04,severe sustained event (median 29.5)
 density,2025-10-23,2025-11-04,derived from anomalous conductivity
+cdom,2019-04-25,2019-05-26,negative values (min -6.4 ppb; instrument artifact)
+cdom,2019-06-09,2019-07-25,negative values (min -5.9 ppb; instrument artifact)
+cdom,2020-08-06,2020-12-24,intermittent negative values (min -8.9 ppb; sensor degradation)
+cdom,2021-04-12,2021-06-25,negative values and high median (min -7.8 ppb)
+cdom,2021-08-30,2021-12-31,sustained negative values (min -11.8 ppb; severe sensor failure)
+cdom,2022-04-10,2022-06-06,sustained negative values (min -9.2 ppb; 58 days)
+cdom,2022-08-21,2022-08-31,negative values (11 days)
+cdom,2023-08-21,2023-11-24,intermittent negative values (min -5.4 ppb)
+cdom,2024-04-09,2024-05-05,severe negative values (min -14.7 ppb; 27 days)
+cdom,2024-08-28,2024-09-21,intermittent negative values

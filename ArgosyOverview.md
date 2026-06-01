@@ -6,37 +6,18 @@ date: ""
 
 \newpage
 
-## Building the PDF
+## Pointers to Key Actions
 
-To generate a single PDF from all documentation markdown files:
+Operational procedures are documented in their respective files. This section
+provides a quick-reference index.
 
-```bash
-cd ~/argosy
-pandoc \
-  ArgosyOverview.md \
-  OOIObservatory.md \
-  SensorTable.md \
-  Workflow.md \
-  Sharding.md \
-  Visualization.md \
-  PostProcessing.md \
-  PP05_QCAnalysis.md \
-  VectorData.md \
-  Analysis.md \
-  Umbrella.md \
-  CodeManifest.md \
-  OOINETSlopeBaseDataStatus.md \
-  DevelopmentLog.md \
-  -o argosy.pdf \
-  --pdf-engine=xelatex \
-  -V geometry:margin=1in \
-  -V fontsize=11pt \
-  --toc \
-  --toc-depth=2 \
-  -H _header.tex
-```
-
-Prerequisites: `pandoc`, `texlive-xetex`, `fonts-dejavu`.
+- **Building the PDF**: See [Building the PDF](#building-the-pdf) section below in this file.
+- **S3 backup (syncing ooinet)**: See `PostProcessing.md` → "S3 Backup: Syncing ooinet to AWS"
+- **Generating pp05 manifest**: `python postprocess_pp05.py` — see `PP05_QCAnalysis.md`
+- **Generating pp01/pp02**: `python postprocess_special_profiles.py noon|midnight` — see `PostProcessing.md`
+- **Adding sensor exclusions**: Edit `~/argosy/sensor_exclusions.csv` — see `PostProcessing.md` → "Sensor exclusions"
+- **Localhost disk management**: WSL vhdx compaction, free space checks — see `PostProcessing.md` → "Localhost Data Management"
+- **Running curtain plots**: Vis.ipynb curtain plot cell — see `Visualization.md`
 
 \newpage
 
@@ -154,3 +135,36 @@ file or in related files that are pointed to here.
 
 The **Next** section at the end of `DevelopmentLog.md` is used to stage prompts for `kiro`.
 An example prompt in the IDE might then read: 'Follow the Next prompt in `~/argosy/DevelopmentLog.md`.'
+
+
+## Building the PDF
+
+To generate a single PDF from all documentation markdown files:
+
+```bash
+cd ~/argosy
+pandoc \
+  ArgosyOverview.md \
+  OOIObservatory.md \
+  SensorTable.md \
+  Workflow.md \
+  Sharding.md \
+  Visualization.md \
+  PostProcessing.md \
+  PP05_QCAnalysis.md \
+  VectorData.md \
+  Analysis.md \
+  Umbrella.md \
+  CodeManifest.md \
+  OOINETSlopeBaseDataStatus.md \
+  DevelopmentLog.md \
+  -o argosy.pdf \
+  --pdf-engine=xelatex \
+  -V geometry:margin=1in \
+  -V fontsize=11pt \
+  --toc \
+  --toc-depth=2 \
+  -H _header.tex
+```
+
+Prerequisites: `pandoc`, `texlive-xetex`, `fonts-dejavu`.

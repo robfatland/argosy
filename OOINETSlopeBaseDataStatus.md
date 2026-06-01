@@ -161,8 +161,11 @@ Gaps > 7 days:
 **Deployment turnarounds** (no-data gaps, typically June–August, 2–8 weeks):
 These are expected. The shallow profiler is recovered and redeployed annually. No data exists for these periods.
 
+**2019-10 to 2020-08 (310 days):** A fishing vessel damaged the shallow profiler
+mooring, requiring a full replacement. This is the source of the large outage
+affecting all instruments from late September 2019 through early August 2020.
+
 **Likely failed orders** (data probably exists in OOINET but hasn't been downloaded):
-- 2019-10 to 2020-08: Affects CTD, FLOR, PCO2, PH. ~310 days missing across all instruments.
 - PCO2 2016-07 to 2018-06: Large gap spanning two deployment cycles.
 - PH 2022-12 to 2023-09 and 2025-01 to 2025-08: Likely need separate orders.
 

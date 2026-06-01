@@ -68,7 +68,7 @@ conditions in the 0–200m water column):
 | DO | 10.0 | 350.0 | Hypoxia floor + surface saturation |
 | CDOM | -0.5 | 10.0 | Observed range + margin |
 | Chlorophyll-A | -0.1 | 10.0 | Bloom max + margin |
-| Backscatter | -0.0001 | 0.005 | Observed range + margin |
+| Backscatter | -0.0001 | 0.015 | Observed range + bloom margin |
 | PAR | -1.0 | 1500.0 | Surface max + margin |
 | Nitrate | -2.0 | 45.0 | Deep max + margin |
 | pCO2 | 100.0 | 2000.0 | Observed range + margin |
@@ -106,28 +106,39 @@ Script: `~/argosy/postprocess_pp05.py`
 
 Usage: `python postprocess_pp05.py`
 
+Design: **Manifest-based** — instead of copying shard files (which would duplicate
+~50+ GB of data), the script produces a CSV manifest listing which redux files
+pass QC. Analysis and visualization code reads the manifest and accesses files
+directly from redux. This avoids disk space issues entirely.
+
 Output:
 ```
-~/ooi/postproc/pp05/
-    redux/
-        redux2015/
-        ...
-        redux2025/
-    README.md
 ~/ooi/metadata/
+    pp05_manifest.csv             (filepath, sensor, year, doy, global_idx, daily_idx, n_valid, n_suspect)
     pp05_exclusion_summary.csv    (per-sensor counts: included, excluded by tier)
 ```
+
+When loading data via the manifest, code should NaN-out individual values that
+fall outside the suspect range (identified by n_suspect > 0 in the manifest).
+The manifest marks these files but does not modify the source data.
 
 
 ## Relationship to other postproc datasets
 
-| Dataset | Selection | QC level |
-|---------|-----------|----------|
-| redux | All profiles, all sensors | None (raw shards) |
-| pp01 | Noon profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions |
-| pp02 | Midnight profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions |
-| pp05 | All profiles (HSD) + daily_index 4/9 (LSD) | Tier 1 + Tier 2 gross range |
-| pp05+ | (future) | Tier 1 + Tier 2 + Tier 3 statistical |
+| Dataset | Selection | QC level | Format |
+|---------|-----------|----------|--------|
+| redux | All profiles, all sensors | None (raw shards) | Files in `~/ooi/redux/redux<yyyy>/` |
+| pp01 | Noon profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions | Files in `~/ooi/postproc/pp01/redux/` |
+| pp02 | Midnight profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions | Files in `~/ooi/postproc/pp02/redux/` |
+| pp05 | All profiles (HSD) + daily_index 4/9 (LSD) | Tier 1 + Tier 2 gross range | Manifest CSV at `~/ooi/metadata/pp05_manifest.csv` |
+
+pp05 is manifest-based: no physical file copies. The manifest lists which redux
+files pass QC. Analysis code reads the manifest, then loads files directly from
+redux. This avoids duplicating ~50+ GB of shard data.
+
+The `n_suspect` column in the manifest flags files that contain some out-of-range
+values (but fewer than 20%, so the file was not excluded). Downstream code should
+NaN those individual suspect values when loading data from flagged files.
 
 
 ## References
