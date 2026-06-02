@@ -48,6 +48,55 @@
 - `<daily_index>`: 1–9 (which profile of the day)
 - `<version>`: `V1` for redux, `V2` for postproc subsets
 
+## Session continuity
+
+These conventions ensure smooth handoff between kiro sessions (context window full, chat restart, etc.).
+
+### Status snapshot: `SessionState.md`
+
+- Location: `~/argosy/SessionState.md`
+- Purpose: Machine-readable summary of what the *last* session accomplished, what's in progress, and what's blocked.
+- **When to write/update:** At the end of every session (when the user says goodbye, when context is getting long, or after completing a significant milestone). Also update when reverting work or leaving something incomplete.
+- **When to read:** At the start of every new session, read `SessionState.md` *before* reading `DevelopmentLog.md`. This is the fastest path to orientation.
+- Format (maintain these headings exactly):
+
+```markdown
+# Session State
+
+## Last updated
+<date and brief session description>
+
+## Completed this session
+- <bullet list of what was accomplished>
+
+## In progress / partially done
+- <what was started but not finished, with enough detail to resume>
+
+## Reverted / needs redo
+- <what was attempted, why it failed, where the rebuild notes live>
+
+## Blocked / waiting on user
+- <anything that requires user decision or external action>
+
+## Next action
+- <the single most important next step>
+```
+
+### Rebuild notes for reverted work
+
+- When work is reverted (notebook cell, script, etc.), write a rebuild plan to `~/argosy/<Feature>Rebuild.md`.
+- Name the file after the feature (e.g. `VisNotebookRebuild.md`, `ShardingRebuild.md`).
+- Include: what was attempted, why it failed, what changes to re-apply, and any constraints discovered.
+- Reference the rebuild file from `SessionState.md` → "Reverted / needs redo" section.
+- Once the rebuild is successfully applied, delete the rebuild file and remove the reference.
+
+### Documentation hygiene at session end
+
+- Update `DevelopmentLog.md` → "Completed" section with anything newly done.
+- Remove completed items from "Pending To Do".
+- Update "## Next" to reflect the actual next priority.
+- If a new operational procedure was added to any doc, add the pointer in `ArgosyOverview.md` → "Pointers to Key Actions".
+
 ## Key rules
 
 - Never write data or generated files to `~/argosy`. Output goes to `~/ooi`.
@@ -63,6 +112,6 @@
   - In 2015–2016 all three restricted sensors operated on more/all profiles; the 4-and-9 restriction began in 2017.
   - pH has shard files for all 9 daily indices but only indices 4 and 9 contain usable data (others have too few valid points).
 - When appropriate: Finish a response with what the user should do next. This avoids forcing them to scan back up for action items.
-- When starting a new chat (usually due to context window full) be sure to read `ArgosyOverview.md` and any other markdown in the ~/argosy folder (repo root) to get up to speed on the project.
+- When starting a new chat (usually due to context window full) read `SessionState.md` first for immediate orientation, then `ArgosyOverview.md` and `DevelopmentLog.md` as needed.
 - Operational procedures are indexed in `ArgosyOverview.md` → "Pointers to Key Actions". When adding a new procedure to any doc, also add a one-line pointer there.
 - Before running any long-running process that writes significant data (pp05, sharding, etc.), check Windows C: drive free space with `Get-PSDrive C`. If free space is 2GB or less, STOP and notify the user that the Windows drive is critically low — WSL will fail if the vhdx cannot grow.

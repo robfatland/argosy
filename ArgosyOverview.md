@@ -37,6 +37,7 @@ This project's documentation is split across the following focused files:
 - `Workflow.md` — File system layout, workflow tasks 0–6, data download details, raw data filenames, degenerate source files
 - `Sharding.md` — Profile metadata, reference metadata, sharding details, shard filenames, midnight/noon profiles, TMLD
 - `Visualization.md` — Visualization tools: bundle plots, curtain plots, animations, midnight/noon annotation
+- `VisNotebookRebuild.md` — Rebuild plan for Visualizations.ipynb bundle/curtain/animation cells (reverted; changes to re-apply)
 - `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, tactics, CA recommendations, pending ideas, and the Next prompt section
 
 

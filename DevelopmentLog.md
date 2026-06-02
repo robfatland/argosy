@@ -160,49 +160,53 @@ This is at much lower task resolution.
 - Place curtain plot at the top of the Vis notebook; and set up a control in the interactive bundle
   chart to launch a bundle chart animation run.
 - Consolidate the bundle animation cells in Vis.ipynb (see analysis below).
+- Erratics filter: Identify and suppress spurious profile data (e.g. salinity bundles with 180 profiles
+  frequently show 1–2 profiles with clearly non-physical values). Could operate as a pp05-level filter
+  or a runtime toggle in the bundle chart. Needs a detection heuristic (e.g. profile mean outside
+  N sigma of bundle mean, or individual points beyond physical bounds).
+
+
+## Completed (June 2026)
+
+- Full re-shard complete (all instruments, all years 2015–2025). Redux data in `~/ooi/redux/`.
+- `~/ooi/ooinet/` (204 GB source NetCDF) synced to `s3://s3ooi/ooinet/` and deleted locally.
+- pCO2, nitrate, PAR, pH added to sharding pipeline and sharded.
+- NOON/MIDNIGHT identification: DONE via `profile_duration_histograms.py` → `~/ooi/metadata/`.
+- PAR fixed in Sensor Table.
+- Bundle plot SENSORS dict already includes all 11 scalar sensors (temperature, salinity,
+  density, dissolvedoxygen, cdom, chlora, backscatter, ph, pco2, nitrate, par).
+- Vis notebook bundle chart: Modifications attempted (slider fix, CDOM/ChlorA/backscatter
+  range updates, exclusion filter, time-aligned indexing). Changes proved fragile; notebook
+  was reverted to git state. Rebuild plan documented in `~/argosy/VisNotebookRebuild.md`.
 
 
 ## Pending To Do
 
-
-- Run the full re-shard (all 6 instruments, all years) from clean source data
+- **Vis notebook rebuild**: Apply changes from `VisNotebookRebuild.md` (bundle plot slider fix,
+  SENSORS dict range updates, exclusion filter, time-aligned indexing, curtain plot rewrite,
+  animation data source selector).
 - Regenerate noon/midnight metadata CSVs (`profile_duration_histograms.py`)
 - Regenerate pp01/pp02 (`postprocess_special_profiles.py noon` and `midnight`)
-- Add pCO2, nitrate, PAR to bundle plot SENSORS dict once sharded
 - Check the `argo-env2` installed libraries against those listed in `ArgosyOverview.md`
 - LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)
 - TMLD/ directory: Decide whether to keep `tmld_estimates.csv` as historical data; delete the empty `tmld_selector.py`
 - Order VELPT data for 2018–present (lower priority; deferred for SGA feature vector)
 - Update `CodeManifest.md` to reflect the documentation refactor
 - Copy updated `pre_shard_data_availability.png` to `~/argosy/images/` after each regeneration
+- Backscatter shard: Verify using `optical_backscatter` not `total_volume_scattering_etcetera`
+- Revamp animations (frame timing, hold time per frame)
+- 2020 T vs S odd behaviors: Wide aneurism in salinity; suggest making mean/std box width a slider
+- `20xx_do` folder: 33 DOFSTA files (2014-2025) from a separate fast-response DO instrument
+  (DOFSTA102), NOT redundant with CTD-derived DO. Decide: integrate as second DO source or leave?
 - Concerning NOON / MIDNIGHT determination:
-    - Both NOON and MIDNIGHT profiles are distinct from the other seven possible profiles
-in that the descent stage (between time `peak` and time `end` in profileIndices) takes
-longer in order to allow for sensor equilibration. From 2017 onward, three sensors
-operate exclusively on daily_index 4 (midnight) and 9 (post-noon, ~13:40 local):
+    - From 2017 onward, three sensors operate exclusively on daily_index 4 (midnight)
+      and 9 (post-noon, ~13:40 local):
         - **Nitrate**: ascent data, ~150 points/profile, full depth range
         - **pCO2**: descent data, ~10 points/profile
-        - **pH**: descent data, ~10 points/profile (files exist for all 9 indices but only 4 and 9 have usable data)
+        - **pH**: descent data, ~10 points/profile (files exist for all 9 but only 4 and 9 usable)
     - In 2015–2016 these sensors operated on more/all profiles before being restricted.
-- redo backscatter shard: optical_backscatter, not total_volume_scattering_etcetera
-- revamp animations
-- add curtain plots: See e.g. ~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb
-- clear identification of which profiles are midnight, which are noon, which are neither~~ DONE: `profile_duration_histograms.py` and `~/ooi/metadata/`
-- fix PAR in the Sensor Table~~ DONE: `par_counts_output`
-- 2020 T vs S has some odd behaviors
-    - seems like a Wide Aneurism appears in salinity but + / - buttons do not behave as expected
-        - some kind of hysteresis where there should not be any
-    - suggest making mean/std box width a slider
-- Add nitrate, pco2, and par to the sharding pipeline in DataSharding.ipynb (code ready; awaiting data order)
-- Re-run sharding for those instruments (awaiting data)
-- Run pp01/02 for not-yet-done instruments (awaiting sharding)
-- Add pCO2, nitrate, PAR to bundle plot SENSORS dict once those sensors are sharded
-- Check the `argo-env2` installed libraries against the libraries listed at the top of this file
-- LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)
-- TMLD/ directory: Decide whether to keep tmld_estimates.csv as historical data; delete the empty tmld_selector.py
-- `20xx_do` folder: 33 DOFSTA files (2014-2025) from a separate fast-response DO instrument (DOFSTA102), NOT redundant with CTD-derived DO. 
-    - Decide: distribute into year folders and integrate into sharding pipeline as a second DO source, or leave as-is?
 
 
 ## Next
-- Run and verify shard
+
+- Apply Vis notebook rebuild (see `VisNotebookRebuild.md`)

@@ -22,13 +22,15 @@ changes need to be re-applied in a fresh session.
 4. **Exclusion filter toggle** — add an "Exclusions: OFF" button. When ON, skip
    profiles within `sensor_exclusions.csv` windows. Default OFF.
 
-5. **Time-aligned indexing (NEW, not yet implemented):**
-   - Sensor 1 drives navigation (slider = position in sensor 1 file list)
-   - Sensor 2 finds co-temporal files by matching day-of-year within ±1 day
-   - For each sensor 1 file at position N, extract year+doy from filename
-   - Find sensor 2 files with same year+doy (or nearest day)
-   - If no match found, show nothing for sensor 2 at that position
-   - This ensures pCO2/nitrate data appears when co-temporal with temperature
+5. **Global-index-based navigation (replaces file-list indexing):**
+   - Build a dict per sensor keyed by global profile index at startup:
+     `sensor_index_map[sensor][global_idx] = filepath`
+   - The `index0` slider spans the full global index range for the selected years
+   - For each global index in [index0, index0+nProfiles): look up sensor 1 and
+     sensor 2 independently. Plot whatever exists; skip what doesn't.
+   - Both sensors are always co-temporal (same global index = same time).
+   - No data for a given index = blank (no line drawn). User must scroll to find data.
+   - Development file: `~/argosy/_bundle_chart.py` (validated, ready for notebook injection)
 
 6. **Nitrate diagnostic** — when nitrate is selected, print the filename at
    the current index position (for debugging). Can be removed once time-alignment
