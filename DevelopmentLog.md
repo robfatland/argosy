@@ -160,10 +160,36 @@ This is at much lower task resolution.
 - Place curtain plot at the top of the Vis notebook; and set up a control in the interactive bundle
   chart to launch a bundle chart animation run.
 - Consolidate the bundle animation cells in Vis.ipynb (see analysis below).
+- **SGA depth grid range**: Does expanding the SGA depth quantization range add any value to
+  the analysis? e.g. 185m - 27m becomes 195m - 5m; see png of histograms at
+  `~/ooi/analysis/sga/depth_range_histograms.png`. Also consider depth bin width as a
+  hyperparameter: 2m (current, 80 bins) vs 1m (160 bins, doubles feature dimension). Finer bins
+  may resolve thin layers but risk curse-of-dimensionality effects in the SGA distance metric.
+- **Deep profiler O₂ integration**: Combine shallow profiler (RS01SBPS, 0–200m) with deep profiler
+  (RS01SBPD, 200–2900m) to visualize the full water column oxygen structure including the OMZ core
+  and deep recovery. See `Umbrella.md` → "Deep Profiler: Full Water Column Oxygen Structure".
+- **SGA two-cluster problem**: Multi-year runs converge to k=2 (seasonal dominance). Need diagnostic
+  plan: try per-year analysis, force higher k, vary σ², examine outlier cluster composition,
+  consider sub-annual windowing. See `SpectralGraphAnalysis.md` → "Known Issues / History".
 - Erratics filter: Identify and suppress spurious profile data (e.g. salinity bundles with 180 profiles
   frequently show 1–2 profiles with clearly non-physical values). Could operate as a pp05-level filter
   or a runtime toggle in the bundle chart. Needs a detection heuristic (e.g. profile mean outside
   N sigma of bundle mean, or individual points beyond physical bounds).
+- CDOM quantization/smoothing: The WET Labs ECO FLORT sensor digitizes CDOM fluorescence from
+  raw counts with coarse ADC resolution, producing a staircase-like profile that obscures real
+  structure. References for smoothing approaches:
+  - **Savitzky-Golay filter** (Savitzky & Golay 1964; scipy.signal.savgol_filter): Fits local
+    polynomials via least squares. Preserves peak width and position better than moving average.
+    Standard choice in spectroscopy for quantized/noisy data. Window size = depth span (~5–11
+    points at 2m bins = 10–22m smoothing window). Polynomial order 2 or 3.
+  - **LOWESS/LOESS** (Cleveland 1979; statsmodels.nonparametric.lowess): Locally weighted
+    regression, robust to outliers. More computationally expensive but handles irregular
+    spacing well. `frac` parameter controls smoothing bandwidth.
+  - **Median filter** (scipy.ndimage.median_filter): Non-linear, good for removing single-point
+    spikes while preserving step edges. Less good for quantization noise specifically.
+  - Recommendation: Start with Savitzky-Golay (window=11, polyorder=2) as Filter 2 for CDOM
+    in pp06. Compare visually with raw data in bundle chart. Same filter likely applicable to
+    ChlorA and backscatter.
 
 
 ## Completed (June 2026)
@@ -182,6 +208,21 @@ This is at much lower task resolution.
 
 ## Pending To Do
 
+- **pp06 filters for all 8 HDS sensors**: Filter 1 (salinity/density MRA) is implemented.
+  Remaining sensors need their own filters:
+  - CDOM: quantized signal, needs smoothing filter (see below)
+  - ChlorA: likely similar quantization issues to CDOM
+  - Backscatter: may have spike/erratic issues
+  - Temperature: generally clean but check for rare spikes
+  - Dissolved Oxygen: check for conductivity-coupled artifacts
+  - PAR: high dynamic range, check for saturation/zeroing
+- **CDOM smoothing research**: The FLORT ECO sensor outputs digitized counts with
+  coarse resolution (quantization noise). Candidate filters:
+  - Savitzky-Golay (polynomial local regression, preserves peaks/shape)
+  - LOWESS/LOESS (locally weighted regression, robust to outliers)
+  - Median filter (good for spike removal, preserves edges)
+  - Depth-binned averaging (simple, interpretable)
+  See references in Open Topics below.
 - **Vis notebook rebuild**: Apply changes from `VisNotebookRebuild.md` (bundle plot slider fix,
   SENSORS dict range updates, exclusion filter, time-aligned indexing, curtain plot rewrite,
   animation data source selector).
@@ -209,4 +250,5 @@ This is at much lower task resolution.
 
 ## Next
 
+- Finish writing `pp06ErraticFilterPrompt.md`
 - Apply Vis notebook rebuild (see `VisNotebookRebuild.md`)

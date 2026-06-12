@@ -103,6 +103,15 @@ These conventions ensure smooth handoff between kiro sessions (context window fu
 - Exception: `~/argosy/images/` holds copies of key charts for the PDF/repo.
 - Do not run long-running code without asking. Describe what will happen and get confirmation.
 - When editing notebook cells, preserve existing outputs unless asked to clear them.
+- **Environment stability**: The `argo-env2` conda environment should be pinned. After any
+  `pip install --upgrade` or `conda update`, run `conda env export > ~/argosy/environment.yml`
+  to snapshot the working state. Before running a notebook after a long hiatus, compare
+  current versions against `environment.yml` and flag discrepancies. Key packages to watch:
+  scipy, scikit-learn, networkx, xarray, threadpoolctl, pandas.
+- **Notebook pre-flight check**: After any gap of >2 weeks since last notebook run, read
+  the module descriptions (in the SGA markdown or cell comments) and verify that file paths,
+  column names, and library APIs still match. Run a quick dry/sanity check on Module 1
+  before committing to a full pipeline run.
 - CTD is the single source for temperature, salinity, density, AND dissolved oxygen.
 - Sensor profile operation modes (post-2016):
   - **All 9 profiles, ascent**: temperature, salinity, density, DO, chlorA, CDOM, backscatter, PAR (~full depth, dense data)

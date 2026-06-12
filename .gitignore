@@ -9,3 +9,18 @@
 processing_log.csv
 profiles_midnight.csv
 profiles_noon.csv
+
+# Temporary scripts (per convention: _ prefix)
+_*.py
+_*.log
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Build artifacts
+_build/
+
+# OS files
+.DS_Store
+Thumbs.db

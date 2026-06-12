@@ -1,31 +1,35 @@
 # Session State
 
 ## Last updated
-2026-06-01 — Session: orientation, docs, bundle chart rewrite v2 with all fixes.
+2026-06-03 — Session: bundle chart v3 (dynamic source), pp06 build (Filter 1 + Filter 2 complete), Filter 3 script written.
 
 ## Completed this session
 - Updated `DevelopmentLog.md`: added "Completed (June 2026)" section, consolidated Pending list, updated Next.
 - Added `VisNotebookRebuild.md` to `ArgosyOverview.md` documentation file list.
 - Added "Session continuity" conventions to `.kiro/steering/argosy-conventions.md`.
-- Wrote `_bundle_chart.py` v2 — complete rewrite of bundle chart logic:
-  - Global-index-based navigation (both sensors co-temporal)
-  - Blow-wide-open slider pattern (fixes density/pH axis bug)
-  - Correct display names (CDOM, pH, pCO2, PAR, ChlorA)
-  - CDOM color changed to darkcyan
-  - Title format: `2020-281-1 through 2020-285-2 (Global indices 8982 - 9017)`
-  - First-profile print statement
-  - Navigation buttons (`--`, `-`, `+`, `++`)
-- Updated `VisNotebookRebuild.md` to reflect corrected design (global index lookup).
-- Added "erratics filter" to Open Topics in DevelopmentLog.md.
+- Wrote `_bundle_chart.py` — complete rewrite with:
+  - Global-index-based navigation (co-temporal sensors)
+  - Blow-wide-open slider fix (density/pH)
+  - Display names, CDOM color, title format, nav buttons, exclusion toggle
+  - Dynamic data source dropdown (redux/pp01/pp02/pp05/pp06)
+- Wrote `postprocess_pp06.py` — builds pp06 from pp05 manifest with Filter 1 (MRA salinity/density despiking). **Run complete**: 151K files, 316K samples discarded.
+- Wrote `postprocess_pp06_filter2.py` — Savitzky-Golay smoothing for CDOM and ChlorA. **Run complete**: 36K files, 0 errors, 9 minutes.
+- Wrote `postprocess_pp06_filter3.py` — Briggs (2011) rolling-minimum despiking for backscatter. Script ready, **not yet run**.
+- Added CDOM/ChlorA/backscatter filtering references and rationale to DevelopmentLog.md Open Topics.
 
 ## In progress / partially done
-- `_bundle_chart.py` is ready for user testing in JupyterLab (`%run /home/rob/argosy/_bundle_chart.py`). Once confirmed working, inject into `Visualizations.ipynb` bundle plot cell and delete the temp file.
+- `_bundle_chart.py` ready for user re-test with dynamic source selector (pp06 now available as source).
+- Filter 3 (backscatter despiking) script written but not run yet.
+- Both Filter 2 and Filter 3 scripts need idempotency guards added for future reruns.
 
 ## Reverted / needs redo
 - **Vis notebook curtain plot + animation cells**: Still need rewriting per `VisNotebookRebuild.md`.
 
 ## Blocked / waiting on user
-- User needs to test `_bundle_chart.py` v2 in JupyterLab and report results.
+- Nothing blocked.
 
 ## Next action
-- User tests `_bundle_chart.py`. If it works: inject into notebook, clean up. Then tackle curtain plot cell.
+- Finish writing `pp06ErraticFilterPrompt.md`
+- Test `_bundle_chart.py` with pp06 as source to verify Filter 1+2 effects
+- Run Filter 3 (backscatter) when ready
+- Apply Vis notebook rebuild (inject `_bundle_chart.py` into notebook cell)
