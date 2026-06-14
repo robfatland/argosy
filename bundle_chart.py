@@ -473,17 +473,33 @@ index0_slider = widgets.IntSlider(
     style={'description_width': 'initial'})
 
 # --- Sensor change callbacks --------------------------------------------------
+# Persistent range memory: remember user-adjusted low/high per sensor
+_sensor1_ranges = {}  # sensor_name -> (low, high)
+_sensor2_ranges = {}
 
 def update_sensor1_sliders(change):
+    # Save current range before switching
+    old_sensor = change['old']
+    if old_sensor is not None:
+        _sensor1_ranges[old_sensor] = (low1_slider.value, high1_slider.value)
+
     sensor = change['new']
     s = SENSORS[sensor]
     rng = abs(s['high'] - s['low'])
+
+    # Restore saved range or use defaults
+    if sensor in _sensor1_ranges:
+        lo, hi = _sensor1_ranges[sensor]
+    else:
+        lo, hi = s['low'], s['high']
+
+    # Blow wide open, set values, tighten
     low1_slider.min = -1e6
     low1_slider.max = 1e6
     high1_slider.min = -1e6
     high1_slider.max = 1e6
-    low1_slider.value = s['low']
-    high1_slider.value = s['high']
+    low1_slider.value = lo
+    high1_slider.value = hi
     low1_slider.min = s['low'] - rng
     low1_slider.max = s['high']
     low1_slider.step = rng / 100 if rng > 0 else 0.01
@@ -492,15 +508,28 @@ def update_sensor1_sliders(change):
     high1_slider.step = rng / 100 if rng > 0 else 0.01
 
 def update_sensor2_sliders(change):
+    # Save current range before switching
+    old_sensor = change['old']
+    if old_sensor is not None:
+        _sensor2_ranges[old_sensor] = (low2_slider.value, high2_slider.value)
+
     sensor = change['new']
     s = SENSORS[sensor]
     rng = abs(s['high'] - s['low'])
+
+    # Restore saved range or use defaults
+    if sensor in _sensor2_ranges:
+        lo, hi = _sensor2_ranges[sensor]
+    else:
+        lo, hi = s['low'], s['high']
+
+    # Blow wide open, set values, tighten
     low2_slider.min = -1e6
     low2_slider.max = 1e6
     high2_slider.min = -1e6
     high2_slider.max = 1e6
-    low2_slider.value = s['low']
-    high2_slider.value = s['high']
+    low2_slider.value = lo
+    high2_slider.value = hi
     low2_slider.min = s['low'] - rng
     low2_slider.max = s['high']
     low2_slider.step = rng / 100 if rng > 0 else 0.01

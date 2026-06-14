@@ -250,5 +250,29 @@ This is at much lower task resolution.
 
 ## Next
 
+- **Bundle chart terminology**: Clarify the meaning of `nProfiles` in the UI. Currently it means
+  "number of consecutive global index positions to scan" not "number of profile traces drawn."
+  If 3 of 27 positions have no data, you see 24 traces. Options: rename the slider (e.g.
+  `nPositions` or `window`), add a display showing actual traces drawn, or change the docs.
+  Resolve before sharing with collaborators.
 - Finish writing `pp06ErraticFilterPrompt.md`
 - Apply Vis notebook rebuild (see `VisNotebookRebuild.md`)
+
+
+## Bundle Chart applied to pp06
+
+`nProfiles` is the nominal number of consecutive GPI-assigned profiles to render in bundle
+mode or use for the meanstd calculation. This is a **maximum**: the bundle chart renders at
+most this many traces. It renders fewer when filtering operations (pp05 exclusions, pp06
+filters) have removed GPI-assigned profiles from the shard pool.
+
+The implication: because of profile dropouts, the bundle chart's time window varies in
+duration as the slider is moved. Two adjacent slider positions (e.g. index0=1000 vs
+index0=1001) with the same nProfiles may span different calendar durations, since gaps
+in the shard pool compress time coverage.
+
+Example with nProfiles=10, index0=1000 on pp06:
+- Global indices scanned: 1000, 1001, 1002, ..., 1009 (always 10 consecutive integers)
+- If GPIs 1003 was removed by a pp06 filter: 9 traces rendered (not 10)
+- The title shows the index range scanned: `(Global indices 1000 - 1009)`
+- The actual data range (first to last trace) is read from the title date fields
