@@ -13,10 +13,11 @@
 - Development log, to-do list, and prompt staging: `DevelopmentLog.md` (last in sequence).
 - The `## Next` section at the end of `DevelopmentLog.md` is where complex prompts are staged.
 - PDF build: `pandoc` with `_header.tex`, command documented in `ArgosyOverview.md`.
+- Slide deck: `slides.md` (Marp format). Render with `marp slides.md -o slides.html`. Marp CLI is installed.
 
 ## Coding conventions
 
-- Python environment: `argo-env2` (miniconda). Activate with `source ~/miniconda3/etc/profile.d/conda.sh && conda activate argo-env2`.
+- Python environment: `argosy` (miniconda). Activate with `source ~/miniconda3/etc/profile.d/conda.sh && conda activate argosy`.
 - Timezone handling: Use `zoneinfo.ZoneInfo('America/Los_Angeles')`. Do not use `pytz`.
 - Matplotlib in standalone scripts: Use `matplotlib.use('Agg')` for headless execution.
 - Matplotlib in Jupyter cells: Do not set backend; use `%matplotlib inline` if needed.
@@ -28,7 +29,7 @@
 - Authoritative source: `~/argosy/sensortable.csv`
 - Folder naming in `~/ooi/ooinet/rca/SlopeBase/scalar/` uses the `key` column: `<year>_<key>` (e.g. `2018_ctd`, `2022_nitr`, `2015_par`).
 - Vector channel files: `vcurrent.csv`, `vspectralirr.csv`, `vopticalabsorb.csv`, `vbeamatten.csv`.
-- When the sensor table changes, update both `sensortable.csv` and `SensorReference.md`.
+- When the sensor table changes, update both `sensortable.csv` and `SensorTable.md`.
 
 ## Data pipeline
 
@@ -103,7 +104,7 @@ These conventions ensure smooth handoff between kiro sessions (context window fu
 - Exception: `~/argosy/images/` holds copies of key charts for the PDF/repo.
 - Do not run long-running code without asking. Describe what will happen and get confirmation.
 - When editing notebook cells, preserve existing outputs unless asked to clear them.
-- **Environment stability**: The `argo-env2` conda environment should be pinned. After any
+- **Environment stability**: The `argosy` conda environment should be pinned. After any
   `pip install --upgrade` or `conda update`, run `conda env export > ~/argosy/environment.yml`
   to snapshot the working state. Before running a notebook after a long hiatus, compare
   current versions against `environment.yml` and flag discrepancies. Key packages to watch:
@@ -123,4 +124,5 @@ These conventions ensure smooth handoff between kiro sessions (context window fu
 - When appropriate: Finish a response with what the user should do next. This avoids forcing them to scan back up for action items.
 - When starting a new chat (usually due to context window full) read `SessionState.md` first for immediate orientation, then `ArgosyOverview.md` and `DevelopmentLog.md` as needed.
 - Operational procedures are indexed in `ArgosyOverview.md` → "Pointers to Key Actions". When adding a new procedure to any doc, also add a one-line pointer there.
+- **Cross-document references**: When an item in one document is addressed or elaborated in another, add a pointer (e.g. "See `Testing.md` for details"). This applies to Open Topics referencing Testing.md, DevelopmentLog referencing Analysis.md, etc. Keeps navigation efficient across the doc set.
 - Before running any long-running process that writes significant data (pp05, sharding, etc.), check Windows C: drive free space with `Get-PSDrive C`. If free space is 2GB or less, STOP and notify the user that the Windows drive is critically low — WSL will fail if the vhdx cannot grow.

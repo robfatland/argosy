@@ -165,8 +165,8 @@ Workflow for adding new exclusions:
 Correcting profile data to align successive profiles in view of current pressure
 on the shallow profiler platform and tidal variation.
 
-See `SeaLevelDelta.md` for using the OSU tidal model to generate offset at
-(lat, lon, time). Not yet implemented in the postprocessing pipeline.
+See `TidalAnalysis.md` for the TPXO10 tidal prediction methodology and start-depth
+correlation results. Not yet implemented as a postprocessing correction.
 
 
 ## QC Filter (qartod flags)
@@ -230,16 +230,6 @@ The script:
 | Included | 2279 | 2255 |
 | Total shards copied | 17,148 | 17,029 |
 
-
-## Tides and Current
-
-
-This concerns correcting profile data to align successive profiles in view of 
-current pressure on the shallow profiler platform and tidal variation.
-
-
-See the documentation in `SeaLevelDelta.md`. This describes using the OSU model
-to generate tidal offset at (lat, lon, time). 
 
 
 ## QC Filter

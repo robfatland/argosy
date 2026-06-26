@@ -39,6 +39,7 @@ This project's documentation is split across the following focused files:
 - `Visualization.md` — Visualization tools: bundle plots, curtain plots, animations, midnight/noon annotation
 - `VisNotebookRebuild.md` — Rebuild plan for Visualizations.ipynb bundle/curtain/animation cells (reverted; changes to re-apply)
 - `SpectralGraphAnalysis.md` — Module-by-module guide for the SGA notebook (rehearsal script, diagnostics, known issues)
+- `TidalAnalysis.md` — Tidal prediction (TPXO10), start-depth correlation, blowdown events, further work
 - `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, tactics, CA recommendations, pending ideas, and the Next prompt section
 
 
@@ -63,7 +64,6 @@ This document's features include:
 - reference to additional markdown files in this repo
     - `Analysis.md`: Data exploration ideas
     - `Umbrella.md`: Expansion perspective (see glossary in `OOIObservatory.md`)
-    - `Cleaning.md`: Describes data filtering / cleaning
     - `VectorData.md`: Discussion of vector sensor integration (velocity, spectral irradiance, spectrophotometer)
 - logs development, tracks train of thought / next steps (see `DevelopmentLog.md`)
 - end of `DevelopmentLog.md` is a `tail` prompt

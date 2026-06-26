@@ -1,4 +1,195 @@
-# Analysis Concepts
+# Analysis
+
+
+Our objective is to subject shallow profiler data and other 'umbrella' data
+to analysis and interpretation. This document briefly reviews the data 
+preparation pipeline and then describes analysis methods and objectives. 
+
+
+## Analysis data preparation overview
+
+
+For shallow profiler data (15 sensors) we have an ingest pipeline as follows 
+from an *informal* level nomenclature:
+
+
+```
+Data center > Level 1 data > Level 2 profiles > postprocessing > Level 3+
+```
+
+Both Level 1 and Level 2 datasets are moved to cloud object storage (AWS S3) 
+to preserve disk space on the working machine. Postprocessing is constructed 
+as a sequence of stages and filters labeled for example `pp05 > pp06 > pp07`. 
+The resulting "Level 3+" data is ready for analysis. Some additional context:
+
+
+- Level 1 data is aggregated sensors (by instrument) provided by OOI
+- Level 2 data is a collection of time series profiles
+    - These are snipped (start/stop) from the continuous time series record
+    - Start/stop times for individual profiles are taken from RCA-provided metadata
+- `pp05` uses metadata to build a *valid profile manifest*: pointers to Level 2 data
+- `pp06` applies multiple filters to create a folder containing actual data
+    - This is a subset of the Level 2 data; in some cases altered by filters
+    - `pp06` represents filtering at both the profile and the individual data sample level
+
+## Derived oceanographic parameters
+
+
+The following quantities can be computed from sensor data. Each represents
+a physically meaningful reduction to low-dimensional data suitable for 
+time-series analysis.
+
+
+### Buoyancy Frequency (Brunt-Väisälä frequency, N²)
+
+N² = -(g/ρ) × (dρ/dz)
+
+The buoyancy frequency squared measures the static stability of the water column at a
+given depth. It quantifies how strongly stratified the water is — how resistant it is
+to vertical mixing.
+
+- g: gravitational acceleration (9.81 m/s²)
+- ρ: seawater density (from the density sensor, ~1024–1028 kg/m³)
+- dρ/dz: vertical density gradient (computed from adjacent depth bins)
+
+Interpretation:
+- N² > 0: stably stratified. A vertically displaced parcel oscillates at frequency N.
+- N² ≈ 0: well-mixed (uniform density).
+- N² < 0: gravitationally unstable (denser water above lighter water — will overturn).
+
+The depth of maximum N² is the **pycnocline** — the sharpest density gradient, which is
+also where the thermocline and halocline contribute most strongly. This depth tracks:
+- Seasonal mixed layer deepening (winter storms erode stratification)
+- Internal wave oscillations (pycnocline heaves vertically on tidal timescales)
+- Upwelling events (pycnocline shoals when deep water is brought to the surface)
+
+Computation from pp06 data: use the density sensor profile, interpolate to a regular
+depth grid, compute the centered difference dρ/dz, multiply by -g/ρ. Smooth lightly
+(Savitzky-Golay or similar) before differentiating to avoid noise amplification.
+
+Potential applications:
+- Time series of pycnocline depth (depth of N² max) as a diagnostic for internal
+  wave activity and seasonal stratification cycle
+- Feature for SGA: pycnocline depth, pycnocline strength (peak N² value), and
+  mixed layer depth (depth where N² first exceeds a threshold from the surface)
+- Tidal signal detection: does pycnocline depth oscillate with tidal period?
+
+
+
+
+
+### From density (or temperature + salinity)
+
+**Mixed Layer Depth (MLD)**
+Depth where density exceeds the near-surface reference value by a threshold
+(commonly Δρ = 0.03 kg/m³ from the 10m value). Multiple criteria exist; see
+de Boyer Montégut et al. (2004) for a review. Tracks seasonal stratification
+and storm-driven mixing events.
+
+**Potential Energy Anomaly (PEA)**
+Simpson & Hunter (1974). The energy per unit area required to completely mix the
+water column to uniform density:
+
+    PEA = (g/H) ∫₀ᴴ (ρ̄ - ρ(z)) × z dz
+
+where H is column height, ρ̄ is depth-averaged density. A single scalar per profile.
+High PEA = strongly stratified; low PEA = well-mixed.
+
+**Turner Angle (Tu)**
+Describes whether stratification at each depth is driven by temperature or salinity
+gradients, and identifies double-diffusive regimes (salt fingering vs diffusive
+convection). Computed from the ratio of thermal and haline contributions to stability.
+
+**Spiciness**
+A function of T and S that varies along isopycnal surfaces (constant density).
+Two water parcels with the same density but different T/S properties have different
+spiciness. Useful for tracking water mass intrusions and lateral advection events
+that don't alter the density profile.
+
+
+### From temperature alone
+
+**Isotherm depths**
+Depth of specific isotherms (e.g. 8°C, 10°C, 12°C). Directly tracks vertical
+displacement from internal waves and tidal heaving. A time series of isotherm
+depth is the cleanest internal wave diagnostic.
+
+**Thermocline gradient and depth**
+Maximum dT/dz and the depth at which it occurs. Characterizes thermocline strength
+and position.
+
+**Heat content**
+Depth-integrated temperature (or temperature anomaly relative to a deep reference):
+
+    Q = ρ × Cp × ∫ T(z) dz
+
+Proxy for upper-ocean heat uptake. Seasonal cycle should be prominent.
+
+
+### From dissolved oxygen
+
+**Apparent Oxygen Utilization (AOU)**
+Difference between O₂ saturation concentration (computed from T, S using standard
+gas solubility equations) and the measured O₂:
+
+    AOU = O₂_sat(T, S) - O₂_measured
+
+Positive AOU = net respiration since the water was last at the surface. Increases
+with depth in the OMZ. Zero or negative at the surface (supersaturation indicates
+net photosynthesis).
+
+**O₂ saturation percentage**
+(O₂_measured / O₂_sat) × 100. Values >100% indicate net biological production;
+<100% indicates net consumption. The surface mixed layer is typically near 100%;
+below the photic zone it drops as respiration dominates.
+
+
+### From chlorophyll-A + PAR
+
+**Euphotic depth (Zeu)**
+Depth where PAR drops to 1% of the near-surface value. Defines the base of the
+photic zone. Computed as the depth where ln(PAR) extrapolation crosses 1% of
+surface PAR.
+
+**Diffuse attenuation coefficient (Kd)**
+Slope of ln(PAR) vs depth (Beer-Lambert law):
+
+    PAR(z) = PAR(0) × exp(-Kd × z)
+
+Measures water clarity. Higher Kd = more turbid (particles, phytoplankton absorb
+and scatter light). Varies seasonally with bloom events.
+
+**Chlorophyll maximum depth (DCM)**
+Depth of peak chlorophyll-A fluorescence. The deep chlorophyll maximum is a persistent
+feature of stratified open-ocean waters — phytoplankton concentrate at the depth
+where light and nutrients are both available.
+
+
+### From backscatter
+
+**Particle load (integrated bbp)**
+Depth-integrated particulate backscatter coefficient. Proxy for total suspended
+particulate matter in the water column. Increases during bloom events, storm
+resuspension, or lateral advection of turbid water.
+
+**Particle layer depth**
+Depth of the backscatter maximum. Often co-located with the chlorophyll maximum
+(biological particles) or a benthic nepheloid layer (resuspended sediment, at
+depths below our profiler range).
+
+
+### Multi-sensor derived
+
+**Richardson Number (Ri)**
+Ri = N² / (dU/dz)²
+
+Ratio of stratification (stabilizing) to current shear (destabilizing). Indicates
+likelihood of shear-driven mixing:
+- Ri > 0.25: stable (stratification suppresses mixing)
+- Ri < 0.25: unstable (shear overcomes stratification, turbulent mixing likely)
+
+Requires the velocity sensor (VELPT) to compute dU/dz. VELPT data is not yet
+integrated into the pipeline (listed as Pending in DevelopmentLog.md).
 
 
 ## Prompt

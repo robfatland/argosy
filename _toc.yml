@@ -9,10 +9,10 @@ parts:
   chapters:
     - file: ArgosyOverview
     - file: OOIObservatory
-    - file: SensorReference
-    - file: FileSystemWorkflow
-    - file: ProfileSharding
-    - file: VisualizationNotes
+    - file: SensorTable
+    - file: Workflow
+    - file: Sharding
+    - file: Visualization
     - file: PostProcessing
     - file: PP05_QCAnalysis
     - file: VectorData
@@ -30,8 +30,3 @@ parts:
     - file: chapters/Visualizations
     - file: chapters/SpectralGraphAnalysis
     - file: chapters/StubWork
-
-- caption: References
-  chapters:
-    - file: reference/glossary
-    - file: reference/bibliography

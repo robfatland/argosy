@@ -34,15 +34,15 @@ git remote add upstream https://github.com/robfatland/argosy.git
 ```bash
 cd ~/argosy
 conda env create -f environment.yml
-conda activate argo-env2
+conda activate argosy
 ```
 
-This creates the `argo-env2` environment with all pinned dependencies. To
+This creates the `argosy` environment with all pinned dependencies. To
 activate it in future sessions:
 
 ```bash
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate argo-env2
+conda activate argosy
 ```
 
 
@@ -142,7 +142,7 @@ navigation buttons. Select source `pp06` from the dropdown.
 
 ## 9. Troubleshooting
 
-- **JupyterLab won't start**: Ensure `argo-env2` is activated.
+- **JupyterLab won't start**: Ensure `argosy` is activated.
 - **Bundle chart widgets don't render**: Run `jupyter labextension list` and
   verify `@jupyter-widgets/jupyterlab-manager` is present. If not:
   `pip install ipywidgets jupyterlab-widgets`

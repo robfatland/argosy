@@ -13,7 +13,7 @@ This document:
 
 
 For observatory background see `OOIObservatory.md`. For workflow detail 
-see `FileSystemWorkflow.md`.
+see `Workflow.md`.
 
 
 ## Red Zone
@@ -78,14 +78,9 @@ comprise the umbrella pole.
 
 - **Tidal model predictions**: Harmonic constituents for the three RCA shallow profiler sites
   (Oregon Offshore, Oregon Slope Base, Axial Base) were extracted from the TPXO10-atlas-v2
-  global tidal model. The extraction script (`tidal_extract.py`) reads 14 constituents
-  (m2, s2, n2, k2, k1, o1, p1, q1, 2n2, m4, ms4, mn4, mm, mf) and saves amplitude,
-  phase, and angular frequency to `tidal_constituents.json`. This JSON file is self-contained:
-  tidal height can be predicted at any time for any of the three sites without the original
-  30 GB TPXO dataset. A plotting script (`tidal_plot_may2026.py`) demonstrates prediction
-  for May 2026. Reference: Egbert, G.D. and S.Y. Erofeeva, "Efficient inverse modeling of
-  barotropic ocean tides," *Journal of Atmospheric and Oceanic Technology*, 19, 183–204, 2002.
-  [TPXO home page](http://www.tpxo.net/)
+  global tidal model. The extracted data is stored in `tidal_constituents.json` — self-contained
+  for predicting tidal height at any time. Extraction scripts retired after producing the JSON.
+  Analysis of start-depth vs tidal prediction documented in `TidalAnalysis.md`.
 
 
 ### Instruments/sensors/data streams beyond the shallow profiler 
@@ -160,6 +155,10 @@ This is at much lower task resolution.
 - Place curtain plot at the top of the Vis notebook; and set up a control in the interactive bundle
   chart to launch a bundle chart animation run.
 - Consolidate the bundle animation cells in Vis.ipynb (see analysis below).
+- **Testing follow-up (high priority)**: Implement and run the tests defined in `Testing.md`
+  (SGA synthetic validation, internal wave incompressibility check). Failed tests go to Open Topics.
+  - Internal wave incompressibility: DONE. Stream function formulation passes at <3%.
+    Remaining error is finite-amplitude (Lagrangian vs Eulerian). See `Testing.md` for details.
 - **SGA depth grid range**: Does expanding the SGA depth quantization range add any value to
   the analysis? e.g. 185m - 27m becomes 195m - 5m; see png of histograms at
   `~/ooi/analysis/sga/depth_range_histograms.png`. Also consider depth bin width as a
@@ -228,7 +227,7 @@ This is at much lower task resolution.
   animation data source selector).
 - Regenerate noon/midnight metadata CSVs (`profile_duration_histograms.py`)
 - Regenerate pp01/pp02 (`postprocess_special_profiles.py noon` and `midnight`)
-- Check the `argo-env2` installed libraries against those listed in `ArgosyOverview.md`
+- Check the `argosy` environment installed libraries against `environment.yml`
 - LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)
 - TMLD/ directory: Decide whether to keep `tmld_estimates.csv` as historical data; delete the empty `tmld_selector.py`
 - Order VELPT data for 2018–present (lower priority; deferred for SGA feature vector)
