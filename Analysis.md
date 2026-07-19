@@ -532,7 +532,8 @@ midnight / noon runs.
 a current transverse to the anchor axis effectively lowers the shallow profiler
 resting structure in the water column.
 - We want to take a pre-analysis cleaning pass over the data
-- We want to accommodate and flag coincident excursions from multiple sensors
+- We want to accommodate and flag coincident excursions from multiple sensors.
+  See `CoincidencePlans.md` for auto-coincidence and hetero-coincidence detection plans.
 - We want to flag "thin layer blips"
 
 

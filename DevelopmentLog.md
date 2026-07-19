@@ -133,6 +133,8 @@ This is at much lower task resolution.
     - Mentions UTC-8/UTC-7 for standard/daylight time
     - Doesn't specify when DST transitions occur (important for the NOON/MIDNIGHT logic)
     - Consider adding explicit DST transition dates or using a timezone library
+- Coincidence detection plans: See `CoincidencePlans.md` for multi-sensor anomaly flagging
+  (auto-coincidence and hetero-coincidence). Referenced from `Analysis.md` → Pending modifications.
 -Gripes section (line ~180):
     - Mentions "two streams for DO" plus a third - this unresolved question could affect the dissolved oxygen processing
     - Should be investigated before finalizing the sensor variable names

@@ -35,45 +35,13 @@ Implementation steps:
 
 ## Internal Waves
 
-Define three cells from the `internal_wave.py` visualization grid. Track their area
-(which should remain fairly constant due to incompressibility) over the time series
-where one wavelength of the internal wave passes by.
+Incompressibility test for the internal wave displacement field.
 
-Implementation:
-- Select three sets of four adjacent grid particles forming rectangular cells
-  (one near interface, one in upper layer, one in lower layer)
-- For each frame: compute the quadrilateral area from the four displaced particle positions
-  using the shoelace formula
-- Plot area vs time for each cell
-- Verify area variation is small (consistent with divergence-free velocity field)
-- If area varies significantly: the displacement field violates incompressibility
-  and needs correction
+- **Script**: `iw/TestInternalWaveIncompressibility.py`
+- **What it tests**: Area conservation of 3 rectangular cells tracked over one full
+  wave period through the divergence-free displacement field.
+- **How to run**: `cd ~/argosy && python iw/TestInternalWaveIncompressibility.py`
+- **Pass criterion**: Area variation < 3% of initial area.
+- **Current result**: PASSES (<1% deep, ~2% near interface).
 
-Pass criterion: area variation < 3% of initial area (accepts linear-theory residual).
-
-
-### Development history
-
-1. **Initial attempt**: Arbitrary ASPECT_RATIO = 3.0 (horizontal/vertical orbit ratio).
-   Incompressibility test showed 70–150% area variation. Completely wrong.
-
-2. **First fix**: Derived ASPECT_RATIO from the continuity equation:
-   `ASPECT_RATIO = WAVELENGTH / (2π × DECAY_SCALE)`. Still failed (40–70%) because
-   the derivation assumed small displacements but the sign-flip across the interface
-   and the derivative of |z| introduced errors.
-
-3. **Stream function formulation (current)**: Rewrote displacement using:
-   - η(x,z,t) = B(z) × sin(kx - ωt) [vertical]
-   - ξ(x,z,t) = B'(z)/k_m × cos(kx - ωt) [horizontal]
-   
-   where B(z) = A × exp(-|z - z_iface|/D). This guarantees ∂ξ/∂x + ∂η/∂z = 0
-   analytically (linear theory). Test results: <1% deep, ~2% near interface.
-
-4. **Remaining ~2% error**: Arises because the divergence-free condition is satisfied
-   in Eulerian (fixed-point) coordinates, but we're tracking Lagrangian (material)
-   parcels that undergo finite displacement. When displacement ~ decay scale (20m
-   amplitude, 40m e-folding), second-order terms matter.
-
-5. **Future improvement**: Fully Lagrangian formulation where the divergence-free
-   condition is enforced on the deformed coordinate system. Significantly more complex
-   (requires iterative or symplectic integration). Deferred.
+Physics derivation and development history: see `InternalWaves.md` → "Stream function physics".

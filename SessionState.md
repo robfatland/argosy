@@ -16,15 +16,13 @@
 - Derived oceanographic parameters written up in Analysis.md
 - N² (Brunt-Väisälä) writeup in Analysis.md
 - Testing.md created (SGA synthetic + internal wave incompressibility)
+- CodeManifest.md fully refreshed (removed 3 deleted files, added ~15 current files, added sga/ section)
+- VisNotebookRebuild.md deleted: animation cell updated with pp06 source selector, all items resolved
+- CoincidencePlans.md cross-referenced from Analysis.md and DevelopmentLog.md Open Topics
+- pp06 LSD sensors: re-ran postprocess_pp06.py, 9086 files copied (nitrate, pCO2, pH shards)
 
 ## In progress / partially done
-- **CodeManifest.md needs full refresh** — missing ~10 current files, lists deleted files.
-  Major rewrite needed to reflect current repo state.
-- Vis notebook rebuild: bundle chart done (as standalone `bundle_chart.py`), curtain plot done
-  (as standalone `curtain_plot.py`). Animation cell still pending. `VisNotebookRebuild.md` can
-  be deleted once animation is addressed.
 - SGA synthetic validation dataset not yet created (see Testing.md)
-- pp06 LSD sensors: added to build script but not yet copied (re-run postprocess_pp06.py)
 - Redux sync to S3: `aws s3 sync ~/ooi/redux/ s3://s3ooi/redux/` — then compact vhdx
 
 ## Reverted / needs redo
@@ -32,8 +30,7 @@
 
 ## Blocked / waiting on user
 - Sync redux to S3, then compact WSL vhdx to reclaim C: drive space
-- Run postprocess_pp06.py to add LSD sensors to pp06
 
 ## Next action
-- Refresh CodeManifest.md to reflect current repo state
-- CoincidencePlans.md: add reference from Analysis.md or Open Topics
+- CoincidencePlans.md: flesh out detection implementation
+- SGA synthetic validation dataset (see Testing.md)

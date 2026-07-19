@@ -29,7 +29,8 @@ It describes the project, its purpose, and references the companion documentatio
 
 ## Documentation Files
 
-This project's documentation is split across the following focused files:
+This project's documentation is split across focused markdown files. For the
+complete file inventory (code, data, notebooks, supporting files) see `CodeManifest.md`.
 
 - `ArgosyOverview.md` — (this file) Project introduction, AI guidelines, Python libraries, publishing instructions
 - `OOIObservatory.md` — OOI observatory description, sites, challenges, glossary, and reference websites
@@ -37,10 +38,22 @@ This project's documentation is split across the following focused files:
 - `Workflow.md` — File system layout, workflow tasks 0–6, data download details, raw data filenames, degenerate source files
 - `Sharding.md` — Profile metadata, reference metadata, sharding details, shard filenames, midnight/noon profiles, TMLD
 - `Visualization.md` — Visualization tools: bundle plots, curtain plots, animations, midnight/noon annotation
-- `VisNotebookRebuild.md` — Rebuild plan for Visualizations.ipynb bundle/curtain/animation cells (reverted; changes to re-apply)
+- `PostProcessing.md` — pp01/pp02 generation, sensor exclusions workflow, QC flags, S3 backup, localhost disk management
+- `PP05_QCAnalysis.md` — pp05 methodology: three-tier exclusion, suspect ranges, manifest design
 - `SpectralGraphAnalysis.md` — Module-by-module guide for the SGA notebook (rehearsal script, diagnostics, known issues)
 - `TidalAnalysis.md` — Tidal prediction (TPXO10), start-depth correlation, blowdown events, further work
-- `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, tactics, CA recommendations, pending ideas, and the Next prompt section
+- `InternalWaves.md` — Internal wave analysis: terminology, file inventory, stream function physics, plan
+- `CoincidencePlans.md` — Anomaly detection: auto-coincidence and hetero-coincidence plans
+- `VectorData.md` — Vector sensor integration (velocity, spectral irradiance, spectrophotometer)
+- `Analysis.md` — Derived oceanographic parameters, data exploration ideas, SGA methodology
+- `Umbrella.md` — Expansion beyond shallow profiler: other data resources
+- `OOINETSlopeBaseDataStatus.md` — OOINET data availability status for Slope Base
+- `Testing.md` — Test definitions: SGA synthetic validation, internal wave incompressibility check
+- `SessionState.md` — Machine-readable session state for AI continuity
+- `pp06ErraticFilterPrompt.md` — Design notes/prompt for pp06 erratic filter system
+- `SETUP.md` — Collaboration setup: environment installation, S3 data access, getting started
+- `CodeManifest.md` — Complete inventory of all code, data, and documentation files
+- `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, open topics, pending ideas, Next prompt section
 
 
 ## Introduction
