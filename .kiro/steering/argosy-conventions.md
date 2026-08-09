@@ -1,5 +1,9 @@
 # Argosy Project Conventions
 
+## Prompt shorthands
+
+- `sa` appended to a prompt: Short answer only, at most five lines of text.
+
 ## Project structure
 
 - Repository: `~/argosy` — code, markdown, Jupyter Book. No data files here.

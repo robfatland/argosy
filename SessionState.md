@@ -1,36 +1,42 @@
 # Session State
 
 ## Last updated
-2026-06-26 — Major session: bundle chart, pp06, SGA, tidal analysis, internal wave viz, collaboration setup, full documentation audit.
+2026-08-08 — Session: clean-up tasks, repo restructure (iw/, vis/), bundle animation module, S3 policy fix, AGU abstract drafting.
 
 ## Completed this session
-- Bundle chart: global-index nav, dynamic source, persistent range memory, display names, nav buttons
-- pp06 built: Filters 0-3 (salinity MRA, Sav-Gol CDOM/ChlorA, backscatter despiking)
-- SGA: refactored to 7 standalone modules + config, depth grid 27-185m, CDOM excluded
-- Tidal analysis: 5-panel chart, cross-correlation, TidalAnalysis.md writeup
-- Internal wave animation: divergence-free physics, incompressibility test
-- Collaboration: SETUP.md, environment.yml, S3 public policy, pp06 on S3
-- Documentation audit: fixed dead references, deleted obsolete files, fixed _toc.yml,
-  removed duplicates in PostProcessing.md, fixed env name everywhere, deleted
-  redux_s3_synch.py/requirements.txt/stray PNG/shell script
-- Derived oceanographic parameters written up in Analysis.md
-- N² (Brunt-Väisälä) writeup in Analysis.md
-- Testing.md created (SGA synthetic + internal wave incompressibility)
-- CodeManifest.md fully refreshed (removed 3 deleted files, added ~15 current files, added sga/ section)
-- VisNotebookRebuild.md deleted: animation cell updated with pp06 source selector, all items resolved
+- CodeManifest.md fully refreshed (removed deleted files, added ~15 current files, added sga/iw/vis sections)
+- VisNotebookRebuild.md deleted: all rebuild items resolved (bundle/curtain as standalone scripts, animation cell updated)
 - CoincidencePlans.md cross-referenced from Analysis.md and DevelopmentLog.md Open Topics
-- pp06 LSD sensors: re-ran postprocess_pp06.py, 9086 files copied (nitrate, pCO2, pH shards)
+- pp06 LSD sensors: re-ran postprocess_pp06.py, 9086 files copied (nitrate, pCO2, pH)
+- Created `iw/` directory: moved internal_wave_physics.py, internal_wave.py, TestInternalWaveIncompressibility.py
+- Stream function physics narrative moved from Testing.md to InternalWaves.md
+- Testing.md trimmed to engineering-only (test spec, how to run, pass/fail)
+- Created `vis/` directory: moved bundle_chart.py, curtain_plot.py; extracted bundle_animation.py from notebook
+- Built `vis/bundle_animate.py`: new animation generator with ipywidgets UI, profile cache, progress bar, timing self-calibration
+- All Visualizations.ipynb cells now use `%run ~/argosy/vis/...` (single-line cells)
+- Synchronized ArgosyOverview.md Documentation Files list with CodeManifest.md (22 files, cross-referenced)
+- Added 'sa' prompt shorthand to steering conventions
+- Redux synced to S3 (`s3://s3ooi/redux/`)
+- pp06 synced to S3 (`s3://s3ooi/postproc/pp06/`)
+- S3 bucket policy updated: public read for `redux/*` and `postproc/*` prefixes, confirmed working with --no-sign-request
+- WSL vhdx: fstrim completed (922 GiB reclaimable), diskpart compaction pending
+- InternalWaves.md created with terminology, file inventory, physics writeup, plan
+- AGU abstract drafted and refined (anomaly coincidence framework, internal waves + water mass emplacement)
 
 ## In progress / partially done
 - SGA synthetic validation dataset not yet created (see Testing.md)
-- Redux sync to S3: `aws s3 sync ~/ooi/redux/ s3://s3ooi/redux/` — then compact vhdx
+- InternalWaves.ipynb: scaffolding only, detection module not yet written
+- WSL vhdx compaction: fstrim done, diskpart step pending (requires closing Kiro)
 
 ## Reverted / needs redo
 - Nothing currently reverted.
+- Old `vis/bundle_animation.py` can be deleted (superseded by `vis/bundle_animate.py`)
 
 ## Blocked / waiting on user
-- Sync redux to S3, then compact WSL vhdx to reclaim C: drive space
+- Compact WSL vhdx (requires closing Kiro, running diskpart as admin)
+- Isabella: provide download instructions for pp06 from S3
 
 ## Next action
-- CoincidencePlans.md: flesh out detection implementation
-- SGA synthetic validation dataset (see Testing.md)
+- Internal wave detection from real T/S data (first module in `iw/`)
+- Delete `vis/bundle_animation.py` (old version, replaced by bundle_animate.py)
+- AGU abstract: finalize and submit
