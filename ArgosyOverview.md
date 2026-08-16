@@ -167,11 +167,16 @@ pandoc \
   Visualization.md \
   PostProcessing.md \
   PP05_QCAnalysis.md \
+  SpectralGraphAnalysis.md \
+  TidalAnalysis.md \
+  InternalWaves.md \
+  CoincidencePlans.md \
   VectorData.md \
   Analysis.md \
   Umbrella.md \
-  CodeManifest.md \
   OOINETSlopeBaseDataStatus.md \
+  Testing.md \
+  CodeManifest.md \
   DevelopmentLog.md \
   -o argosy.pdf \
   --pdf-engine=xelatex \
@@ -180,6 +185,13 @@ pandoc \
   --toc \
   --toc-depth=2 \
   -H _header.tex
+```
+
+To build a single-file PDF (e.g. `X.md`):
+
+```bash
+cd ~/argosy
+pandoc X.md -o X.pdf --pdf-engine=xelatex -V geometry:margin=1in -V fontsize=11pt -H _header.tex
 ```
 
 Prerequisites: `pandoc`, `texlive-xetex`, `fonts-dejavu`.

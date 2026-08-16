@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "semantic-scholar": {
+      "command": "/home/rob/.local/bin/uvx",
+      "args": ["semantic-scholar-mcp@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}

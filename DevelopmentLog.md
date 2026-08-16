@@ -247,6 +247,9 @@ This is at much lower task resolution.
         - **pCO2**: descent data, ~10 points/profile
         - **pH**: descent data, ~10 points/profile (files exist for all 9 but only 4 and 9 usable)
     - In 2015–2016 these sensors operated on more/all profiles before being restricted.
+- **input() fallback for cloud JupyterHubs**: `vis/bundle_chart.py` and `vis/bundle_animate.py`
+  use `input()` which fails on cloud hubs (stdin disabled). Wrap in try/except with silent
+  fallback to defaults. See steering conventions for the pattern.
 
 
 ## Next

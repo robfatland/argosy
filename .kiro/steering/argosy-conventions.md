@@ -27,7 +27,16 @@
 - Matplotlib in Jupyter cells: Do not set backend; use `%matplotlib inline` if needed.
 - Temporary scripts: Name with `_` prefix (e.g. `_check_something.py`). Delete after use.
 - Notebook edits: After editing `.ipynb` files, validate JSON with `python -c "import json; json.load(open('path'))"`.
-
+- `input()` fallback: Cloud JupyterHubs commonly disable stdin. Any `%run` module that uses
+  `input()` should wrap it in try/except and fall back to defaults silently. Use this pattern:
+  ```python
+  def get_input_with_default(prompt, default):
+      try:
+          response = input(f"{prompt} ").strip()
+          return response if response else str(default)
+      except (EOFError, OSError, Exception):
+          return str(default)
+  ```
 ## Sensor table
 
 - Authoritative source: `~/argosy/sensortable.csv`
