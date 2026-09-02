@@ -250,6 +250,11 @@ This is at much lower task resolution.
 - **input() fallback for cloud JupyterHubs**: `vis/bundle_chart.py` and `vis/bundle_animate.py`
   use `input()` which fails on cloud hubs (stdin disabled). Wrap in try/except with silent
   fallback to defaults. See steering conventions for the pattern.
+- **Potential density (sigma-0)**: The pipeline uses in-situ density from the CTD data product.
+  For analysis requiring accurate N² (internal waves, static stability), compute potential
+  density using `gsw.sigma0(SA, CT)` from the TEOS-10 library. Negligible difference for
+  visualization at 0–200 m, but matters for quantitative buoyancy frequency calculations
+  and for comparison with deep profiler data spanning 0–2900 m.
 
 
 ## Next

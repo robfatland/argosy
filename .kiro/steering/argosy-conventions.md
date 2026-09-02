@@ -23,7 +23,8 @@
 
 - Python environment: `argosy` (miniconda). Activate with `source ~/miniconda3/etc/profile.d/conda.sh && conda activate argosy`.
 - Timezone handling: Use `zoneinfo.ZoneInfo('America/Los_Angeles')`. Do not use `pytz`.
-- Matplotlib in standalone scripts: Use `matplotlib.use('Agg')` for headless execution.
+- Matplotlib in standalone scripts: Use `matplotlib.use('Agg')` for headless execution. Always set this
+  before importing `matplotlib.pyplot`. This avoids Qt/xcb errors in WSL2 where no display server is available.
 - Matplotlib in Jupyter cells: Do not set backend; use `%matplotlib inline` if needed.
 - Temporary scripts: Name with `_` prefix (e.g. `_check_something.py`). Delete after use.
 - Notebook edits: After editing `.ipynb` files, validate JSON with `python -c "import json; json.load(open('path'))"`.
