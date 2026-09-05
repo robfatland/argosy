@@ -1,0 +1,1055 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OOINET Slope Base Scalar Data Status &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'OOINETSlopeBaseDataStatus';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development Log" href="DevelopmentLog.html" />
+    <link rel="prev" title="Code Manifest" href="CodeManifest.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentLog.html">Development Log</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FOOINETSlopeBaseDataStatus.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/OOINETSlopeBaseDataStatus.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>OOINET Slope Base Scalar Data Status</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-summary">Coverage Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#per-instrument-detail">Per-Instrument Detail</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ctd-ctdpf">CTD (CTDPF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flor-flort">FLOR (FLORT)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nitr-nutnr">NITR (NUTNR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#par-parad">PAR (PARAD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pco2-pco2w">PCO2 (PCO2W)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-phsen">PH (PHSEN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-gaps">Interpretation of Gaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#action-items">Action Items</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ooinet-slope-base-scalar-data-status">
+<h1>OOINET Slope Base Scalar Data Status<a class="headerlink" href="#ooinet-slope-base-scalar-data-status" title="Link to this heading">#</a></h1>
+<p>Survey date: May 13, 2026</p>
+<p>Source: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/ooinet/scalar/</span></code> (survey conducted May 2026 under the pre-restructure path <code class="docutils literal notranslate"><span class="pre">~/ooi/ooinet/rca/SlopeBase/scalar/</span></code>)</p>
+<p>Scope: Oregon Slope Base shallow profiler, scalar instruments, 2015–2025.
+(2014 and 2026 set aside for now.)</p>
+<section id="coverage-summary">
+<h2>Coverage Summary<a class="headerlink" href="#coverage-summary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Instrument</p></th>
+<th class="head"><p>Files</p></th>
+<th class="head"><p>Coverage span</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CTD</p></td>
+<td><p>55</p></td>
+<td><p>2015-04 → 2026-01</p></td>
+<td><p>Good; some gaps</p></td>
+</tr>
+<tr class="row-odd"><td><p>FLOR</p></td>
+<td><p>95</p></td>
+<td><p>2015-10 → 2025-08</p></td>
+<td><p>Good; some gaps</p></td>
+</tr>
+<tr class="row-even"><td><p>NITR</p></td>
+<td><p>0</p></td>
+<td><p>—</p></td>
+<td><p>Download failed or order not yet fulfilled</p></td>
+</tr>
+<tr class="row-odd"><td><p>PAR</p></td>
+<td><p>24</p></td>
+<td><p>2015-01 → 2017-01</p></td>
+<td><p>Only 2 years; new order not yet arrived</p></td>
+</tr>
+<tr class="row-even"><td><p>PCO2</p></td>
+<td><p>21</p></td>
+<td><p>2015-01 → 2026-01</p></td>
+<td><p>Moderate gaps</p></td>
+</tr>
+<tr class="row-odd"><td><p>PH</p></td>
+<td><p>13</p></td>
+<td><p>2015-01 → 2025-12</p></td>
+<td><p>Moderate gaps</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="per-instrument-detail">
+<h2>Per-Instrument Detail<a class="headerlink" href="#per-instrument-detail" title="Link to this heading">#</a></h2>
+<section id="ctd-ctdpf">
+<h3>CTD (CTDPF)<a class="headerlink" href="#ctd-ctdpf" title="Link to this heading">#</a></h3>
+<p>55 files, 2015-04-24 to 2026-01-01.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Files</p></th>
+<th class="head"><p>Start</p></th>
+<th class="head"><p>End</p></th>
+<th class="head"><p>Days</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2015</p></td>
+<td><p>3</p></td>
+<td><p>2015-04-24</p></td>
+<td><p>2016-03-24</p></td>
+<td><p>334</p></td>
+</tr>
+<tr class="row-odd"><td><p>2016</p></td>
+<td><p>3</p></td>
+<td><p>2016-03-01</p></td>
+<td><p>2017-01-30</p></td>
+<td><p>334</p></td>
+</tr>
+<tr class="row-even"><td><p>2017</p></td>
+<td><p>2</p></td>
+<td><p>2017-08-04</p></td>
+<td><p>2018-03-21</p></td>
+<td><p>228</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p>5</p></td>
+<td><p>2018-06-24</p></td>
+<td><p>2019-05-06</p></td>
+<td><p>316</p></td>
+</tr>
+<tr class="row-even"><td><p>2019</p></td>
+<td><p>3</p></td>
+<td><p>2019-03-11</p></td>
+<td><p>2019-09-27</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-odd"><td><p>2020</p></td>
+<td><p>3</p></td>
+<td><p>2020-08-03</p></td>
+<td><p>2021-03-19</p></td>
+<td><p>227</p></td>
+</tr>
+<tr class="row-even"><td><p>2021</p></td>
+<td><p>6</p></td>
+<td><p>2021-03-17</p></td>
+<td><p>2022-09-02</p></td>
+<td><p>534</p></td>
+</tr>
+<tr class="row-odd"><td><p>2022</p></td>
+<td><p>7</p></td>
+<td><p>2022-01-15</p></td>
+<td><p>2023-02-24</p></td>
+<td><p>404</p></td>
+</tr>
+<tr class="row-even"><td><p>2023</p></td>
+<td><p>5</p></td>
+<td><p>2023-01-05</p></td>
+<td><p>2024-04-07</p></td>
+<td><p>457</p></td>
+</tr>
+<tr class="row-odd"><td><p>2024</p></td>
+<td><p>10</p></td>
+<td><p>2024-01-17</p></td>
+<td><p>2025-08-05</p></td>
+<td><p>566</p></td>
+</tr>
+<tr class="row-even"><td><p>2025</p></td>
+<td><p>8</p></td>
+<td><p>2025-03-12</p></td>
+<td><p>2026-01-01</p></td>
+<td><p>294</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Gaps &gt; 7 days:</p>
+<ul class="simple">
+<li><p>2017-01-30 to 2017-08-04 (186 days) — deployment turnaround</p></li>
+<li><p>2018-03-21 to 2018-06-24 (95 days) — deployment turnaround</p></li>
+<li><p>2019-09-27 to 2020-08-03 (310 days) — <strong>likely failed order</strong></p></li>
+<li><p>2021-08-04 to 2021-08-24 (20 days) — deployment turnaround</p></li>
+<li><p>2022-03-15 to 2022-05-27 (73 days) — unclear</p></li>
+<li><p>2022-08-29 to 2022-09-15 (17 days) — deployment turnaround</p></li>
+<li><p>2023-02-24 to 2023-08-17 (174 days) — <strong>likely failed order or turnaround</strong></p></li>
+</ul>
+</section>
+<section id="flor-flort">
+<h3>FLOR (FLORT)<a class="headerlink" href="#flor-flort" title="Link to this heading">#</a></h3>
+<p>95 files, 2015-10-09 to 2025-08-12.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Files</p></th>
+<th class="head"><p>Start</p></th>
+<th class="head"><p>End</p></th>
+<th class="head"><p>Days</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2015</p></td>
+<td><p>3</p></td>
+<td><p>2015-10-09</p></td>
+<td><p>2016-01-18</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p>2016</p></td>
+<td><p>12</p></td>
+<td><p>2016-01-18</p></td>
+<td><p>2017-01-22</p></td>
+<td><p>369</p></td>
+</tr>
+<tr class="row-even"><td><p>2017</p></td>
+<td><p>6</p></td>
+<td><p>2017-01-22</p></td>
+<td><p>2018-01-09</p></td>
+<td><p>351</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p>9</p></td>
+<td><p>2018-01-09</p></td>
+<td><p>2018-12-31</p></td>
+<td><p>356</p></td>
+</tr>
+<tr class="row-even"><td><p>2019</p></td>
+<td><p>10</p></td>
+<td><p>2019-01-01</p></td>
+<td><p>2019-09-27</p></td>
+<td><p>269</p></td>
+</tr>
+<tr class="row-odd"><td><p>2020</p></td>
+<td><p>5</p></td>
+<td><p>2020-08-03</p></td>
+<td><p>2021-01-12</p></td>
+<td><p>162</p></td>
+</tr>
+<tr class="row-even"><td><p>2021</p></td>
+<td><p>11</p></td>
+<td><p>2021-01-13</p></td>
+<td><p>2021-12-31</p></td>
+<td><p>352</p></td>
+</tr>
+<tr class="row-odd"><td><p>2022</p></td>
+<td><p>12</p></td>
+<td><p>2022-01-01</p></td>
+<td><p>2023-01-20</p></td>
+<td><p>384</p></td>
+</tr>
+<tr class="row-even"><td><p>2023</p></td>
+<td><p>9</p></td>
+<td><p>2023-01-21</p></td>
+<td><p>2024-02-09</p></td>
+<td><p>384</p></td>
+</tr>
+<tr class="row-odd"><td><p>2024</p></td>
+<td><p>10</p></td>
+<td><p>2024-02-10</p></td>
+<td><p>2025-01-13</p></td>
+<td><p>338</p></td>
+</tr>
+<tr class="row-even"><td><p>2025</p></td>
+<td><p>8</p></td>
+<td><p>2025-01-14</p></td>
+<td><p>2025-08-12</p></td>
+<td><p>210</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Gaps &gt; 7 days:</p>
+<ul class="simple">
+<li><p>2017-01-30 to 2017-08-04 (186 days) — deployment turnaround</p></li>
+<li><p>2018-03-21 to 2018-06-24 (95 days) — deployment turnaround</p></li>
+<li><p>2019-09-27 to 2020-08-03 (310 days) — <strong>likely failed order</strong></p></li>
+<li><p>2021-08-04 to 2021-08-24 (20 days) — deployment turnaround</p></li>
+<li><p>2022-09-02 to 2022-09-15 (12 days) — deployment turnaround</p></li>
+</ul>
+</section>
+<section id="nitr-nutnr">
+<h3>NITR (NUTNR)<a class="headerlink" href="#nitr-nutnr" title="Link to this heading">#</a></h3>
+<p><strong>No data files found.</strong> Order pending or download failed.</p>
+</section>
+<section id="par-parad">
+<h3>PAR (PARAD)<a class="headerlink" href="#par-parad" title="Link to this heading">#</a></h3>
+<p>24 files, 2015-01-01 to 2017-01-30. Only covers 2015–2017.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Files</p></th>
+<th class="head"><p>Start</p></th>
+<th class="head"><p>End</p></th>
+<th class="head"><p>Days</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2015</p></td>
+<td><p>11</p></td>
+<td><p>2015-01-01</p></td>
+<td><p>2015-12-27</p></td>
+<td><p>360</p></td>
+</tr>
+<tr class="row-odd"><td><p>2016</p></td>
+<td><p>12</p></td>
+<td><p>2015-12-27</p></td>
+<td><p>2016-12-29</p></td>
+<td><p>367</p></td>
+</tr>
+<tr class="row-even"><td><p>2017</p></td>
+<td><p>1</p></td>
+<td><p>2016-12-29</p></td>
+<td><p>2017-01-30</p></td>
+<td><p>31</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018–2025</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>EMPTY</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>No gaps within existing coverage. New order (2017–2025) not yet fulfilled.</p>
+</section>
+<section id="pco2-pco2w">
+<h3>PCO2 (PCO2W)<a class="headerlink" href="#pco2-pco2w" title="Link to this heading">#</a></h3>
+<p>21 files, 2015-01-01 to 2026-01-06.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Files</p></th>
+<th class="head"><p>Start</p></th>
+<th class="head"><p>End</p></th>
+<th class="head"><p>Days</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2015</p></td>
+<td><p>2</p></td>
+<td><p>2015-01-01</p></td>
+<td><p>2016-07-16</p></td>
+<td><p>562</p></td>
+</tr>
+<tr class="row-odd"><td><p>2016</p></td>
+<td><p>—</p></td>
+<td><p>EMPTY</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>2017</p></td>
+<td><p>2</p></td>
+<td><p>2017-08-04</p></td>
+<td><p>2017-08-13</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p>4</p></td>
+<td><p>2018-06-24</p></td>
+<td><p>2019-06-14</p></td>
+<td><p>354</p></td>
+</tr>
+<tr class="row-even"><td><p>2019</p></td>
+<td><p>1</p></td>
+<td><p>2019-06-23</p></td>
+<td><p>2019-09-27</p></td>
+<td><p>96</p></td>
+</tr>
+<tr class="row-odd"><td><p>2020</p></td>
+<td><p>2</p></td>
+<td><p>2020-08-03</p></td>
+<td><p>2021-03-15</p></td>
+<td><p>223</p></td>
+</tr>
+<tr class="row-even"><td><p>2021</p></td>
+<td><p>2</p></td>
+<td><p>2021-08-24</p></td>
+<td><p>2022-03-08</p></td>
+<td><p>195</p></td>
+</tr>
+<tr class="row-odd"><td><p>2022</p></td>
+<td><p>2</p></td>
+<td><p>2022-09-15</p></td>
+<td><p>2023-08-15</p></td>
+<td><p>333</p></td>
+</tr>
+<tr class="row-even"><td><p>2023</p></td>
+<td><p>2</p></td>
+<td><p>2023-08-17</p></td>
+<td><p>2024-08-09</p></td>
+<td><p>357</p></td>
+</tr>
+<tr class="row-odd"><td><p>2024</p></td>
+<td><p>2</p></td>
+<td><p>2024-08-09</p></td>
+<td><p>2025-08-04</p></td>
+<td><p>359</p></td>
+</tr>
+<tr class="row-even"><td><p>2025</p></td>
+<td><p>2</p></td>
+<td><p>2025-08-12</p></td>
+<td><p>2026-01-06</p></td>
+<td><p>146</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Gaps &gt; 7 days:</p>
+<ul class="simple">
+<li><p>2016-07-16 to 2017-08-04 (384 days) — <strong>likely failed order</strong> (spans turnaround + operational time)</p></li>
+<li><p>2017-08-13 to 2018-06-24 (314 days) — <strong>likely failed order</strong></p></li>
+<li><p>2018-06-29 to 2018-07-10 (10 days) — deployment turnaround</p></li>
+<li><p>2019-06-14 to 2019-06-23 (9 days) — deployment turnaround</p></li>
+<li><p>2019-09-27 to 2020-08-03 (310 days) — <strong>likely failed order</strong></p></li>
+<li><p>2021-03-15 to 2021-08-24 (162 days) — <strong>likely failed order</strong> (partially turnaround)</p></li>
+<li><p>2022-03-08 to 2022-09-15 (190 days) — <strong>likely failed order</strong> (partially turnaround)</p></li>
+</ul>
+</section>
+<section id="ph-phsen">
+<h3>PH (PHSEN)<a class="headerlink" href="#ph-phsen" title="Link to this heading">#</a></h3>
+<p>13 files, 2015-01-01 to 2025-12-31.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Files</p></th>
+<th class="head"><p>Start</p></th>
+<th class="head"><p>End</p></th>
+<th class="head"><p>Days</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2015</p></td>
+<td><p>2</p></td>
+<td><p>2015-01-01</p></td>
+<td><p>2016-07-16</p></td>
+<td><p>562</p></td>
+</tr>
+<tr class="row-odd"><td><p>2016</p></td>
+<td><p>1</p></td>
+<td><p>2016-07-18</p></td>
+<td><p>2017-01-29</p></td>
+<td><p>195</p></td>
+</tr>
+<tr class="row-even"><td><p>2017</p></td>
+<td><p>1</p></td>
+<td><p>2017-08-04</p></td>
+<td><p>2018-03-21</p></td>
+<td><p>228</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p>2</p></td>
+<td><p>2018-06-24</p></td>
+<td><p>2019-06-14</p></td>
+<td><p>354</p></td>
+</tr>
+<tr class="row-even"><td><p>2019</p></td>
+<td><p>1</p></td>
+<td><p>2019-06-23</p></td>
+<td><p>2019-09-27</p></td>
+<td><p>96</p></td>
+</tr>
+<tr class="row-odd"><td><p>2020</p></td>
+<td><p>1</p></td>
+<td><p>2020-08-05</p></td>
+<td><p>2021-08-04</p></td>
+<td><p>364</p></td>
+</tr>
+<tr class="row-even"><td><p>2021</p></td>
+<td><p>1</p></td>
+<td><p>2021-08-24</p></td>
+<td><p>2022-09-02</p></td>
+<td><p>373</p></td>
+</tr>
+<tr class="row-odd"><td><p>2022</p></td>
+<td><p>1</p></td>
+<td><p>2022-09-16</p></td>
+<td><p>2022-12-06</p></td>
+<td><p>81</p></td>
+</tr>
+<tr class="row-even"><td><p>2023</p></td>
+<td><p>1</p></td>
+<td><p>2023-09-25</p></td>
+<td><p>2024-08-09</p></td>
+<td><p>318</p></td>
+</tr>
+<tr class="row-odd"><td><p>2024</p></td>
+<td><p>1</p></td>
+<td><p>2024-09-09</p></td>
+<td><p>2025-01-16</p></td>
+<td><p>129</p></td>
+</tr>
+<tr class="row-even"><td><p>2025</p></td>
+<td><p>1</p></td>
+<td><p>2025-08-16</p></td>
+<td><p>2025-12-31</p></td>
+<td><p>137</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Gaps &gt; 7 days:</p>
+<ul class="simple">
+<li><p>2015-06-22 to 2015-07-08 (16 days) — deployment turnaround</p></li>
+<li><p>2017-01-29 to 2017-08-04 (186 days) — deployment turnaround</p></li>
+<li><p>2018-03-21 to 2018-06-24 (95 days) — deployment turnaround</p></li>
+<li><p>2018-06-29 to 2018-07-10 (10 days) — deployment turnaround</p></li>
+<li><p>2019-06-14 to 2019-06-23 (9 days) — deployment turnaround</p></li>
+<li><p>2019-09-27 to 2020-08-05 (312 days) — <strong>likely failed order</strong></p></li>
+<li><p>2021-08-04 to 2021-08-24 (20 days) — deployment turnaround</p></li>
+<li><p>2022-09-02 to 2022-09-16 (13 days) — deployment turnaround</p></li>
+<li><p>2022-12-06 to 2023-09-25 (292 days) — <strong>likely failed order</strong></p></li>
+<li><p>2024-08-09 to 2024-09-09 (31 days) — deployment turnaround</p></li>
+<li><p>2025-01-16 to 2025-08-16 (211 days) — <strong>likely failed order</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="interpretation-of-gaps">
+<h2>Interpretation of Gaps<a class="headerlink" href="#interpretation-of-gaps" title="Link to this heading">#</a></h2>
+<p><strong>Deployment turnarounds</strong> (no-data gaps, typically June–August, 2–8 weeks):
+These are expected. The shallow profiler is recovered and redeployed annually. No data exists for these periods.</p>
+<p><strong>2019-10 to 2020-08 (310 days):</strong> A fishing vessel damaged the shallow profiler
+mooring, requiring a full replacement. This is the source of the large outage
+affecting all instruments from late September 2019 through early August 2020.</p>
+<p><strong>Likely failed orders</strong> (data probably exists in OOINET but hasn’t been downloaded):</p>
+<ul class="simple">
+<li><p>PCO2 2016-07 to 2018-06: Large gap spanning two deployment cycles.</p></li>
+<li><p>PH 2022-12 to 2023-09 and 2025-01 to 2025-08: Likely need separate orders.</p></li>
+</ul>
+</section>
+<section id="action-items">
+<h2>Action Items<a class="headerlink" href="#action-items" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>NITR and PAR</strong>: Confirm OOINET order status. Orders may not be ready yet.</p></li>
+<li><p><strong>All instruments, 2019-10 to 2020-07</strong>: Order this time range (deployment 8, pre-turnaround).</p></li>
+<li><p><strong>PCO2, 2016-07 to 2018-06</strong>: Order to fill the large gap.</p></li>
+<li><p><strong>PH, 2022-12 to 2023-09</strong>: Order to fill gap.</p></li>
+<li><p><strong>PH, 2025-01 to 2025-08</strong>: Order to fill gap.</p></li>
+<li><p><strong>CTD, 2022-03 to 2022-05 and 2023-02 to 2023-08</strong>: Verify if these are turnarounds or missing orders.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="CodeManifest.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Code Manifest</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DevelopmentLog.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Development Log</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-summary">Coverage Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#per-instrument-detail">Per-Instrument Detail</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ctd-ctdpf">CTD (CTDPF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flor-flort">FLOR (FLORT)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nitr-nutnr">NITR (NUTNR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#par-parad">PAR (PARAD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pco2-pco2w">PCO2 (PCO2W)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-phsen">PH (PHSEN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-gaps">Interpretation of Gaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#action-items">Action Items</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

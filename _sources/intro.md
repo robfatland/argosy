@@ -1,5 +1,9 @@
 # Argosy: Ocean Data Analysis
 
+> This is the published **Jupyter Book** for the argosy project. The source repository —
+> code, data pipeline, and working notes — is at
+> [github.com/robfatland/argosy](https://github.com/robfatland/argosy). New here?
+> The "START HERE" orientation is the first chapter (`ArgosyOverview`).
 
 This repository concerns data analysis towards characterization of the upper 
 water column specifically in the northeastern Pacific ocean. The upper water

@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Umbrella';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Download" href="chapters/DataDownload.html" />
-    <link rel="prev" title="AI Prompt" href="AIPrompt.html" />
+    <link rel="next" title="Code Manifest" href="CodeManifest.html" />
+    <link rel="prev" title="Analysis" href="Analysis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,24 +177,33 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Boilerplate</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AIPrompt.html">AI Prompt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentLog.html">Development Log</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="reference/glossary.html">Glossaries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
 </ul>
 
     </div>
@@ -397,6 +406,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-list">Task list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-profiler-full-water-column-oxygen-structure">Deep Profiler: Full Water Column Oxygen Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-the-oxygen-minimum-zone">Motivation: The Oxygen Minimum Zone</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opportunity">Opportunity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -515,6 +530,56 @@ missing entries corresponding to 20 days.</p>
 <section id="task-list">
 <h2>Task list<a class="headerlink" href="#task-list" title="Link to this heading">#</a></h2>
 </section>
+<section id="deep-profiler-full-water-column-oxygen-structure">
+<h2>Deep Profiler: Full Water Column Oxygen Structure<a class="headerlink" href="#deep-profiler-full-water-column-oxygen-structure" title="Link to this heading">#</a></h2>
+<p>The Oregon Slope Base shallow profiler (RS01SBPS) covers ~0–200m depth. At the same
+site, the <strong>deep profiler</strong> (RS01SBPD, McLane Moored Profiler) operates between
+approximately 200m and 2900m (near the seafloor at ~2900m bottom depth). The deep
+profiler carries a CTD with dissolved oxygen and profiles once or twice per day.</p>
+<section id="motivation-the-oxygen-minimum-zone">
+<h3>Motivation: The Oxygen Minimum Zone<a class="headerlink" href="#motivation-the-oxygen-minimum-zone" title="Link to this heading">#</a></h3>
+<p>Dissolved oxygen profiles from the shallow profiler consistently show decreasing O₂
+with depth despite cold water having higher oxygen solubility. This seeming paradox
+reflects the balance between supply and consumption:</p>
+<ul class="simple">
+<li><p><strong>Near-surface O₂ is high</strong> because of atmospheric gas exchange and photosynthesis
+(active in the photic zone, upper ~50m).</p></li>
+<li><p><strong>O₂ decreases with depth</strong> because respiration and decomposition of sinking organic
+matter consume oxygen continuously, while no resupply mechanisms exist at depth (no
+light for photosynthesis, no contact with the atmosphere).</p></li>
+</ul>
+<p>The result is an <strong>Oxygen Minimum Zone (OMZ)</strong>, typically at 200–1000m in the northeast
+Pacific. Below the OMZ core, O₂ partially recovers because deep water masses (originating
+at polar surfaces — North Atlantic Deep Water, Antarctic Bottom Water) were oxygen-saturated
+when they sank. These deep waters are relatively “young” (less time for respiration to
+deplete their O₂), so the vertical oxygen profile has a characteristic “C” shape: high at
+surface, minimum at mid-depth, partial recovery in the abyss.</p>
+</section>
+<section id="opportunity">
+<h3>Opportunity<a class="headerlink" href="#opportunity" title="Link to this heading">#</a></h3>
+<p>Combining the shallow profiler (0–200m, 9 profiles/day) with the deep profiler
+(200–2900m, 1–2 profiles/day) would reveal:</p>
+<ul class="simple">
+<li><p>The complete vertical O₂ structure from surface to near-bottom</p></li>
+<li><p>The depth and intensity of the OMZ core at this site</p></li>
+<li><p>Seasonal and interannual variability in OMZ depth and intensity</p></li>
+<li><p>Potential shoaling of the OMZ (a climate-change indicator in the northeast Pacific)</p></li>
+</ul>
+<p>The deep profiler data is available on OOI under site code <strong>RS01SBPD</strong>. Integration
+would require downloading SBPD CTD data, applying a similar sharding pipeline, and
+developing a stitched visualization that spans both profiler ranges.</p>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The OMZ in the northeast Pacific is well-documented; it is one of the most
+intense in the global ocean due to high surface productivity (fueling respiration
+at depth) and sluggish deep ventilation.</p></li>
+<li><p>Recent literature reports OMZ expansion and shoaling in this region, potentially
+linked to warming and altered circulation patterns.</p></li>
+</ul>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -548,20 +613,20 @@ missing entries corresponding to 20 days.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="AIPrompt.html"
+       href="Analysis.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">AI Prompt</p>
+        <p class="prev-next-title">Analysis</p>
       </div>
     </a>
     <a class="right-next"
-       href="chapters/DataDownload.html"
+       href="CodeManifest.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Download</p>
+        <p class="prev-next-title">Code Manifest</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -588,6 +653,12 @@ missing entries corresponding to 20 days.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-list">Task list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-profiler-full-water-column-oxygen-structure">Deep Profiler: Full Water Column Oxygen Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-the-oxygen-minimum-zone">Motivation: The Oxygen Minimum Zone</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opportunity">Opportunity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

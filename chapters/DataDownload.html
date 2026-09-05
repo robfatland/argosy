@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Shard" href="DataSharding.html" />
-    <link rel="prev" title="Umbrella" href="../Umbrella.html" />
+    <link rel="prev" title="Development Log" href="../DevelopmentLog.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,24 +177,33 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Boilerplate</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../markdown.html">Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">Content with notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AIPrompt.html">AI Prompt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DevelopmentLog.html">Development Log</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Download</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MidnightNoon.html">Midnight and Noon Profiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Visualizations.html">Visualizations</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../reference/glossary.html">Glossaries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StubWork.html">Stub Work</a></li>
 </ul>
 
     </div>
@@ -390,8 +399,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-datasets-from-ooinet-to-localhost">Copy datasets from OOINET to localhost.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Data Download</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell">Cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-and-validate-datasets-from-ooinet-to-localhost">Copy and validate datasets from OOINET to localhost.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-download">pre-download</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#download">download</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-3-sensor-audit">Cell 3: Sensor Audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-4-overlap-audit">Cell 4: Overlap Audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cover-analysis">cover analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-5-minimum-cover-audit">Cell 5: Minimum Cover Audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-shard-visualization">pre-shard visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end">end</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -402,35 +426,201 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-download">
+  <p><a id="top"></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="data-download">
 <h1>Data Download<a class="headerlink" href="#data-download" title="Link to this heading">#</a></h1>
-<section id="copy-datasets-from-ooinet-to-localhost">
-<h2>Copy datasets from OOINET to localhost.<a class="headerlink" href="#copy-datasets-from-ooinet-to-localhost" title="Link to this heading">#</a></h2>
-<p>The data order is manual. Resulting links are placed in <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code>, one URL per line, for example:</p>
+<section id="cell">
+<h2>Cell<a class="headerlink" href="#cell" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pre-download"><span class="xref myst">pre-download assessment</span></a></p></li>
+<li><p><a class="reference internal" href="#download"><span class="xref myst">download data</span></a></p></li>
+<li><p><a class="reference internal" href="#sensor-audit"><span class="xref myst">sensor audit</span></a></p></li>
+<li><p><a class="reference internal" href="#overlap-audit"><span class="xref myst">overlap audit</span></a></p></li>
+<li><p><a class="reference internal" href="#cover-analysis"><span class="xref myst">cover analysis</span></a></p></li>
+<li><p><a class="reference internal" href="#pre-shard-visualization"><span class="xref myst">pre-shard visualization</span></a></p></li>
+<li><p><a class="reference internal" href="#end"><span class="xref myst">end</span></a></p></li>
+</ul>
+</section>
+<section id="copy-and-validate-datasets-from-ooinet-to-localhost">
+<h2>Copy and validate datasets from OOINET to localhost.<a class="headerlink" href="#copy-and-validate-datasets-from-ooinet-to-localhost" title="Link to this heading">#</a></h2>
+<p>The data order process is manual: Go to <a class="reference external" href="http://oceanobservatories.org">oceanobservatories.org</a> and set up an order.
+This involves getting an approved identity, logging in, finding and navigating the
+data access page, submitting the order. When the resulting order data is staged
+the system sends an email with a single URL. This is manually placed in
+<code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code>. In principle this can be multiple URLs;
+but probably avoids complexity problems to just keep it to one at a time.
+Here is an example URL:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="o">.</span><span class="n">oceanobservatories</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">async_results</span><span class="o">/</span><span class="n">kilroy1618</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="mi">20260207</span><span class="n">T235914738Z</span><span class="o">-</span><span class="n">RS01SBPS</span><span class="o">-</span><span class="n">SF01A</span><span class="o">-</span><span class="mi">2</span><span class="n">A</span><span class="o">-</span><span class="n">CTDPFA102</span><span class="o">-</span><span class="n">streamed</span><span class="o">-</span><span class="n">ctdpf_sbe43_sample</span>
 </pre></div>
 </div>
-<p>Here is what the three cells in this notebook do:</p>
-<ul>
-<li><p>First cell: From links in <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> download source data files</p>
-<ul>
-<li><blockquote>
-<div><p>corresponding localhost folders `~/ooi/ooinet/rca/SlopeBase/{scalar | vector}/<yyyy>_<instrum></p>
-</div></blockquote>
-</li>
-</ul>
-</li>
-<li><p>Second cell: Scan for redundant source data files, step one</p>
+<p>The Python cells in this notebook operate as follows:</p>
 <ul class="simple">
-<li><p>Creates a bash script in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code> that deletes superfluous files</p></li>
+<li><p>Assess the download link: How many files of interest (NetCDF) to download</p></li>
+<li><p>Download. From <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> pull in the source data files</p>
+<ul>
+<li><p>To localhost `~/ooi/ooinet/rca/SlopeBase/{scalar | vector}/yyyy_instrument</p></li>
 </ul>
 </li>
-<li><p>Third cell: Scan remaining files for “minimum cover” files</p>
+<li><p>Scan the data to ensure the expected sensor streams are present</p>
+<ul>
+<li><p>For example a CTD file should include dissolved oxygen in addition to salinity and so on</p></li>
+</ul>
+</li>
+<li><p>Scan for time-redundant source data files</p>
+<ul>
+<li><p>If any are found: Write a bash <code class="docutils literal notranslate"><span class="pre">~/argosy/delete_overlaps.sh</span></code> and run this from the command line</p></li>
+</ul>
+</li>
+<li><p>Scan remaining files for “minimum cover”: Full time range of File A is covered by File B and File C</p>
+<ul>
+<li><p>If any found: Write <code class="docutils literal notranslate"><span class="pre">~/argosy/delete_overlaps2.sh</span></code> and run this</p></li>
+</ul>
+</li>
+<li><p>Visualization: Show instrument presence/absence as a horizontal timeline</p></li>
+</ul>
+</section>
+<section id="pre-download">
+<h2>pre-download<a class="headerlink" href="#pre-download" title="Link to this heading">#</a></h2>
+<p>Read the file <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> for a set of download URLs. For each of these:
+Give an assessment of the pending data volume.</p>
 <ul class="simple">
-<li><p>This is the minimum number of files that cover the entirety of available time</p></li>
-<li><p>Creates a bash script again that deletes superfluous files</p></li>
+<li><p><a class="reference internal" href="#top"><span class="xref myst">top</span></a></p></li>
 </ul>
-</li>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()))</span>
+<span class="kn">import</span> <span class="nn">ooipaths</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="n">SITE</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">DEFAULT_SITE</span>
+
+<span class="c1"># Pre-download: Estimate data volume for each URL in download_link_list.txt</span>
+<span class="c1"># Run this cell before the bulk download to see how much data is pending.</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">estimate_download_volume</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;For each active URL in download_link_list.txt, report approximate download size.&quot;&quot;&quot;</span>
+
+    <span class="n">url_list_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/download_link_list.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">url_list_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File not found: </span><span class="si">{</span><span class="n">url_list_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">urls</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No active URLs in download_link_list.txt&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Active URLs: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">grand_total_bytes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">grand_total_files</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">url_idx</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">url_idx</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+            <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Count .nc files (exclude .ncml)</span>
+            <span class="n">nc_links</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span>
+                        <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.nc&#39;</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="ow">not</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.ncml&#39;</span><span class="p">)]</span>
+
+            <span class="c1"># Group files by instrument code</span>
+            <span class="n">instrument_codes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CTDPF&#39;</span><span class="p">,</span> <span class="s1">&#39;FLORT&#39;</span><span class="p">,</span> <span class="s1">&#39;PHSEN&#39;</span><span class="p">,</span> <span class="s1">&#39;PCO2W&#39;</span><span class="p">,</span> <span class="s1">&#39;NUTNR&#39;</span><span class="p">,</span> <span class="s1">&#39;PARAD&#39;</span><span class="p">,</span> <span class="s1">&#39;VELPT&#39;</span><span class="p">,</span> <span class="s1">&#39;SPKIR&#39;</span><span class="p">,</span> <span class="s1">&#39;OPTAA&#39;</span><span class="p">,</span> <span class="s1">&#39;DOFST&#39;</span><span class="p">]</span>
+            <span class="n">by_instrument</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">nc_links</span><span class="p">:</span>
+                <span class="n">href</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">matched</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">instrument_codes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">href</span><span class="p">:</span>
+                        <span class="n">by_instrument</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+                        <span class="n">matched</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">matched</span><span class="p">:</span>
+                    <span class="n">by_instrument</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;OTHER&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+
+            <span class="c1"># Determine which instrument this URL is for (from the URL path)</span>
+            <span class="n">url_instrument</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">instrument_codes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">url</span><span class="p">:</span>
+                    <span class="n">url_instrument</span> <span class="o">=</span> <span class="n">code</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># Estimate sizes per instrument via HEAD requests on samples</span>
+            <span class="n">url_total_bytes</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total .nc files: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nc_links</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">url_instrument</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  URL instrument: </span><span class="si">{</span><span class="n">url_instrument</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">code_links</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">by_instrument</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="n">sample_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">code_links</span><span class="p">))</span>
+                <span class="n">sampled_bytes</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">sampled</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">code_links</span><span class="p">[:</span><span class="n">sample_size</span><span class="p">]:</span>
+                    <span class="n">href</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">file_url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">href</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">head</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">file_url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="n">content_length</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Content-Length&#39;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">content_length</span><span class="p">:</span>
+                            <span class="n">sampled_bytes</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_length</span><span class="p">)</span>
+                            <span class="n">sampled</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="k">if</span> <span class="n">sampled</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">avg</span> <span class="o">=</span> <span class="n">sampled_bytes</span> <span class="o">/</span> <span class="n">sampled</span>
+                    <span class="n">est</span> <span class="o">=</span> <span class="n">avg</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">code_links</span><span class="p">)</span>
+                    <span class="n">will_download</span> <span class="o">=</span> <span class="p">(</span><span class="n">code</span> <span class="o">==</span> <span class="n">url_instrument</span><span class="p">)</span>
+                    <span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39; &lt;-- WILL DOWNLOAD&#39;</span> <span class="k">if</span> <span class="n">will_download</span> <span class="k">else</span> <span class="s1">&#39;     (skipped)&#39;</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">code</span><span class="si">:</span><span class="s2">6s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">code_links</span><span class="p">)</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> files, ~</span><span class="si">{</span><span class="n">avg</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB each, est </span><span class="si">{</span><span class="n">est</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> GB</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">will_download</span><span class="p">:</span>
+                        <span class="n">url_total_bytes</span> <span class="o">+=</span> <span class="n">est</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">code</span><span class="si">:</span><span class="s2">6s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">code_links</span><span class="p">)</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> files, size unknown&quot;</span><span class="p">)</span>
+
+            <span class="n">grand_total_bytes</span> <span class="o">+=</span> <span class="n">url_total_bytes</span>
+            <span class="n">grand_total_files</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">by_instrument</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_instrument</span><span class="p">,</span> <span class="p">[]))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WILL DOWNLOAD: ~</span><span class="si">{</span><span class="n">grand_total_files</span><span class="si">}</span><span class="s2"> files, approximately </span><span class="si">{</span><span class="n">grand_total_bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> GB&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(Bundled CTD/other files in the same directories will be skipped)&quot;</span><span class="p">)</span>
+
+<span class="n">estimate_download_volume</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No active URLs in download_link_list.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="download">
+<h1>download<a class="headerlink" href="#download" title="Link to this heading">#</a></h1>
+<p>Download NetCDF data files from each of the URLs listed in <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code>.
+When a URL resource is depleted: Delete that URL from this file and
+append it to <code class="docutils literal notranslate"><span class="pre">~/argosy/downlinklist_completed.txt</span></code>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#top"><span class="xref myst">top</span></a></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -453,8 +643,6 @@ document.write(`
 <span class="c1">#</span>
 <span class="c1"># We want the code in the cell below to read this file and go to each link in succession,</span>
 <span class="c1"># downloading the data to a corresponding localhost folder.</span>
-
-<span class="c1"># In[8]:</span>
 
 
 <span class="kn">import</span> <span class="nn">requests</span>
@@ -495,8 +683,24 @@ document.write(`
             <span class="n">temp_file</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">False</span>
 
+<span class="k">def</span> <span class="nf">_move_url_to_completed</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove a URL from download_link_list.txt and append to downlinklist_completed.txt.&quot;&quot;&quot;</span>
+    <span class="n">completed_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/downlinklist_completed.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+    <span class="c1"># Append to completed file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">completed_file</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Remove from URL list file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="n">url</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
 <span class="k">def</span> <span class="nf">bulk_download</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="s2">&quot;ctd&quot;</span><span class="p">,</span> <span class="n">ooi_instrument</span><span class="o">=</span><span class="s2">&quot;CTDPF&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bulk download instrument files from URL list with restart tolerance.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bulk download instrument files from URL list with restart tolerance.</span>
+<span class="sd">    On successful completion of a URL, removes it from download_link_list.txt</span>
+<span class="sd">    and appends it to downlinklist_completed.txt.&quot;&quot;&quot;</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running bulk_download for instrument type = </span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2"> (OOI: </span><span class="si">{</span><span class="n">ooi_instrument</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
@@ -507,12 +711,12 @@ document.write(`
         <span class="k">return</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)]</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> URLs to process</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Base folder for all instrument/year source data</span>
-    <span class="n">base_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooi/ooinet/rca/SlopeBase/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+    <span class="n">base_folder</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">ooinet_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">base_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Base folder does not exist: </span><span class="si">{</span><span class="n">base_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -565,7 +769,8 @@ document.write(`
             <span class="n">total_complete</span> <span class="o">+=</span> <span class="n">already_downloaded</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">to_download</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  All files complete, skipping</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  All files complete, skipping&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
                 <span class="k">continue</span>
 
             <span class="k">for</span> <span class="n">file_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">to_download</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
@@ -600,133 +805,201 @@ document.write(`
 
 
 <span class="c1"># Instrument key -&gt; OOI instrument code mapping (from Sensor Table):</span>
-<span class="c1">#   ctd   -&gt; CTDPF</span>
-<span class="c1">#   flor  -&gt; FLORT</span>
-<span class="c1">#   ph    -&gt; PHSEN</span>
-<span class="c1">#   pco2  -&gt; PCO2W</span>
-<span class="c1">#   nitr  -&gt; NUTNR</span>
-<span class="c1">#   par   -&gt; PARAD</span>
-<span class="c1">#   vel   -&gt; VELPT</span>
-<span class="c1">#   irr   -&gt; SPKIR</span>
-<span class="c1">#   oa/ba -&gt; OPTAA</span>
+<span class="n">SCALAR_INSTRUMENTS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ctd&#39;</span><span class="p">:</span>  <span class="s1">&#39;CTDPF&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;flor&#39;</span><span class="p">:</span> <span class="s1">&#39;FLORT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ph&#39;</span><span class="p">:</span>   <span class="s1">&#39;PHSEN&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;pco2&#39;</span><span class="p">:</span> <span class="s1">&#39;PCO2W&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nitr&#39;</span><span class="p">:</span> <span class="s1">&#39;NUTNR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;par&#39;</span><span class="p">:</span>  <span class="s1">&#39;PARAD&#39;</span><span class="p">,</span>
+<span class="p">}</span>
 
-<span class="c1"># Run the bulk download - uncomment as needed:</span>
-<span class="n">bulk_download</span><span class="p">(</span><span class="s2">&quot;ctd&quot;</span><span class="p">,</span>  <span class="s2">&quot;CTDPF&quot;</span><span class="p">)</span>
-<span class="c1"># bulk_download(&quot;flor&quot;, &quot;FLORT&quot;)</span>
-<span class="c1"># bulk_download(&quot;ph&quot;,   &quot;PHSEN&quot;)</span>
-<span class="c1"># bulk_download(&quot;pco2&quot;, &quot;PCO2W&quot;)</span>
-<span class="c1"># bulk_download(&quot;nitr&quot;, &quot;NUTNR&quot;)</span>
-<span class="c1"># bulk_download(&quot;par&quot;,  &quot;PARAD&quot;)</span>
-<span class="c1"># bulk_download(&quot;vel&quot;,  &quot;VELPT&quot;)</span>
-<span class="c1"># bulk_download(&quot;irr&quot;,  &quot;SPKIR&quot;)</span>
+<span class="c1"># Vector instruments (not yet active):</span>
+<span class="c1">#   &#39;vel&#39;: &#39;VELPT&#39;,</span>
+<span class="c1">#   &#39;irr&#39;: &#39;SPKIR&#39;,</span>
+<span class="c1">#   &#39;oa&#39;:  &#39;OPTAA&#39;,</span>
+
+<span class="c1"># Run bulk download: For each URL, determine its instrument from the URL path</span>
+<span class="c1"># and only download files matching that instrument.</span>
+<span class="n">url_list_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/download_link_list.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">url_list_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url_list_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)]</span>
+    
+    <span class="c1"># Map OOI instrument codes to our keys</span>
+    <span class="n">CODE_TO_KEY</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">SCALAR_INSTRUMENTS</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+        <span class="c1"># Determine instrument from URL</span>
+        <span class="n">matched_key</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">CODE_TO_KEY</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">url</span><span class="p">:</span>
+                <span class="n">matched_key</span> <span class="o">=</span> <span class="n">key</span>
+                <span class="k">break</span>
+        
+        <span class="k">if</span> <span class="n">matched_key</span><span class="p">:</span>
+            <span class="n">bulk_download</span><span class="p">(</span><span class="n">matched_key</span><span class="p">,</span> <span class="n">SCALAR_INSTRUMENTS</span><span class="p">[</span><span class="n">matched_key</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: Could not determine instrument for URL: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No download_link_list.txt found.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="cell-3-sensor-audit">
+<h2>Cell 3: Sensor Audit<a class="headerlink" href="#cell-3-sensor-audit" title="Link to this heading">#</a></h2>
+<p>Validates all source instrument files contain expected science variables (from sensor table).
+Generates <code class="docutils literal notranslate"><span class="pre">~/argosy/delete_bad_sensor_files.sh</span></code> if problems found.
+Run this cell BEFORE the overlap and cover cells.</p>
+<p><a class="reference internal" href="#top"><span class="xref myst">Back to top</span></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 3: Sensor Audit</span>
+<span class="c1"># Validates that all source instrument files contain their expected science variables.</span>
+<span class="c1"># Generates ~/argosy/delete_bad_sensor_files.sh for files that fail validation.</span>
+<span class="c1"># Does NOT delete files directly — review and run the script manually.</span>
+
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">SCALAR_DIR</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">ooinet_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">)</span>
+<span class="n">SCRIPT_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_bad_sensor_files.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+
+<span class="c1"># Expected variables per instrument (from sensor table)</span>
+<span class="n">EXPECTED</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ctd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sea_water_temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;sea_water_practical_salinity&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;sea_water_density&#39;</span><span class="p">,</span> <span class="s1">&#39;corrected_dissolved_oxygen&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;flor&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;optical_backscatter&#39;</span><span class="p">,</span> <span class="s1">&#39;fluorometric_cdom&#39;</span><span class="p">,</span> <span class="s1">&#39;fluorometric_chlorophyll_a&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;par&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;par_counts_output&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;ph&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ph_seawater&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;nitr&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;salinity_corrected_nitrate&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;pco2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;pco2_seawater&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">total_files</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total_bad</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">bad_files</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">expected_vars</span> <span class="ow">in</span> <span class="n">EXPECTED</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">instrument</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> — expecting: </span><span class="si">{</span><span class="n">expected_vars</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">inst_files</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">inst_bad</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">SCALAR_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.nc&quot;</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="s1">&#39;_cal_&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">inst_files</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">total_files</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">all_vars</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">all_coords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">expected_vars</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_vars</span><span class="p">]</span>
+                <span class="n">has_depth</span> <span class="o">=</span> <span class="s1">&#39;depth&#39;</span> <span class="ow">in</span> <span class="n">all_vars</span> <span class="ow">or</span> <span class="s1">&#39;depth&#39;</span> <span class="ow">in</span> <span class="n">all_coords</span>
+                <span class="n">ds</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">missing</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">has_depth</span><span class="p">:</span>
+                    <span class="n">inst_bad</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">total_bad</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">reason</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+                        <span class="n">reason</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_depth</span><span class="p">:</span>
+                        <span class="n">reason</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Missing: depth&quot;</span><span class="p">)</span>
+                    <span class="n">bad_files</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">reason</span><span class="p">)))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  BAD: </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="mi">65</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reason</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">inst_bad</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">total_bad</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">bad_files</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">f</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Corrupt: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  BAD (corrupt): </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="mi">65</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Checked: </span><span class="si">{</span><span class="n">inst_files</span><span class="si">}</span><span class="s2"> | OK: </span><span class="si">{</span><span class="n">inst_files</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">inst_bad</span><span class="si">}</span><span class="s2"> | Bad: </span><span class="si">{</span><span class="n">inst_bad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Write or clean up script</span>
+<span class="k">if</span> <span class="n">bad_files</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;#!/bin/bash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;# Auto-generated: deletes source files missing expected science variables&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">reason</span> <span class="ow">in</span> <span class="n">bad_files</span><span class="p">:</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;# </span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rm &quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+    <span class="n">SCRIPT_PATH</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">SCRIPT_PATH</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="mo">0o755</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Deletion script written: </span><span class="si">{</span><span class="n">SCRIPT_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Review and run with: bash </span><span class="si">{</span><span class="n">SCRIPT_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">SCRIPT_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">SCRIPT_PATH</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">(Removed stale </span><span class="si">{</span><span class="n">SCRIPT_PATH</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">All files pass sensor audit.&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SUMMARY: </span><span class="si">{</span><span class="n">total_files</span><span class="si">}</span><span class="s2"> files checked, </span><span class="si">{</span><span class="n">total_bad</span><span class="si">}</span><span class="s2"> bad, </span><span class="si">{</span><span class="n">total_files</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">total_bad</span><span class="si">}</span><span class="s2"> OK&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running bulk_download for instrument type = ctd (OOI: CTDPF)
-Found 3 URLs to process
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>============================================================
+  CTD — expecting: [&#39;sea_water_temperature&#39;, &#39;sea_water_practical_salinity&#39;, &#39;sea_water_density&#39;, &#39;corrected_dissolved_oxygen&#39;]
+============================================================
+  Checked: 0 | OK: 0 | Bad: 0
 
-=== URL 1/3 ===
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260302T160213452Z-RS01SBPS-SF01A-2D-PHSENA101-streamed-phsen_data_record
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total .nc files:       31
-  Already downloaded:    9
-  Remaining to download: 22
-  [1/22] deployment0001_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20141231T235959.533995-20150424T172450.573911.nc -&gt; 2014_ctd/
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">178</span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span>                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> files&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="c1"># Instrument key -&gt; OOI instrument code mapping (from Sensor Table):</span>
-<span class="g g-Whitespace">    </span><span class="mi">167</span> <span class="c1">#   ctd   -&gt; CTDPF</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span> <span class="c1">#   flor  -&gt; FLORT</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span> 
-<span class="g g-Whitespace">    </span><span class="mi">177</span> <span class="c1"># Run the bulk download - uncomment as needed:</span>
-<span class="ne">--&gt; </span><span class="mi">178</span> <span class="n">bulk_download</span><span class="p">(</span><span class="s2">&quot;ctd&quot;</span><span class="p">,</span>  <span class="s2">&quot;CTDPF&quot;</span><span class="p">)</span>
+============================================================
+  FLOR — expecting: [&#39;optical_backscatter&#39;, &#39;fluorometric_cdom&#39;, &#39;fluorometric_chlorophyll_a&#39;]
+============================================================
+  Checked: 0 | OK: 0 | Bad: 0
 
-<span class="nn">Cell In[1], line 140,</span> in <span class="ni">bulk_download</span><span class="nt">(instrument, ooi_instrument)</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="n">file_url</span>  <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">file_idx</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">to_download</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">140</span> <span class="k">if</span> <span class="n">download_file</span><span class="p">(</span><span class="n">file_url</span><span class="p">,</span> <span class="n">dest_file</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="n">total_downloaded</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Complete: </span><span class="si">{</span><span class="n">dest_file</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+============================================================
+  PAR — expecting: [&#39;par_counts_output&#39;]
+============================================================
+  Checked: 0 | OK: 0 | Bad: 0
 
-<span class="nn">Cell In[1], line 51,</span> in <span class="ni">download_file</span><span class="nt">(url, destination)</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">51</span>     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+============================================================
+  PH — expecting: [&#39;ph_seawater&#39;]
+============================================================
+  Checked: 0 | OK: 0 | Bad: 0
 
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/requests/models.py:816,</span> in <span class="ni">Response.iter_content.&lt;locals&gt;.generate</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">814</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">815</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">816</span>         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">chunk_size</span><span class="p">,</span> <span class="n">decode_content</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">817</span>     <span class="k">except</span> <span class="n">ProtocolError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">818</span>         <span class="k">raise</span> <span class="n">ChunkedEncodingError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+============================================================
+  NITR — expecting: [&#39;salinity_corrected_nitrate&#39;]
+============================================================
+  Checked: 0 | OK: 0 | Bad: 0
 
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/urllib3/response.py:628,</span> in <span class="ni">HTTPResponse.stream</span><span class="nt">(self, amt, decode_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">626</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">627</span>     <span class="k">while</span> <span class="ow">not</span> <span class="n">is_fp_closed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">628</span>         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="o">=</span><span class="n">amt</span><span class="p">,</span> <span class="n">decode_content</span><span class="o">=</span><span class="n">decode_content</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">630</span>         <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">631</span>             <span class="k">yield</span> <span class="n">data</span>
+============================================================
+  PCO2 — expecting: [&#39;pco2_seawater&#39;]
+============================================================
+  Checked: 0 | OK: 0 | Bad: 0
 
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/urllib3/response.py:567,</span> in <span class="ni">HTTPResponse.read</span><span class="nt">(self, amt, decode_content, cache_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">564</span> <span class="n">fp_closed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="p">,</span> <span class="s2">&quot;closed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">566</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_catcher</span><span class="p">():</span>
-<span class="ne">--&gt; </span><span class="mi">567</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">fp_closed</span> <span class="k">else</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">568</span>     <span class="k">if</span> <span class="n">amt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">569</span>         <span class="n">flush_decoder</span> <span class="o">=</span> <span class="kc">True</span>
+All files pass sensor audit.
 
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/site-packages/urllib3/response.py:533,</span> in <span class="ni">HTTPResponse._fp_read</span><span class="nt">(self, amt)</span>
-<span class="g g-Whitespace">    </span><span class="mi">530</span>     <span class="k">return</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">531</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="c1"># StringIO doesn&#39;t like amt=None</span>
-<span class="ne">--&gt; </span><span class="mi">533</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span> <span class="k">if</span> <span class="n">amt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/http/client.py:466,</span> in <span class="ni">HTTPResponse.read</span><span class="nt">(self, amt)</span>
-<span class="g g-Whitespace">    </span><span class="mi">463</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">amt</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span>     <span class="c1"># clip the read to the &quot;end of response&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">465</span>     <span class="n">amt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
-<span class="ne">--&gt; </span><span class="mi">466</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">467</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span> <span class="ow">and</span> <span class="n">amt</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">468</span>     <span class="c1"># Ideally, we would raise IncompleteRead if the content-length</span>
-<span class="g g-Whitespace">    </span><span class="mi">469</span>     <span class="c1"># wasn&#39;t satisfied, but it might break compatibility.</span>
-<span class="g g-Whitespace">    </span><span class="mi">470</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_close_conn</span><span class="p">()</span>
-
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/socket.py:706,</span> in <span class="ni">SocketIO.readinto</span><span class="nt">(self, b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">704</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">706</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">707</span>     <span class="k">except</span> <span class="n">timeout</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">708</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_occurred</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/ssl.py:1278,</span> in <span class="ni">SSLSocket.recv_into</span><span class="nt">(self, buffer, nbytes, flags)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1274</span>     <span class="k">if</span> <span class="n">flags</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1275</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1276</span>           <span class="s2">&quot;non-zero flags not allowed in calls to recv_into() on </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
-<span class="g g-Whitespace">   </span><span class="mi">1277</span>           <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1278</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1279</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1280</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/argo-env2/lib/python3.11/ssl.py:1134,</span> in <span class="ni">SSLSocket.read</span><span class="nt">(self, len, buffer)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1132</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1133</span>     <span class="k">if</span> <span class="n">buffer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1134</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1135</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1136</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+============================================================
+SUMMARY: 0 files checked, 0 bad, 0 OK
+============================================================
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="cell-4-overlap-audit">
+<h2>Cell 4: Overlap Audit<a class="headerlink" href="#cell-4-overlap-audit" title="Link to this heading">#</a></h2>
+<p>Identifies CTD files whose time range is fully contained within another single file.
+Generates <code class="docutils literal notranslate"><span class="pre">~/argosy/delete_single_redundant_files.sh</span></code> if redundant files found.</p>
+<p><a class="reference internal" href="#top"><span class="xref myst">Back to top</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Jupyter cell: CTD file overlap audit</span>
@@ -744,7 +1017,7 @@ https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/2026
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CTD File Overlap Audit&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
 
-<span class="n">BASE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooi/ooinet/rca/SlopeBase/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">BASE</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">ooinet_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">)</span>
 <span class="n">YEARS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">)</span>
 
 <span class="c1"># --- Parse time range from filename ---</span>
@@ -830,13 +1103,13 @@ https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/2026
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;STRATEGY RECOMMENDATION&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">script_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_overlaps.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">script_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_single_redundant_files.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No overlaps detected - CTD files appear clean.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">script_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="n">script_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Removed stale delete_overlaps.sh)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Removed stale delete_single_redundant_files.sh)&quot;</span><span class="p">)</span>
 <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">redundant</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="n">total_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;redundant&#39;</span><span class="p">][</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">redundant</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Delete </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">redundant</span><span class="p">)</span><span class="si">}</span><span class="s2"> fully redundant files (</span><span class="si">{</span><span class="n">total_size</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB recoverable)&quot;</span><span class="p">)</span>
@@ -920,221 +1193,38 @@ https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/2026
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CTD File Overlap Audit
 ============================================================
-Total CTD files found: 40
-Overlapping file pairs: 48
-
-Overlap details:
-
-  A: deployment0001_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20141231T235959.533995-20150518T000000.646750.nc
-  B: deployment0001_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150424T172451.574121-20150705T235959.089334.nc
-  Overlap: 2015-04-24 to 2015-05-18 (23.3 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150708T220539.700577-20151130T000000.854900.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151107T011757.231076-20160203T075108.287602.nc
-  Overlap: 2015-11-07 to 2015-11-30 (22.9 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150708T220539.700577-20151130T000000.854900.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
-  Overlap: 2015-11-12 to 2015-11-30 (17.0 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20150708T220539.700577-20151130T000000.854900.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
-  Overlap: 2015-11-29 to 2015-11-30 (0.0 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151107T011757.231076-20160203T075108.287602.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
-  Overlap: 2015-11-12 to 2016-02-03 (82.3 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151107T011757.231076-20160203T075108.287602.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
-  Overlap: 2015-11-29 to 2016-02-03 (65.3 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
-  Overlap: 2015-11-29 to 2016-03-01 (92.8 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
-  Overlap: 2016-02-03 to 2016-03-01 (27.4 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151112T235959.387746-20160301T180000.653717.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
-  Overlap: 2016-03-01 to 2016-03-01 (0.0 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
-  Overlap: 2016-02-03 to 2016-03-24 (49.9 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20151129T235959.854788-20160324T050505.085704.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
-  Overlap: 2016-03-01 to 2016-03-24 (22.5 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
-  Overlap: 2016-03-01 to 2016-05-16 (75.3 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160324T050506.085710-20160711T000000.025662.nc
-  Overlap: 2016-03-24 to 2016-05-16 (52.8 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160203T075109.288025-20160516T000000.559495.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160515T235959.558758-20160716T111049.607585.nc
-  Overlap: 2016-05-15 to 2016-05-16 (0.0 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160324T050506.085710-20160711T000000.025662.nc
-  Overlap: 2016-03-24 to 2016-06-22 (90.3 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160301T175959.653501-20160622T120000.737566.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160515T235959.558758-20160716T111049.607585.nc
-  Overlap: 2016-05-15 to 2016-06-22 (37.5 days)
-
-  A: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160324T050506.085710-20160711T000000.025662.nc
-  B: deployment0002_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20160515T235959.558758-20160716T111049.607585.nc
-  Overlap: 2016-05-15 to 2016-07-11 (56.0 days)
-
-  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180710T170527.140820-20181217T000000.485697.nc
-  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T055959.112187-20190311T180000.560954.nc
-  Overlap: 2018-11-25 to 2018-12-17 (21.8 days)
-
-  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180710T170527.140820-20181217T000000.485697.nc
-  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T235959.746938-20190318T000000.207331.nc
-  Overlap: 2018-11-25 to 2018-12-17 (21.0 days)
-
-  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T055959.112187-20190311T180000.560954.nc
-  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T235959.746938-20190318T000000.207331.nc
-  Overlap: 2018-11-25 to 2019-03-11 (105.8 days)
-
-  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T055959.112187-20190311T180000.560954.nc
-  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20190311T175959.560630-20190614T051242.692351.nc
-  Overlap: 2019-03-11 to 2019-03-11 (0.0 days)
-
-  A: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20181125T235959.746938-20190318T000000.207331.nc
-  B: deployment0006_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20190311T175959.560630-20190614T051242.692351.nc
-  Overlap: 2019-03-11 to 2019-03-18 (6.3 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20200803T164413.888856-20201130T225829.341226.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201122T235959.198893-20210315T000000.016139.nc
-  Overlap: 2020-11-22 to 2020-11-30 (8.0 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20200803T164413.888856-20201130T225829.341226.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
-  Overlap: 2020-11-27 to 2020-11-30 (3.0 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201122T235959.198893-20210315T000000.016139.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
-  Overlap: 2020-11-27 to 2021-03-15 (107.0 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201122T235959.198893-20210315T000000.016139.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210314T235959.016346-20210705T000000.595883.nc
-  Overlap: 2021-03-14 to 2021-03-15 (0.0 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210314T235959.016346-20210705T000000.595883.nc
-  Overlap: 2021-03-14 to 2021-03-19 (4.5 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20201127T235959.147644-20210319T120000.431316.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210317T085642.860957-20210804T190841.180708.nc
-  Overlap: 2021-03-17 to 2021-03-19 (2.1 days)
-
-  A: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210314T235959.016346-20210705T000000.595883.nc
-  B: deployment0008_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210317T085642.860957-20210804T190841.180708.nc
-  Overlap: 2021-03-17 to 2021-07-05 (109.6 days)
-
-  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210824T233256.569856-20211223T063248.370115.nc
-  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211217T175959.876304-20220405T180000.708918.nc
-  Overlap: 2021-12-17 to 2021-12-23 (5.5 days)
-
-  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20210824T233256.569856-20211223T063248.370115.nc
-  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211219T235959.593037-20220411T000000.661721.nc
-  Overlap: 2021-12-19 to 2021-12-23 (3.3 days)
-
-  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211217T175959.876304-20220405T180000.708918.nc
-  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211219T235959.593037-20220411T000000.661721.nc
-  Overlap: 2021-12-19 to 2022-04-05 (106.8 days)
-
-  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211217T175959.876304-20220405T180000.708918.nc
-  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211223T063249.370230-20220902T204459.535113.nc
-  Overlap: 2021-12-23 to 2022-04-05 (103.5 days)
-
-  A: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211219T235959.593037-20220411T000000.661721.nc
-  B: deployment0009_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20211223T063249.370230-20220902T204459.535113.nc
-  Overlap: 2021-12-23 to 2022-04-11 (108.7 days)
-
-  A: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20220915T181349.594332-20230116T000000.532180.nc
-  B: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230101T000000.149650-20230120T115959.534201.nc
-  Overlap: 2023-01-01 to 2023-01-16 (15.0 days)
-
-  A: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20220915T181349.594332-20230116T000000.532180.nc
-  B: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230105T055959.511165-20230224T084327.668331.nc
-  Overlap: 2023-01-05 to 2023-01-16 (10.8 days)
-
-  A: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230101T000000.149650-20230120T115959.534201.nc
-  B: deployment0010_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230105T055959.511165-20230224T084327.668331.nc
-  Overlap: 2023-01-05 to 2023-01-20 (15.2 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230817T212929.521060-20240212T000000.874083.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
-  Overlap: 2023-12-28 to 2024-02-12 (45.8 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230817T212929.521060-20240212T000000.874083.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
-  Overlap: 2024-01-25 to 2024-02-12 (17.8 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20230817T212929.521060-20240212T000000.874083.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
-  Overlap: 2024-02-11 to 2024-02-12 (0.0 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
-  Overlap: 2024-01-25 to 2024-04-17 (83.3 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
-  Overlap: 2024-02-11 to 2024-04-17 (65.5 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20231228T055959.503935-20240417T120000.203436.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240417T115959.202701-20240809T063045.498432.nc
-  Overlap: 2024-04-17 to 2024-04-17 (0.0 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
-  Overlap: 2024-02-11 to 2024-05-06 (84.0 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240125T041622.072379-20240506T000000.030980.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240417T115959.202701-20240809T063045.498432.nc
-  Overlap: 2024-04-17 to 2024-05-06 (18.5 days)
-
-  A: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240211T235959.873971-20240702T063319.865896.nc
-  B: deployment0011_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240417T115959.202701-20240809T063045.498432.nc
-  Overlap: 2024-04-17 to 2024-07-02 (75.8 days)
-
-  A: deployment0012_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20240809T203132.739326-20241216T000000.135762.nc
-  B: deployment0012_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20241122T072830.648546-20250805T142747.771470.nc
-  Overlap: 2024-11-22 to 2024-12-16 (23.7 days)
-
-  A: deployment0014_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20250814T232320.067702-20251215T000000.085007.nc
-  B: deployment0014_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20251123T101006.524654-20260101T000000.312004.nc
-  Overlap: 2025-11-23 to 2025-12-15 (21.6 days)
+Total CTD files found: 0
+Overlapping file pairs: 0
 
 Fully redundant files (entirely covered by another): 0
 
 ============================================================
 STRATEGY RECOMMENDATION
 ============================================================
-48 partial overlaps found but no fully redundant files.
-For each overlapping pair: Keep the file with the longer time span.
-Partial overlaps may require trimming rather than deletion.
+No overlaps detected - CTD files appear clean.
 
 Generating coverage plot...
 </pre></div>
 </div>
-<img alt="../_images/8d18d51f525b357c95fa38586e35b6196a87fc4f3447884f59409c2903c5811e.png" src="../_images/8d18d51f525b357c95fa38586e35b6196a87fc4f3447884f59409c2903c5811e.png" />
+<img alt="../_images/3fe1fccc380aa5f00ef5582e0a9af74fea19bacf48697c2dde3d1ac05d93da67.png" src="../_images/3fe1fccc380aa5f00ef5582e0a9af74fea19bacf48697c2dde3d1ac05d93da67.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Plot saved to ~/argosy/ctd_coverage.png
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="cover-analysis">
+<h2>cover analysis<a class="headerlink" href="#cover-analysis" title="Link to this heading">#</a></h2>
+<p>CTD only, room to generalize: Find a minimal set of files that preserves full time coverage.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#top"><span class="xref myst">top</span></a></p></li>
+</ul>
+</section>
+<section id="cell-5-minimum-cover-audit">
+<h2>Cell 5: Minimum Cover Audit<a class="headerlink" href="#cell-5-minimum-cover-audit" title="Link to this heading">#</a></h2>
+<p>Identifies CTD files whose time range is covered by the union of multiple other files.
+Generates <code class="docutils literal notranslate"><span class="pre">~/argosy/delete_cover_redundant_files.sh</span></code> if redundant files found.</p>
+<p><a class="reference internal" href="#top"><span class="xref myst">Back to top</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Jupyter cell: CTD minimum cover analysis</span>
@@ -1150,7 +1240,7 @@ Generating coverage plot...
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CTD Minimum Cover Analysis&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
 
-<span class="n">BASE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/ooi/ooinet/rca/SlopeBase/scalar&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">BASE</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">ooinet_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">)</span>
 <span class="n">YEARS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">parse_time_range</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -1249,7 +1339,7 @@ Generating coverage plot...
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recoverable space: </span><span class="si">{</span><span class="n">total_size</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
 
 <span class="c1"># --- Write deletion script ---</span>
-<span class="n">script_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_overlaps2.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+<span class="n">script_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/argosy/delete_cover_redundant_files.sh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="n">deletable</span><span class="p">:</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
@@ -1268,6 +1358,9 @@ Generating coverage plot...
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Review and run with:  bash </span><span class="si">{</span><span class="n">script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No deletable files found - set is already minimal.&quot;</span><span class="p">)</span>
+    <span class="c1"># Overwrite any stale script with a clean no-op</span>
+    <span class="n">script_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;#!/bin/bash</span><span class="se">\n</span><span class="s2"># No deletable files found - set is already minimal.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">script_path</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="mo">0o755</span><span class="p">)</span>
 
 <span class="c1"># --- Plot ---</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">)))</span>
@@ -1311,19 +1404,182 @@ Generating coverage plot...
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CTD Minimum Cover Analysis
 ============================================================
-Total CTD files: 29
-Files needed for full coverage: 29
+Total CTD files: 0
+Files needed for full coverage: 0
 Files deletable without losing coverage: 0
 
 No deletable files found - set is already minimal.
 </pre></div>
 </div>
-<img alt="../_images/c52b421fe7b22c1ab4b0edd51b3271e09710aeb3d7399bea2bafe3eae0543d69.png" src="../_images/c52b421fe7b22c1ab4b0edd51b3271e09710aeb3d7399bea2bafe3eae0543d69.png" />
+<img alt="../_images/ba6dab7b66afb397f80cb3f9b7b834c8df28ad313155d40e25878c00e646c361.png" src="../_images/ba6dab7b66afb397f80cb3f9b7b834c8df28ad313155d40e25878c00e646c361.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Plot saved to /home/rob/argosy/ctd_minimum_cover.png
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="pre-shard-visualization">
+<h2>pre-shard visualization<a class="headerlink" href="#pre-shard-visualization" title="Link to this heading">#</a></h2>
+<p>Across instruments for the full available time window: Generate a presence/absence of data bar chart.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#top"><span class="xref myst">top</span></a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 5: Pre-shard visualization</span>
+<span class="c1"># Presence-absence time series for all instruments</span>
+<span class="c1"># Each instrument gets one horizontal bar showing when data exists</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">SCALAR_DIR</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">ooinet_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">)</span>
+<span class="n">VECTOR_DIR</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">ooinet_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">)</span>
+
+<span class="c1"># Instrument definitions: (key, label, base_dir, sensors_description)</span>
+<span class="n">INSTRUMENTS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;ctd&#39;</span><span class="p">,</span>  <span class="s1">&#39;CTD (T, S, DO, Dens)&#39;</span><span class="p">,</span> <span class="n">SCALAR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;flor&#39;</span><span class="p">,</span> <span class="s1">&#39;FLOR (Chl-A, CDOM, Bksct)&#39;</span><span class="p">,</span> <span class="n">SCALAR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;ph&#39;</span><span class="p">,</span>   <span class="s1">&#39;pH&#39;</span><span class="p">,</span> <span class="n">SCALAR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;pco2&#39;</span><span class="p">,</span> <span class="s1">&#39;pCO2&#39;</span><span class="p">,</span> <span class="n">SCALAR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;nitr&#39;</span><span class="p">,</span> <span class="s1">&#39;Nitrate&#39;</span><span class="p">,</span> <span class="n">SCALAR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;par&#39;</span><span class="p">,</span>  <span class="s1">&#39;PAR&#39;</span><span class="p">,</span> <span class="n">SCALAR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;vel&#39;</span><span class="p">,</span>  <span class="s1">&#39;Velocity (VELPT)&#39;</span><span class="p">,</span> <span class="n">VECTOR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;irr&#39;</span><span class="p">,</span>  <span class="s1">&#39;Spectral Irradiance (SPKIR)&#39;</span><span class="p">,</span> <span class="n">VECTOR_DIR</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;oa&#39;</span><span class="p">,</span>   <span class="s1">&#39;Optical Absorption (OPTAA)&#39;</span><span class="p">,</span> <span class="n">VECTOR_DIR</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">TIME_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d</span><span class="si">{8}</span><span class="s1">T\d</span><span class="si">{6}</span><span class="s1">)\.\d+-(\d</span><span class="si">{8}</span><span class="s1">T\d</span><span class="si">{6}</span><span class="s1">)\.\d+\.nc$&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_time_ranges</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all (start, end) time ranges for an instrument.&quot;&quot;&quot;</span>
+    <span class="n">ranges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">2027</span><span class="p">):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.nc&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">&#39;_cal_&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">TIME_RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">T%H%M%S&#39;</span><span class="p">)</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">T%H%M%S&#39;</span><span class="p">)</span>
+                <span class="n">ranges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ranges</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">merge_ranges</span><span class="p">(</span><span class="n">ranges</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge overlapping time ranges.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ranges</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="p">[</span><span class="n">ranges</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">ranges</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">max</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">end</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">merged</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">merged</span>
+
+<span class="c1"># Compute ranges for all instruments</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">base_dir</span> <span class="ow">in</span> <span class="n">INSTRUMENTS</span><span class="p">:</span>
+    <span class="n">ranges</span> <span class="o">=</span> <span class="n">get_time_ranges</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="n">merge_ranges</span><span class="p">(</span><span class="n">ranges</span><span class="p">)</span>
+    <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">merged</span><span class="p">))</span>
+
+<span class="c1"># Determine global time span</span>
+<span class="n">all_starts</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">ranges</span> <span class="ow">in</span> <span class="n">all_data</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranges</span> <span class="k">if</span> <span class="n">ranges</span><span class="p">]</span>
+<span class="n">all_ends</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">ranges</span> <span class="ow">in</span> <span class="n">all_data</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranges</span> <span class="k">if</span> <span class="n">ranges</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">all_starts</span> <span class="ow">and</span> <span class="n">all_ends</span><span class="p">:</span>
+    <span class="n">global_start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_starts</span><span class="p">)</span>
+    <span class="n">global_end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_ends</span><span class="p">)</span>
+    <span class="n">total_days</span> <span class="o">=</span> <span class="p">(</span><span class="n">global_end</span> <span class="o">-</span> <span class="n">global_start</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No data found.&quot;</span><span class="p">)</span>
+    <span class="n">total_days</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Print coverage summary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Global time span: </span><span class="si">{</span><span class="n">global_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">global_end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">total_days</span><span class="si">}</span><span class="s2"> days)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;Instrument&#39;</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Data-days&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Coverage&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;----------&#39;</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;---------&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;--------&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">merged</span> <span class="ow">in</span> <span class="n">all_data</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">merged</span><span class="p">:</span>
+        <span class="n">data_days</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">e</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">merged</span><span class="p">)</span>
+        <span class="n">pct</span> <span class="o">=</span> <span class="n">data_days</span> <span class="o">/</span> <span class="n">total_days</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">data_days</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pct</span><span class="si">:</span><span class="s2">&gt;9.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;0&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;0.0%&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span> <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span> <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span> <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span> <span class="s1">&#39;#17becf&#39;</span><span class="p">]</span>
+
+<span class="n">y_positions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># top to bottom</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">merged</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_data</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y_positions</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">idx</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">merged</span><span class="p">:</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="p">(</span><span class="n">start</span> <span class="o">-</span> <span class="n">global_start</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_positions</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="n">label</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">all_data</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Days since start&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Source Data Availability: Oregon Slope Base Shallow Profiler</span><span class="se">\n</span><span class="s1">&#39;</span>
+             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">global_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">global_end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_days</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add year markers</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">global_start</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">global_end</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">day_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">global_start</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">day_offset</span> <span class="o">&lt;</span> <span class="n">total_days</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">day_offset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">day_offset</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plot_path</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">visualizations_dir</span><span class="p">(</span><span class="n">SITE</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;pre_shard_data_availability.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">plot_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Plot saved to </span><span class="si">{</span><span class="n">plot_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No data found.
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">79</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>     <span class="n">total_days</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span> <span class="c1"># Print coverage summary</span>
+<span class="ne">---&gt; </span><span class="mi">79</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Global time span: </span><span class="si">{</span><span class="n">global_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">global_end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">total_days</span><span class="si">}</span><span class="s2"> days)&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;Instrument&#39;</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Data-days&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Coverage&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;----------&#39;</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;---------&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;--------&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;global_start&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="end">
+<h2>end<a class="headerlink" href="#end" title="Link to this heading">#</a></h2>
+<p>End of DataDownload.ipynb notebook.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#top"><span class="xref myst">top</span></a></p></li>
+</ul>
 </section>
 </section>
 
@@ -1358,12 +1614,12 @@ No deletable files found - set is already minimal.
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Umbrella.html"
+       href="../DevelopmentLog.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Umbrella</p>
+        <p class="prev-next-title">Development Log</p>
       </div>
     </a>
     <a class="right-next"
@@ -1391,8 +1647,23 @@ No deletable files found - set is already minimal.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-datasets-from-ooinet-to-localhost">Copy datasets from OOINET to localhost.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Data Download</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell">Cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-and-validate-datasets-from-ooinet-to-localhost">Copy and validate datasets from OOINET to localhost.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-download">pre-download</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#download">download</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-3-sensor-audit">Cell 3: Sensor Audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-4-overlap-audit">Cell 4: Overlap Audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cover-analysis">cover analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-5-minimum-cover-audit">Cell 5: Minimum Cover Audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-shard-visualization">pre-shard visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end">end</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

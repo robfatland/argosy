@@ -1,0 +1,1107 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Development Log &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'DevelopmentLog';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FDevelopmentLog.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/DevelopmentLog.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Development Log</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#red-zone">Red Zone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#umbrella">Umbrella</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#done-data-already-incorporated">Done: Data already incorporated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instruments-sensors-data-streams-beyond-the-shallow-profiler">Instruments/sensors/data streams beyond the shallow profiler</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-topics">Open Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-june-2026">Completed (June 2026)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-metadata-subfolder-sort">Completed (Sep 2026) — metadata subfolder sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-aug-2026-documentation-cleanup">Completed (Aug 2026) — documentation cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pending-to-do">Pending To Do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next">Next</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle-chart-applied-to-pp06">Bundle Chart applied to pp06</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="development-log">
+<h1>Development Log<a class="headerlink" href="#development-log" title="Link to this heading">#</a></h1>
+<p>This document:</p>
+<ul class="simple">
+<li><p>expands on project scope (see Red Zone and Umbrella sections)</p></li>
+<li><p>tracks progress</p></li>
+<li><p>is used for “what next?” content in three sections</p>
+<ul>
+<li><p>Open Topics: Reminder list for this very complex project</p></li>
+<li><p>Pending: Items to get too in the soon but not now time frame</p></li>
+<li><p>Next: The now time frame</p></li>
+</ul>
+</li>
+</ul>
+<p>For observatory background see <code class="docutils literal notranslate"><span class="pre">OOIObservatory.md</span></code>. For workflow / filesystem detail
+see <code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code>.</p>
+<section id="red-zone">
+<h2>Red Zone<a class="headerlink" href="#red-zone" title="Link to this heading">#</a></h2>
+<p>The red zone is metaphorically getting from clean data to data analysis.</p>
+<ul class="simple">
+<li><p>Starting point: A spatiotemporal dataset to pave the way</p>
+<ul>
+<li><p>OOI observatory (many arrays)</p></li>
+<li><p>Regional Cabled Array (RCA): Northeast Pacific off the coast of Oregon</p></li>
+<li><p>Single site/platform: Oregon Slope Base shallow profiler</p></li>
+<li><p>One instrument: CTD</p></li>
+<li><p>One sensor: Temperature</p></li>
+<li><p>Full-resolution data from OOINET (legacy data system) in NetCDF format</p></li>
+<li><p>Time series boxed by year</p></li>
+<li><p>Profiles time-boxed using metadata (up to 9 per day)</p>
+<ul>
+<li><p>Mostly using <em>ascent</em> with two exceptions for other sensors</p></li>
+</ul>
+</li>
+<li><p>2015 through 2025</p></li>
+<li><p>Result: A <code class="docutils literal notranslate"><span class="pre">redux</span></code> temperature profile dataset (comparatively low data volume)</p>
+<ul>
+<li><p>Profiles index to dimension <code class="docutils literal notranslate"><span class="pre">time</span></code> (replacing <code class="docutils literal notranslate"><span class="pre">obs</span></code>) with associated <code class="docutils literal notranslate"><span class="pre">depth</span></code></p></li>
+<li><p>Back this up to AWS S3 object storage</p></li>
+<li><p>Data folder is external to the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repo</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Create visualization tools based on <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> residing in a notebook in this Argosy Jupyter Book</p>
+<ul>
+<li><p>Plots tend to set up with temperature (etcetera) variation on the x-axis and depth on the y-axis</p></li>
+<li><p>Plots can be single profile or bundled (an overlay of many related profiles)</p>
+<ul>
+<li><p>Interactive bundle plots select time window width and starting point via two sliders</p></li>
+<li><p>This uses the interactive widget</p></li>
+</ul>
+</li>
+<li><p>Create time-series animations of this data</p></li>
+<li><p>From this start to formulate how to build a persistent anomaly dataset</p></li>
+</ul>
+</li>
+<li><p>Add 10 more scalar sensors following these guidelines</p>
+<ul>
+<li><p>Dissolved Oxygen, Salinity, Density, Backscatter, FDOM, Chlorophyll A</p></li>
+<li><p>pCO2, pH, PAR, Nitrate</p></li>
+<li><p>Follows the temperature plan</p></li>
+</ul>
+</li>
+<li><p>Add four vector sensors</p>
+<ul>
+<li><p>Point current measurement: east, north, up</p></li>
+<li><p>spectral irradiance: 7 wavelengths, downwelling</p></li>
+<li><p>instrument: spectrophotometer</p>
+<ul>
+<li><p>sensor: optical absorbance</p></li>
+<li><p>sensor: beam attenuation</p></li>
+<li><p>73 elements (wavelengths)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>For specs on the project file system see <code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code>)</p>
+<ul>
+<li><p>source data</p></li>
+<li><p>metadata including profile time boundaries</p></li>
+<li><p>separated sensor+profile data files (“sharding” (<code class="docutils literal notranslate"><span class="pre">redux</span></code>))</p></li>
+<li><p>post-processing versions of the sharded data</p></li>
+</ul>
+</li>
+<li><p>Build out analysis machinery</p></li>
+</ul>
+</section>
+<section id="umbrella">
+<h2>Umbrella<a class="headerlink" href="#umbrella" title="Link to this heading">#</a></h2>
+<p>The umbrella is abstractly “incorporating other data resources beyond the shallow profiler sensors
+found at the Oregon Slope Base site”. This term comes from considering remote sensing time series
+data (with some geospatial extent) as the umbrella canopy; where the shallow profiler sensors
+comprise the umbrella pole.</p>
+<section id="done-data-already-incorporated">
+<h3>Done: Data already incorporated<a class="headerlink" href="#done-data-already-incorporated" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tidal model predictions</strong>: Harmonic constituents for the three RCA shallow profiler sites
+(Oregon Offshore, Oregon Slope Base, Axial Base) were extracted from the TPXO10-atlas-v2
+global tidal model. The extracted data is stored in <code class="docutils literal notranslate"><span class="pre">tidal_constituents.json</span></code> — self-contained
+for predicting tidal height at any time. Extraction scripts retired after producing the JSON.
+Analysis of start-depth vs tidal prediction documented in <code class="docutils literal notranslate"><span class="pre">TidalAnalysis.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="instruments-sensors-data-streams-beyond-the-shallow-profiler">
+<h3>Instruments/sensors/data streams beyond the shallow profiler<a class="headerlink" href="#instruments-sensors-data-streams-beyond-the-shallow-profiler" title="Link to this heading">#</a></h3>
+<p>This is at much lower task resolution.</p>
+<ul class="simple">
+<li><p>Use current sensors (ADCP etcetera) on the profiler platform for current</p></li>
+<li><p>Extend the Oregon Slope Base workflow to the other two shallow profilers in the RCA</p></li>
+<li><p>Incorporate NOAA sea surface state buoy data</p></li>
+<li><p>Apply the methodology to the shallow profiler platform moored at 200 meters</p></li>
+<li><p>Extend focus within RCA to other sensors</p>
+<ul>
+<li><p>Horizontal Electrometer Pressure Inverted Echosounders (HPIES; 2 sites)</p></li>
+<li><p>Broadband Hydrophone and other acoustic sensors as directed (see WL, SA)</p></li>
+<li><p>Axial tilt meters, seismometers etcetera</p></li>
+</ul>
+</li>
+<li><p>Glider data from Coastal Endurance</p></li>
+<li><p>NANOOS installations</p></li>
+<li><p>ARGO</p></li>
+<li><p>Global ocean dataset formerly known as GLODAP</p></li>
+<li><p>PO-DAAC data including</p></li>
+<li><p>Inferred ocean surface chlorophyll (LANDSAT, MODIS etcetera)</p></li>
+<li><p>Publish the pipeline and output results to be openly available</p>
+<ul>
+<li><p>Includes appraisal of working on the OOI-hosted Jupyter Hub</p></li>
+<li><p>Includes containerization as appropriate</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="open-topics">
+<h2>Open Topics<a class="headerlink" href="#open-topics" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Explore access to and use of the data cube provided by Joe and Wendi: How does it map to the data scheme of this repo?</p></li>
+<li><p>Open-science publishing: decide do-or-don’t on OSF (Open Science Framework) as a project hub for repo+data+poster. Zenodo (code by-reference + poster/data by-upload) and Figshare (redundant visibility) are the current plan; OSF is the open question. See <code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code>.</p></li>
+<li><p>Baffle LH with cyclonicity, learn critical depth vis a population and compensation depth vis individual and review SeaFlow with Cornell</p></li>
+<li><p>Clean up <code class="docutils literal notranslate"><span class="pre">chapters/StubWork.ipynb</span></code>: still uses hardcoded <code class="docutils literal notranslate"><span class="pre">~/ooi/...</span></code> paths (left as-is during
+the Aug 2026 <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> conversion since it’s a scratch notebook). Either convert its cells
+to <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> accessors (cells ~2,3,4,9,11,13,25) or prune stale scratch cells.</p></li>
+<li><p>Inquire about a shallow profiler conversation with A.Gray</p></li>
+<li><p>Bundle plot “Scanning redux folders” message counts shard files rather than unique profiles.
+Replace with profile count from <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> plus maximum possible.</p></li>
+<li><p>2020 T vs S has odd behaviors: Wide aneurism in salinity; +/- buttons don’t behave as expected.
+Suggest making mean/std box width a slider.</p></li>
+<li><p>Backscatter shard: Verify using <code class="docutils literal notranslate"><span class="pre">optical_backscatter</span></code> not <code class="docutils literal notranslate"><span class="pre">total_volume_scattering_etcetera</span></code>.</p></li>
+<li><p>Revamp animations (frame timing, hold time per frame).</p></li>
+<li><p>Add curtain plots: See e.g. <code class="docutils literal notranslate"><span class="pre">~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb</span></code>.</p></li>
+<li><p>Axis offset calculation for dual-sensor bundle plots: Verify the math with a worked example.</p></li>
+<li><p>DO streams: Confirmed CTD-derived DO is identical to DOFSTA; using CTD as single source.</p></li>
+<li><p>Revalidate that DO data is identical to the DO sensor data found in the CTD instrument file (side-by-side value comparison still pending).</p></li>
+<li><p>Is there a means of automated data retrieval from OOINET (eliminating the manual order step)?</p></li>
+<li><p>Proper use of engineering / metadata to validate a sensor time series: Use data quality flags (qartod) to disqualify certain segments automatically.</p></li>
+<li><p>Profile count calculation confusion (line ~1050):</p>
+<ul>
+<li><p>The diagnostic shows “4394 profiles” for 2015 but then says it should show “578 profiles (3285 possible)”</p></li>
+<li><p>The document correctly identifies this as counting shard files (4 sensors × ~1100 profiles ≈ 4400)</p></li>
+<li><p>But the logic needs clarification: Are you counting unique profiles or total shard files?</p></li>
+</ul>
+</li>
+<li><p>Time zone handling ambiguity:</p>
+<ul>
+<li><p>Mentions UTC-8/UTC-7 for standard/daylight time</p></li>
+<li><p>Doesn’t specify when DST transitions occur (important for the NOON/MIDNIGHT logic)</p></li>
+<li><p>Consider adding explicit DST transition dates or using a timezone library</p></li>
+</ul>
+</li>
+<li><p>Coincidence detection plans: See <code class="docutils literal notranslate"><span class="pre">CoincidencePlans.md</span></code> for multi-sensor anomaly flagging
+(auto-coincidence and hetero-coincidence). Referenced from <code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> → Pending modifications.
+-Gripes section (line ~180):</p>
+<ul>
+<li><p>Mentions “two streams for DO” plus a third - this unresolved question could affect the dissolved oxygen processing</p></li>
+<li><p>Should be investigated before finalizing the sensor variable names</p></li>
+</ul>
+</li>
+<li><p>Animation frame timing (line ~450):</p>
+<ul>
+<li><p>Says “If possible: Add in a ‘hold time’ per frame of d seconds”</p></li>
+<li><p>This uncertainty should be resolved - matplotlib animations support frame duration</p></li>
+</ul>
+</li>
+<li><p>Axis offset calculation (lines ~900-920):</p>
+<ul>
+<li><p>The formula for offsetting two sensor ranges is clever but could use a worked example</p></li>
+<li><p>The concrete example helps but doesn’t match the formula exactly (should verify the math)</p></li>
+</ul>
+</li>
+<li><p>Terminology for indexing profiles:</p>
+<ul>
+<li><p>“global profile index” means the ordinal global index across all time: From profileIndices</p></li>
+<li><p>“daily profile number” refers to a particular day: Which profile this is in the range 1 – 9</p></li>
+</ul>
+</li>
+<li><p>Finding and using QC flags (qartod) for data exclusion filter: See <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> QC Filter section.
+Initial study shows 0.11% suspect temperature and 9.38% suspect conductivity in a 2018 CTD file.
+Need to determine if flagged data falls within profiles (actionable) or at rest (ignorable).</p></li>
+<li><p>Validation test: Calculate contour lines with independent code and compare with Vis.ipynb notebook
+values produced for curtain plots. Reference data: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/metadata/curtain_contour_values.csv</span></code>.</p></li>
+<li><p>Revisit ChlorA and CDOM curtain plots: Can they be redeemed? (Dynamic range shifts across time make
+single-colormap representation poor. Consider per-segment normalization or log scale.)</p></li>
+<li><p>Place curtain plot at the top of the Vis notebook; and set up a control in the interactive bundle
+chart to launch a bundle chart animation run.</p></li>
+<li><p>Consolidate the bundle animation cells in Vis.ipynb (see analysis below).</p></li>
+<li><p><strong>Testing follow-up (high priority)</strong>: Implement and run the tests defined in <code class="docutils literal notranslate"><span class="pre">Testing.md</span></code>
+(SGA synthetic validation, internal wave incompressibility check). Failed tests go to Open Topics.</p>
+<ul>
+<li><p>Internal wave incompressibility: DONE. Stream function formulation passes at &lt;3%.
+Remaining error is finite-amplitude (Lagrangian vs Eulerian). See <code class="docutils literal notranslate"><span class="pre">Testing.md</span></code> for details.</p></li>
+</ul>
+</li>
+<li><p><strong>SGA depth grid range</strong>: Does expanding the SGA depth quantization range add any value to
+the analysis? e.g. 185m - 27m becomes 195m - 5m; see png of histograms at
+<code class="docutils literal notranslate"><span class="pre">~/ooi/sb/analysis/sga/depth_range_histograms.png</span></code>. Also consider depth bin width as a
+hyperparameter: 2m (current, 80 bins) vs 1m (160 bins, doubles feature dimension). Finer bins
+may resolve thin layers but risk curse-of-dimensionality effects in the SGA distance metric.</p></li>
+<li><p><strong>Deep profiler O₂ integration</strong>: Combine shallow profiler (RS01SBPS, 0–200m) with deep profiler
+(RS01SBPD, 200–2900m) to visualize the full water column oxygen structure including the OMZ core
+and deep recovery. See <code class="docutils literal notranslate"><span class="pre">Umbrella.md</span></code> → “Deep Profiler: Full Water Column Oxygen Structure”.</p></li>
+<li><p><strong>SGA two-cluster problem</strong>: Multi-year runs converge to k=2 (seasonal dominance). Need diagnostic
+plan: try per-year analysis, force higher k, vary σ², examine outlier cluster composition,
+consider sub-annual windowing. See <code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis.md</span></code> → “Known Issues / History”.</p></li>
+<li><p>Erratics filter: Identify and suppress spurious profile data (e.g. salinity bundles with 180 profiles
+frequently show 1–2 profiles with clearly non-physical values). Could operate as a pp05-level filter
+or a runtime toggle in the bundle chart. Needs a detection heuristic (e.g. profile mean outside
+N sigma of bundle mean, or individual points beyond physical bounds).</p></li>
+<li><p>CDOM quantization/smoothing: The WET Labs ECO FLORT sensor digitizes CDOM fluorescence from
+raw counts with coarse ADC resolution, producing a staircase-like profile that obscures real
+structure. References for smoothing approaches:</p>
+<ul>
+<li><p><strong>Savitzky-Golay filter</strong> (Savitzky &amp; Golay 1964; scipy.signal.savgol_filter): Fits local
+polynomials via least squares. Preserves peak width and position better than moving average.
+Standard choice in spectroscopy for quantized/noisy data. Window size = depth span (~5–11
+points at 2m bins = 10–22m smoothing window). Polynomial order 2 or 3.</p></li>
+<li><p><strong>LOWESS/LOESS</strong> (Cleveland 1979; statsmodels.nonparametric.lowess): Locally weighted
+regression, robust to outliers. More computationally expensive but handles irregular
+spacing well. <code class="docutils literal notranslate"><span class="pre">frac</span></code> parameter controls smoothing bandwidth.</p></li>
+<li><p><strong>Median filter</strong> (scipy.ndimage.median_filter): Non-linear, good for removing single-point
+spikes while preserving step edges. Less good for quantization noise specifically.</p></li>
+<li><p>Recommendation: Start with Savitzky-Golay (window=11, polyorder=2) as Filter 2 for CDOM
+in pp06. Compare visually with raw data in bundle chart. Same filter likely applicable to
+ChlorA and backscatter.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="completed-june-2026">
+<h2>Completed (June 2026)<a class="headerlink" href="#completed-june-2026" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Full re-shard complete (all instruments, all years 2015–2025). Redux data in <code class="docutils literal notranslate"><span class="pre">~/ooi/redux/</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/ooi/ooinet/</span></code> (204 GB source NetCDF) synced to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/ooinet/</span></code> and deleted locally.</p></li>
+<li><p>pCO2, nitrate, PAR, pH added to sharding pipeline and sharded.</p></li>
+<li><p>NOON/MIDNIGHT identification: DONE via <code class="docutils literal notranslate"><span class="pre">profile_duration_histograms.py</span></code> → <code class="docutils literal notranslate"><span class="pre">~/ooi/metadata/</span></code>.</p></li>
+<li><p>PAR fixed in Sensor Table.</p></li>
+<li><p>Bundle plot SENSORS dict already includes all 11 scalar sensors (temperature, salinity,
+density, dissolvedoxygen, cdom, chlora, backscatter, ph, pco2, nitrate, par).</p></li>
+<li><p>Vis notebook bundle chart: Modifications attempted (slider fix, CDOM/ChlorA/backscatter
+range updates, exclusion filter, time-aligned indexing). Changes proved fragile; notebook
+was reverted to git state. Rebuild plan documented in <code class="docutils literal notranslate"><span class="pre">~/argosy/VisNotebookRebuild.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="completed-sep-2026-metadata-subfolder-sort">
+<h2>Completed (Sep 2026) — metadata subfolder sort<a class="headerlink" href="#completed-sep-2026-metadata-subfolder-sort" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Metadata folder inventory + sort DONE</strong> (resolves the old “jumbled catch-all” open topic).
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/</span></code> now has 7 subfolders, each with a self-documenting README (per the
+new steering guideline): <code class="docutils literal notranslate"><span class="pre">qc/</span></code>, <code class="docutils literal notranslate"><span class="pre">profiles/</span></code>, <code class="docutils literal notranslate"><span class="pre">features/</span></code>, <code class="docutils literal notranslate"><span class="pre">annotations/</span></code>, <code class="docutils literal notranslate"><span class="pre">external/</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cache/</span></code>, <code class="docutils literal notranslate"><span class="pre">scans/</span></code>. Files were sorted WITHOUT renaming (naming-convention cleanup deferred).
+<code class="docutils literal notranslate"><span class="pre">ooipaths.metadata_dir(site,</span> <span class="pre">sub)</span></code> gained the <code class="docutils literal notranslate"><span class="pre">sub</span></code> arg + <code class="docutils literal notranslate"><span class="pre">METADATA_SUBDIRS</span></code>; producer/consumer
+scripts updated (pp05→qc, profile_duration_histograms→profiles, plume/iw feature extractors→
+features, satellite fetchers→external, curtain/animate caches→cache). Plume + iw scripts were
+also converted to ooipaths in the process (they’d been out of the earlier restructure scope).
+<code class="docutils literal notranslate"><span class="pre">annotations/</span></code> created as a documented placeholder (VisQC/plume/IW human labels will land there).
+Verified: all accessors resolve to relocated files; touched scripts compile.</p></li>
+</ul>
+</section>
+<section id="completed-aug-2026-documentation-cleanup">
+<h2>Completed (Aug 2026) — documentation cleanup<a class="headerlink" href="#completed-aug-2026-documentation-cleanup" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> restructure</strong>: Merged two duplicate “QC Filter” sections into one;
+rehomed the orphaned pp01/pp02 depth-histogram block; reordered into pipeline-logical flow
+(filesystem recap → pp01/02 → pp05/06 → tides → QC → data-ops pointer). File now 363 lines
+(under the 400-line convention).</p></li>
+<li><p><strong>HSD acronym typo fixed</strong> (was “HDS”, wrong expansion “High Data-density Sampling” →
+correct “High Sample Density”) across <code class="docutils literal notranslate"><span class="pre">postprocess_pp06.py</span></code> (docstring + <code class="docutils literal notranslate"><span class="pre">HSD_SENSORS</span></code>/
+<code class="docutils literal notranslate"><span class="pre">hsd_manifest</span></code> identifiers; recompiles clean), <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code>, <code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis.md</span></code>,
+<code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>. Verified NO real “HDS” text exists in any notebook cell source — the
+earlier grep hits in <code class="docutils literal notranslate"><span class="pre">ColumbiaPlume</span></code>, <code class="docutils literal notranslate"><span class="pre">StubWork</span></code>, <code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis</span></code>, <code class="docutils literal notranslate"><span class="pre">Visualizations</span></code>
+notebooks were all base64 image-output blobs, not editable text. Nothing pending there.</p></li>
+<li><p><strong>Script-name/cross-reference audit</strong>: No drift. All pp05/pp06 scripts and <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code>
+exist; doc filter-to-script mapping matches the code.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> created</strong>: Split S3 sync/backup and localhost WSL vhdx disk management out of
+<code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code>. Cross-references wired in <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> (Pointers to Key Actions,
+companion-file index, pandoc PDF list) and <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>. Also fixed a pre-existing
+duplicate/corrupted S3-backup pointer in <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="pending-to-do">
+<h2>Pending To Do<a class="headerlink" href="#pending-to-do" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Complete the VisQC workflow</strong> (<code class="docutils literal notranslate"><span class="pre">iw/VisQCInspector.py</span></code> + planned <code class="docutils literal notranslate"><span class="pre">iw/VisQCCorrector.py</span></code>).
+The Inspector is a working TkAgg GUI (steps through profiles, adjustable cline boundary lines)
+but is NOT functional as a QC tool: (1) it has no accept/correct/discard controls and writes
+NO output — the “visitation CSV” from <a class="reference external" href="http://VisQC.md">VisQC.md</a> is unimplemented; (2) <code class="docutils literal notranslate"><span class="pre">VisQCCorrector.py</span></code>
+(Stage 2, produces corrected <code class="docutils literal notranslate"><span class="pre">cline_extract</span></code>) does not exist; (3) it reads <code class="docutils literal notranslate"><span class="pre">*_thickness</span></code>
+columns that <code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code> does not yet produce (<a class="reference external" href="http://VisQC.md">VisQC.md</a> lists thickness as a future
+enhancement), so boundaries fall back to 40–60 m defaults. To finish: add the decision
+controls + visitation-CSV writer (output to <code class="docutils literal notranslate"><span class="pre">metadata/annotations/</span></code>), reconcile the thickness
+dependency (add thickness to cline_extract OR edit depth-only), build the Corrector, and it’s
+already converted to ooipaths/per-site (Sep 2026). See <code class="docutils literal notranslate"><span class="pre">VisQC.md</span></code>.</p></li>
+<li><p><strong>pp06 filters for all 8 HSD sensors</strong>: Filter 1 (salinity/density MRA) is implemented.
+Remaining sensors need their own filters:</p>
+<ul>
+<li><p>CDOM: quantized signal, needs smoothing filter (see below)</p></li>
+<li><p>ChlorA: likely similar quantization issues to CDOM</p></li>
+<li><p>Backscatter: may have spike/erratic issues</p></li>
+<li><p>Temperature: generally clean but check for rare spikes</p></li>
+<li><p>Dissolved Oxygen: check for conductivity-coupled artifacts</p></li>
+<li><p>PAR: high dynamic range, check for saturation/zeroing</p></li>
+</ul>
+</li>
+<li><p><strong>CDOM smoothing research</strong>: The FLORT ECO sensor outputs digitized counts with
+coarse resolution (quantization noise). Candidate filters:</p>
+<ul>
+<li><p>Savitzky-Golay (polynomial local regression, preserves peaks/shape)</p></li>
+<li><p>LOWESS/LOESS (locally weighted regression, robust to outliers)</p></li>
+<li><p>Median filter (good for spike removal, preserves edges)</p></li>
+<li><p>Depth-binned averaging (simple, interpretable)
+See references in Open Topics below.</p></li>
+</ul>
+</li>
+<li><p><strong>Vis notebook rebuild</strong>: Apply changes from <code class="docutils literal notranslate"><span class="pre">VisNotebookRebuild.md</span></code> (bundle plot slider fix,
+SENSORS dict range updates, exclusion filter, time-aligned indexing, curtain plot rewrite,
+animation data source selector).</p></li>
+<li><p>Regenerate noon/midnight metadata CSVs (<code class="docutils literal notranslate"><span class="pre">profile_duration_histograms.py</span></code>)</p></li>
+<li><p>Regenerate pp01/pp02 (<code class="docutils literal notranslate"><span class="pre">postprocess_special_profiles.py</span> <span class="pre">noon</span></code> and <code class="docutils literal notranslate"><span class="pre">midnight</span></code>)</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> environment installed libraries against <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></p></li>
+<li><p>LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)</p></li>
+<li><p>TMLD/ directory: Decide whether to keep <code class="docutils literal notranslate"><span class="pre">tmld_estimates.csv</span></code> as historical data; delete the empty <code class="docutils literal notranslate"><span class="pre">tmld_selector.py</span></code></p></li>
+<li><p>Order VELPT data for 2018–present (lower priority; deferred for SGA feature vector)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> to reflect the documentation refactor</p></li>
+<li><p>Copy updated <code class="docutils literal notranslate"><span class="pre">pre_shard_data_availability.png</span></code> to <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code> after each regeneration</p></li>
+<li><p>Backscatter shard: Verify using <code class="docutils literal notranslate"><span class="pre">optical_backscatter</span></code> not <code class="docutils literal notranslate"><span class="pre">total_volume_scattering_etcetera</span></code></p></li>
+<li><p>Revamp animations (frame timing, hold time per frame)</p></li>
+<li><p>2020 T vs S odd behaviors: Wide aneurism in salinity; suggest making mean/std box width a slider</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">20xx_do</span></code> folder: 33 DOFSTA files (2014-2025) from a separate fast-response DO instrument
+(DOFSTA102), NOT redundant with CTD-derived DO. Decide: integrate as second DO source or leave?</p></li>
+<li><p>Concerning NOON / MIDNIGHT determination:</p>
+<ul>
+<li><p>From 2017 onward, three sensors operate exclusively on daily_index 4 (midnight)
+and 9 (post-noon, ~13:40 local):</p>
+<ul>
+<li><p><strong>Nitrate</strong>: ascent data, ~150 points/profile, full depth range</p></li>
+<li><p><strong>pCO2</strong>: descent data, ~10 points/profile</p></li>
+<li><p><strong>pH</strong>: descent data, ~10 points/profile (files exist for all 9 but only 4 and 9 usable)</p></li>
+</ul>
+</li>
+<li><p>In 2015–2016 these sensors operated on more/all profiles before being restricted.</p></li>
+</ul>
+</li>
+<li><p><strong>input() fallback for cloud JupyterHubs</strong>: <code class="docutils literal notranslate"><span class="pre">vis/bundle_chart.py</span></code> and <code class="docutils literal notranslate"><span class="pre">vis/bundle_animate.py</span></code>
+use <code class="docutils literal notranslate"><span class="pre">input()</span></code> which fails on cloud hubs (stdin disabled). Wrap in try/except with silent
+fallback to defaults. See steering conventions for the pattern.</p></li>
+<li><p><strong>Potential density (sigma-0)</strong>: The pipeline uses in-situ density from the CTD data product.
+For analysis requiring accurate N² (internal waves, static stability), compute potential
+density using <code class="docutils literal notranslate"><span class="pre">gsw.sigma0(SA,</span> <span class="pre">CT)</span></code> from the TEOS-10 library. Negligible difference for
+visualization at 0–200 m, but matters for quantitative buoyancy frequency calculations
+and for comparison with deep profiler data spanning 0–2900 m.</p></li>
+</ul>
+</section>
+<section id="next">
+<h2>Next<a class="headerlink" href="#next" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><strong>Filesystem restructure to per-site layout (in progress, Aug 2026)</strong>. Adds a site
+dimension to the <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code> data tree, centralized through a new <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> path module.</p>
+<p>Canonical site codes (verified against OOI, Aug 2026):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Site</p></th>
+<th class="head"><p>OOI designator</p></th>
+<th class="head"><p>SP node</p></th>
+<th class="head"><p>Array</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sb</span></code></p></td>
+<td><p>Oregon Slope Base</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RS01SBPS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SF01A</span></code></p></td>
+<td><p>RCA (Cabled Continental Margin)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">oo</span></code></p></td>
+<td><p>Oregon Offshore</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CE04OSPS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SF01B</span></code></p></td>
+<td><p>Coastal Endurance (cabled)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ab</span></code></p></td>
+<td><p>Axial Base</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RS03AXPS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SF03A</span></code></p></td>
+<td><p>RCA</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Agreed target layout (root stays <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code>; no <code class="docutils literal notranslate"><span class="pre">rca/</span></code> level; site is top internal level;
+<code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> and <code class="docutils literal notranslate"><span class="pre">metadata</span></code> move inside each site; drop doubled <code class="docutils literal notranslate"><span class="pre">redux</span></code> year prefix):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">ooi</span><span class="o">/&lt;</span><span class="n">site</span><span class="o">&gt;/</span><span class="p">{</span><span class="n">ooinet</span><span class="p">,</span> <span class="n">redux</span><span class="o">/&lt;</span><span class="n">yyyy</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">postproc</span><span class="o">/&lt;</span><span class="n">pp</span><span class="o">&gt;/&lt;</span><span class="n">yyyy</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">profileIndices</span><span class="p">,</span> <span class="n">metadata</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>All three sites share the identical 15-sensor layout (4 vector + 11 scalar). <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code> is
+implicitly the shallow-profiler corpus; deep profilers/seafloor get their own root later.</p>
+<p>Ordered plan:</p>
+<ol class="arabic simple">
+<li><p>Canonicalize + record site codes (DONE — this table, Sites table in <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code>).</p></li>
+<li><p>Write <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> describing the CURRENT layout (DONE, Aug 2026). Every accessor verified
+to resolve to real on-disk paths. Two discoveries captured in the module, both matter for
+steps 4–5:</p>
+<ul class="simple">
+<li><p><strong>pp nesting is inconsistent on disk</strong>: pp01/pp02 use <code class="docutils literal notranslate"><span class="pre">postproc/&lt;pp&gt;/redux/redux&lt;yyyy&gt;</span></code>
+(extra <code class="docutils literal notranslate"><span class="pre">redux/</span></code> level) while pp06 uses <code class="docutils literal notranslate"><span class="pre">postproc/&lt;pp&gt;/redux&lt;yyyy&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">ooipaths.postproc_dir</span></code>
+models both faithfully now; the Step-4 flip UNIFIES them to <code class="docutils literal notranslate"><span class="pre">postproc/&lt;pp&gt;/&lt;yyyy&gt;</span></code>.</p></li>
+<li><p><strong>profileIndices is already multi-site</strong>, keyed by full OOI designator
+(<code class="docutils literal notranslate"><span class="pre">RS01SBPS/RS01SBPD</span></code>, <code class="docutils literal notranslate"><span class="pre">CE04OSPS/CE04OSPD</span></code>, <code class="docutils literal notranslate"><span class="pre">RS03AXPS/RS03AXPD</span></code> → sb/oo/ab, shallow+deep).
+So per-site profileIndices already exist by filename; the restructure formalizes the folder.</p></li>
+</ul>
+</li>
+<li><p>Convert all scripts + notebooks to import from <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code>; verify (dry runs, Module-1
+sanity check). Nothing moved yet — fully reversible. DONE (Aug 2026):</p>
+<ul class="simple">
+<li><p>Scripts converted directly (23 files compile clean): 5 postprocess scripts, all SGA
+(config + module1-7 + depth_analysis + sensor_presence, via <code class="docutils literal notranslate"><span class="pre">op.analysis_dir('sga')</span></code>),
+<code class="docutils literal notranslate"><span class="pre">TimeSeriesProfileCorrelation.py</span></code>, <code class="docutils literal notranslate"><span class="pre">profile_duration_histograms.py</span></code>, and vis modules
+(<code class="docutils literal notranslate"><span class="pre">bundle_chart</span></code>, <code class="docutils literal notranslate"><span class="pre">bundle_animate</span></code>, <code class="docutils literal notranslate"><span class="pre">curtain_plot</span></code>, <code class="docutils literal notranslate"><span class="pre">curtain_batch</span></code>). SGA/vis import
+<code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> via a <code class="docutils literal notranslate"><span class="pre">sys.path.insert(~/argosy)</span></code> preamble (needed under <code class="docutils literal notranslate"><span class="pre">%run</span></code>).</p></li>
+<li><p>Notebook edits (DataDownload, DataSharding) handed to user as cell-by-cell instructions
+(per convention: user edits .ipynb, then JSON-validates). MidnightNoon (comments only)
+and StubWork (scratch) skipped. Added <code class="docutils literal notranslate"><span class="pre">op.ooinet_dir(site,</span> <span class="pre">channel)</span></code> for the raw
+<code class="docutils literal notranslate"><span class="pre">ooinet/rca/SlopeBase/{scalar,vector}</span></code> tree.</p></li>
+<li><p>Verified: pp06 <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> resolved all 12 years to correct existing paths (160133
+manifest entries); SGA config+module1 ran from <code class="docutils literal notranslate"><span class="pre">chapters/</span></code> CWD and scanned real pp06.</p></li>
+<li><p>Scope note: <code class="docutils literal notranslate"><span class="pre">plume/*.py</span></code> and <code class="docutils literal notranslate"><span class="pre">_check_*.py</span></code> intentionally NOT converted (option (a)).
+STEP-4 FLIP CONCERNS (join <code class="docutils literal notranslate"><span class="pre">redux&lt;yyyy&gt;</span></code> onto a base; revisit when redux_dir drops the
+doubled prefix): <code class="docutils literal notranslate"><span class="pre">curtain_core.load_profiles</span></code>, <code class="docutils literal notranslate"><span class="pre">sga_module1.py</span></code> (from pickled config),
+vis <code class="docutils literal notranslate"><span class="pre">SOURCE_PATHS</span></code> pp01/pp02 <code class="docutils literal notranslate"><span class="pre">/redux</span></code> level. Cosmetic hardcoded strings remain in
+<code class="docutils literal notranslate"><span class="pre">special_profiles.py</span></code> prints/README and deprecated <code class="docutils literal notranslate"><span class="pre">bundle_animation.py</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Flip <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> + move data + re-key S3. DONE (Sep 2026):</p>
+<ul class="simple">
+<li><p>Phase A fixed the flip concerns (curtain_core discovers year dirs; sga_module1 +
+vis modules use <code class="docutils literal notranslate"><span class="pre">op.postproc_dir</span></code>/a <code class="docutils literal notranslate"><span class="pre">source_year_dir</span></code> helper).</p></li>
+<li><p>Phase B flipped <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code>: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;yyyy&gt;</span></code>, unified
+<code class="docutils literal notranslate"><span class="pre">postproc/&lt;pp&gt;/&lt;yyyy&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">ooinet[/channel]</span></code> (dropped <code class="docutils literal notranslate"><span class="pre">rca/SlopeBase</span></code>). All 23 callers compile.</p></li>
+<li><p>Phase C: user ran local <code class="docutils literal notranslate"><span class="pre">mv</span></code> (all data now under <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/</span></code>) and S3 re-key
+(<code class="docutils literal notranslate"><span class="pre">sb/redux</span></code>, <code class="docutils literal notranslate"><span class="pre">sb/postproc/pp06</span></code>); stray top-level <code class="docutils literal notranslate"><span class="pre">pp06/</span></code> deleted; <code class="docutils literal notranslate"><span class="pre">ooinet/</span></code> kept legacy
+keys; bucket policy repointed to <code class="docutils literal notranslate"><span class="pre">sb/redux/*</span></code> + <code class="docutils literal notranslate"><span class="pre">sb/postproc/*</span></code> (public read verified).</p></li>
+<li><p>GOTCHA (record for future re-runs / new sites): the pp05 manifest stored ABSOLUTE
+source paths and had to be path-patched after the move (<code class="docutils literal notranslate"><span class="pre">sed</span></code> old→new prefix). Any
+generated file holding absolute paths needs the same treatment.</p></li>
+<li><p>Verified post-move: all <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> accessors resolve to real dirs; pp06 <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>
+0 missing/0 errors; SGA module1 scanned real data (3695 profiles).</p></li>
+</ul>
+</li>
+<li><p>Update docs in lockstep. DONE (Sep 2026): <a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a> recap rewritten to per-site;
+<a class="reference external" href="http://DataOps.md">DataOps.md</a> S3 layout + policy + ooinet-legacy note; <a class="reference external" href="http://Sharding.md">Sharding.md</a> (profileIndices per-site as
+explicit ingest step + all shard paths); steering conventions; <a class="reference external" href="http://SensorTable.md">SensorTable.md</a>; plus
+Testing, ColumbiaPlumePlan, TidalAnalysis, SpectralGraphAnalysis, InternalWaves, Workflow,
+PP05_QCAnalysis, SETUP, Visualization, CodeManifest, OOINETSlopeBaseDataStatus. Historical
+“Completed” log entries left as-is (accurate record of the pre-restructure state).</p></li>
+</ol>
+<p><strong>RESTRUCTURE COMPLETE (Sep 2026).</strong> Code, local data, S3, and docs all on the per-site layout.</p>
+<p>Execution conventions: filesystem <code class="docutils literal notranslate"><span class="pre">mv</span></code> and S3 re-key handed to user as copy-paste commands;
+notebook edits given as cell-by-cell instructions for the user to apply (then validate JSON).
+Checkpoint between steps 3 and 4 (last fully-reversible point).</p>
+</li>
+<li><p><strong>Cloud batch sharding pipeline (PLAN OF RECORD, Aug 2026).</strong> Move raw→redux→postproc
+processing off localhost and next to the data in S3. Motivation: avoid the 204 GB round-trip
+through home internet, and avoid the maintenance toil of a persistent cloud VM / JupyterHub.</p>
+<p>Target flow:</p>
+<ol class="arabic simple">
+<li><p>Execute OOI data orders; receive OOINET delivery notifications.</p></li>
+<li><p>Pull the delivered product files DIRECTLY to S3 (raw → <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/ooinet/...</span></code>),
+not via localhost.</p></li>
+<li><p>Run sharding + postprocess as EPHEMERAL BATCH COMPUTE (AWS Batch or transient spot EC2;
+NOT a standing server). Job clones argosy, runs the existing <code class="docutils literal notranslate"><span class="pre">postprocess_pp*</span></code> / sharding
+scripts reading from S3 and writing redux/pp results back to S3, then self-terminates.</p></li>
+<li><p>Download only the compact results (~20 GB redux + postproc) to localhost for analysis.</p></li>
+</ol>
+<p>Enablers already in place: raw already treated as S3-resident (local <code class="docutils literal notranslate"><span class="pre">ooinet/</span></code> deleted);
+processing is script-based, not notebook-bound; <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> centralizes+site-parameterizes
+paths so the same scripts run local or cloud with only <code class="docutils literal notranslate"><span class="pre">OOI_ROOT</span></code> differing.</p>
+<p><strong>HARD REQUIREMENT — incremental / restartable ingest.</strong> Dataset accumulation is stochastic:
+we will routinely go back and fill gaps (forgotten sensor, missing time chunk, vector data
+largely absent, only partial 2026 at Slope Base). The pipeline MUST shard ONLY the new/changed
+source and leave existing shards untouched — no full re-shard on every top-up.
+Design implications to work out when we build this:</p>
+<ul class="simple">
+<li><p>Idempotent per-shard: a shard’s existence (by deterministic filename) means “done”; skip it.
+Sharding keys off <code class="docutils literal notranslate"><span class="pre">RCA_&lt;site&gt;_sp_&lt;sensor&gt;_&lt;yyyy&gt;_&lt;ddd&gt;_&lt;gpi&gt;_&lt;daily&gt;_V1.nc</span></code>, so a shard’s
+name is fully determined by its source → easy existence check before writing.</p></li>
+<li><p>Detect new source: diff delivered OOINET files against what’s already sharded (manifest or
+S3 listing), process only the delta. Consider a per-site/sensor/year ingest ledger.</p></li>
+<li><p>pp05 manifest is already resumable per-year; but note it must be REGENERATED (or path-
+patched) after new redux lands, and it stores absolute paths (see restructure gotcha).</p></li>
+<li><p>pp06 already skips existing outputs (<code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> showed “skipped (already exists)”).</p></li>
+<li><p>Vector sensors (currvel, spkir, optaa, etc.) are largely un-ingested — the incremental
+scheme should treat “add a whole new sensor” as just another delta, not a special case.</p></li>
+</ul>
+<p>Status: PLAN ONLY, nothing built. Prerequisite: finish the current per-site restructure
+(Step 4 S3 re-key + Step 5 docs) so cloud jobs target the final <code class="docutils literal notranslate"><span class="pre">sb/</span></code> layout. When ready,
+next concrete step is a batch-job scaffold (boot script + how it invokes existing scripts
+against S3 paths).</p>
+</li>
+<li><p><strong>Bundle chart terminology</strong>: Clarify the meaning of <code class="docutils literal notranslate"><span class="pre">nProfiles</span></code> in the UI. Currently it means
+“number of consecutive global index positions to scan” not “number of profile traces drawn.”
+If 3 of 27 positions have no data, you see 24 traces. Options: rename the slider (e.g.
+<code class="docutils literal notranslate"><span class="pre">nPositions</span></code> or <code class="docutils literal notranslate"><span class="pre">window</span></code>), add a display showing actual traces drawn, or change the docs.
+Resolve before sharing with collaborators.</p></li>
+<li><p>Finish writing <code class="docutils literal notranslate"><span class="pre">pp06ErraticFilterPrompt.md</span></code></p></li>
+<li><p>Apply Vis notebook rebuild (see <code class="docutils literal notranslate"><span class="pre">VisNotebookRebuild.md</span></code>)</p></li>
+</ul>
+</section>
+<section id="bundle-chart-applied-to-pp06">
+<h2>Bundle Chart applied to pp06<a class="headerlink" href="#bundle-chart-applied-to-pp06" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">nProfiles</span></code> is the nominal number of consecutive GPI-assigned profiles to render in bundle
+mode or use for the meanstd calculation. This is a <strong>maximum</strong>: the bundle chart renders at
+most this many traces. It renders fewer when filtering operations (pp05 exclusions, pp06
+filters) have removed GPI-assigned profiles from the shard pool.</p>
+<p>The implication: because of profile dropouts, the bundle chart’s time window varies in
+duration as the slider is moved. Two adjacent slider positions (e.g. index0=1000 vs
+index0=1001) with the same nProfiles may span different calendar durations, since gaps
+in the shard pool compress time coverage.</p>
+<p>Example with nProfiles=10, index0=1000 on pp06:</p>
+<ul class="simple">
+<li><p>Global indices scanned: 1000, 1001, 1002, …, 1009 (always 10 consecutive integers)</p></li>
+<li><p>If GPIs 1003 was removed by a pp06 filter: 9 traces rendered (not 10)</p></li>
+<li><p>The title shows the index range scanned: <code class="docutils literal notranslate"><span class="pre">(Global</span> <span class="pre">indices</span> <span class="pre">1000</span> <span class="pre">-</span> <span class="pre">1009)</span></code></p></li>
+<li><p>The actual data range (first to last trace) is read from the title date fields</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#red-zone">Red Zone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#umbrella">Umbrella</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#done-data-already-incorporated">Done: Data already incorporated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instruments-sensors-data-streams-beyond-the-shallow-profiler">Instruments/sensors/data streams beyond the shallow profiler</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-topics">Open Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-june-2026">Completed (June 2026)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-metadata-subfolder-sort">Completed (Sep 2026) — metadata subfolder sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-aug-2026-documentation-cleanup">Completed (Aug 2026) — documentation cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pending-to-do">Pending To Do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next">Next</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle-chart-applied-to-pp06">Bundle Chart applied to pp06</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

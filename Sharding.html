@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Profile Metadata and Sharding &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Sharding';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Visualization Notes" href="Visualization.html" />
+    <link rel="prev" title="File System and Workflow" href="Workflow.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentLog.html">Development Log</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FSharding.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Sharding.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Profile Metadata and Sharding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-metadata">profile metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-metadata">reference metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharding">sharding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#translating-source-raw-input-files-to-ooi-site-redux-yyyy-folders-profile-sensor-files">translating source / raw input files to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;YYYY&gt;</span></code> folders / profile+sensor files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midnight-and-noon-profiles">midnight and noon profiles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld">TMLD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimated-temperature-mixed-layer-depth">Estimated Temperature Mixed Layer Depth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld-generator-program">TMLD generator program</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-the-full-timespan">Process the full timespan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-year-redux-generator">Multi-year redux generator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-compilation-from-many-source-files">sensor compilation from many source <instrum> files</instrum></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="profile-metadata-and-sharding">
+<h1>Profile Metadata and Sharding<a class="headerlink" href="#profile-metadata-and-sharding" title="Link to this heading">#</a></h1>
+<p>This document covers profile metadata from the OOI profileIndices repository,
+reference metadata design, the sharding process that translates raw data into
+per-profile per-sensor files, and the TMLD (Temperature Mixed Layer Depth) tool.</p>
+<section id="profile-metadata">
+<h2>profile metadata<a class="headerlink" href="#profile-metadata" title="Link to this heading">#</a></h2>
+<p>Profile metadata for both shallow and deep profilers is maintained in a public GitHub
+repository as a set of CSV files delineated by platform and year. Each row of a
+metadata file corresponds to a unique profile. The repository is cloned from GitHub,
+and its CSV files are placed under the per-site data tree.</p>
+<p><strong>Per-site placement (explicit step, not automatic):</strong> the clone provides files for
+all sites keyed by OOI designator (e.g. <code class="docutils literal notranslate"><span class="pre">RS01SBPS_profiles_&lt;yyyy&gt;.csv</span></code> for Slope Base,
+<code class="docutils literal notranslate"><span class="pre">CE04OSPS_...</span></code> for Oregon Offshore, <code class="docutils literal notranslate"><span class="pre">RS03AXPS_...</span></code> for Axial Base). Place each site’s
+files under that site’s folder: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/profileIndices/</span></code>. For Slope Base the
+location is <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/profileIndices/</span></code>. Code obtains this path via
+<code class="docutils literal notranslate"><span class="pre">ooipaths.profile_index_dir(site)</span></code>; do not hardcode it. When onboarding a new site,
+copying its designator CSVs into <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/profileIndices/</span></code> is a required manual
+step of the ingest workflow.</p>
+<p>The first column of the profile CSV file is a global index (a profile counter) specific
+to that profiler. The value in this column begins at 1 at the start of the profiler
+operation. Example: RCA OSB shallow profiler deployment in July 9 2015 begins with
+profile 1. This global index for this shallow profiler exceeds 20,000 in early 2026.</p>
+<p>In addition to the global index column, the metadata file has 3 additional columns.
+A profiler is in one of three phases and consequently divides its time between them:
+Ascent, Descent, and Rest. The three additional profileIndices metadata columns are
+associated with the start time of ascent, the peak time of that ascent, and the time
+that the profiler completes its descent, returning to its support structure.
+The associated column names are <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">peak</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
+<p>The GitHub repository <strong>Organization</strong> is ‘OOI-CabledArray’. The repository of
+interest is ‘profileIndices’. The repo can be cloned using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">ooi</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">OOI</span><span class="o">-</span><span class="n">CabledArray</span><span class="o">/</span><span class="n">profileIndices</span>
+</pre></div>
+</div>
+<p>Details:</p>
+<ul class="simple">
+<li><p>Profiles are broken down by array and site identifier, then by year</p>
+<ul>
+<li><p>Array CE = Coastal Endurance, associated with the Oregon Offshore site (‘OS’)</p></li>
+<li><p>Array RS = Regional Cabled Array, associated with Slope Base (‘SB’) and Axial Base (‘AB’) sites</p></li>
+</ul>
+</li>
+<li><p>Here are the six resulting codes: 3 Deep Profilers, 3 Shallow Profilers</p>
+<ul>
+<li><p>CE04OSPD Offshore (Sub-folder ‘os’) deep profiler</p>
+<ul>
+<li><p>years 2015, 18, 19, 21, 22, 23, 24, 25</p></li>
+</ul>
+</li>
+<li><p>CE04OSPS ~ Oregon Offshore (‘os’) shallow profiler (CE = Coastal Endurance array)</p>
+<ul>
+<li><p>2014 – 2026</p></li>
+</ul>
+</li>
+<li><p>RS01SBPD ~ Slope base (‘sb’) <strong>deep profiler</strong></p>
+<ul>
+<li><p>years 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024</p></li>
+</ul>
+</li>
+<li><p>RS01SBPS ~ Slope Base (‘sb’) shallow profiler</p>
+<ul>
+<li><p>2014 – 2026</p></li>
+</ul>
+</li>
+<li><p>RS03AXPD ~ Axial Base (‘ab’) <strong>deep profiler</strong></p>
+<ul>
+<li><p>years 2014, 2017 – 2025</p></li>
+</ul>
+</li>
+<li><p>RS03AXPS ~ Axial Base (‘ab’) shallow profiler</p>
+<ul>
+<li><p>years 2014 – 2026</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In the initial work we are concerned with <code class="docutils literal notranslate"><span class="pre">RS01SBPS</span></code>.</p>
+<p>To select profile time-series data from a sensor/instrument on the Oregon Slope Base shallow
+profiler: Use time ranges in <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/profileIndices/RS01SBPS_profiles_2018.csv</span></code>.</p>
+<p>Note: Some sensors operate continuously (such as CTD temperature). Others operate
+at a lower duty cycle, for example only during selected phases of a profile. From
+2017 onward, three sensors operate exclusively on daily_index 4 (midnight) and 9
+(post-noon, ~13:40 local):</p>
+<ul class="simple">
+<li><p><strong>Nitrate (NUTNR)</strong>: operates on <strong>ascent</strong>, ~150 data points per profile, full depth range</p></li>
+<li><p><strong>pCO2 (PCO2W)</strong>: operates on <strong>descent</strong>, ~10 data points per profile</p></li>
+<li><p><strong>pH (PHSEN)</strong>: operates on <strong>descent</strong>, ~10 data points per profile. Note: pH shard
+files exist for all 9 daily indices but only indices 4 and 9 contain usable data.</p></li>
+</ul>
+<p>All other scalar sensors (temperature, salinity, density, DO, chlorA, CDOM,
+backscatter, PAR) operate on ascent across all 9 daily profiles.</p>
+<p>In 2015–2016, nitrate, pCO2, and pH operated on more/all profiles before being
+restricted to the 4-and-9 pattern.</p>
+<p>For an instrument / sensor that operates on ascent the time range for a given
+profile would be given by columns 2 and 3: <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">peak</span></code>. For a descending
+instrument the time range would be defined by <code class="docutils literal notranslate"><span class="pre">peak</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p>
+<p>Time format: <code class="docutils literal notranslate"><span class="pre">yyyy-MM-dd</span> <span class="pre">hh:mm:ss</span></code>.</p>
+<p>Note: Noon and midnight profiles (daily_index 8 and 4 respectively) tend to have
+longer duration owing to a slower descent profile. Descent has built-in pauses
+allowing the chemical sensors (pCO2, pH) to equilibrate. Daily_index 9 (post-noon)
+also has an extended descent and is the second profile used by the restricted sensors.</p>
+<p>Note: Derived information concerning profiles, for example like the indices of the
+noon profiles, are not to be written into the repo directory <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code>. It
+should be treated as read-only so that it can be updated from GitHub without
+erasing important metadata. Such metadata goes into the parallel <code class="docutils literal notranslate"><span class="pre">metadata</span></code> folder,
+<strong>not</strong> <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code>.</p>
+</section>
+<section id="reference-metadata">
+<h2>reference metadata<a class="headerlink" href="#reference-metadata" title="Link to this heading">#</a></h2>
+<p>This idea is described here for future implementation. No action at this time.</p>
+<p>Goal: Produce a data availability/quality description for the sharded dataset.
+This should be built when it helps achieve a specific goal.</p>
+<p>Example design concept:</p>
+<ul class="simple">
+<li><p>CSV file</p>
+<ul>
+<li><p>The first called <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_ctd_temperature_profile_status.csv</span></code></p></li>
+<li><p>This will span the full range of available time (2014 - 2026)</p></li>
+<li><p>Each row corresponds to a year + day</p>
+<ul>
+<li><p>The majority of years will have 365 rows, leap years 366</p></li>
+<li><p>The first row will be column headers</p></li>
+<li><p>Subsequent rows in chronological order</p></li>
+</ul>
+</li>
+<li><p>Columns</p>
+<ul>
+<li><p>year</p></li>
+<li><p>Julian day</p></li>
+<li><p>date (dd-MON-year format e.g. 01-FEB-2026)</p></li>
+<li><p>1</p></li>
+<li><p>2</p></li>
+<li><p>3</p></li>
+<li><p>4</p></li>
+<li><p>5</p></li>
+<li><p>6</p></li>
+<li><p>7</p></li>
+<li><p>8</p></li>
+<li><p>9</p></li>
+<li><p>Total</p></li>
+<li><p>Noon</p></li>
+<li><p>Midnight</p></li>
+</ul>
+</li>
+<li><p>Column values</p>
+<ul>
+<li><p>The first 3 columns are straightforward</p></li>
+<li><p>Each number column 1 … 9 has value 1 or 0 based on the profile indices (present / absent)</p></li>
+<li><p>Total is the sum of columns 1 … 9</p></li>
+<li><p>Noon is an index for the profile number that happened at noon local time</p></li>
+<li><p>Midnight likewise</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sharding">
+<h2>sharding<a class="headerlink" href="#sharding" title="Link to this heading">#</a></h2>
+<section id="translating-source-raw-input-files-to-ooi-site-redux-yyyy-folders-profile-sensor-files">
+<h3>translating source / raw input files to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;YYYY&gt;</span></code> folders / profile+sensor files<a class="headerlink" href="#translating-source-raw-input-files-to-ooi-site-redux-yyyy-folders-profile-sensor-files" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Layout note (per-site, Aug 2026):</strong> paths below are written for Slope Base (<code class="docutils literal notranslate"><span class="pre">sb</span></code>)
+using concrete examples like <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2018</span></code>. In general the source tree is
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/ooinet/scalar/&lt;YYYY&gt;_&lt;instrum&gt;</span></code> and redux output is <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;YYYY&gt;</span></code>.
+Code obtains these via <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> (<code class="docutils literal notranslate"><span class="pre">redux_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">ooinet_dir</span></code>); do not hardcode.</p>
+</div></blockquote>
+<p>Instrument source / raw input folders are sorted as noted by year: <code class="docutils literal notranslate"><span class="pre">2018_ctd</span></code>, <code class="docutils literal notranslate"><span class="pre">2015_par</span></code> etcetera.</p>
+<ul class="simple">
+<li><p>Transcribe the bulk CTD file named above to a set of single-profile sensor data files</p></li>
+<li><p>These will be referred to as <em>redux files</em> or equivalently <em>shard files</em>.</p></li>
+<li><p>The output is XArray Datasets written as NetCDF files.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">dimension</span></code> of the output files will be <code class="docutils literal notranslate"><span class="pre">time</span></code> via <code class="docutils literal notranslate"><span class="pre">.swap_dims()</span></code></p></li>
+<li><p>Using CTD temperature as an example:</p>
+<ul>
+<li><p>The data variable will be <code class="docutils literal notranslate"><span class="pre">sea_water_temperature</span></code> (input data variable)</p></li>
+<li><p>This will be written as data variable <code class="docutils literal notranslate"><span class="pre">temperature</span></code> in the output file</p></li>
+</ul>
+</li>
+<li><p>The file will include coordinate <code class="docutils literal notranslate"><span class="pre">depth</span></code></p></li>
+<li><p>The output folder will be <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2018</span></code> where the individual profile files will be written.</p></li>
+<li><p>One file is written per profile</p></li>
+</ul>
+<p>The output folders are <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/&lt;yyyy&gt;</span></code></p>
+<p>The filename format for each redux profile <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file:</p>
+<ul class="simple">
+<li><p>The filename format will be <code class="docutils literal notranslate"><span class="pre">AAA_SSS_TTT_BBB_YYYY_DDD_PPPPP_Q_VVVV.nc</span></code></p></li>
+<li><p>These are to be filled in as follows for now:</p>
+<ul>
+<li><p>AAA  = Array name: Using <code class="docutils literal notranslate"><span class="pre">RCA</span></code> for Regional Cabled Array</p></li>
+<li><p>SSS  = Site: Using <code class="docutils literal notranslate"><span class="pre">sb</span></code> = Oregon Slope Base</p></li>
+<li><p>TTT  = Platform: Use <code class="docutils literal notranslate"><span class="pre">sp</span></code> for shallow profiler</p></li>
+<li><p>BBB  = Observation type, one of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code> for temperature</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">salinity</span></code> for salinity</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code> for density</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dissolvedoxygen</span></code> for dissolved oxygen</p></li>
+</ul>
+</li>
+<li><p>YYYY  = four digit year</p></li>
+<li><p>DDD   = three digit Julian day as in 027 for January 27</p></li>
+<li><p>PPPPP = global profile index drawn from the <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> tables</p></li>
+<li><p>Q     = this profile’s index relative to the data acquisition day: a number from 1 to 9</p></li>
+<li><p>VVV   = version number: Use <code class="docutils literal notranslate"><span class="pre">V1</span></code> at this time</p></li>
+</ul>
+</li>
+</ul>
+<p>An output filename example: <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_temperature_2018_003_3752_4_V1.nc</span></code>.</p>
+<p>A single year could produce as many as (365*9) redux files.</p>
+<p>When the program runs: First determine the time range of the source NetCDF file. Print this
+out and include the estimated number of available profiles by multiplying the time range in days
+by nine.</p>
+<p>For each profile: Data are extracted using time limits from the profileIndices CSV files. Specifically
+the profile start time is given in the <code class="docutils literal notranslate"><span class="pre">start</span></code> column. The profile end time is given in the <code class="docutils literal notranslate"><span class="pre">peak</span></code>
+column: When the profiler reached peak depth closest to the ocean surface.</p>
+<p>This program should tally up how many profiles it attempted to extract and write; and
+it should tally up how many were extracted successfully. Print these values at the end as
+a diagnostic remark.</p>
+<p>Warning: A prior version of the code program produced this error:</p>
+<p><code class="docutils literal notranslate"><span class="pre">/tmp/ipykernel_206172/2169783661.py:91:</span> <span class="pre">Performance</span> <span class="pre">Warning:</span> <span class="pre">DataFrame</span> <span class="pre">is</span> <span class="pre">highly</span> <span class="pre">fragmented.</span> <span class="pre">(etcetera)</span></code></p>
+</section>
+</section>
+<section id="midnight-and-noon-profiles">
+<h2>midnight and noon profiles<a class="headerlink" href="#midnight-and-noon-profiles" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> cell concerned with identifying midnight and noon profiles
+produced this table on 06-APR-2026:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Year</span>    <span class="n">Midnight</span>      <span class="n">Noon</span>   <span class="n">Active</span> <span class="n">Days</span>
+  <span class="o">----</span>    <span class="o">--------</span>      <span class="o">----</span>   <span class="o">-----------</span>
+  <span class="mi">2015</span>          <span class="mi">66</span>        <span class="mi">78</span>            <span class="mi">97</span>
+  <span class="mi">2016</span>         <span class="mi">327</span>       <span class="mi">330</span>           <span class="mi">342</span>
+  <span class="mi">2017</span>         <span class="mi">155</span>       <span class="mi">159</span>           <span class="mi">161</span>
+  <span class="mi">2018</span>         <span class="mi">204</span>       <span class="mi">211</span>           <span class="mi">218</span>
+  <span class="mi">2019</span>         <span class="mi">233</span>       <span class="mi">235</span>           <span class="mi">243</span>
+  <span class="mi">2020</span>         <span class="mi">141</span>       <span class="mi">143</span>           <span class="mi">146</span>
+  <span class="mi">2021</span>         <span class="mi">330</span>       <span class="mi">331</span>           <span class="mi">336</span>
+  <span class="mi">2022</span>         <span class="mi">262</span>       <span class="mi">264</span>           <span class="mi">265</span>
+  <span class="mi">2023</span>         <span class="mi">154</span>       <span class="mi">159</span>           <span class="mi">161</span>
+  <span class="mi">2024</span>         <span class="mi">255</span>       <span class="mi">256</span>           <span class="mi">263</span>
+  <span class="mi">2025</span>         <span class="mi">314</span>       <span class="mi">313</span>           <span class="mi">326</span>
+ <span class="n">Total</span>        <span class="mi">2441</span>      <span class="mi">2479</span>          <span class="mi">2558</span>
+</pre></div>
+</div>
+<p>This indicates that the numbers of successful midnight and noon profile days are similar
+to one another in each year as we would expect. Also both are a little less than the
+number of days each year in which at least one of the other 7 profiles ran, also to be
+expected.</p>
+<p>The lists of midnight and noon profiles are kept in these two CSV files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">argosy</span><span class="o">/</span><span class="n">profiles_midnight</span><span class="o">.</span><span class="n">csv</span> <span class="n">With</span> <span class="n">columns</span> <span class="n">index</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">peak</span><span class="p">,</span> <span class="n">end</span>
+<span class="o">~/</span><span class="n">argosy</span><span class="o">/</span><span class="n">profiles_noon</span><span class="o">.</span><span class="n">csv</span>     <span class="n">Ditto</span>
+</pre></div>
+</div>
+<p>The code also produces histograms of ascent, descent and total profile durations.</p>
+</section>
+<section id="tmld">
+<h2>TMLD<a class="headerlink" href="#tmld" title="Link to this heading">#</a></h2>
+<section id="estimated-temperature-mixed-layer-depth">
+<h3>Estimated Temperature Mixed Layer Depth<a class="headerlink" href="#estimated-temperature-mixed-layer-depth" title="Link to this heading">#</a></h3>
+<p>This part of the project is on hold; no action.</p>
+<p>A human-driven TMLD picker program was written in Python. This is not Jupyter cell code because
+the Jupyter configuration does not support interactive chart location selection.</p>
+<ul class="simple">
+<li><p>Generate a CSV file with three columns, resides in <code class="docutils literal notranslate"><span class="pre">~/argosy/TMLD</span></code>.</p>
+<ul>
+<li><p>First column = global profile index as recorded in the profile filename in ~/ooi/sb/redux/2018</p></li>
+<li><p>Second column is <code class="docutils literal notranslate"><span class="pre">Estimated</span> <span class="pre">TMLD</span></code></p>
+<ul>
+<li><p>‘Estimated Temperature Mixed Layer Depth’ (meters, positive downward)</p></li>
+</ul>
+</li>
+<li><p>Third column = temperature at that depth for that profile</p></li>
+</ul>
+</li>
+<li><p>Estimated TMLD value <code class="docutils literal notranslate"><span class="pre">N</span></code></p>
+<ul>
+<li><p>The upper <code class="docutils literal notranslate"><span class="pre">N</span></code> meters of the water column is well-mixed due to wave action etcetera</p></li>
+<li><p>At the bottom of this layer temperature begins to steadily decrease with depth (pycnocline)</p></li>
+<li><p>With increasing depth the temperature gradient decreases</p></li>
+<li><p>The mixed layer / pycnocline boundary often appears as a pronounced kink in the temperature curve</p></li>
+<li><p>Equivalent boundaries exist: Salinity, density, other sensible attributes of the water column</p></li>
+</ul>
+</li>
+<li><p>The TMLD data can be included in bundle plots as distinct markers (see <code class="docutils literal notranslate"><span class="pre">VisualizationNotes.md</span></code>)</p>
+<ul>
+<li><p>1:1 correspondence to individual profile curves</p></li>
+<li><p>Marker should be larger, different color</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tmld-generator-program">
+<h3>TMLD generator program<a class="headerlink" href="#tmld-generator-program" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Establish a range of profiles to annotate</p></li>
+<li><p>Display each in sequence</p></li>
+<li><p>Left mouse click identifies the TMLD depth</p></li>
+<li><p>standalone Python program as noted (not Jupyter cell)</p></li>
+<li><p>confirm a choice by hitting Enter</p></li>
+<li><p>program should also support a “no data” choice if the User wants to skip</p></li>
+<li><p>cursor location is printed in/near the chart so User can see both depth and temperature.</p></li>
+</ul>
+</section>
+</section>
+<section id="process-the-full-timespan">
+<h2>Process the full timespan<a class="headerlink" href="#process-the-full-timespan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>List <instrum> files in a “to do” file</p>
+<ul>
+<li><p>From the folders where the original <instrum> data file is located</p></li>
+</ul>
+</li>
+<li><p>Create a new file listing all of the <instrum> files in that folder</p>
+<ul>
+<li><p>Let us call this file <code class="docutils literal notranslate"><span class="pre">~/argosy/source_&lt;instrum&gt;_filelist.txt</span></code></p></li>
+<li><p>The first line will be the full path to the folder</p></li>
+<li><p>The remaining lines are 1 line per <instrum> file</p></li>
+</ul>
+</li>
+<li><p>Process these files to expand the time series for Oregon Slope Base shallow profiler <sensor> profiles</p>
+<ul>
+<li><p>Example sensors: <code class="docutils literal notranslate"><span class="pre">dissolvedoxygen</span></code>, <code class="docutils literal notranslate"><span class="pre">density</span></code>, <code class="docutils literal notranslate"><span class="pre">salinity</span></code></p></li>
+<li><p>Use those strings in the output filenames sensor field</p></li>
+</ul>
+</li>
+<li><p>Input file location for year <code class="docutils literal notranslate"><span class="pre">&lt;YYYY&gt;</span></code> is <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/ooinet/scalar/&lt;YYYY&gt;_ctd</span></code></p></li>
+<li><p>The original input file was:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc</span></code></p></li>
+<li><p>The string <code class="docutils literal notranslate"><span class="pre">CTDPF</span></code> indicates a CTD file. File extension must be <code class="docutils literal notranslate"><span class="pre">.nc</span></code></p></li>
+<li><p>Compile the source file list in <code class="docutils literal notranslate"><span class="pre">~/argosy/source_&lt;instrum&gt;_filelist.txt</span></code> as described above</p></li>
+</ul>
+</li>
+</ul>
+<section id="multi-year-redux-generator">
+<h3>Multi-year redux generator<a class="headerlink" href="#multi-year-redux-generator" title="Link to this heading">#</a></h3>
+<p>This text may be somewhat redundant to what came above (to reconcile)</p>
+<ul class="simple">
+<li><p>Rewrite the redux code that runs in a Jupyter notebook cell</p>
+<ul>
+<li><p>This scans multiple folders for (large) CTD source datafiles</p>
+<ul>
+<li><p>If the folder is not found: Skip it</p></li>
+<li><p>If a source folder is found that spans year breaks: Be sure to write outputs to the correct year-folder</p></li>
+<li><p>We are still focused on just temperature data</p></li>
+<li><p>The output files are called <code class="docutils literal notranslate"><span class="pre">redux</span></code> files</p></li>
+<li><p>There follows some more detail on how this code will work</p></li>
+</ul>
+</li>
+<li><p>Source data folders have name format <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/ooinet/scalar/&lt;yyyy&gt;_&lt;instrum&gt;</span></code></p>
+<ul>
+<li><p><yyyy> runs from 2014 through 2026</p></li>
+<li><p><instrum> designators are found in the <strong>Sensor Table</strong> (see <code class="docutils literal notranslate"><span class="pre">SensorReference.md</span></code>)</p></li>
+<li><p>The program should prompt for y/n for each year (folder) for which there is data</p>
+<ul>
+<li><p>This prompt defaults to <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Output files as developed earlier with these changes:</p>
+<ul>
+<li><p>remove data variables <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> and remove <code class="docutils literal notranslate"><span class="pre">obs</span></code> from the output <code class="docutils literal notranslate"><span class="pre">.nc</span></code> file. Retain time, depth and temperature.</p></li>
+<li><p>when writing the output <code class="docutils literal notranslate"><span class="pre">redux</span></code> file: select destination folder based on this profile’s year as follows:</p>
+<ul>
+<li><p>a profile from 2018 will be written to <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2018</span></code></p></li>
+<li><p>a profile from 2019 will be written to <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2019</span></code></p></li>
+<li><p>and so forth: Possible year values are 2014 through 2026</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sensor-compilation-from-many-source-files">
+<h3>sensor compilation from many source <instrum> files<a class="headerlink" href="#sensor-compilation-from-many-source-files" title="Link to this heading">#</a></h3>
+<p>From a Jupyter cell Python script: Read the entries in the <code class="docutils literal notranslate"><span class="pre">~/argosy/source_&lt;instrum&gt;_filelist.txt</span></code> generated
+above. The instrument name <instrum> is from the <code class="docutils literal notranslate"><span class="pre">key</span></code> column of the <strong>Sensor Table</strong> (see <code class="docutils literal notranslate"><span class="pre">SensorReference.md</span></code>).
+For each file listed we want to perform the following procedure:</p>
+<ul class="simple">
+<li><p>Print the data file directory on a line</p></li>
+<li><p>Print the name of the current file on the next line</p></li>
+<li><p>Print <code class="docutils literal notranslate"><span class="pre">&lt;start</span> <span class="pre">date&gt;</span> <span class="pre">-</span> <span class="pre">&lt;end</span> <span class="pre">date&gt;</span></code> on the next line</p></li>
+<li><p>Print whether or not <code class="docutils literal notranslate"><span class="pre">sea_water_temperature</span></code> is present as a data variable in the file</p>
+<ul>
+<li><p>If it is not present:</p>
+<ul>
+<li><p>State this</p></li>
+<li><p>State the data variables that <em>are</em> present</p></li>
+<li><p>prompt the User for instructions: <code class="docutils literal notranslate"><span class="pre">Continue</span> <span class="pre">[C]</span> <span class="pre">or</span> <span class="pre">Halt</span> <span class="pre">[H]?</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>For this input CTD file start a counter of how many profile files have been written to <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2018</span></code></p></li>
+<li><p>Formulate the filename for the current profile</p></li>
+<li><p>Using the appropriate <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">peak</span></code> times from the appropriate <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/profileIndices</span></code> folder CSV file:</p>
+<ul>
+<li><p>Extract and write a temperature profile file to the folder <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2018</span></code> following the same format as before</p></li>
+<li><p>In this process: Keep a running sum of how many data samples there are in each profile</p></li>
+<li><p>Output files in ~/ooi/sb/redux/2018 feature sea_water_temperature renamed <code class="docutils literal notranslate"><span class="pre">temperature</span></code> plus <code class="docutils literal notranslate"><span class="pre">depth</span></code> against dimension <code class="docutils literal notranslate"><span class="pre">time</span></code></p></li>
+<li><p>Do not retain other data variables or other coordinates, particularly <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code></p></li>
+</ul>
+</li>
+<li><p>Repeat this procedure of writing temperature profile files, incrementing the ‘writes’ counter</p></li>
+<li><p>After every 90 profile writes: Print the number of profiles written for this input file so far</p></li>
+<li><p>Upon completing a file: Print diagnostics:</p>
+<ul>
+<li><p>How many profile files were written</p></li>
+<li><p>What is the average number of data values per profile</p></li>
+</ul>
+</li>
+<li><p>If the number of profile files written for a given input file is zero:</p>
+<ul>
+<li><p>State this and prompt the User for instructions: <code class="docutils literal notranslate"><span class="pre">Continue</span> <span class="pre">[C]</span> <span class="pre">or</span> <span class="pre">Halt</span> <span class="pre">[H]?</span></code></p></li>
+<li><p>If the User choses Continue: Proceed to the next input CTD file</p></li>
+</ul>
+</li>
+<li><p>Continue to the next input CTD file until all have been processed in this manner</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Workflow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">File System and Workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Visualization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Visualization Notes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-metadata">profile metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-metadata">reference metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharding">sharding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#translating-source-raw-input-files-to-ooi-site-redux-yyyy-folders-profile-sensor-files">translating source / raw input files to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;YYYY&gt;</span></code> folders / profile+sensor files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midnight-and-noon-profiles">midnight and noon profiles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld">TMLD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimated-temperature-mixed-layer-depth">Estimated Temperature Mixed Layer Depth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld-generator-program">TMLD generator program</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-the-full-timespan">Process the full timespan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-year-redux-generator">Multi-year redux generator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-compilation-from-many-source-files">sensor compilation from many source <instrum> files</instrum></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

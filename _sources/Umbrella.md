@@ -139,4 +139,54 @@ Other data types beyond standard meteorological are:
 ## Task list
 
 
+## Deep Profiler: Full Water Column Oxygen Structure
+
+
+The Oregon Slope Base shallow profiler (RS01SBPS) covers ~0–200m depth. At the same
+site, the **deep profiler** (RS01SBPD, McLane Moored Profiler) operates between
+approximately 200m and 2900m (near the seafloor at ~2900m bottom depth). The deep
+profiler carries a CTD with dissolved oxygen and profiles once or twice per day.
+
+### Motivation: The Oxygen Minimum Zone
+
+Dissolved oxygen profiles from the shallow profiler consistently show decreasing O₂
+with depth despite cold water having higher oxygen solubility. This seeming paradox
+reflects the balance between supply and consumption:
+
+- **Near-surface O₂ is high** because of atmospheric gas exchange and photosynthesis
+  (active in the photic zone, upper ~50m).
+- **O₂ decreases with depth** because respiration and decomposition of sinking organic
+  matter consume oxygen continuously, while no resupply mechanisms exist at depth (no
+  light for photosynthesis, no contact with the atmosphere).
+
+The result is an **Oxygen Minimum Zone (OMZ)**, typically at 200–1000m in the northeast
+Pacific. Below the OMZ core, O₂ partially recovers because deep water masses (originating
+at polar surfaces — North Atlantic Deep Water, Antarctic Bottom Water) were oxygen-saturated
+when they sank. These deep waters are relatively "young" (less time for respiration to
+deplete their O₂), so the vertical oxygen profile has a characteristic "C" shape: high at
+surface, minimum at mid-depth, partial recovery in the abyss.
+
+### Opportunity
+
+Combining the shallow profiler (0–200m, 9 profiles/day) with the deep profiler
+(200–2900m, 1–2 profiles/day) would reveal:
+
+- The complete vertical O₂ structure from surface to near-bottom
+- The depth and intensity of the OMZ core at this site
+- Seasonal and interannual variability in OMZ depth and intensity
+- Potential shoaling of the OMZ (a climate-change indicator in the northeast Pacific)
+
+The deep profiler data is available on OOI under site code **RS01SBPD**. Integration
+would require downloading SBPD CTD data, applying a similar sharding pipeline, and
+developing a stitched visualization that spans both profiler ranges.
+
+### References
+
+- The OMZ in the northeast Pacific is well-documented; it is one of the most
+  intense in the global ocean due to high surface productivity (fueling respiration
+  at depth) and sluggish deep ventilation.
+- Recent literature reports OMZ expansion and shoaling in this region, potentially
+  linked to warming and altered circulation patterns.
+
+
 

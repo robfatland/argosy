@@ -1,0 +1,774 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Columbia River Plume Detection Plan &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ColumbiaPlumePlan';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Umbrella" href="Umbrella.html" />
+    <link rel="prev" title="Tidal Analysis" href="TidalAnalysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FColumbiaPlumePlan.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ColumbiaPlumePlan.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Columbia River Plume Detection Plan</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rationale">Rationale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-plan">Analysis plan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-extract-profiler-near-surface-salinity-time-series">Step 1: Extract profiler near-surface salinity time series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-identify-low-salinity-events">Step 2: Identify low-salinity events</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-download-smap-sss-satellite-data">Step 3: Download SMAP SSS satellite data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-correlate-satellite-and-profiler-time-series">Step 4: Correlate satellite and profiler time series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-multi-sensor-coincidence-characterization">Step 5: Multi-sensor coincidence characterization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-contextualize-with-columbia-river-discharge">Step 6: Contextualize with Columbia River discharge</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outcomes">Expected outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-requirements">Data requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#erddap-data-access-urls">ERDDAP data access URLs</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="columbia-river-plume-detection-plan">
+<h1>Columbia River Plume Detection Plan<a class="headerlink" href="#columbia-river-plume-detection-plan" title="Link to this heading">#</a></h1>
+<p>Hypothesis: The Columbia River freshwater plume reaches the Oregon Offshore and
+Slope Base shallow profiler sites seasonally, producing detectable multi-sensor
+anomalies in the upper 15–40 m of the profiler record.</p>
+<section id="rationale">
+<h2>Rationale<a class="headerlink" href="#rationale" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The plume extends 270–310 km offshore in summer (glider observations). Oregon
+Offshore is ~65 km and Slope Base ~100 km from coast — both well within reach.</p></li>
+<li><p>The far-field plume layer thickens to 30–40 m depth at distance, overlapping
+with the shallow profiler’s ascent range (surface to ~200 m, top ~5–15 m).</p></li>
+<li><p>Expected multi-sensor signature: low salinity, elevated temperature, elevated
+CDOM fluorescence, possibly elevated backscatter — simultaneous anomalies
+constituting inter-sensor coincidence.</p></li>
+</ul>
+</section>
+<section id="analysis-plan">
+<h2>Analysis plan<a class="headerlink" href="#analysis-plan" title="Link to this heading">#</a></h2>
+<section id="step-1-extract-profiler-near-surface-salinity-time-series">
+<h3>Step 1: Extract profiler near-surface salinity time series<a class="headerlink" href="#step-1-extract-profiler-near-surface-salinity-time-series" title="Link to this heading">#</a></h3>
+<p>From pp06 temperature and salinity shards, extract the shallowest valid measurement
+from each profile (typically 5–15 m depth). Build a time series:</p>
+<ul class="simple">
+<li><p>profile timestamp (from shard metadata)</p></li>
+<li><p>shallowest salinity value</p></li>
+<li><p>shallowest temperature value</p></li>
+<li><p>depth of shallowest measurement</p></li>
+</ul>
+<p>Do this for Oregon Offshore and Slope Base (2015–2025).</p>
+</section>
+<section id="step-2-identify-low-salinity-events">
+<h3>Step 2: Identify low-salinity events<a class="headerlink" href="#step-2-identify-low-salinity-events" title="Link to this heading">#</a></h3>
+<p>Define a baseline: median salinity in the 5–20 m layer, computed per month from
+the full record. Flag profiles where near-surface salinity drops more than 1 PSU
+below the monthly median. These are candidate plume detection events.</p>
+<p>Characterize each event:</p>
+<ul class="simple">
+<li><p>Duration (how many consecutive profiles show the anomaly)</p></li>
+<li><p>Depth penetration (how deep does the fresh layer extend)</p></li>
+<li><p>Coincident signals (is CDOM elevated? temperature elevated? backscatter elevated?)</p></li>
+</ul>
+</section>
+<section id="step-3-download-smap-sss-satellite-data">
+<h3>Step 3: Download SMAP SSS satellite data<a class="headerlink" href="#step-3-download-smap-sss-satellite-data" title="Link to this heading">#</a></h3>
+<p>NASA’s SMAP satellite provides 8-day running-mean sea surface salinity at ~40 km
+resolution from April 2015 to present.</p>
+<p><strong>Dataset:</strong> SMAP RSS L3 SSS 8-Day Running Mean V6.0
+<strong>Access:</strong> PO.DAAC via OPeNDAP or Earthdata download
+<strong>URL:</strong> <a class="reference external" href="https://podaac.jpl.nasa.gov/dataset/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6">https://podaac.jpl.nasa.gov/dataset/SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6</a></p>
+<p><strong>How to download:</strong></p>
+<ol class="arabic simple">
+<li><p>Create a free NASA Earthdata account: <a class="reference external" href="https://urs.earthdata.nasa.gov">https://urs.earthdata.nasa.gov</a></p></li>
+<li><p>Install earthaccess: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">earthaccess</span></code></p></li>
+<li><p>Use this Python script to extract a time series at the profiler locations:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">earthaccess</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Authenticate</span>
+<span class="n">earthaccess</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
+
+<span class="c1"># Search for SMAP SSS granules</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">earthaccess</span><span class="o">.</span><span class="n">search_data</span><span class="p">(</span>
+    <span class="n">short_name</span><span class="o">=</span><span class="s2">&quot;SMAP_RSS_L3_SSS_SMI_8DAY-RUNNINGMEAN_V6&quot;</span><span class="p">,</span>
+    <span class="n">temporal</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;2015-04-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2025-12-31&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Open as xarray (streaming via OPeNDAP — no bulk download needed)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">earthaccess</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;by_coords&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract time series at profiler locations</span>
+<span class="c1"># Oregon Offshore: ~44.66N, 124.95W</span>
+<span class="c1"># Slope Base: ~44.53N, 125.39W</span>
+<span class="n">offshore_sss</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;sss_smap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="mf">44.66</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=-</span><span class="mf">124.95</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+<span class="n">slopebase_sss</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;sss_smap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="mf">44.53</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=-</span><span class="mf">125.39</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+
+<span class="c1"># Save to CSV</span>
+<span class="n">offshore_sss</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;~/ooi/oo/metadata/smap_sss_offshore.csv&#39;</span><span class="p">)</span>
+<span class="n">slopebase_sss</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;~/ooi/sb/metadata/smap_sss_slopebase.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: Variable names and coordinate names may differ slightly. Check with
+<code class="docutils literal notranslate"><span class="pre">ds.data_vars</span></code> and <code class="docutils literal notranslate"><span class="pre">ds.coords</span></code> after opening. The SMAP grid may use
+<code class="docutils literal notranslate"><span class="pre">longitude</span></code> in 0–360 range (so -124.95 becomes 235.05).</p>
+</section>
+<section id="step-4-correlate-satellite-and-profiler-time-series">
+<h3>Step 4: Correlate satellite and profiler time series<a class="headerlink" href="#step-4-correlate-satellite-and-profiler-time-series" title="Link to this heading">#</a></h3>
+<p>Overlay the SMAP SSS time series with the profiler near-surface salinity time series.
+Look for:</p>
+<ul class="simple">
+<li><p>Do low-SSS events in satellite data align temporally with low-salinity profiles?</p></li>
+<li><p>Is there a lag (satellite sees the plume before the profiler, or vice versa)?</p></li>
+<li><p>Seasonal pattern: are detections concentrated in summer (upwelling-favorable winds
+push plume offshore/southward)?</p></li>
+</ul>
+</section>
+<section id="step-5-multi-sensor-coincidence-characterization">
+<h3>Step 5: Multi-sensor coincidence characterization<a class="headerlink" href="#step-5-multi-sensor-coincidence-characterization" title="Link to this heading">#</a></h3>
+<p>For confirmed plume events (satellite + profiler agreement):</p>
+<ul class="simple">
+<li><p>Plot T, S, CDOM, backscatter profiles together</p></li>
+<li><p>Compute the depth of the fresh layer (depth where S returns to background)</p></li>
+<li><p>Check if temperature is anomalously warm (river water in summer)</p></li>
+<li><p>Check if CDOM is anomalously high (terrigenous organic matter)</p></li>
+<li><p>This is inter-sensor coincidence: multiple sensors responding to the same
+coherent water mass intrusion</p></li>
+</ul>
+</section>
+<section id="step-6-contextualize-with-columbia-river-discharge">
+<h3>Step 6: Contextualize with Columbia River discharge<a class="headerlink" href="#step-6-contextualize-with-columbia-river-discharge" title="Link to this heading">#</a></h3>
+<p>USGS gauge 14246900 (Columbia River at Beaver Army Terminal) provides daily
+discharge. Available at: <a class="reference external" href="https://waterdata.usgs.gov/monitoring-location/14246900/">https://waterdata.usgs.gov/monitoring-location/14246900/</a></p>
+<p>Overlay discharge with plume detection events. High spring discharge (May–June
+freshet) should correlate with more/stronger plume detections at the profilers,
+with a lag of days to weeks depending on wind regime.</p>
+</section>
+</section>
+<section id="expected-outcomes">
+<h2>Expected outcomes<a class="headerlink" href="#expected-outcomes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A catalog of plume incursion events at each profiler site (dates, duration, intensity)</p></li>
+<li><p>Validation of profiler-detected freshwater events against satellite observations</p></li>
+<li><p>Demonstration of “corroborated coincidence” for the AGU framework</p></li>
+<li><p>Quantification of plume depth at the profiler sites (satellite gives surface only;
+profiler reveals vertical extent)</p></li>
+</ul>
+</section>
+<section id="data-requirements">
+<h2>Data requirements<a class="headerlink" href="#data-requirements" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Location</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>pp06 salinity/temperature shards</p></td>
+<td><p>~/ooi/sb/postproc/pp06/</p></td>
+<td><p>Available</p></td>
+</tr>
+<tr class="row-odd"><td><p>pp06 CDOM/backscatter shards</p></td>
+<td><p>~/ooi/sb/postproc/pp06/</p></td>
+<td><p>Available</p></td>
+</tr>
+<tr class="row-even"><td><p>SMAP SSS V6.0</p></td>
+<td><p>PO.DAAC (NASA)</p></td>
+<td><p>Free, needs Earthdata account</p></td>
+</tr>
+<tr class="row-odd"><td><p>USGS Columbia River discharge</p></td>
+<td><p><a class="reference external" href="http://waterdata.usgs.gov">waterdata.usgs.gov</a></p></td>
+<td><p>Free, public</p></td>
+</tr>
+<tr class="row-even"><td><p>Profile metadata (timestamps)</p></td>
+<td><p>~/ooi/sb/profileIndices/</p></td>
+<td><p>Available</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Palacios et al. (2009). “Development of synthetic salinity from remote sensing
+for the Columbia River plume.” JGR. doi:10.1029/2008JC004895</p></li>
+<li><p>Saldias et al. (2016). “Optics of the offshore Columbia River plume from glider
+observations and satellite imagery.” JGR. doi:10.1002/2015JC011431</p></li>
+<li><p>Liu et al. (2009). “Seasonal and interannual variability of the Columbia River
+plume.” JGR. doi:10.1029/2008JC004964</p></li>
+<li><p>Adams et al. (2015). “Anomalous near-surface low-salinity pulses off the central
+Oregon coast.” Scientific Reports. doi:10.1038/srep17145</p></li>
+</ul>
+</section>
+<section id="erddap-data-access-urls">
+<h2>ERDDAP data access URLs<a class="headerlink" href="#erddap-data-access-urls" title="Link to this heading">#</a></h2>
+<p>Interactive map (SSS, regional, change dates as needed):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.graph?sss[(2020-06-15T00:00:00Z):1:(2020-07-05T00:00:00Z)][(0)][(42.0):(49.0)][(-130.0):(-122.0)]
+</pre></div>
+</div>
+<p>Interactive map (SST, regional):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.graph?analysed_sst[(2020-06-15T00:00:00Z):1:(2020-07-05T00:00:00Z)][(42.0):(49.0)][(-130.0):(-122.0)]
+</pre></div>
+</div>
+<p>Point time series (as used by <code class="docutils literal notranslate"><span class="pre">plume/smap_download.py</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SSS: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2024-01-01T00:00:00Z)][(0)][(44.53)][(-125.39)]
+SST: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2024-01-01T12:00:00Z)][(44.53)][(-125.39)]
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="TidalAnalysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tidal Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Umbrella.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Umbrella</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rationale">Rationale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-plan">Analysis plan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-extract-profiler-near-surface-salinity-time-series">Step 1: Extract profiler near-surface salinity time series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-identify-low-salinity-events">Step 2: Identify low-salinity events</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-download-smap-sss-satellite-data">Step 3: Download SMAP SSS satellite data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-correlate-satellite-and-profiler-time-series">Step 4: Correlate satellite and profiler time series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-multi-sensor-coincidence-characterization">Step 5: Multi-sensor coincidence characterization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-contextualize-with-columbia-river-discharge">Step 6: Contextualize with Columbia River discharge</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outcomes">Expected outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-requirements">Data requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#erddap-data-access-urls">ERDDAP data access URLs</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

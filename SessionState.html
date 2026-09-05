@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Session State &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SessionState';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentLog.html">Development Log</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FSessionState.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/SessionState.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Session State</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#last-updated">Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session">Completed this session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-progress-partially-done">In progress / partially done</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverted-needs-redo">Reverted / needs redo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blocked-waiting-on-user">Blocked / waiting on user</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action">Next action</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="session-state">
+<h1>Session State<a class="headerlink" href="#session-state" title="Link to this heading">#</a></h1>
+<section id="last-updated">
+<h2>Last updated<a class="headerlink" href="#last-updated" title="Link to this heading">#</a></h2>
+<p>2026-09-05 — Metadata folder sorted into 7 self-documenting subfolders (qc/profiles/features/annotations/external/cache/scans). Earlier: per-site filesystem restructure COMPLETE.</p>
+</section>
+<section id="completed-this-session">
+<h2>Completed this session<a class="headerlink" href="#completed-this-session" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Metadata subfolder sort</strong>: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/metadata/</span></code> reorganized into <code class="docutils literal notranslate"><span class="pre">qc/</span> <span class="pre">profiles/</span> <span class="pre">features/</span> <span class="pre">annotations/</span> <span class="pre">external/</span> <span class="pre">cache/</span> <span class="pre">scans/</span></code>, each with a README (per new steering guideline).
+Files moved without renaming. <code class="docutils literal notranslate"><span class="pre">ooipaths.metadata_dir(site,</span> <span class="pre">sub)</span></code> + <code class="docutils literal notranslate"><span class="pre">METADATA_SUBDIRS</span></code> added;
+producer/consumer scripts updated (incl. converting plume/<em>.py + iw/</em>.py to ooipaths). All
+accessors verified against relocated files. VisQC completion logged as Pending To Do.
+New steering rule added: create a README when making a subfolder for existing files.</p></li>
+<li><p><strong><a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a> restructure</strong>: merged duplicate “QC Filter” sections; rehomed orphaned
+pp01/pp02 depth-histogram block; reordered into pipeline-logical flow. Now 363 lines
+(under 400-line convention).</p></li>
+<li><p><strong>HSD acronym typo fixed</strong> (“HDS” → “HSD”, and wrong expansion “High Data-density Sampling”
+→ “High Sample Density”): <code class="docutils literal notranslate"><span class="pre">postprocess_pp06.py</span></code> (docstring + <code class="docutils literal notranslate"><span class="pre">HSD_SENSORS</span></code>/<code class="docutils literal notranslate"><span class="pre">hsd_manifest</span></code>
+identifiers, recompiles clean), <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code>, <code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis.md</span></code>, <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>.</p></li>
+<li><p><strong>Confirmed no HSD fix needed in notebooks</strong>: scanned all <code class="docutils literal notranslate"><span class="pre">chapters/*.ipynb</span></code> cell sources;
+the “HDS” grep hits were base64 image-output blobs, not editable text. Nothing pending.</p></li>
+<li><p><strong>Script-name/cross-reference audit</strong>: no drift. All pp05/pp06 scripts + <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code>
+exist and match the doc.</p></li>
+<li><p><strong><a class="reference external" href="http://DataOps.md">DataOps.md</a> created</strong>: split S3 sync/backup + localhost WSL vhdx disk management out of
+<a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a>. Cross-refs wired in <a class="reference external" href="http://ArgosyOverview.md">ArgosyOverview.md</a> (pointers, companion index, pandoc
+list) and <a class="reference external" href="http://CodeManifest.md">CodeManifest.md</a>. Fixed a pre-existing duplicate/corrupted S3-backup pointer in
+<a class="reference external" href="http://ArgosyOverview.md">ArgosyOverview.md</a>.</p></li>
+<li><p><strong>Filesystem restructure Step 1 DONE</strong>: canonicalized site codes (verified vs OOI):
+<code class="docutils literal notranslate"><span class="pre">sb</span></code>=Oregon Slope Base (RS01SBPS/SF01A, RCA), <code class="docutils literal notranslate"><span class="pre">oo</span></code>=Oregon Offshore (CE04OSPS/SF01B, Endurance),
+<code class="docutils literal notranslate"><span class="pre">ab</span></code>=Axial Base (RS03AXPS/SF03A, RCA). All three share identical 15-sensor layout. Recorded
+a Sites table in <a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a> recap + the full ordered restructure plan in
+<a class="reference external" href="http://DevelopmentLog.md">DevelopmentLog.md</a> “Next”. Resolved <a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a> open-topic item 1.</p></li>
+</ul>
+</section>
+<section id="in-progress-partially-done">
+<h2>In progress / partially done<a class="headerlink" href="#in-progress-partially-done" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Filesystem restructure: COMPLETE.</strong> All data under <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/</span></code> (currently just <code class="docutils literal notranslate"><span class="pre">sb</span></code>),
+S3 mirrors it (<code class="docutils literal notranslate"><span class="pre">s3://s3ooi/sb/...</span></code>; <code class="docutils literal notranslate"><span class="pre">ooinet/</span></code> kept legacy keys), bucket policy public-read on
+<code class="docutils literal notranslate"><span class="pre">sb/redux/*</span></code>+<code class="docutils literal notranslate"><span class="pre">sb/postproc/*</span></code> (verified). All code uses <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code>; all docs updated. Full
+record in <a class="reference external" href="http://DevelopmentLog.md">DevelopmentLog.md</a> “Next” -&gt; “Filesystem restructure” (RESTRUCTURE COMPLETE).
+Key gotcha for future: generated files with absolute paths (e.g. pp05 manifest) need
+path-patching after any data move. <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> created + verified; 23 scripts
+converted to use it (compile clean; pp06 dry-run + SGA module1 ran on real data). Notebook
+edits for DataDownload + DataSharding handed to user as cell-by-cell instructions — <strong>user
+still needs to apply these</strong> (see the assistant message with the edit list, or re-derive:
+swap <code class="docutils literal notranslate"><span class="pre">~/ooi/...</span></code> paths for <code class="docutils literal notranslate"><span class="pre">op.*</span></code> accessors, add the sys.path.insert preamble).
+<strong>NEXT = Step 4</strong> (the reversibility checkpoint): flip <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> to the per-site layout,
+then move local data (<code class="docutils literal notranslate"><span class="pre">mv</span></code>) + re-key S3 + update bucket policy — hand user copy-paste commands.
+Then Step 5 docs. Full plan + STEP-4 FLIP CONCERNS list in <a class="reference external" href="http://DevelopmentLog.md">DevelopmentLog.md</a> “Next” →
+“Filesystem restructure”.
+Discoveries logged: pp01/02 have an extra <code class="docutils literal notranslate"><span class="pre">redux/</span></code> nesting level vs pp06 (Step 4 unifies);
+profileIndices already multi-site by OOI designator.</p></li>
+<li><p>SGA synthetic validation dataset not yet created (see <a class="reference external" href="http://Testing.md">Testing.md</a>).</p></li>
+<li><p>InternalWaves.ipynb: scaffolding only, detection module not yet written.</p></li>
+<li><p>WSL vhdx compaction: fstrim done (prior session), diskpart step still pending.</p></li>
+</ul>
+</section>
+<section id="reverted-needs-redo">
+<h2>Reverted / needs redo<a class="headerlink" href="#reverted-needs-redo" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Nothing currently reverted.</p></li>
+<li><p>Old <code class="docutils literal notranslate"><span class="pre">vis/bundle_animation.py</span></code> can be deleted (superseded by <code class="docutils literal notranslate"><span class="pre">vis/bundle_animate.py</span></code>).</p></li>
+</ul>
+</section>
+<section id="blocked-waiting-on-user">
+<h2>Blocked / waiting on user<a class="headerlink" href="#blocked-waiting-on-user" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>S3 re-key + bucket policy</strong> (Step 4 Phase C, local side done): user will run when internet is
+stable. Agent to reiterate the <code class="docutils literal notranslate"><span class="pre">_s3rekey.sh</span></code> script + policy update commands on request.</p></li>
+<li><p><strong>Cloud batch sharding = PLAN OF RECORD</strong> (see DevelopmentLog “Next”): raw→S3 directly, ephemeral
+batch compute shards/postprocs in-cloud, download only ~20GB results. HARD REQ: incremental/
+restartable ingest (shard only new source; stochastic top-ups for missing sensors/years/vector).
+Not built yet; prerequisite is finishing the restructure.</p></li>
+<li><p>Three-sites table + metadata inventory (items above) need user input / a folder listing.</p></li>
+<li><p>Compact WSL vhdx (requires closing Kiro, running diskpart as admin).</p></li>
+<li><p>Isabella: provide download instructions for pp06 from S3.</p></li>
+<li><p>Decision-tree / random-forest work: user is in learning mode, no implementation requested yet.
+Candidate first project when ready: regression predicting one scalar sensor (e.g. dissolved
+oxygen) from others (T/S/depth), honest train/test split by profile or time.</p></li>
+</ul>
+</section>
+<section id="next-action">
+<h2>Next action<a class="headerlink" href="#next-action" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Restructure + metadata sort done. Open threads to pick from: (a) complete the VisQC workflow
+(Pending To Do — output writer + Corrector + thickness reconciliation); (b) cloud batch
+sharding scaffold (plan of record, prerequisite now satisfied); (c) StubWork.ipynb path
+cleanup (Open Topics). No blocking items.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#last-updated">Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session">Completed this session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-progress-partially-done">In progress / partially done</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverted-needs-redo">Reverted / needs redo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blocked-waiting-on-user">Blocked / waiting on user</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action">Next action</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

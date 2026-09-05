@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Developer Guide &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'DeveloperGuide';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Profile Metadata and Sharding" href="Sharding.html" />
+    <link rel="prev" title="Argosy Project Setup" href="SETUP.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FDeveloperGuide.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/DeveloperGuide.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Developer Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-phase-structure">Two-phase structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem-layout">Filesystem layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-tasks-06">Workflow (tasks 0–6)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-0-1-detail-ordering-and-downloading-from-ooinet">Task 0/1 detail — ordering and downloading from OOINET</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-datasets-from-ooinet-manual">Order datasets from OOINET (manual)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-order">Download the order</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-filename-anatomy">Raw filename anatomy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-files">Degenerate source files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shard-filename-convention">Shard filename convention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-data-coverage">Source data coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-mirror-task-6-summary">S3 mirror (task 6, summary)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next">Where to go next</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="developer-guide">
+<h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>New here?</strong> Start at <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>. This guide is the technical map for people
+who want to run or extend argosy — the collaborator (<strong>Chuck</strong>, has repo context) and the
+external researcher (<strong>Angus</strong>, arriving cold and wanting to reuse the work).</p>
+<ul class="simple">
+<li><p><strong>Angus (cold start):</strong> begin with <code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code> (environment + public data access), then
+read the filesystem and workflow sections here.</p></li>
+<li><p><strong>Chuck (has context):</strong> use this as the orientation index; jump to the stage you need.</p></li>
+</ul>
+</div></blockquote>
+<p>This document describes the repository and data filesystem layout, and the end-to-end
+workflow from data ordering (Phase 1) through analysis (Phase 2). For the exhaustive file
+inventory see <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>; for one-off operational commands (build/publish, per-file
+PDF, standalone widgets) see the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file.</p>
+<section id="two-phase-structure">
+<h2>Two-phase structure<a class="headerlink" href="#two-phase-structure" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Phase 1 — Pipeline:</strong> raw OOINET data → sharded <code class="docutils literal notranslate"><span class="pre">redux</span></code> → quality-controlled analysis-ready
+<code class="docutils literal notranslate"><span class="pre">pp06</span></code> (and annotated derivatives). Workflow tasks 0–3 + 6 below. Docs: this guide,
+<code class="docutils literal notranslate"><span class="pre">Sharding.md</span></code>, <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code>, <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code>, <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code>, <code class="docutils literal notranslate"><span class="pre">VectorData.md</span></code>.</p></li>
+<li><p><strong>Phase 2 — Analysis:</strong> anomaly coincidence, residual climatology, spectral graph analysis,
+internal waves, Columbia plume, and cross-comparison with satellite (NASA PO.DAAC SST/SSS/
+ocean color). Tasks 4–5. Docs: <code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code>, <code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis.md</span></code>, <code class="docutils literal notranslate"><span class="pre">InternalWaves.md</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ColumbiaPlumePlan.md</span></code>, <code class="docutils literal notranslate"><span class="pre">TidalAnalysis.md</span></code>, <code class="docutils literal notranslate"><span class="pre">CoincidencePlans.md</span></code>.</p></li>
+</ul>
+<p>Argosy starts with the Oregon Slope Base (<code class="docutils literal notranslate"><span class="pre">sb</span></code>) shallow profiler; a near-term goal is bringing
+Oregon Offshore (<code class="docutils literal notranslate"><span class="pre">oo</span></code>) and Axial Base (<code class="docutils literal notranslate"><span class="pre">ab</span></code>) to the same stage.</p>
+</section>
+<section id="filesystem-layout">
+<h2>Filesystem layout<a class="headerlink" href="#filesystem-layout" title="Link to this heading">#</a></h2>
+<p>Two independent trees: the repository (<code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>, code + markdown, GitHub) and the data
+(<code class="docutils literal notranslate"><span class="pre">~/ooi</span></code>, NetCDF + derived products, mirrored to S3). No data files live in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>
+(exception: <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code> holds chart copies for the book/PDF).</p>
+<p><strong>All path knowledge is centralized in <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code></strong> (repo root). Code obtains paths from it
+(e.g. <code class="docutils literal notranslate"><span class="pre">op.redux_dir(year,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">op.postproc_dir(pp,</span> <span class="pre">year,</span> <span class="pre">site)</span></code>) rather than hardcoding.
+The data tree is per-site; <code class="docutils literal notranslate"><span class="pre">&lt;site&gt;</span></code> is a 2-letter code (<code class="docutils literal notranslate"><span class="pre">sb</span></code>/<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">argosy</span><span class="o">/</span>                         <span class="n">repository</span> <span class="p">(</span><span class="n">Jupyter</span> <span class="n">Book</span> <span class="o">+</span> <span class="n">working</span> <span class="n">scripts</span><span class="o">/</span><span class="n">markdown</span><span class="p">)</span>
+    <span class="n">chapters</span><span class="o">/</span>                     <span class="n">Jupyter</span> <span class="n">Book</span> <span class="n">executable</span> <span class="n">notebooks</span>
+    <span class="n">ooipaths</span><span class="o">.</span><span class="n">py</span>                   <span class="n">single</span> <span class="n">source</span> <span class="n">of</span> <span class="n">truth</span> <span class="k">for</span> <span class="n">data</span> <span class="n">paths</span>
+
+<span class="o">~/</span><span class="n">ooi</span><span class="o">/</span>                            <span class="n">data</span> <span class="n">root</span>
+    <span class="o">&lt;</span><span class="n">site</span><span class="o">&gt;/</span>                       <span class="n">sb</span> <span class="p">(</span><span class="n">Slope</span> <span class="n">Base</span><span class="p">),</span> <span class="n">oo</span> <span class="p">(</span><span class="n">Oregon</span> <span class="n">Offshore</span><span class="p">),</span> <span class="n">ab</span> <span class="p">(</span><span class="n">Axial</span> <span class="n">Base</span><span class="p">)</span>
+        <span class="n">ooinet</span><span class="o">/</span>                   <span class="n">raw</span> <span class="n">OOINET</span> <span class="n">source</span> <span class="n">NetCDF</span>
+            <span class="n">scalar</span><span class="o">/&lt;</span><span class="n">yyyy</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">instrument</span><span class="o">&gt;/</span>    <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">sb</span><span class="o">/</span><span class="n">ooinet</span><span class="o">/</span><span class="n">scalar</span><span class="o">/</span><span class="mi">2016</span><span class="n">_nitrate</span>
+            <span class="n">vector</span><span class="o">/&lt;</span><span class="n">yyyy</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="n">instrument</span><span class="o">&gt;/</span>    <span class="n">velocity</span><span class="p">,</span> <span class="n">spectral</span> <span class="n">irradiance</span><span class="p">,</span> <span class="n">optical</span> <span class="n">absorption</span><span class="p">,</span> <span class="n">beam</span> <span class="n">attenuation</span>
+        <span class="n">redux</span><span class="o">/&lt;</span><span class="n">yyyy</span><span class="o">&gt;/</span>             <span class="n">sharded</span> <span class="n">profiles</span> <span class="p">(</span><span class="n">one</span> <span class="n">NetCDF</span> <span class="n">per</span> <span class="n">sensor</span> <span class="n">per</span> <span class="n">profile</span><span class="p">)</span>
+        <span class="n">postproc</span><span class="o">/&lt;</span><span class="n">pp</span><span class="o">&gt;/&lt;</span><span class="n">yyyy</span><span class="o">&gt;/</span>     <span class="n">post</span><span class="o">-</span><span class="n">processing</span> <span class="n">results</span> <span class="p">(</span><span class="n">pp01</span><span class="p">,</span> <span class="n">pp02</span><span class="p">,</span> <span class="n">pp05</span><span class="p">,</span> <span class="n">pp06</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+        <span class="n">profileIndices</span><span class="o">/</span>           <span class="n">profile</span> <span class="n">ascent</span><span class="o">/</span><span class="n">descent</span> <span class="n">timestamps</span> <span class="p">(</span><span class="n">clone</span> <span class="kn">from</span> <span class="nn">GitHub</span><span class="p">,</span> <span class="n">designator</span><span class="o">-</span><span class="n">keyed</span> <span class="n">CSVs</span><span class="p">)</span>
+        <span class="n">metadata</span><span class="o">/</span>                 <span class="n">derived</span> <span class="n">metadata</span><span class="p">,</span> <span class="ow">in</span> <span class="n">subfolders</span> <span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">profiles</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">annotations</span><span class="p">,</span> <span class="n">external</span><span class="p">,</span> <span class="n">cache</span><span class="p">,</span> <span class="n">scans</span><span class="p">)</span>
+        <span class="n">analysis</span><span class="o">/&lt;</span><span class="n">method</span><span class="o">&gt;/</span>        <span class="n">analysis</span> <span class="n">outputs</span> <span class="p">(</span><span class="n">sga</span><span class="p">,</span> <span class="n">clustering</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+        <span class="n">visualizations</span><span class="o">/</span>           <span class="n">saved</span> <span class="n">charts</span> <span class="p">(</span><span class="n">histograms</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Raw <code class="docutils literal notranslate"><span class="pre">ooinet</span></code> for <code class="docutils literal notranslate"><span class="pre">sb</span></code> is ~204 GB (archived to S3, deletable locally); <code class="docutils literal notranslate"><span class="pre">redux</span></code> ~18 GB; <code class="docutils literal notranslate"><span class="pre">pp06</span></code>
+~15 GB. See <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> for S3 layout, sync/restore, and local disk management.</p>
+</section>
+<section id="workflow-tasks-06">
+<h2>Workflow (tasks 0–6)<a class="headerlink" href="#workflow-tasks-06" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>(0) Manual:</strong> order datasets through the OOINET browser interface (see below).</p></li>
+<li><p><strong>(1) Automated — Download:</strong> retrieve NetCDF from the OOINET staging URLs into
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/ooinet/{scalar|vector}/&lt;yyyy&gt;_&lt;instrument&gt;/</span></code>. Code: <code class="docutils literal notranslate"><span class="pre">chapters/DataDownload.ipynb</span></code>.
+Includes a step to scan for and delete superfluous (time-overlapping) source files.</p></li>
+<li><p><strong>(2) Automated — Sharding:</strong> break source files into single-sensor, single-profile shards in
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;yyyy&gt;/</span></code>. Code: <code class="docutils literal notranslate"><span class="pre">chapters/DataSharding.ipynb</span></code>. Also generates the
+midnight/noon profile lists. See <code class="docutils literal notranslate"><span class="pre">Sharding.md</span></code>.</p></li>
+<li><p><strong>(3) Automated — Post-processing:</strong> evaluate/filter shards into <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/postproc/pp&lt;NN&gt;/&lt;yyyy&gt;/</span></code>.
+See <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> and <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code>.</p></li>
+<li><p><strong>(4) Interactive — Visualizations:</strong> bundle charts, curtain plots, animations. See <code class="docutils literal notranslate"><span class="pre">Visualization.md</span></code>.</p></li>
+<li><p><strong>(5) Interactive — Analysis:</strong> SGA, clustering, coincidence, etc. See <code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> (Phase 2).</p></li>
+<li><p><strong>(6) Mirror to S3:</strong> reproducibility/portability. See <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="task-0-1-detail-ordering-and-downloading-from-ooinet">
+<h2>Task 0/1 detail — ordering and downloading from OOINET<a class="headerlink" href="#task-0-1-detail-ordering-and-downloading-from-ooinet" title="Link to this heading">#</a></h2>
+<section id="order-datasets-from-ooinet-manual">
+<h3>Order datasets from OOINET (manual)<a class="headerlink" href="#order-datasets-from-ooinet-manual" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Log in to the OOI <a class="reference external" href="https://ooinet.oceanobservatories.org/data_access">access page</a>.</p></li>
+<li><p>Left-hand filters: Array, Cable, Platform, Instrument.</p></li>
+<li><p>In the Data Catalog box: use the <strong>+</strong> action to add datasets to the download table.</p>
+<ul>
+<li><p><strong>Do not use the time-window interface</strong> in the catalog.</p></li>
+<li><p>Select datasets with <strong>Stream type == <code class="docutils literal notranslate"><span class="pre">Science</span></code></strong>.</p></li>
+</ul>
+</li>
+<li><p>Click <strong>Download</strong> → finalize the order:</p>
+<ul>
+<li><p>Type the time range manually, e.g. <code class="docutils literal notranslate"><span class="pre">2015-01-01</span> <span class="pre">00:00:00.0</span></code>.</p></li>
+<li><p>Optionally uncheck <strong>Download All Parameters</strong> and ctrl-click specific parameters.</p></li>
+<li><p>Submit; an “order ready” email (with staging URLs) usually arrives in under ~2 hours.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="download-the-order">
+<h3>Download the order<a class="headerlink" href="#download-the-order" title="Link to this heading">#</a></h3>
+<p>URLs go into <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> (one per line; <code class="docutils literal notranslate"><span class="pre">#</span></code>-prefixed lines ignored).
+<code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code> reads each URL, reports how many <code class="docutils literal notranslate"><span class="pre">.nc</span></code> files are present / already
+downloaded / remaining, and downloads the missing ones (restart-tolerant). Files route to the
+destination folder by the year parsed from the filename’s first timestamp. <code class="docutils literal notranslate"><span class="pre">.ncml</span></code> files are
+ignored.</p>
+</section>
+<section id="raw-filename-anatomy">
+<h3>Raw filename anatomy<a class="headerlink" href="#raw-filename-anatomy" title="Link to this heading">#</a></h3>
+<p>Example:
+<code class="docutils literal notranslate"><span class="pre">deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">deployment0004</span></code> — operational deployment (months–year between maintenance)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RS01SBPS</span></code> — reference designator: <code class="docutils literal notranslate"><span class="pre">RS</span></code>=Regional Cabled Array, <code class="docutils literal notranslate"><span class="pre">SB</span></code>=Slope Base, <code class="docutils literal notranslate"><span class="pre">PS</span></code>=Profiler Shallow</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SF01A</span></code> — the profiler (not the fixed platform)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CTDPFA102</span></code> — CTD instrument (yields temperature, salinity, density, dissolved oxygen shards)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">20180208T...-20180226T...</span></code> — UTC data time range</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.nc</span></code> — NetCDF</p></li>
+</ul>
+<p>These source files are dense amalgams (sensor + engineering + QC data, hundreds of MB,
+many profile cycles). The pipeline reduces them to per-sensor per-profile shards.</p>
+<p>Common xarray first step (raw dimension is <code class="docutils literal notranslate"><span class="pre">obs</span></code>; we swap to <code class="docutils literal notranslate"><span class="pre">time</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;obs&#39;</span><span class="p">:</span> <span class="s1">&#39;time&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Keep <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code>, and the science variable(s); drop <code class="docutils literal notranslate"><span class="pre">lat</span></code>/<code class="docutils literal notranslate"><span class="pre">lon</span></code> (near-constant for a
+shallow profiler) and engineering variables not needed downstream.</p>
+</section>
+<section id="degenerate-source-files">
+<h3>Degenerate source files<a class="headerlink" href="#degenerate-source-files" title="Link to this heading">#</a></h3>
+<p>Because CTD files are delivered alongside other instrument orders, downloading pH/pCO2/nitrate
+can pull duplicate CTD files. Cells 2–3 of <code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code> detect source files whose time
+range is covered by other file(s) and script their deletion (time ranges are in the filenames).</p>
+</section>
+</section>
+<section id="shard-filename-convention">
+<h2>Shard filename convention<a class="headerlink" href="#shard-filename-convention" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">RCA_&lt;site&gt;_sp_&lt;sensor&gt;_&lt;yyyy&gt;_&lt;ddd&gt;_&lt;global_index&gt;_&lt;daily_index&gt;_&lt;version&gt;.nc</span></code>
+e.g. <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_temperature_2018_296_6261_7_V1.nc</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">RCA</span></code> Regional Cabled Array · <code class="docutils literal notranslate"><span class="pre">&lt;site&gt;</span></code> 2-letter site · <code class="docutils literal notranslate"><span class="pre">sp</span></code> shallow profiler</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sensor&gt;</span></code> from the sensor table <code class="docutils literal notranslate"><span class="pre">shard</span></code> column</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;yyyy&gt;</span></code> year · <code class="docutils literal notranslate"><span class="pre">&lt;ddd&gt;</span></code> Julian day · <code class="docutils literal notranslate"><span class="pre">&lt;global_index&gt;</span></code> per-site profile counter (from <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;daily_index&gt;</span></code> 1–9 (which profile of the day) · <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> V1 redux, V2 postproc subsets</p></li>
+</ul>
+<p>See <code class="docutils literal notranslate"><span class="pre">Sharding.md</span></code> and <code class="docutils literal notranslate"><span class="pre">SensorTable.md</span></code> for details.</p>
+</section>
+<section id="source-data-coverage">
+<h2>Source data coverage<a class="headerlink" href="#source-data-coverage" title="Link to this heading">#</a></h2>
+<p>Presence/absence of source files by instrument across the timeline (generated by cell 5 of
+<code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code>):</p>
+<p><img alt="Pre-shard data availability" src="_images/pre_shard_data_availability.png" /></p>
+</section>
+<section id="s3-mirror-task-6-summary">
+<h2>S3 mirror (task 6, summary)<a class="headerlink" href="#s3-mirror-task-6-summary" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code> tree mirrors to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/</span></code> (per-site prefixes; raw <code class="docutils literal notranslate"><span class="pre">ooinet/</span></code> kept under legacy
+keys). <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> is authoritative for sync/verify/restore commands and the public-read
+bucket policy. Quick form:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aws<span class="w"> </span>s3<span class="w"> </span>sync<span class="w"> </span>~/ooi/sb/redux/<span class="w">    </span>s3://s3ooi/sb/redux/
+aws<span class="w"> </span>s3<span class="w"> </span>sync<span class="w"> </span>~/ooi/sb/postproc/<span class="w"> </span>s3://s3ooi/sb/postproc/
+</pre></div>
+</div>
+</section>
+<section id="where-to-go-next">
+<h2>Where to go next<a class="headerlink" href="#where-to-go-next" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Extend to a new site (<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>): run tasks 0–3 with <code class="docutils literal notranslate"><span class="pre">site=</span></code> set; <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> handles paths.</p></li>
+<li><p>Analysis methods: <code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> and the Phase 2 docs.</p></li>
+<li><p>Reuse / cite the work: <code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code> (get running) and <code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code> (DOIs, data access).</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SETUP.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Argosy Project Setup</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Sharding.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Profile Metadata and Sharding</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-phase-structure">Two-phase structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem-layout">Filesystem layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-tasks-06">Workflow (tasks 0–6)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-0-1-detail-ordering-and-downloading-from-ooinet">Task 0/1 detail — ordering and downloading from OOINET</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-datasets-from-ooinet-manual">Order datasets from OOINET (manual)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-order">Download the order</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-filename-anatomy">Raw filename anatomy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#degenerate-source-files">Degenerate source files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shard-filename-convention">Shard filename convention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-data-coverage">Source data coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-mirror-task-6-summary">S3 mirror (task 6, summary)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next">Where to go next</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Argosy Project Conventions &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '.kiro/steering/argosy-conventions';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DevelopmentLog.html">Development Log</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2F.kiro/steering/argosy-conventions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/.kiro/steering/argosy-conventions.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Argosy Project Conventions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-shorthands">Prompt shorthands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-conventions">Coding conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table">Sensor table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-pipeline">Data pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shard-filename-convention">Shard filename convention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-continuity">Session continuity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#status-snapshot-sessionstate-md">Status snapshot: <code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rebuild-notes-for-reverted-work">Rebuild notes for reverted work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-hygiene-at-session-end">Documentation hygiene at session end</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-documenting-subfolders-readme-on-creation">Self-documenting subfolders (README on creation)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-rules">Key rules</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="argosy-project-conventions">
+<h1>Argosy Project Conventions<a class="headerlink" href="#argosy-project-conventions" title="Link to this heading">#</a></h1>
+<section id="prompt-shorthands">
+<h2>Prompt shorthands<a class="headerlink" href="#prompt-shorthands" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sa</span></code> appended to a prompt: Short answer only, at most five lines of text.</p></li>
+</ul>
+</section>
+<section id="project-structure">
+<h2>Project structure<a class="headerlink" href="#project-structure" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Repository: <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code> — code, markdown, Jupyter Book. No data files here.</p></li>
+<li><p>Data: <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code> — all NetCDF source files, redux shards, postproc, analysis outputs, visualizations.
+Per-site layout: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/{ooinet,</span> <span class="pre">redux/&lt;yyyy&gt;,</span> <span class="pre">postproc/&lt;pp&gt;/&lt;yyyy&gt;,</span> <span class="pre">profileIndices,</span> <span class="pre">metadata,</span> <span class="pre">analysis,</span> <span class="pre">visualizations}</span></code>
+where <code class="docutils literal notranslate"><span class="pre">&lt;site&gt;</span></code> is a 2-letter code (<code class="docutils literal notranslate"><span class="pre">sb</span></code>=Slope Base, <code class="docutils literal notranslate"><span class="pre">oo</span></code>=Oregon Offshore, <code class="docutils literal notranslate"><span class="pre">ab</span></code>=Axial Base).
+All path knowledge is centralized in <code class="docutils literal notranslate"><span class="pre">~/argosy/ooipaths.py</span></code> — code MUST obtain paths from it
+(e.g. <code class="docutils literal notranslate"><span class="pre">op.redux_dir(year,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">op.postproc_dir(pp,</span> <span class="pre">year,</span> <span class="pre">site)</span></code>) rather than hardcoding.</p></li>
+<li><p>The two are mirrored independently: <code class="docutils literal notranslate"><span class="pre">argosy</span></code> to GitHub, <code class="docutils literal notranslate"><span class="pre">ooi</span></code> to S3 (<code class="docutils literal notranslate"><span class="pre">s3ooi</span></code> bucket).
+S3 mirrors the per-site layout: <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/redux/&lt;yyyy&gt;/</span></code>, <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/postproc/&lt;pp&gt;/&lt;yyyy&gt;/</span></code>.
+Exception: <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/ooinet/rca/...</span></code> (204 GB raw archive) retains legacy keys, not re-keyed.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Primary docs are split across focused markdown files (each &lt; 400 lines).</p></li>
+<li><p>Entry point: <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>. Lists all companion files.</p></li>
+<li><p>Development log, to-do list, and prompt staging: <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> (last in sequence).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">Next</span></code> section at the end of <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> is where complex prompts are staged.</p></li>
+<li><p>PDF build: <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> with <code class="docutils literal notranslate"><span class="pre">_header.tex</span></code>, command documented in <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>.</p></li>
+<li><p>Slide deck: <code class="docutils literal notranslate"><span class="pre">slides.md</span></code> (Marp format). Render with <code class="docutils literal notranslate"><span class="pre">marp</span> <span class="pre">slides.md</span> <span class="pre">-o</span> <span class="pre">slides.html</span></code>. Marp CLI is installed.</p></li>
+</ul>
+</section>
+<section id="coding-conventions">
+<h2>Coding conventions<a class="headerlink" href="#coding-conventions" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Python environment: <code class="docutils literal notranslate"><span class="pre">argosy</span></code> (miniconda). Activate with <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/miniconda3/etc/profile.d/conda.sh</span> <span class="pre">&amp;&amp;</span> <span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">argosy</span></code>.</p></li>
+<li><p>Timezone handling: Use <code class="docutils literal notranslate"><span class="pre">zoneinfo.ZoneInfo('America/Los_Angeles')</span></code>. Do not use <code class="docutils literal notranslate"><span class="pre">pytz</span></code>.</p></li>
+<li><p>Matplotlib in standalone scripts: Use <code class="docutils literal notranslate"><span class="pre">matplotlib.use('Agg')</span></code> for headless execution. Always set this
+before importing <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>. This avoids Qt/xcb errors in WSL2 where no display server is available.</p></li>
+<li><p>Matplotlib in Jupyter cells: Do not set backend; use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span> <span class="pre">inline</span></code> if needed.</p></li>
+<li><p>Temporary scripts: Name with <code class="docutils literal notranslate"><span class="pre">_</span></code> prefix (e.g. <code class="docutils literal notranslate"><span class="pre">_check_something.py</span></code>). Delete after use.</p></li>
+<li><p>Notebook edits: After editing <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files, validate JSON with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;import</span> <span class="pre">json;</span> <span class="pre">json.load(open('path'))&quot;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input()</span></code> fallback: Cloud JupyterHubs commonly disable stdin. Any <code class="docutils literal notranslate"><span class="pre">%run</span></code> module that uses
+<code class="docutils literal notranslate"><span class="pre">input()</span></code> should wrap it in try/except and fall back to defaults silently. Use this pattern:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_input_with_default</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">response</span> <span class="k">if</span> <span class="n">response</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="sensor-table">
+<h2>Sensor table<a class="headerlink" href="#sensor-table" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Authoritative source: <code class="docutils literal notranslate"><span class="pre">~/argosy/sensortable.csv</span></code></p></li>
+<li><p>Folder naming in <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/ooinet/scalar/</span></code> uses the <code class="docutils literal notranslate"><span class="pre">key</span></code> column: <code class="docutils literal notranslate"><span class="pre">&lt;year&gt;_&lt;key&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">2018_ctd</span></code>, <code class="docutils literal notranslate"><span class="pre">2022_nitr</span></code>, <code class="docutils literal notranslate"><span class="pre">2015_par</span></code>). For Slope Base: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/ooinet/scalar/</span></code>.</p></li>
+<li><p>Vector channel files: <code class="docutils literal notranslate"><span class="pre">vcurrent.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vspectralirr.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vopticalabsorb.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vbeamatten.csv</span></code>.</p></li>
+<li><p>When the sensor table changes, update both <code class="docutils literal notranslate"><span class="pre">sensortable.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">SensorTable.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="data-pipeline">
+<h2>Data pipeline<a class="headerlink" href="#data-pipeline" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Download: <code class="docutils literal notranslate"><span class="pre">chapters/DataDownload.ipynb</span></code>. URLs in <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> (lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code> are ignored).</p></li>
+<li><p>Sharding: <code class="docutils literal notranslate"><span class="pre">chapters/DataSharding.ipynb</span></code>. Reads from <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/ooinet/...</span></code>, writes to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;yyyy&gt;/</span></code>.</p></li>
+<li><p>Post-processing: <code class="docutils literal notranslate"><span class="pre">~/argosy/postprocess_special_profiles.py</span></code>. Reads redux, writes to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/postproc/pp01/&lt;yyyy&gt;/</span></code> or <code class="docutils literal notranslate"><span class="pre">pp02/</span></code>.</p></li>
+<li><p>Sensor exclusions: <code class="docutils literal notranslate"><span class="pre">~/argosy/sensor_exclusions.csv</span></code>. Manual QC embargo list (sensor, start, end, reason). Consumed by the curtain plot and the postprocess script. Add entries when fouling or anomalies are observed.</p></li>
+<li><p>Profile metadata: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/profileIndices/</span></code> (from GitHub clone; designator-keyed CSVs placed per site — an explicit ingest step). Derived metadata goes to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/</span></code>.</p></li>
+<li><p>Visualizations saved to disk go to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/visualizations/</span></code>. Copies for the repo go to <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code>.</p></li>
+</ul>
+</section>
+<section id="shard-filename-convention">
+<h2>Shard filename convention<a class="headerlink" href="#shard-filename-convention" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">RCA_&lt;site&gt;_sp_&lt;sensor&gt;_&lt;yyyy&gt;_&lt;ddd&gt;_&lt;global_index&gt;_&lt;daily_index&gt;_&lt;version&gt;.nc</span></code>
+(e.g. <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_temperature_2022_043_13614_1_V1.nc</span></code>)</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;site&gt;</span></code>: 2-letter site token, matches the site directory (<code class="docutils literal notranslate"><span class="pre">sb</span></code>/<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>). Filenames were
+NOT changed by the per-site restructure — the site appears in both the path and this token.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sensor&gt;</span></code>: from <code class="docutils literal notranslate"><span class="pre">shard</span></code> column of sensor table (e.g. <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">dissolvedoxygen</span></code>, <code class="docutils literal notranslate"><span class="pre">nitrate</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;global_index&gt;</span></code>: from <code class="docutils literal notranslate"><span class="pre">profileIndices</span></code> (starts at 1 in July 2015, exceeds 20000 by 2026)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;daily_index&gt;</span></code>: 1–9 (which profile of the day)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">V1</span></code> for redux, <code class="docutils literal notranslate"><span class="pre">V2</span></code> for postproc subsets</p></li>
+</ul>
+</section>
+<section id="session-continuity">
+<h2>Session continuity<a class="headerlink" href="#session-continuity" title="Link to this heading">#</a></h2>
+<p>These conventions ensure smooth handoff between kiro sessions (context window full, chat restart, etc.).</p>
+<section id="status-snapshot-sessionstate-md">
+<h3>Status snapshot: <code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code><a class="headerlink" href="#status-snapshot-sessionstate-md" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Location: <code class="docutils literal notranslate"><span class="pre">~/argosy/SessionState.md</span></code></p></li>
+<li><p>Purpose: Machine-readable summary of what the <em>last</em> session accomplished, what’s in progress, and what’s blocked.</p></li>
+<li><p><strong>When to write/update:</strong> At the end of every session (when the user says goodbye, when context is getting long, or after completing a significant milestone). Also update when reverting work or leaving something incomplete.</p></li>
+<li><p><strong>When to read:</strong> At the start of every new session, read <code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code> <em>before</em> reading <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code>. This is the fastest path to orientation.</p></li>
+<li><p>Format (maintain these headings exactly):</p></li>
+</ul>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># Session State</span>
+
+<span class="gu">## Last updated</span>
+&lt;date and brief session description&gt;
+
+<span class="gu">## Completed this session</span>
+<span class="k">-</span><span class="w"> </span>&lt;bullet list of what was accomplished&gt;
+
+<span class="gu">## In progress / partially done</span>
+<span class="k">-</span><span class="w"> </span>&lt;what was started but not finished, with enough detail to resume&gt;
+
+<span class="gu">## Reverted / needs redo</span>
+<span class="k">-</span><span class="w"> </span>&lt;what was attempted, why it failed, where the rebuild notes live&gt;
+
+<span class="gu">## Blocked / waiting on user</span>
+<span class="k">-</span><span class="w"> </span>&lt;anything that requires user decision or external action&gt;
+
+<span class="gu">## Next action</span>
+<span class="k">-</span><span class="w"> </span>&lt;the single most important next step&gt;
+</pre></div>
+</div>
+</section>
+<section id="rebuild-notes-for-reverted-work">
+<h3>Rebuild notes for reverted work<a class="headerlink" href="#rebuild-notes-for-reverted-work" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>When work is reverted (notebook cell, script, etc.), write a rebuild plan to <code class="docutils literal notranslate"><span class="pre">~/argosy/&lt;Feature&gt;Rebuild.md</span></code>.</p></li>
+<li><p>Name the file after the feature (e.g. <code class="docutils literal notranslate"><span class="pre">VisNotebookRebuild.md</span></code>, <code class="docutils literal notranslate"><span class="pre">ShardingRebuild.md</span></code>).</p></li>
+<li><p>Include: what was attempted, why it failed, what changes to re-apply, and any constraints discovered.</p></li>
+<li><p>Reference the rebuild file from <code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code> → “Reverted / needs redo” section.</p></li>
+<li><p>Once the rebuild is successfully applied, delete the rebuild file and remove the reference.</p></li>
+</ul>
+</section>
+<section id="documentation-hygiene-at-session-end">
+<h3>Documentation hygiene at session end<a class="headerlink" href="#documentation-hygiene-at-session-end" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> → “Completed” section with anything newly done.</p></li>
+<li><p>Remove completed items from “Pending To Do”.</p></li>
+<li><p>Update “## Next” to reflect the actual next priority.</p></li>
+<li><p>If a new operational procedure was added to any doc, add the pointer in <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> → “Pointers to Key Actions”.</p></li>
+</ul>
+</section>
+<section id="self-documenting-subfolders-readme-on-creation">
+<h3>Self-documenting subfolders (README on creation)<a class="headerlink" href="#self-documenting-subfolders-readme-on-creation" title="Link to this heading">#</a></h3>
+<p>When creating a subfolder to hold an existing set of files, create a <code class="docutils literal notranslate"><span class="pre">README.md</span></code> in that
+subfolder that begins:</p>
+<blockquote>
+<div><p>This folder <code class="docutils literal notranslate"><span class="pre">&lt;path&gt;</span></code> contains files for <code class="docutils literal notranslate"><span class="pre">&lt;short</span> <span class="pre">purpose</span> <span class="pre">statement&gt;</span></code>.</p>
+</div></blockquote>
+<p>Append a bullet list of the source files (scripts that produce or consume the folder’s
+contents, e.g. <code class="docutils literal notranslate"><span class="pre">VisQCInspector.py</span></code>) with one-line summaries of what each does. The goal is
+to make data folders (especially <code class="docutils literal notranslate"><span class="pre">metadata/</span></code> and its subfolders) somewhat self-documenting.</p>
+</section>
+</section>
+<section id="key-rules">
+<h2>Key rules<a class="headerlink" href="#key-rules" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Never write data or generated files to <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>. Output goes to <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code>.</p></li>
+<li><p>Exception: <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code> holds copies of key charts for the PDF/repo.</p></li>
+<li><p>Do not run long-running code without asking. Describe what will happen and get confirmation.</p></li>
+<li><p>When editing notebook cells, preserve existing outputs unless asked to clear them.</p></li>
+<li><p><strong>Environment stability</strong>: The <code class="docutils literal notranslate"><span class="pre">argosy</span></code> conda environment should be pinned. After any
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span></code>, run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">&gt;</span> <span class="pre">~/argosy/environment.yml</span></code>
+to snapshot the working state. Before running a notebook after a long hiatus, compare
+current versions against <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and flag discrepancies. Key packages to watch:
+scipy, scikit-learn, networkx, xarray, threadpoolctl, pandas.</p></li>
+<li><p><strong>Notebook pre-flight check</strong>: After any gap of &gt;2 weeks since last notebook run, read
+the module descriptions (in the SGA markdown or cell comments) and verify that file paths,
+column names, and library APIs still match. Run a quick dry/sanity check on Module 1
+before committing to a full pipeline run.</p></li>
+<li><p>CTD is the single source for temperature, salinity, density, AND dissolved oxygen.</p></li>
+<li><p>Sensor profile operation modes (post-2016):</p>
+<ul>
+<li><p><strong>All 9 profiles, ascent</strong>: temperature, salinity, density, DO, chlorA, CDOM, backscatter, PAR (~full depth, dense data)</p></li>
+<li><p><strong>Daily index 4 and 9 only, ascent</strong>: nitrate (~150 points/profile, full depth)</p></li>
+<li><p><strong>Daily index 4 and 9 only, descent</strong>: pCO2 (~10 points/profile), pH (~10 points/profile)</p></li>
+<li><p>Daily index 4 = midnight profile; daily index 9 = post-noon profile (~13:40 local)</p></li>
+<li><p>In 2015–2016 all three restricted sensors operated on more/all profiles; the 4-and-9 restriction began in 2017.</p></li>
+<li><p>pH has shard files for all 9 daily indices but only indices 4 and 9 contain usable data (others have too few valid points).</p></li>
+</ul>
+</li>
+<li><p>When appropriate: Finish a response with what the user should do next. This avoids forcing them to scan back up for action items.</p></li>
+<li><p>When starting a new chat (usually due to context window full) read <code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code> first for immediate orientation, then <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> and <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> as needed.</p></li>
+<li><p>Operational procedures are indexed in <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> → “Pointers to Key Actions”. When adding a new procedure to any doc, also add a one-line pointer there.</p></li>
+<li><p><strong>Cross-document references</strong>: When an item in one document is addressed or elaborated in another, add a pointer (e.g. “See <code class="docutils literal notranslate"><span class="pre">Testing.md</span></code> for details”). This applies to Open Topics referencing <a class="reference external" href="http://Testing.md">Testing.md</a>, DevelopmentLog referencing <a class="reference external" href="http://Analysis.md">Analysis.md</a>, etc. Keeps navigation efficient across the doc set.</p></li>
+<li><p>Before running any long-running process that writes significant data (pp05, sharding, etc.), check Windows C: drive free space with <code class="docutils literal notranslate"><span class="pre">Get-PSDrive</span> <span class="pre">C</span></code>. If free space is 2GB or less, STOP and notify the user that the Windows drive is critically low — WSL will fail if the vhdx cannot grow.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./.kiro/steering"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-shorthands">Prompt shorthands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-conventions">Coding conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table">Sensor table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-pipeline">Data pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shard-filename-convention">Shard filename convention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-continuity">Session continuity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#status-snapshot-sessionstate-md">Status snapshot: <code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rebuild-notes-for-reverted-work">Rebuild notes for reverted work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-hygiene-at-session-end">Documentation hygiene at session end</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-documenting-subfolders-readme-on-creation">Self-documenting subfolders (README on creation)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-rules">Key rules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

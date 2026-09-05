@@ -1,0 +1,778 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sensor Reference &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SensorTable';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="File System and Workflow" href="Workflow.html" />
+    <link rel="prev" title="OOI Observatory Reference" href="OOIObservatory.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentLog.html">Development Log</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FSensorTable.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/SensorTable.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Sensor Reference</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table">Sensor table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-to-list-datafile-variables">Code to list datafile variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table-columns">Sensor table columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-sensor-sampling-categories">Scalar sensor sampling categories</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lsd-sampling-details">LSD sampling details</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#profiler-operating-mode-reference">Profiler operating mode reference</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Sensor table</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity">Velocity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-irradiance">Spectral Irradiance</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrophotometer">Spectrophotometer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen">Dissolved Oxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitrate">Nitrate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sensor-reference">
+<h1>Sensor Reference<a class="headerlink" href="#sensor-reference" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Note: The heading structure in this file has <code class="docutils literal notranslate"><span class="pre">###</span> <span class="pre">Why</span> <span class="pre">OOI</span> <span class="pre">Created</span> <span class="pre">Separate</span> <span class="pre">DO</span> <span class="pre">Files</span></code> at the same level as other <code class="docutils literal notranslate"><span class="pre">###</span></code> headings but <code class="docutils literal notranslate"><span class="pre">####</span> <span class="pre">Nitrate</span></code> nested under it. This should be reorganized (Nitrate belongs at the same level as other instruments).</p>
+</div></blockquote>
+<p>This document contains the comprehensive sensor table for the shallow profiler,
+column descriptions, per-sensor notes, and references to the standalone CSV files.
+See also <code class="docutils literal notranslate"><span class="pre">sensortable.csv</span></code> for the machine-readable version.</p>
+<section id="sensor-table">
+<h2>Sensor table<a class="headerlink" href="#sensor-table" title="Link to this heading">#</a></h2>
+<section id="code-to-list-datafile-variables">
+<h3>Code to list datafile variables<a class="headerlink" href="#code-to-list-datafile-variables" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;&lt;some_path&gt;/&lt;some_file&gt;.nc&#39;</span><span class="p">)</span>
+<span class="n">ds</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Source file structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dimension</span>
+    <span class="n">obs</span><span class="p">(</span><span class="n">ervation</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">time</span> <span class="n">using</span> <span class="n">swap_dims</span><span class="p">()</span>
+
+<span class="n">coordinates</span>
+    <span class="n">observation</span>
+    <span class="n">lat</span>
+    <span class="n">lon</span>
+    <span class="n">depth</span>
+    <span class="n">time</span>
+
+<span class="n">data</span> <span class="n">variables</span>
+    <span class="n">sea_water_practical_salinity</span>        <span class="n">Note</span> <span class="n">use</span> <span class="n">of</span> <span class="n">prefix</span> <span class="s2">&quot;sea_water_&quot;</span> <span class="k">for</span> <span class="n">research</span> <span class="n">analysis</span>
+    <span class="o">&lt;</span><span class="n">many</span> <span class="n">other</span> <span class="n">types</span><span class="o">&gt;</span>
+
+<span class="n">attributes</span>
+    <span class="o">&lt;</span><span class="n">many</span><span class="p">;</span> <span class="n">ignoring</span> <span class="k">for</span> <span class="n">now</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="sensor-table-columns">
+<h3>Sensor table columns<a class="headerlink" href="#sensor-table-columns" title="Link to this heading">#</a></h3>
+<p>The <strong>sensor table</strong> is a comprehensive list of sensor types for the shallow profiler.
+This is written to a standalone reference CSV file: <code class="docutils literal notranslate"><span class="pre">~/argosy/sensortable.csv</span></code>.
+Vector sensor details are in companion files: <code class="docutils literal notranslate"><span class="pre">vcurrent.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vspectralirr.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vspectrophot.csv</span></code>.</p>
+<p>Premise: Jupyter cell code in the <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> notebook shards multiple types of
+source ‘instrument’ NetCDF datafiles to produce single-sensor shard files, one file
+per profile. Shards are written into folders spanning single years; with folder names
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux/&lt;yyyy&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/redux/2018</span></code>) where <code class="docutils literal notranslate"><span class="pre">&lt;yyyy&gt;</span></code> is a four-digit year. The sensor table localizes the
+metadata concerned with managing the sensor data.</p>
+<p>Sensors correspond to rows of the sensor table. Not included in the sensor table are
+<code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code> which are ancillary: <code class="docutils literal notranslate"><span class="pre">time</span></code> as dimension/coordinate and <code class="docutils literal notranslate"><span class="pre">depth</span></code>
+as data variable (XArray terminology). These define the two-dimensional framework for
+for the sensor data.</p>
+</section>
+<section id="scalar-sensor-sampling-categories">
+<h3>Scalar sensor sampling categories<a class="headerlink" href="#scalar-sensor-sampling-categories" title="Link to this heading">#</a></h3>
+<p>The 11 scalar sensors fall into two categories based on sampling density and
+profiler operating mode.</p>
+<p><strong>High Sample Density (HSD)</strong> sensors operate continuously during ascent on all
+9 daily profiles. They produce hundreds to thousands of data points per profile
+spanning the full 0–200m depth range. The profiler ascends at 5 cm/s, and these
+fast-response sensors sample at ~1 Hz or better.</p>
+<ul class="simple">
+<li><p>Temperature (CTDPF)</p></li>
+<li><p>Salinity (CTDPF)</p></li>
+<li><p>Dissolved Oxygen (CTDPF)</p></li>
+<li><p>Density (CTDPF, derived)</p></li>
+<li><p>CDOM (FLORT)</p></li>
+<li><p>Chlorophyll-A (FLORT)</p></li>
+<li><p>Backscatter (FLORT)</p></li>
+<li><p>PAR (PARAD)</p></li>
+</ul>
+<p><strong>Low Sample Density (LSD)</strong> sensors operate only on daily_index 4 (midnight,
+~00:00 local) and daily_index 9 (post-noon, ~13:40 local). From 2017 onward
+these sensors are restricted to 2 profiles per day. In 2015–2016 they operated
+on more or all profiles.</p>
+<ul class="simple">
+<li><p>Nitrate (NUTNR) — <strong>ascent</strong>, ~150 points/profile, full depth range</p></li>
+<li><p>pCO2 (PCO2W) — <strong>descent with stationary stops</strong>, ~10 points/profile</p></li>
+<li><p>pH (PHSEN) — <strong>descent with stationary stops</strong>, ~10 points/profile</p></li>
+</ul>
+<section id="lsd-sampling-details">
+<h4>LSD sampling details<a class="headerlink" href="#lsd-sampling-details" title="Link to this heading">#</a></h4>
+<p><strong>Nitrate (NUTNR, Sea-Bird SUNA V2):</strong> A fast-response optical UV spectroscopy
+sensor that measures continuously while the profiler moves. It operates during
+the ascent phase (start → peak) of profiles 4 and 9, producing ~150 data points
+spanning the full depth range. The sensor is turned on only for these two
+extended profiles to manage power and lamp lifetime.
+Reference: <a class="reference external" href="https://oceanobservatories.org/instrument-class/nutnr">OOI Nitrate instrument class</a></p>
+<p><strong>pCO2 (PCO2W, Pro-Oceanus CO2-Pro):</strong> Requires equilibration time at each
+measurement depth. The profiler stops at predefined depths during the descent
+phase (peak → end) of profiles 4 and 9, pausing long enough for the sensor to
+equilibrate. Produces ~10 measurements per profile. The V18 operations page
+specifically names CO2 as requiring stationary measurements.
+Reference: <a class="reference external" href="https://interactiveoceans.washington.edu/technology/shallow-profiler-moorings/">Interactive Oceans: Shallow Profiler Moorings</a></p>
+<p><strong>pH (PHSEN, Sunburst SAMI-pH):</strong> A reagent-based colorimetric sensor that
+requires a pump cycle (reagent injection, color development, optical measurement)
+at each depth. Like pCO2, it operates during descent stops on profiles 4 and 9,
+producing ~10 measurements per profile. Note: pH shard files exist for all 9
+daily indices, but only indices 4 and 9 contain usable multi-depth data; the
+other 7 indices contain a single measurement at platform depth (~190m).
+Reference: <a class="reference external" href="https://oceanobservatories.org/instrument-class/ph/">OOI pH instrument class</a>,
+<a class="reference external" href="https://interactiveoceans.washington.edu/instruments/ph/">Interactive Oceans: pH Sensors</a></p>
+</section>
+<section id="profiler-operating-mode-reference">
+<h4>Profiler operating mode reference<a class="headerlink" href="#profiler-operating-mode-reference" title="Link to this heading">#</a></h4>
+<p>The profiler makes 9 trips/day. It ascends at 5 cm/s and descends at 10 cm/s.
+Profiles 4 (midnight) and 9 (post-noon) have extended descent durations with
+automated step functions that stop the pod at specific depths for stationary
+measurements. Daily_index 8 is the true noon profile (peak ~12:00–12:30 local)
+but does not have the extended descent.
+Reference: <a class="reference external" href="https://interactiveoceans.washington.edu/shallow-profiler-moorings-v18/">Interactive Oceans: Shallow Profiler Moorings V18</a></p>
+<p>Here is the sensor table column information, columns going left to right.
+Format of this table: column content, short column name, some elaboration</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- sensor name,          sensor,  a descriptive &quot;normal text&quot; name
+- source instrument,    instrum, OOI five-letter key from reference designator e.g. CTDPF, FLORT
+- ooinet download key,  key,     short abbreviation of instrument name used in download folder name
+- sensor data variable, datavar, the science data variable of interest for this sensor e.g. `sea_water_temperature`
+- shard sensor name,    shard,   for `redux` sensor filename; e.g. RCA_sb_sp_dissolvedoxygen_2021_185_11876_3_V1.nc
+- acquisition side:     side,    `ascent` or `descent` (mostly ascent; pCO2 and pH are the notable descending acquisitions)
+- data extreme low,     xlow,    well below the expected data minimum
+- data extreme high,    xhigh,   well above the expected data maximum
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h3>Sensor table<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>For datavar == <code class="docutils literal notranslate"><span class="pre">vector</span></code> the actual data variable name is deferred; see notes below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sensor</span><span class="p">,</span>         <span class="n">instrum</span><span class="p">,</span>  <span class="n">key</span><span class="p">,</span>  <span class="n">datavar</span><span class="p">,</span>                      <span class="n">shard</span><span class="p">,</span>           <span class="n">side</span><span class="p">,</span>     <span class="n">xlow</span><span class="p">,</span>  <span class="n">xhigh</span>
+<span class="n">temperature</span><span class="p">,</span>      <span class="n">CTDPF</span><span class="p">,</span>  <span class="n">ctd</span><span class="p">,</span>  <span class="n">sea_water_temperature</span><span class="p">,</span>        <span class="n">temperature</span><span class="p">,</span>     <span class="n">ascent</span><span class="p">,</span>    <span class="mf">6.0</span><span class="p">,</span>   <span class="mf">20.0</span>
+<span class="n">salinity</span><span class="p">,</span>         <span class="n">CTDPF</span><span class="p">,</span>  <span class="n">ctd</span><span class="p">,</span>  <span class="n">sea_water_practical_salinity</span><span class="p">,</span> <span class="n">salinity</span><span class="p">,</span>        <span class="n">ascent</span><span class="p">,</span>   <span class="mf">32.0</span><span class="p">,</span>   <span class="mf">36.0</span>
+<span class="n">density</span><span class="p">,</span>          <span class="n">CTDPF</span><span class="p">,</span>  <span class="n">ctd</span><span class="p">,</span>  <span class="n">sea_water_density</span><span class="p">,</span>            <span class="n">density</span><span class="p">,</span>         <span class="n">ascent</span><span class="p">,</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="mf">1028.0</span>
+<span class="n">dissolved</span> <span class="n">oxygen</span><span class="p">,</span> <span class="n">CTDPF</span><span class="p">,</span>  <span class="n">ctd</span><span class="p">,</span>  <span class="n">corrected_dissolved_oxygen</span><span class="p">,</span>   <span class="n">dissolvedoxygen</span><span class="p">,</span> <span class="n">ascent</span><span class="p">,</span>   <span class="mf">50.0</span><span class="p">,</span>  <span class="mf">300.0</span>
+<span class="n">nitrate</span><span class="p">,</span>          <span class="n">NUTNR</span><span class="p">,</span> <span class="n">nitr</span><span class="p">,</span>  <span class="n">salinity_corrected_nitrate</span><span class="p">,</span>   <span class="n">nitrate</span><span class="p">,</span>         <span class="n">ascent</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>     <span class="mi">35</span>
+<span class="n">CDOM</span><span class="p">,</span>             <span class="n">FLORT</span><span class="p">,</span> <span class="n">flor</span><span class="p">,</span>  <span class="n">fluorometric_cdom</span><span class="p">,</span>            <span class="n">cdom</span><span class="p">,</span>            <span class="n">ascent</span><span class="p">,</span>    <span class="mf">0.5</span><span class="p">,</span>    <span class="mf">4.5</span>
+<span class="n">Chlorophyll</span><span class="o">-</span><span class="n">A</span><span class="p">,</span>    <span class="n">FLORT</span><span class="p">,</span> <span class="n">flor</span><span class="p">,</span>  <span class="n">fluorometric_chlorophyll_a</span><span class="p">,</span>   <span class="n">chlora</span><span class="p">,</span>          <span class="n">ascent</span><span class="p">,</span>    <span class="mf">0.0</span><span class="p">,</span>    <span class="mf">1.5</span>
+<span class="n">backscatter</span><span class="p">,</span>      <span class="n">FLORT</span><span class="p">,</span> <span class="n">flor</span><span class="p">,</span>  <span class="n">optical_backscatter</span><span class="p">,</span>          <span class="n">backscatter</span><span class="p">,</span>     <span class="n">ascent</span><span class="p">,</span>    <span class="mf">0.0</span><span class="p">,</span>    <span class="mf">0.006</span>
+<span class="n">pCO2</span><span class="p">,</span>             <span class="n">PCO2W</span><span class="p">,</span> <span class="n">pco2</span><span class="p">,</span>  <span class="n">pco2_seawater</span><span class="p">,</span>                <span class="n">pco2</span><span class="p">,</span>           <span class="n">descent</span><span class="p">,</span>  <span class="mf">200.0</span><span class="p">,</span> <span class="mf">1200.0</span>
+<span class="n">pH</span><span class="p">,</span>               <span class="n">PHSEN</span><span class="p">,</span>   <span class="n">ph</span><span class="p">,</span>  <span class="n">ph_seawater</span><span class="p">,</span>                  <span class="n">ph</span><span class="p">,</span>             <span class="n">descent</span><span class="p">,</span>    <span class="mf">7.6</span><span class="p">,</span>    <span class="mf">8.2</span>
+<span class="n">PAR</span><span class="p">,</span>              <span class="n">PARAD</span><span class="p">,</span>  <span class="n">par</span><span class="p">,</span>  <span class="n">par_counts_output</span><span class="p">,</span>            <span class="n">par</span><span class="p">,</span>             <span class="n">ascent</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>    <span class="mi">300</span>
+<span class="n">velocity</span><span class="p">,</span>         <span class="n">VELPT</span><span class="p">,</span>  <span class="n">vel</span><span class="p">,</span>  <span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="n">x3</span><span class="p">,</span>                   <span class="n">vel</span><span class="p">,</span>             <span class="n">ascent</span><span class="p">,</span>    <span class="o">-</span><span class="mf">.4</span><span class="p">,</span>     <span class="mf">.4</span>
+<span class="n">spectralirrad</span><span class="p">,</span>    <span class="n">SPKIR</span><span class="p">,</span>  <span class="n">irr</span><span class="p">,</span>  <span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="n">x7</span><span class="p">,</span>                   <span class="n">irr</span><span class="p">,</span>             <span class="n">ascent</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>     <span class="mi">15</span>
+<span class="n">opticalabsorb</span><span class="p">,</span>    <span class="n">OPTAA</span><span class="p">,</span>   <span class="n">oa</span><span class="p">,</span>  <span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="n">x73</span><span class="p">,</span>                  <span class="n">oa</span><span class="p">,</span>              <span class="n">ascent</span><span class="p">,</span>    <span class="mf">.15</span><span class="p">,</span>    <span class="mf">.25</span>
+<span class="n">beamattenuation</span><span class="p">,</span>  <span class="n">OPTAA</span><span class="p">,</span>   <span class="n">ba</span><span class="p">,</span>  <span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="n">x73</span><span class="p">,</span>                  <span class="n">ba</span><span class="p">,</span>              <span class="n">ascent</span><span class="p">,</span>    <span class="mf">0.0</span><span class="p">,</span>    <span class="mf">0.2</span>
+</pre></div>
+</div>
+<p>The table above needs a consistent convention for vector sensors. <code class="docutils literal notranslate"><span class="pre">vel</span></code> is <code class="docutils literal notranslate"><span class="pre">east/north/up</span></code> i.e. 3 values.
+<code class="docutils literal notranslate"><span class="pre">spectralirrad</span></code> is <code class="docutils literal notranslate"><span class="pre">si412-si443-si490-si510-si555-si620-si683</span></code> i.e. 7 values. <code class="docutils literal notranslate"><span class="pre">oa</span></code> and <code class="docutils literal notranslate"><span class="pre">ba</span></code> are not
+resolved yet but each has 73 values.</p>
+<p>PAR datavar is <code class="docutils literal notranslate"><span class="pre">par_counts_output</span></code> (calibrated L1 product, units: µmol photons m⁻² s⁻¹).</p>
+<section id="velocity">
+<h4>Velocity<a class="headerlink" href="#velocity" title="Link to this heading">#</a></h4>
+<p>current</p>
+<p>east                      ‘Current: East’<br />
+north                     ‘Current: North’
+up                        ‘Current: Vertical’</p>
+</section>
+<section id="spectral-irradiance">
+<h4>Spectral Irradiance<a class="headerlink" href="#spectral-irradiance" title="Link to this heading">#</a></h4>
+<p>si412                     ‘Spectral Irradiance 412nm’
+si443                     ‘Spectral Irradiance 443nm’
+si490                     ‘Spectral Irradiance 490nm’
+si510                     ‘Spectral Irradiance 510nm’
+si555                     ‘Spectral Irradiance 555nm’
+si620                     ‘Spectral Irradiance 620nm’
+si683                     ‘Spectral Irradiance 683nm’</p>
+</section>
+<section id="spectrophotometer">
+<h4>Spectrophotometer<a class="headerlink" href="#spectrophotometer" title="Link to this heading">#</a></h4>
+<p>Incomplete: Two sensors: Optical absorbance and beam attenuation; 73 channels
+for each but some of the edge channels are to be ignored.</p>
+<p>c001
+c002
+…
+c073</p>
+</section>
+<section id="dissolved-oxygen">
+<h4>Dissolved Oxygen<a class="headerlink" href="#dissolved-oxygen" title="Link to this heading">#</a></h4>
+<p><strong>It seems that Dissolved Oxygen is identical to the DO found bundled in the
+CTD data files rendering the separate DO product redundant.</strong></p>
+<p>Data variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sea_water_practical_salinity</span>
+<span class="n">sea_water_temperature</span>
+<span class="n">corrected_dissolved_oxygen</span>
+</pre></div>
+</div>
+<p>This is from working with the CA and should be verified with the OOI staff. First the CA claims that
+DO files are distinct from dissolved oxygen found in CTD files. Quoting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">### Why OOI Created Separate DO Files</span>
+
+    
+<span class="n">Instrument</span> <span class="n">separation</span><span class="p">:</span> <span class="n">The</span> <span class="n">dedicated</span> <span class="n">DO</span> <span class="n">files</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">Aanderaa</span> <span class="n">oxygen</span> <span class="n">optode</span> <span class="p">(</span><span class="n">a</span> <span class="n">standalone</span> <span class="n">sensor</span><span class="p">),</span> 
+<span class="k">while</span> <span class="n">CTD</span> <span class="n">files</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">SBE</span> <span class="mi">52</span><span class="o">-</span><span class="n">MP</span> <span class="n">CTD</span> <span class="n">package</span><span class="o">.</span> <span class="n">They</span><span class="s1">&#39;re physically different instruments...</span>
+</pre></div>
+</div>
+<p>Comparison shows both CTD streams and the DO data identical.
+To Do: Confirm from the OOI site: <code class="docutils literal notranslate"><span class="pre">corrected_dissolved_oxygen</span></code> from the CTD file is science-ready data.</p>
+</section>
+<section id="nitrate">
+<h4>Nitrate<a class="headerlink" href="#nitrate" title="Link to this heading">#</a></h4>
+<p>For OOI RCA nitrate measurements using SUNA (Submersible Ultraviolet Nitrate Analyzer)
+sensors: Initial observation is a UV absorption spectrum measured with light passing
+through a sample. The nitrate dark sample data is taken with the light source <em>off</em>:
+electronic noise, detector dark current and ambient light (no nitrate signal).
+Corrected Nitrate = Sample Data - Dark Sample Data. A subsequent salinity correction
+arrives at <code class="docutils literal notranslate"><span class="pre">salinity_corrected_nitrate</span></code>.</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="OOIObservatory.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">OOI Observatory Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Workflow.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">File System and Workflow</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table">Sensor table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-to-list-datafile-variables">Code to list datafile variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensor-table-columns">Sensor table columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-sensor-sampling-categories">Scalar sensor sampling categories</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lsd-sampling-details">LSD sampling details</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#profiler-operating-mode-reference">Profiler operating mode reference</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Sensor table</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity">Velocity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-irradiance">Spectral Irradiance</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrophotometer">Spectrophotometer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dissolved-oxygen">Dissolved Oxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nitrate">Nitrate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

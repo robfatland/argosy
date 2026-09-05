@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OOI Observatory Reference &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'OOIObservatory';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RCA Writ Large" href="RCAWritLarge.html" />
+    <link rel="prev" title="START HERE" href="ArgosyOverview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FOOIObservatory.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/OOIObservatory.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>OOI Observatory Reference</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-observatory">OOI observatory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooinet-challenges">OOINET challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#websites">websites</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ooi-observatory-reference">
+<h1>OOI Observatory Reference<a class="headerlink" href="#ooi-observatory-reference" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>New to argosy? Start at <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>.</p>
+</div></blockquote>
+<p>This document describes the Ocean Observatories Initiative (OOI) observatory structure,
+the Regional Cabled Array sites, challenges working with OOINET, a project glossary,
+and reference websites.</p>
+<section id="ooi-observatory">
+<h2>OOI observatory<a class="headerlink" href="#ooi-observatory" title="Link to this heading">#</a></h2>
+<p>The Observatory consists of seven Arrays:</p>
+<ul class="simple">
+<li><p>Regional Cabled Array</p></li>
+<li><p>Coastal Endurance Array</p></li>
+<li><p>Global Station Papa Array</p></li>
+<li><p>Global Irminger Sea Array</p></li>
+<li><p>Coastal Pioneer Array</p></li>
+<li><p>Global Argentine Basin Array (no longer operational)</p></li>
+<li><p>Global Southern Ocean Array (no longer operational)</p></li>
+</ul>
+<p>Each array is a sub-program. Array deployment dates back to 2013-2015. The components
+of the active arrays are continuously subject to maintenance.</p>
+<p>The initial focus as noted is the Regional Cabled Array (RCA) off the coast of Oregon.
+The RCA is distributed along two electro-optic cables emanating from a shore station
+in Pacific City on the Oregon coast.</p>
+<p>The first cable is named for its endpoint: ‘Axial Seamount’, about 450 km west of Pacific City.
+The second cable is named ‘Continental Margin’: The cable crosses the continental shelf and
+then curves south and east along the continental shelf margin. This cable hosts the
+Oregon Slope Base site, the initial focus of this work.</p>
+<p>This study begins with a characterization of the upper 200 meters of the water column,
+known variously as the photic or epipelagic zone. There are three sites in the RCA where
+a sensor assembly called a shallow profiler is used to profile the upper water column
+nine times per day: Oregon Slope Base, Oregon Offshore and Axial Slope Base.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Site</span> <span class="n">name</span>           <span class="n">Latitude</span>  <span class="n">Longitude</span>   <span class="n">Depth</span> <span class="p">(</span><span class="n">m</span><span class="p">)</span>  <span class="n">D</span><span class="o">-</span><span class="n">offshore</span> <span class="p">(</span><span class="n">km</span><span class="p">)</span>
+<span class="o">-----------------</span>   <span class="o">--------</span>  <span class="o">---------</span>   <span class="o">---------</span>  <span class="o">---------------</span>
+<span class="n">Oregon</span> <span class="n">Offshore</span>     <span class="mf">44.37</span>     <span class="o">-</span><span class="mf">124.96</span>      <span class="mi">577</span>        <span class="mi">67</span>
+<span class="n">Oregon</span> <span class="n">Slope</span> <span class="n">Base</span>   <span class="mf">44.53</span>     <span class="o">-</span><span class="mf">125.39</span>     <span class="mi">2910</span>       <span class="mi">101</span>
+<span class="n">Axial</span> <span class="n">Base</span>          <span class="mf">45.83</span>     <span class="o">-</span><span class="mf">129.75</span>     <span class="mi">2620</span>       <span class="mi">453</span> 
+</pre></div>
+</div>
+<p>In this work the term <em>Instrument</em> indicates an aggregation of one or more <em>Sensors</em>.
+For example a fluorescence <em>instrument</em> consists of three sensors: One for
+fluorescent dissolved organic matter, one for chlorophyll, and one that measures
+particulate backscatter. These three sensors would be considered <em>scalar</em> sensors
+as they generate single-valued observational data. There are also <em>vector</em> sensors,
+specifically a spectrophotometer, a spectral irradiance sensor and a 3-axis current
+sensor. ‘Vector’ means the sensor generates multiple values per observation.</p>
+<p>The profiler pod makes 9 ascents and 9 descents each day from where it rests on
+a platform moored 200 meters below the surface. Mooring is by means
+of two cables that extend down to the sea floor.</p>
+</section>
+<section id="ooinet-challenges">
+<h2>OOINET challenges<a class="headerlink" href="#ooinet-challenges" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>OOI can be daunting to learn</p>
+<ul>
+<li><p>Dissolved oxygen example: Needs a write-up</p></li>
+<li><p>What is the discovery path in the website documentation?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>shallow profiler, profile: A <em>shallow profiler</em> is a positively buoyant pod-shaped
+structure roughly two meters in diameter moored in the ocean at 200m depth to a holding
+platform by means of a cable wrapped about a spool. Under normal operating conditions
+a winch unwinds the cable over the course of about 45 minutes. As the cable
+spools out the shallow profiler floats upward, typically to 20 meters of the surface.
+Once it reaches the apex of this ascent the process is reversed and the pod returns to
+its resting location on the holding platform at a depth of 200 meters. During this
+ascent/descent profiling process several attached sensors record data. Each ascent/descent
+cycle is a <em>profile</em>. There are nine planned profiles per day, two of which at local
+noon and local midnight feature a slower descent to permit certain sensors to better
+equilibrate (notably pH and pCO2).</p></li>
+<li><p>Midnight profile: One of two extended profiles during any given day, running at local midnight</p></li>
+<li><p>Noon profile: One of two extended profiles during any given day, running at local noon</p></li>
+<li><p>profile chart: Sensor data from a profile is often represented as a 2D <em>profile chart</em>.
+The x-axis is the sensor value and the y-axis is depth. For a shallow profiler the
+depth range runs from 200 meters at the bottom to 0 meters at the top of the chart.</p></li>
+<li><p>bundle: A set of profiles considered collectively is often referred to as a <em>bundle</em>.
+Most commonly the profiles in a bundle are consecutive in time. However a bundle may
+be assembled using other criteria, for example profiles acquired at noon on consecutive
+days.</p></li>
+<li><p>bundle chart: A profile chart containing multiple profiles, i.e. a bundle. In this
+Jupyter book bundle charts can be changed dynamically by means of two sliders: The
+first corresponding to the first profile of the bundle and the second corresponding
+to how many profiles are in the bundle.</p></li>
+<li><p>curtain plot: A static chart of sensor data for many consecutive profiles as follows:
+The horizontal axis is time, typically months to years. The vertical axis is depth as
+described for bundle charts. Sensor data is encoded using a colormap. This places
+consecutive profiles as adjacent vertical lines of color in the curtain plot. Curtain
+plots are good for showing trends in sensor data with depth that develop over seasonal
+time frames.</p></li>
+<li><p>redux: Data from shallow profiles represent snapshots of the upper water column; placed
+in the OOI data archive with the idea that they can be recovered or brought back for
+further analysis. <code class="docutils literal notranslate"><span class="pre">redux</span></code> meaning <code class="docutils literal notranslate"><span class="pre">brought</span> <span class="pre">back</span></code> is an identifying label used in folder
+labels for shallow profiler (and other platform) data that has been brought back for
+analysis.</p></li>
+<li><p>shard: A <em>shard</em> is a NetCDF data file containing observational data from a single sensor
+(raster or vector) from a single profile. The name comes from the origin data files
+that typically cover multiple sensors over many days and hence many profiles.</p></li>
+<li><p>HITL, QA/QC, qartod: ‘human in the loop’, ‘quality assurance / quality control’, and
+‘Quality Assurance of Real-Time Oceanographic Data’ (QARTOD). QARTOD is an IOOS
+(Integrated Ocean Observing System) program that defines standardized quality control
+tests for oceanographic data. In OOI NetCDF files, qartod results appear as per-observation
+integer flags in variables named <code class="docutils literal notranslate"><span class="pre">&lt;science_variable&gt;_qartod_results</span></code>:</p>
+<ul>
+<li><p>1 = Pass (data is good)</p></li>
+<li><p>2 = Not Evaluated (test could not be applied)</p></li>
+<li><p>3 = Suspect (data may be compromised)</p></li>
+<li><p>4 = Fail (data is bad)</p></li>
+<li><p>9 = Missing Data
+The two primary qartod tests applied are <code class="docutils literal notranslate"><span class="pre">gross_range</span></code> (value within physically plausible
+bounds) and <code class="docutils literal notranslate"><span class="pre">climatology</span></code> (value within expected seasonal range). See <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code>
+for a data study of qartod flags in CTD files.
+HITL refers to human review of flagged data. A salinity dropout observed in 2025 due to a
+clogged conductivity cell is an example of an issue caught by the RCA data team during
+their review process and noted as an annotation.</p></li>
+</ul>
+</li>
+<li><p>red zone: ‘The challenge of the last 20 yards’; refers to the thematic objective
+of analyzing OOI data. The premise here being that there is an obstacle to analysis
+where the sensor data is balled up with engineering data in large (500MB) complicated
+NetCDF files which are in turn “hidden” within a sometimes opaque and confusing data
+system.</p>
+<ul>
+<li><p><em>Red zone format</em> means ‘data that is ready for scientific analysis’.</p></li>
+<li><p>A synonym: ‘Interpretable Data’ (ID)</p></li>
+<li><p>Another associated term <code class="docutils literal notranslate"><span class="pre">redux</span></code> refers to the act of bringing (data) back</p></li>
+<li><p>Another associated term <code class="docutils literal notranslate"><span class="pre">shard</span></code> refers to data subsetting (see below)</p></li>
+</ul>
+</li>
+<li><p>umbrella: Extending the data purview to many resources / sensors / projects</p>
+<ul>
+<li><p>start: temperature profiles over several weeks</p></li>
+<li><p>extend:</p>
+<ul>
+<li><p>in time over the full duration of the OOI</p></li>
+<li><p>to other scalar sensor types (PAR, pCO2, chlorophyll fluorescence, etc)</p></li>
+<li><p>to vector sensor types (velocity, spectral irradiance, spectrophotometer sensors)</p></li>
+<li><p>to specialized OOI sensors (sonar, ADCP)</p></li>
+<li><p>other shallow profiler sites: Oregon Slope Base &gt; Oregon Offshore, Axial Seamount</p></li>
+<li><p>to data beyond OOI</p>
+<ul>
+<li><p>circulation models such as ROMS</p></li>
+<li><p>NOAA NDBC surface buoy data</p></li>
+<li><p>ARGO biogeochemical drifters</p></li>
+<li><p>satellite remote sensing: SST, surface chlorophyll, mean sea level anomaly</p></li>
+<li><p>gliders</p></li>
+<li><p>compilations: BCO DMO, GLODAP</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SensorInformation.md</span></code> is a supporting document relating native datafile structure to red zone format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ShallowProfiler.ipynb</span></code> is a supporting document in the same vein</p></li>
+</ul>
+</section>
+<section id="websites">
+<h2>websites<a class="headerlink" href="#websites" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://oceanobservatories.org/">The OOI official website</a></p>
+<ul>
+<li><p><a class="reference external" href="https://ooinet.oceanobservatories.org/data_access">The OOINET data resource</a></p></li>
+<li><p><a class="reference external" href="https://oceanobservatories.org/glossary/">OOI Glossary</a></p></li>
+<li><p><a class="reference external" href="https://oceanobservatories.org/knowledgebase/how-to-decipher-a-reference-designator/">Deciphering OOI Reference Designators</a></p></li>
+<li><p><a class="reference external" href="https://oceanobservatories.org/site-list/">Related: OOI Sites and Platforms</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://interactiveoceans.washington.edu/">The Regional Cabled Array website</a></p>
+<ul>
+<li><p><a class="reference external" href="https://interactiveoceans.washington.edu/technology/shallow-profiler-moorings/">Shallow Profilers</a></p></li>
+<li><p><a class="reference external" href="https://interactiveoceans.washington.edu/instruments/hpies/">Horizontal Echosounders (HPIES) page</a></p></li>
+<li><p><a class="reference external" href="https://qaqc.ooi-rca.net/">RCA QA/QC</a></p></li>
+</ul>
+</li>
+<li><p>Publication of data, workflow, visualizations</p>
+<ul>
+<li><p>Zenodo</p></li>
+<li><p>Dataverse?</p></li>
+<li><p>arXiv</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ArgosyOverview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">START HERE</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="RCAWritLarge.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">RCA Writ Large</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooi-observatory">OOI observatory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ooinet-challenges">OOINET challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#websites">websites</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

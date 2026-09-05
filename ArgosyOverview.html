@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>START HERE &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ArgosyOverview';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OOI Observatory Reference" href="OOIObservatory.html" />
+    <link rel="prev" title="Argosy: Ocean Data Analysis" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">START HERE</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FArgosyOverview.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ArgosyOverview.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>START HERE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">START HERE</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-are-you-routing">Who are you? (routing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-pointers-to-key-actions">Quick Reference: Pointers to Key Actions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#argosy-project-overview">Argosy Project Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-files">Documentation Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#publishing-the-argosy-jupyter-book">Publishing the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> Jupyter book</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-libraries">Python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-guidelines">AI Guidelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-pdf">Building the PDF</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>\newpage</p>
+<section class="tex2jax_ignore mathjax_ignore" id="start-here">
+<h1>START HERE<a class="headerlink" href="#start-here" title="Link to this heading">#</a></h1>
+<p><strong>Argosy</strong> is a cloud-forward workflow and analysis environment for the OOI Regional Cabled
+Array shallow profilers: raw ocean-observatory data → sharded, quality-controlled,
+analysis-ready datasets → oceanographic analysis. It begins with the Oregon Slope Base (<code class="docutils literal notranslate"><span class="pre">sb</span></code>)
+profiler and expands to Oregon Offshore (<code class="docutils literal notranslate"><span class="pre">oo</span></code>) and Axial Base (<code class="docutils literal notranslate"><span class="pre">ab</span></code>). Work is split into
+<strong>Phase 1</strong> (pipeline: raw → <code class="docutils literal notranslate"><span class="pre">pp06</span></code>) and <strong>Phase 2</strong> (analysis: coincidence, residual
+climatology, SGA, internal waves, Columbia plume, satellite cross-comparison).</p>
+<p>This repository is dual-purpose: a published <strong>Jupyter Book</strong> (readable narrative) and a
+<strong>working research repository</strong> (scripts + planning notes). The GitHub landing page is
+<code class="docutils literal notranslate"><span class="pre">README.md</span></code>; the book’s ordered narrative is defined by <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>.</p>
+<section id="who-are-you-routing">
+<h2>Who are you? (routing)<a class="headerlink" href="#who-are-you-routing" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Arthur — science reader:</strong> read on below, then follow the Jupyter Book chapters. You want
+the <em>why</em> and the <em>what</em>, not the machinery.</p></li>
+<li><p><strong>Chuck — collaborator (machinery):</strong> go to <strong><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code></strong> (technical map:
+filesystem, workflow tasks, how to run each stage) and <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> (file inventory).</p></li>
+<li><p><strong>Angus — external researcher reusing the work:</strong> start at <strong><code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code></strong> (environment +
+public data access), then <code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code>, then <code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code> for citation/DOIs.</p></li>
+<li><p><strong>Maggie — OOI FB / DSC:</strong> this overview plus the Jupyter Book give the purpose-and-scope picture.</p></li>
+</ul>
+<p>Operational commands (build/publish the book, per-file PDF export, standalone widgets) are
+kept in the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file, not here.</p>
+<p>\newpage</p>
+</section>
+<section id="quick-reference-pointers-to-key-actions">
+<h2>Quick Reference: Pointers to Key Actions<a class="headerlink" href="#quick-reference-pointers-to-key-actions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Building PDFs</strong>: See <a class="reference internal" href="#building-the-pdf"><span class="xref myst">Building the PDF</span></a>, this file.</p></li>
+<li><p><strong>Data file paths</strong>: Always obtain via <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">ooipaths</span> <span class="pre">as</span> <span class="pre">op</span></code>; <code class="docutils literal notranslate"><span class="pre">op.redux_dir(year,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">op.postproc_dir(pp,</span> <span class="pre">year,</span> <span class="pre">site)</span></code>, etc.). Per-site layout <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/...</span></code>; never hardcode. See <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> → “Recap of the data filesystem logic”.</p></li>
+<li><p><strong>S3 backup (syncing ooinet)</strong>: See <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> → “S3 sync: data to AWS object storage”</p></li>
+<li><p><strong>Generating pp05 manifest</strong>: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">postprocess_pp05.py</span></code> — see <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code></p></li>
+<li><p><strong>Adding sensor exclusions</strong>: Edit <code class="docutils literal notranslate"><span class="pre">~/argosy/sensor_exclusions.csv</span></code> — see <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> → “Sensor exclusions”</p></li>
+<li><p><strong>Localhost disk management</strong>: WSL vhdx compaction, free space checks — see <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> → “Localhost Data Management”</p></li>
+<li><p><strong>Running curtain plots</strong>: Vis.ipynb curtain plot cell — see <code class="docutils literal notranslate"><span class="pre">Visualization.md</span></code></p></li>
+</ul>
+<p>\newpage</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="argosy-project-overview">
+<h1>Argosy Project Overview<a class="headerlink" href="#argosy-project-overview" title="Link to this heading">#</a></h1>
+<p>This document is the primary entry point for the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> project documentation.
+It describes the project, its purpose, and references the companion documentation files.</p>
+<section id="documentation-files">
+<h2>Documentation Files<a class="headerlink" href="#documentation-files" title="Link to this heading">#</a></h2>
+<p>Documentation is split across focused markdown files. The book’s reading order is defined by
+<code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>; the complete file inventory (code, data, notebooks) is in <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>.
+Files are grouped below the same way the book is: Orientation, Phase 1, Phase 2, Reference,
+and Working docs (repo-only, not in the published book).</p>
+<p><strong>Orientation</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> — (this file) START HERE: what argosy is, persona routing, key-action pointers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OOIObservatory.md</span></code> — OOI observatory: sites, challenges, glossary, reference websites</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RCAWritLarge.md</span></code> — Broader Regional Cabled Array context</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OOIFAQandGeneralInfoSummary.md</span></code> — OOI FAQ / general info</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SensorTable.md</span></code> — Sensor table, column descriptions, per-sensor notes (<code class="docutils literal notranslate"><span class="pre">sensortable.csv</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code> — Getting running: environment install, public S3 data access</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code> — Technical map: filesystem layout, workflow tasks 0–6, OOINET ordering, filename anatomy (absorbs the former <a class="reference external" href="http://Workflow.md">Workflow.md</a>)</p></li>
+</ul>
+<p><strong>Phase 1 — Pipeline (raw → pp06)</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Sharding.md</span></code> — Sharding details, shard filenames, profile metadata, midnight/noon</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> — redux → ppNN pipeline: pp01/pp02, pp05/pp06 filters, exclusions, QC</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code> — pp05 methodology: three-tier exclusion, suspect ranges, manifest design</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VectorData.md</span></code> — Vector sensor integration (velocity, spectral irradiance, spectrophotometer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> — S3 layout/backup/sync/restore, localhost WSL vhdx disk management</p></li>
+</ul>
+<p><strong>Phase 2 — Analysis</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Visualization.md</span></code> — Bundle plots, curtain plots, animations, midnight/noon annotation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> — Derived oceanographic parameters, exploration ideas, SGA methodology</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis.md</span></code> — Module-by-module guide for the SGA notebook</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InternalWaves.md</span></code> — Internal wave analysis: terminology, physics, plan</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TidalAnalysis.md</span></code> — Tidal prediction (TPXO10), start-depth correlation, blowdown events</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ColumbiaPlumePlan.md</span></code> — Columbia River plume detection plan (+ satellite cross-comparison)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Umbrella.md</span></code> — Expansion beyond the shallow profiler: other data resources</p></li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> — Complete inventory of code, data, and documentation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OOINETSlopeBaseDataStatus.md</span></code> — OOINET data availability status for Slope Base</p></li>
+</ul>
+<p><strong>Working docs (in the repo, NOT in the published book)</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> — Goals, narrative, open topics, pending, Next</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code> — Machine-readable session state for AI continuity</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code> recipes live in the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code> — Open-science / DOI archiving plan (Zenodo, Figshare, OSF)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VisQC.md</span></code> — Visual QC workflow (cline review) design</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Testing.md</span></code> — Test definitions (SGA synthetic validation, IW incompressibility)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CoincidencePlans.md</span></code> — Anomaly detection: auto/hetero coincidence plans</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pp06ErraticFilterPrompt.md</span></code> — Design notes for the pp06 erratic filter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">poster/AGUPoster.html</span></code> — AGU poster (standalone artifact)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> — Red zone goals, umbrella goals, development narrative, open topics, pending ideas, Next prompt section</p></li>
+</ul>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repository is a Jupyter book on the analysis of oceanographic data.</p>
+<p>This markdown file is project documentation; also used to develop prompts for a Coding Assistant.
+I sometimes refer to this as ‘CA’. <span class="math notranslate nohighlight">\(CA_0\)</span> was Q Developer (AWS) with Claude Sonnet.
+<span class="math notranslate nohighlight">\(CA_1\)</span> is the more current agentic <code class="docutils literal notranslate"><span class="pre">kiro</span></code> also from AWS integrated with a customized version of
+the VS Code IDE.</p>
+<p>This document’s features include:</p>
+<ul class="simple">
+<li><p>description of the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> project</p></li>
+<li><p>summary of particular Ocean Observatories Initiative (OOI) data resources</p></li>
+<li><p>description of data acquisition, cleaning and visualization workflow</p></li>
+<li><p>reference to additional markdown files in this repo</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code>: Data exploration ideas</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Umbrella.md</span></code>: Expansion perspective (see glossary in <code class="docutils literal notranslate"><span class="pre">OOIObservatory.md</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VectorData.md</span></code>: Discussion of vector sensor integration (velocity, spectral irradiance, spectrophotometer)</p></li>
+</ul>
+</li>
+<li><p>logs development, tracks train of thought / next steps (see <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code>)</p></li>
+<li><p>end of <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> is a <code class="docutils literal notranslate"><span class="pre">tail</span></code> prompt</p>
+<ul>
+<li><p>Heading is <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">Next</span></code></p></li>
+<li><p>Usually read by the CA upon a prompt in the session box</p></li>
+<li><p>Completed prompts are integrated into the log</p></li>
+</ul>
+</li>
+</ul>
+<section id="publishing-the-argosy-jupyter-book">
+<h3>Publishing the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> Jupyter book<a class="headerlink" href="#publishing-the-argosy-jupyter-book" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repo is a Jupyter book. It is amenable to <strong>build</strong> commands:
+<code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code> and <code class="docutils literal notranslate"><span class="pre">ghp-import</span></code>. Typical build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">argosy</span>
+<span class="n">jupyter</span><span class="o">-</span><span class="n">book</span> <span class="n">build</span> <span class="o">.</span>
+<span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">f</span> <span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+<span class="n">git</span> <span class="n">pull</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;commit comment&#39;</span>
+<span class="n">git</span> <span class="n">push</span>
+</pre></div>
+</div>
+<p>The published <a class="reference external" href="https://robfatland.github.io/argosy/intro.html">Argosy Jupyter Book link</a></p>
+</section>
+</section>
+<section id="python-libraries">
+<h2>Python libraries<a class="headerlink" href="#python-libraries" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">miniconda</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">netcdf4</span></code></p></li>
+<li><p>jupyter lab/book</p></li>
+<li><p>Need: libraries for tidal data</p></li>
+</ul>
+</section>
+<section id="ai-guidelines">
+<h2>AI Guidelines<a class="headerlink" href="#ai-guidelines" title="Link to this heading">#</a></h2>
+<p>This project concerns organizing and exploring oceanography data starting with
+data from the Ocean Observatories Initiative Regional Cabled Array shallow profilers.
+The idea is to translate source data to an interpretable format; and then to
+visualize, analyze, and interpret this data.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">argosy</span></code> repo exists in the WSL home directory on a Windows PC. Within
+<code class="docutils literal notranslate"><span class="pre">argosy</span></code> we have a Jupyter Book structure with additional files superimposed.
+The order of the day is to build the analysis machinery; writing a Jupyter Book
+proper will follow later.</p>
+<p>The Python interpreter associated with execution of code is a <code class="docutils literal notranslate"><span class="pre">miniconda</span></code>
+installation. (Some tidying of environments is called for.)</p>
+<p>There are two interactive environments in play here: First a Jupyter lab via
+browser; and second the VS Code IDE variant <code class="docutils literal notranslate"><span class="pre">kiro</span></code> with the built-in AWS AI
+coding assistant built in.</p>
+<p>A code module, say <code class="docutils literal notranslate"><span class="pre">dosomething.py</span></code>, is often intended for translation to a Jupyter
+notebook cell.</p>
+<p>As a general principle: Updates and advances should be reflected in this markdown
+file or in related files that are pointed to here.</p>
+<p>The <strong>Next</strong> section at the end of <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> is used to stage prompts for <code class="docutils literal notranslate"><span class="pre">kiro</span></code>.
+An example prompt in the IDE might then read: ‘Follow the Next prompt in <code class="docutils literal notranslate"><span class="pre">~/argosy/DevelopmentLog.md</span></code>.’</p>
+</section>
+<section id="building-the-pdf">
+<h2>Building the PDF<a class="headerlink" href="#building-the-pdf" title="Link to this heading">#</a></h2>
+<p>To generate a single PDF from all documentation markdown files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/argosy
+pandoc<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ArgosyOverview.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>OOIObservatory.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>SensorTable.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>DeveloperGuide.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>Sharding.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>Visualization.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>PostProcessing.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>DataOps.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>PP05_QCAnalysis.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>SpectralGraphAnalysis.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>TidalAnalysis.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>InternalWaves.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>CoincidencePlans.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>VectorData.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>Analysis.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>Umbrella.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>OOINETSlopeBaseDataStatus.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>Testing.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>CodeManifest.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>DevelopmentLog.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>argosy.pdf<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pdf-engine<span class="o">=</span>xelatex<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-V<span class="w"> </span>geometry:margin<span class="o">=</span>1in<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-V<span class="w"> </span><span class="nv">fontsize</span><span class="o">=</span>11pt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--toc<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--toc-depth<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span>_header.tex
+</pre></div>
+</div>
+<p>To build a single-file PDF (e.g. <code class="docutils literal notranslate"><span class="pre">X.md</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/argosy
+pandoc<span class="w"> </span>X.md<span class="w"> </span>-o<span class="w"> </span>X.pdf<span class="w"> </span>--pdf-engine<span class="o">=</span>xelatex<span class="w"> </span>-V<span class="w"> </span>geometry:margin<span class="o">=</span>1in<span class="w"> </span>-V<span class="w"> </span><span class="nv">fontsize</span><span class="o">=</span>11pt<span class="w"> </span>-H<span class="w"> </span>_header.tex
+</pre></div>
+</div>
+<p>Prerequisites: <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>, <code class="docutils literal notranslate"><span class="pre">texlive-xetex</span></code>, <code class="docutils literal notranslate"><span class="pre">fonts-dejavu</span></code>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Argosy: Ocean Data Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="OOIObservatory.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">OOI Observatory Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">START HERE</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-are-you-routing">Who are you? (routing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-pointers-to-key-actions">Quick Reference: Pointers to Key Actions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#argosy-project-overview">Argosy Project Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-files">Documentation Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#publishing-the-argosy-jupyter-book">Publishing the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> Jupyter book</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-libraries">Python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-guidelines">AI Guidelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-pdf">Building the PDF</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

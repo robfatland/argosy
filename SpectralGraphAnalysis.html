@@ -1,0 +1,816 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spectral Graph Analysis (SGA) &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SpectralGraphAnalysis';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Internal Waves" href="InternalWaves.html" />
+    <link rel="prev" title="Analysis" href="Analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FSpectralGraphAnalysis.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/SpectralGraphAnalysis.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spectral Graph Analysis (SGA)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-overview">Motivation overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-functions">Module functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-5-spectral-analysis">Module 5: Spectral Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-6-spectral-clustering">Module 6: Spectral Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-7-characterize-regimes">Module 7: Characterize Regimes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostic-checklist">Diagnostic Checklist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-issues-history">Known Issues / History</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spectral-graph-analysis-sga">
+<h1>Spectral Graph Analysis (SGA)<a class="headerlink" href="#spectral-graph-analysis-sga" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>7 sequential modules</p></li>
+<li><p>run from <code class="docutils literal notranslate"><span class="pre">chapters/SpectralGraphAnalysis.ipynb</span></code></p></li>
+<li><p>operates on post-processing tier 6 (<code class="docutils literal notranslate"><span class="pre">pp06</span></code>) shard dataset</p>
+<ul>
+<li><p>source data location: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/postproc/pp06</span></code></p></li>
+<li><p>considers 6 HSD scalar sensors: Temp, salinity, DO, density, ChlorA, backscatter</p>
+<ul>
+<li><p>CDOM, PAR, nitrate, pH, pCO2 not considered</p>
+<ul>
+<li><p>CDOM has too many dropouts</p></li>
+<li><p>PAR is diurnal; will confuse matters</p></li>
+<li><p>nitrate, pH, pCO2 are low-sample-rate</p>
+<ul>
+<li><p>would introduce confusing weighting</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>salinity/density are filtered to remove spikes</p></li>
+<li><p>CDOM and ChlorA: Savitzky-Golay filter</p>
+<ul>
+<li><p>for handling weak/quantized signals</p></li>
+</ul>
+</li>
+<li><p>backscatter is filtered to remove spikes</p></li>
+</ul>
+</li>
+<li><p>Jupyter Lab environment is used to render charts</p></li>
+<li><p>Results are written in <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/analysis/sga</span></code></p></li>
+</ul>
+<section id="motivation-overview">
+<h2>Motivation overview<a class="headerlink" href="#motivation-overview" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pp06</span></code> source data is a filtered and cleaned version of <code class="docutils literal notranslate"><span class="pre">redux</span></code> shards so can be subjected to analysis</p></li>
+<li><p>Spectral graph theory is intended to define and classify water column state</p>
+<ul>
+<li><p>Procedure description at a high level:</p>
+<ul>
+<li><p>Transform depth-quantized profiles (6 sensors) into nodes of a graph</p></li>
+<li><p>Calculate edge weights to encode pairwise similarity</p>
+<ul>
+<li><p>Limit the number of allowed non-zero edge weights for a given node</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Produce some variant of a graph Laplacian and calculate the eigenvalue spectrum</p></li>
+<li><p>Pay particular attention to the second (Fiedler) eigenvalue</p></li>
+<li><p>Use a subset of eigenvalues to define a set of water column states</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="module-functions">
+<h2>Module functions<a class="headerlink" href="#module-functions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Load, index data</p>
+<ul class="simple">
+<li><p>User enters start and end years</p></li>
+<li><p>Build a global-index-keyed file lookup</p></li>
+<li><p>Builds <code class="docutils literal notranslate"><span class="pre">sensor_files[sensor][global_idx]</span> <span class="pre">=</span> <span class="pre">filepath</span></code></p></li>
+<li><p>Creates <code class="docutils literal notranslate"><span class="pre">profile_index.csv</span></code> with columns: global_idx, year, doy, daily_idx, date</p></li>
+<li><p>Out: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/analysis/sga/profile_index.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/analysis/sga/sensor_files.pkl</span></code></p></li>
+<li><p>10 seconds</p></li>
+</ul>
+</li>
+<li><p>Generate a feature matrix</p>
+<ul class="simple">
+<li><p>Interpolate each profile to a standard depth grid</p></li>
+<li><p>produces a rectangular feature matrix suitable for distance computation</p></li>
+<li><p>here ‘features’ are sensor components (values) at a given depth</p></li>
+<li><p>uses 80 standard depths: 2 meter bins</p></li>
+<li><p>Missing data is assigned NaN</p></li>
+<li><p>Output: <code class="docutils literal notranslate"><span class="pre">feature_matrix.npy</span></code> shape (n_profiles, 480 = 6 x 80)</p></li>
+<li><p>‘minutes’</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Key correctness property</strong>: Row N of the feature matrix corresponds to one physical
+moment in time (one global index). All sensor values in that row are co-temporal.</p>
+<p><strong>What to verify</strong>: Completeness percentages. Temperature/DO should be highest (CTD
+rarely offline). CDOM may be lower (FLORT gaps). If any sensor shows 0% → check paths.</p>
+<ol class="arabic simple" start="3">
+<li><p>Normalize the feature matrix</p>
+<ul class="simple">
+<li><p>Handle missing data, then z-score normalize the feature matrix.</p></li>
+<li><p>Missing data strategy (user selects):</p>
+<ul>
+<li><p>Option 1 (default): Remove profiles with &gt;50% NaN, impute remainder with column mean</p></li>
+<li><p>Option 2: Impute all NaN with column mean</p></li>
+<li><p>Option 3: Use only complete profiles</p></li>
+</ul>
+</li>
+<li><p>Z-score normalization: each column → mean=0, std=1</p></li>
+<li><p>Effect of imputation: NaN → column mean → z-score ≈ 0</p>
+<ul>
+<li><p>Missing data becomes “average” data</p></li>
+<li><p>Neutral but imperfect.</p></li>
+</ul>
+</li>
+<li><p>Output: <code class="docutils literal notranslate"><span class="pre">feature_matrix_normalized.npy</span></code></p></li>
+<li><p>Output: <code class="docutils literal notranslate"><span class="pre">profile_index_clean.csv</span></code> (rows that survived filtering)</p></li>
+<li><p>Output: <code class="docutils literal notranslate"><span class="pre">scaler.pkl</span></code> (for inverse-transforming later)</p></li>
+<li><p>~10 seconds</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>What to verify</strong>: Mean ≈ 0, std ≈ 1. Profile count should drop slightly from Module 2.</p>
+<ol class="arabic simple" start="4">
+<li><p>Similarity Graph</p>
+<ul class="simple">
+<li><p>Purpose: Compute pairwise distances, apply Gaussian kernel, build sparse graph.</p></li>
+<li><p>Process:</p>
+<ul>
+<li><p>Squared Euclidean distance between all pairs of normalized profiles</p></li>
+<li><p>Gaussian kernel: similarity = exp(-d² / 2σ²), where σ² = median squared distance</p></li>
+<li><p>Sparsify via k-Nearest Neighbors (default k=10): only retain the k strongest similarities per node; zero out everything else</p></li>
+<li><p>Build NetworkX graph from sparse adjacency matrix</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>Left off here.</p>
+<p><strong>Key parameters</strong>:</p>
+<ul class="simple">
+<li><p>σ² (kernel width): controls how quickly similarity drops with distance.
+Median heuristic is standard. Narrower → more local structure; wider → more diffuse.</p></li>
+<li><p>k (neighbors): controls graph sparsity. k=10 is typical for spectral clustering.</p></li>
+</ul>
+<p><strong>Output</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">similarity_graph.pkl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adjacency_matrix.npy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph_metadata.pkl</span></code></p></li>
+</ul>
+<p><strong>What to verify</strong>: Graph should be connected (Connected: True). Edge count ≈ n × k / 2.</p>
+<p><strong>Runtime</strong>: ~2–5 minutes (dominated by pairwise distance computation on 20K+ profiles).</p>
+</section>
+<section id="module-5-spectral-analysis">
+<h2>Module 5: Spectral Analysis<a class="headerlink" href="#module-5-spectral-analysis" title="Link to this heading">#</a></h2>
+<p><strong>Purpose</strong>: Compute eigenvalues/eigenvectors of the graph Laplacian.</p>
+<p><strong>Process</strong>:</p>
+<ul class="simple">
+<li><p>Compute normalized Laplacian: L_sym = I - D^(-1/2) A D^(-1/2)</p></li>
+<li><p>Find smallest 50 eigenvalues via sparse eigensolver</p></li>
+<li><p>Analyze spectral properties: Fiedler value, spectral gap, effective dimensionality</p></li>
+</ul>
+<p><strong>Key outputs</strong>:</p>
+<ul class="simple">
+<li><p>Eigenvalue spectrum plot (where are the gaps?)</p></li>
+<li><p>Fiedler vector (2nd eigenvector) plotted vs time → shows the primary partitioning</p></li>
+</ul>
+<p><strong>Interpretation</strong>:</p>
+<ul class="simple">
+<li><p>Large spectral gap between λ_k and λ_{k+1} suggests k natural clusters</p></li>
+<li><p>Fiedler vector sign: positive vs negative = the 2-cluster split</p></li>
+<li><p>If Fiedler vector shows seasonal oscillation → the primary structure is seasonal</p></li>
+</ul>
+<p><strong>Output</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eigenvalues.npy</span></code>, <code class="docutils literal notranslate"><span class="pre">eigenvectors.npy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">spectral_properties.pkl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eigenspectrum.png</span></code>, <code class="docutils literal notranslate"><span class="pre">fiedler_vector.png</span></code></p></li>
+</ul>
+<p><strong>Runtime</strong>: ~1–2 minutes.</p>
+</section>
+<section id="module-6-spectral-clustering">
+<h2>Module 6: Spectral Clustering<a class="headerlink" href="#module-6-spectral-clustering" title="Link to this heading">#</a></h2>
+<p><strong>Purpose</strong>: Cluster profiles in the spectral embedding space.</p>
+<p><strong>Process</strong>:</p>
+<ul class="simple">
+<li><p>Embed profiles using first n eigenvectors (default 10, skipping eigenvector 0)</p></li>
+<li><p>Run k-means for k=2..10, evaluate silhouette and Davies-Bouldin scores</p></li>
+<li><p>User selects final k</p></li>
+<li><p>Assign cluster labels</p></li>
+</ul>
+<p><strong>External script</strong>: <code class="docutils literal notranslate"><span class="pre">%run</span> <span class="pre">/home/rob/argosy/_sga_module6.py</span></code></p>
+<p><strong>Interpretation challenges</strong> (from prior runs):</p>
+<ul class="simple">
+<li><p>With multi-year data, the dominant signal is the seasonal cycle → k=2 wins
+(summer stratified vs winter mixed). This overwhelms sub-seasonal structure.</p></li>
+<li><p>If clusters are “everything vs a few outliers”: likely data quality issue
+(erratics, sensor dropouts creating extreme z-scores in imputed profiles).
+The pp06 filtering should reduce this.</p></li>
+</ul>
+<p><strong>Diagnosis plan if clusters look wrong</strong>:</p>
+<ol class="arabic simple">
+<li><p>Check Fiedler vector temporal plot from Module 5: is it seasonal?</p></li>
+<li><p>Identify the “outlier” cluster profiles: what dates/sensors are they?</p></li>
+<li><p>Load their raw feature vectors and check for anomalous values</p></li>
+<li><p>Consider: is the distance metric appropriate? (Euclidean in z-score space
+weights all sensors equally — is that desirable?)</p></li>
+<li><p>Try different k values, different n_eigenvectors, different σ²</p></li>
+</ol>
+<p><strong>Output</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">profile_index_clustered.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster_labels.npy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster_metadata.pkl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster_evaluation.png</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster_temporal.png</span></code></p></li>
+</ul>
+<p><strong>Runtime</strong>: ~2–5 minutes.</p>
+</section>
+<section id="module-7-characterize-regimes">
+<h2>Module 7: Characterize Regimes<a class="headerlink" href="#module-7-characterize-regimes" title="Link to this heading">#</a></h2>
+<p><strong>Purpose</strong>: Examine the physical properties of each cluster.</p>
+<p><strong>Process</strong>:</p>
+<ul class="simple">
+<li><p>For each cluster: compute mean and std of each sensor at each depth</p></li>
+<li><p>Plot mean profiles per cluster (colored by cluster) for each sensor</p></li>
+<li><p>Identify what distinguishes the clusters physically</p></li>
+</ul>
+<p><strong>Interpretation</strong>: Clusters should map to recognizable oceanographic states
+(e.g. stratified summer, mixed winter, upwelling event, anomalous year).</p>
+<p><strong>Runtime</strong>: ~1 minute.</p>
+</section>
+<section id="diagnostic-checklist">
+<h2>Diagnostic Checklist<a class="headerlink" href="#diagnostic-checklist" title="Link to this heading">#</a></h2>
+<p>Before running the full pipeline, verify:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> pp06 exists and is populated (<code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">~/ooi/sb/postproc/pp06/</span></code>)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> environment.yml matches current packages (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span></code> and diff)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> <code class="docutils literal notranslate"><span class="pre">profile_index.csv</span></code> column names match what Modules 4+ expect
+(global_idx, year, doy, daily_idx, date)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Module 4 references <code class="docutils literal notranslate"><span class="pre">global_idx</span></code> not <code class="docutils literal notranslate"><span class="pre">profile_idx</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Eigenspectrum from Module 5 shows meaningful gaps (not flat)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Fiedler vector shows temporal structure (not noise)</p></li>
+</ul>
+</section>
+<section id="known-issues-history">
+<h2>Known Issues / History<a class="headerlink" href="#known-issues-history" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Positional indexing bug</strong> (fixed June 2026): Original Modules 1–2 indexed sensors
+by file list position, causing co-temporality errors between CTD and FLORT sensors.
+New modules use global index lookup.</p></li>
+<li><p><strong>Library version drift</strong> (fixed June 2026): scikit-learn 1.2.2 incompatible with
+threadpoolctl 3.6.0. Upgraded sklearn. Environment pinned in <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>.</p></li>
+<li><p><strong>Two-cluster problem</strong>: Prior runs with 4+ years of data always converge to k=2
+(seasonal). Need to investigate: run per-year, force higher k, examine what σ²
+does to the similarity structure, or apply the analysis to sub-annual windows.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="InternalWaves.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Internal Waves</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-overview">Motivation overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-functions">Module functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-5-spectral-analysis">Module 5: Spectral Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-6-spectral-clustering">Module 6: Spectral Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-7-characterize-regimes">Module 7: Characterize Regimes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostic-checklist">Diagnostic Checklist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-issues-history">Known Issues / History</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

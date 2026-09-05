@@ -1,0 +1,885 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Columbia River Plume &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ColumbiaPlume';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DevelopmentLog.html">Development Log</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2Fchapters/ColumbiaPlume.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ColumbiaPlume.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Columbia River Plume</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="columbia-river-plume">
+<h1>Columbia River Plume<a class="headerlink" href="#columbia-river-plume" title="Link to this heading">#</a></h1>
+<p>Initial objective: Examine NASA Sea Surface Salinity products for a (particularly summer) potential plume incursion.</p>
+<p>The locations of the profilers:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Site</p></th>
+<th class="head"><p>Latitude</p></th>
+<th class="head"><p>Longitude</p></th>
+<th class="head"><p>Depth</p></th>
+<th class="head"><p>Distance offshore</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Offshore</p></td>
+<td><p>44.37N</p></td>
+<td><p>124.95W</p></td>
+<td><p>600m</p></td>
+<td><p>65km</p></td>
+</tr>
+<tr class="row-odd"><td><p>Slope Base</p></td>
+<td><p>44.53N</p></td>
+<td><p>125.39W</p></td>
+<td><p>2900m</p></td>
+<td><p>100km</p></td>
+</tr>
+<tr class="row-even"><td><p>Axial Base</p></td>
+<td><p>45.83N</p></td>
+<td><p>130.01W</p></td>
+<td><p>2600m</p></td>
+<td><p>350km</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../plume/surface_extract.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scanning pp06 for slopebase (2015–2025)...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Found 22102 unique GPIs with at least one sensor file.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Processed 500 profiles...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Processed 1000 profiles...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Processed 1500 profiles...
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">File</span> <span class="o">~/</span><span class="n">argosy</span><span class="o">/</span><span class="n">plume</span><span class="o">/</span><span class="n">surface_extract</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">188</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="k">continue</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">188</span>     <span class="n">ds2</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">sensor_files</span><span class="p">[</span><span class="n">sensor</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span>     <span class="n">s_data</span> <span class="o">=</span> <span class="n">ds2</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span>     <span class="n">s_depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ds2</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/backends/api.py:566,</span> in <span class="ni">open_dataset</span><span class="nt">(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span> <span class="n">decoders</span> <span class="o">=</span> <span class="n">_resolve_decoders_kwargs</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span>     <span class="n">decode_cf</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span>     <span class="n">open_backend_dataset_parameters</span><span class="o">=</span><span class="n">backend</span><span class="o">.</span><span class="n">open_dataset_parameters</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span>     <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">563</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">565</span> <span class="n">overwrite_encoded_chunks</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;overwrite_encoded_chunks&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">566</span> <span class="n">backend_ds</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">567</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">568</span>     <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>     <span class="o">**</span><span class="n">decoders</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">_dataset_from_backend_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">573</span>     <span class="n">backend_ds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">584</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">586</span> <span class="k">return</span> <span class="n">ds</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/backends/netCDF4_.py:604,</span> in <span class="ni">NetCDF4BackendEntrypoint.open_dataset</span><span class="nt">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, format, clobber, diskless, persist, lock, autoclose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">602</span> <span class="n">store_entrypoint</span> <span class="o">=</span> <span class="n">StoreBackendEntrypoint</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">603</span> <span class="k">with</span> <span class="n">close_on_error</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">604</span>     <span class="n">ds</span> <span class="o">=</span> <span class="n">store_entrypoint</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">605</span>         <span class="n">store</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">606</span>         <span class="n">mask_and_scale</span><span class="o">=</span><span class="n">mask_and_scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">607</span>         <span class="n">decode_times</span><span class="o">=</span><span class="n">decode_times</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">608</span>         <span class="n">concat_characters</span><span class="o">=</span><span class="n">concat_characters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">609</span>         <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">610</span>         <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">611</span>         <span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">612</span>         <span class="n">decode_timedelta</span><span class="o">=</span><span class="n">decode_timedelta</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">613</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">614</span> <span class="k">return</span> <span class="n">ds</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/backends/store.py:46,</span> in <span class="ni">StoreBackendEntrypoint.open_dataset</span><span class="nt">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta)</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">filename_or_obj</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">filename_or_obj</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">()</span>
+<span class="ne">---&gt; </span><span class="mi">46</span> <span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">coord_names</span> <span class="o">=</span> <span class="n">conventions</span><span class="o">.</span><span class="n">decode_cf_variables</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span>     <span class="nb">vars</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="n">attrs</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="n">mask_and_scale</span><span class="o">=</span><span class="n">mask_and_scale</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span>     <span class="n">decode_times</span><span class="o">=</span><span class="n">decode_times</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">51</span>     <span class="n">concat_characters</span><span class="o">=</span><span class="n">concat_characters</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span>     <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span>     <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span>     <span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">decode_timedelta</span><span class="o">=</span><span class="n">decode_timedelta</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">set_coords</span><span class="p">(</span><span class="n">coord_names</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">vars</span><span class="p">))</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/conventions.py:431,</span> in <span class="ni">decode_cf_variables</span><span class="nt">(variables, attributes, concat_characters, mask_and_scale, decode_times, decode_coords, drop_variables, use_cftime, decode_timedelta)</span>
+<span class="g g-Whitespace">    </span><span class="mi">424</span> <span class="n">stack_char_dim</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="n">concat_characters</span>
+<span class="g g-Whitespace">    </span><span class="mi">426</span>     <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;S1&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">427</span>     <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">428</span>     <span class="ow">and</span> <span class="n">stackable</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">429</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">430</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">431</span>     <span class="n">new_vars</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">decode_cf_variable</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span>         <span class="n">k</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">433</span>         <span class="n">v</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">434</span>         <span class="n">concat_characters</span><span class="o">=</span><span class="n">concat_characters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span>         <span class="n">mask_and_scale</span><span class="o">=</span><span class="n">mask_and_scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">436</span>         <span class="n">decode_times</span><span class="o">=</span><span class="n">decode_times</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span>         <span class="n">stack_char_dim</span><span class="o">=</span><span class="n">stack_char_dim</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span>         <span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span>         <span class="n">decode_timedelta</span><span class="o">=</span><span class="n">decode_timedelta</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">442</span>     <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span><span class="sa">f</span><span class="s2">&quot;Failed to decode variable </span><span class="si">{</span><span class="n">k</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/conventions.py:281,</span> in <span class="ni">decode_cf_variable</span><span class="nt">(name, var, concat_characters, mask_and_scale, decode_times, decode_endianness, stack_char_dim, use_cftime, decode_timedelta)</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">CFTimedeltaCoder</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span> <span class="k">if</span> <span class="n">decode_times</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">281</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">CFDatetimeCoder</span><span class="p">(</span><span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span> <span class="k">if</span> <span class="n">decode_endianness</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">isnative</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">variables</span><span class="o">.</span><span class="n">EndianCoder</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/times.py:724,</span> in <span class="ni">CFDatetimeCoder.decode</span><span class="nt">(self, variable, name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">722</span> <span class="n">units</span> <span class="o">=</span> <span class="n">pop_to</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">723</span> <span class="n">calendar</span> <span class="o">=</span> <span class="n">pop_to</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;calendar&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">724</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">_decode_cf_datetime_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cftime</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">725</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">726</span>     <span class="n">decode_cf_datetime</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">727</span>     <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">728</span>     <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">729</span>     <span class="n">use_cftime</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_cftime</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">730</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">731</span> <span class="n">data</span> <span class="o">=</span> <span class="n">lazy_elemwise_func</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/times.py:182,</span> in <span class="ni">_decode_cf_datetime_dtype</span><span class="nt">(data, units, calendar, use_cftime)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="k">def</span> <span class="nf">_decode_cf_datetime_dtype</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="n">data</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">calendar</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">use_cftime</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="c1"># Verify that at least the first and last date can be decoded</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>     <span class="c1"># successfully. Otherwise, tracebacks end up swallowed by</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="c1"># Dataset.__repr__ when users try to view their lazily decoded array.</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">values</span> <span class="o">=</span> <span class="n">indexing</span><span class="o">.</span><span class="n">ImplicitToExplicitIndexingAdapter</span><span class="p">(</span><span class="n">indexing</span><span class="o">.</span><span class="n">as_indexable</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>     <span class="n">example_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+<span class="ne">--&gt; </span><span class="mi">182</span>         <span class="p">[</span><span class="n">first_n_items</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">last_item</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">decode_cf_datetime</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">use_cftime</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/formatting.py:102,</span> in <span class="ni">last_item</span><span class="nt">(array)</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>     <span class="k">return</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="n">indexer</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span>
+<span class="ne">--&gt; </span><span class="mi">102</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">indexer</span><span class="p">]))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:484,</span> in <span class="ni">ImplicitToExplicitIndexingAdapter.__array__</span><span class="nt">(self, dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">484</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:487,</span> in <span class="ni">ImplicitToExplicitIndexingAdapter.get_duck_array</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span> <span class="k">def</span> <span class="nf">get_duck_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">487</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/variables.py:74,</span> in <span class="ni">_ElementwiseFunctionArray.get_duck_array</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="k">def</span> <span class="nf">get_duck_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">74</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">())</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/variables.py:211,</span> in <span class="ni">_apply_mask</span><span class="nt">(data, encoded_fill_values, decoded_fill_value, dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span> <span class="k">def</span> <span class="nf">_apply_mask</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span>     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span>     <span class="n">encoded_fill_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="n">decoded_fill_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Mask all matching values in a NumPy arrays.&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">211</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="n">condition</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span>     <span class="k">for</span> <span class="n">fv</span> <span class="ow">in</span> <span class="n">encoded_fill_values</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../plume/fetch_sst.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No existing SST file — fetching fresh.
+
+Fetching SST from NOAA CoastWatch ERDDAP (2015–2026)...
+  Site: slopebase (44.53N, -125.39W)
+    2015: 365 records
+    2016: 366 records
+    2017: 365 records
+    2018: 365 records
+    2019: 365 records
+    2020: 366 records
+    2021: 365 records
+    2022: 365 records
+    2023: 365 records
+    2024: 366 records
+    2025: 365 records
+    2026: 213 records
+
+  New fetch: 4231 total records
+  Range: 8.63–20.25 °C
+
+Saved: /home/rob/ooi/metadata/satellite_sst_slopebase.csv
+  4231 records, columns: [&#39;timestamp&#39;, &#39;sst_degC&#39;, &#39;site&#39;]
+  Time: 2015-01-01 12:00:00+00:00 to 2026-08-01 12:00:00+00:00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../plume/fetch_sss.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No existing SSS file — fetching fresh.
+
+Fetching SSS from NOAA CoastWatch ERDDAP (2015–2026)...
+  Site: slopebase (44.53N, -125.39W)
+    2015: 157 records
+    2016: 210 records
+    2017: 219 records
+    2018: 195 records
+    2019: 179 records
+    2020: 189 records
+    2021: 212 records
+    2022: 149 records
+    2023: FAILED (HTTP Error 502: Proxy Error)
+    2023: no data
+    2024: 313 records
+    2025: FAILED (HTTP Error 502: Proxy Error)
+    2025: no data
+    2026: 201 records
+
+  New fetch: 2024 total records
+  Range: 20.37–43.23 PSU
+
+Saved: /home/rob/ooi/metadata/satellite_sss_slopebase.csv
+  2024 records, columns: [&#39;timestamp&#39;, &#39;sss_psu&#39;, &#39;site&#39;, &#39;sss_8day&#39;]
+  Time: 2015-04-02 12:00:00+00:00 to 2026-08-01 12:00:00+00:00
+  SSS 8-day range: 30.38–35.20 PSU
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ~/argosy/plume/surface_plot.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 20447 records from surface_extract_slopebase.csv
+  Time range: 2015-07-09 17:15:27.409630208 to 2025-12-31 21:48:09.185918464
+Loaded 2024 satellite SSS records
+Loaded 4231 satellite SST records
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Plotting 568 records from 2024-08-26 to 2024-10-31
+
+Saved: /home/rob/ooi/visualizations/surface_extract_slopebase_20240826_20241031.png
+</pre></div>
+</div>
+<img alt="../_images/0b57c9fa5692ae139880631a35272b858d07997a190249e1a53cad5246ac1257.png" src="../_images/0b57c9fa5692ae139880631a35272b858d07997a190249e1a53cad5246ac1257.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../plume/smap_download.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requesting satellite data from NOAA CoastWatch ERDDAP...
+  Site: slopebase (44.53N, -125.39W)
+  Time: 2015-04-01 to 2026-07-01
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2015-04-01T00:00:00Z):1:(2015-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2015: 266 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2016-01-01T00:00:00Z):1:(2016-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2016: 363 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2017-01-01T00:00:00Z):1:(2017-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2017: 365 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2018-01-01T00:00:00Z):1:(2018-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2018: 363 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2019-01-01T00:00:00Z):1:(2019-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2019: 312 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2020-01-01T00:00:00Z):1:(2020-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2020: 333 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2021-01-01T00:00:00Z):1:(2021-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2021: 351 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2022-01-01T00:00:00Z):1:(2022-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2022: 281 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2023-01-01T00:00:00Z):1:(2023-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2023: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2024-01-01T00:00:00Z):1:(2024-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2024: 325 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2025-01-01T00:00:00Z):1:(2025-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2025: 353 records
+  Fetching: noaacwSMAPsssDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacwSMAPsssDaily.csv?sss[(2026-01-01T00:00:00Z):1:(2026-12-31T00:00:00Z)][(0)][(44.53)][(-125.39)]...
+    2026: failed (HTTP Error 404: )
+  SSS total: 2161 measurements, range 20.37–39.30 PSU
+    SSS: 2161 measurements, range 20.37–39.30 PSU
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2015-04-01T00:00:00Z):1:(2015-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2015: 275 records
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2016-01-01T00:00:00Z):1:(2016-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2016: 366 records
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2017-01-01T00:00:00Z):1:(2017-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2017: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2018-01-01T00:00:00Z):1:(2018-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2018: 365 records
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2019-01-01T00:00:00Z):1:(2019-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2019: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2020-01-01T00:00:00Z):1:(2020-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2020: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2021-01-01T00:00:00Z):1:(2021-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2021: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2022-01-01T00:00:00Z):1:(2022-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2022: 365 records
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2023-01-01T00:00:00Z):1:(2023-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2023: 365 records
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2024-01-01T00:00:00Z):1:(2024-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2024: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2025-01-01T00:00:00Z):1:(2025-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2025: failed (HTTP Error 502: Proxy Error)
+  Fetching: noaacrwsstDaily...
+  URL: https://coastwatch.noaa.gov/erddap/griddap/noaacrwsstDaily.csv?analysed_sst[(2026-01-01T00:00:00Z):1:(2026-12-31T00:00:00Z)][(44.53)][(-125.39)]...
+    2026: failed (HTTP Error 404: )
+  SST total: 1736 measurements, range 8.6–20.2 °C
+
+Saved: /home/rob/ooi/metadata/smap_sss_slopebase.csv
+  3186 rows, columns: [&#39;timestamp&#39;, &#39;sss_psu&#39;, &#39;sst_degC&#39;, &#39;site&#39;]
+  Time range: 2015-04-01 00:00:00 to 2025-12-31 00:00:00
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

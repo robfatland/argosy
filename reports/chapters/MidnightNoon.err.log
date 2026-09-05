@@ -1,0 +1,146 @@
+Traceback (most recent call last):
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/rob/miniconda3/envs/argosy/lib/python3.11/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Identify noon and midnight profiles from profileIndices
+# This is equivalent to running ~/argosy/profile_duration_histograms.py
+%matplotlib inline
+
+import glob
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from zoneinfo import ZoneInfo
+from pathlib import Path
+
+# Config
+SITE_TZ = ZoneInfo("America/Los_Angeles")
+PROFILE_INDICES_DIR = Path.home() / "ooi/profileIndices"
+SITE_PATTERN = "RS01SBPS_profiles_*.csv"
+OUTPUT_PNG = Path.home() / "ooi/visualizations/SlopeBaseProfileHistograms.png"
+OUT_MIDNIGHT = Path.home() / "ooi/metadata/ooi_rca_sb_midnight_global_profile_indices.csv"
+OUT_NOON = Path.home() / "ooi/metadata/ooi_rca_sb_noon_global_profile_indices.csv"
+MIN_GAP_HOURS = 20.0
+
+# Load all RS01SBPS profileIndices files
+files = sorted(glob.glob(str(PROFILE_INDICES_DIR / SITE_PATTERN)))
+print(f"Found {len(files)} RS01SBPS profileIndices files")
+
+frames = [pd.read_csv(f, parse_dates=["start", "peak", "end"]) for f in files]
+pi = pd.concat(frames, ignore_index=True).sort_values("start").reset_index(drop=True)
+print(f"Total profiles loaded: {len(pi)}")
+print(f"Date range: {pi['start'].min()} to {pi['end'].max()}")
+
+# Compute durations
+pi["ascent_min"] = (pi["peak"] - pi["start"]).dt.total_seconds() / 60.0
+pi["descent_min"] = (pi["end"] - pi["peak"]).dt.total_seconds() / 60.0
+pi["total_min"] = (pi["end"] - pi["start"]).dt.total_seconds() / 60.0
+
+valid = pi[(pi["ascent_min"] > 0) & (pi["descent_min"] > 0)].copy()
+print(f"Profiles with valid durations: {len(valid)}")
+
+# Histograms
+bins = np.arange(0, 252, 2)
+fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True)
+for ax, col, title in zip(axes, ["ascent_min", "descent_min", "total_min"],
+                           ["Ascent duration", "Descent duration", "Total duration"]):
+    ax.hist(valid[col], bins=bins, edgecolor="black", linewidth=0.3)
+    ax.set_ylabel("Count")
+    ax.set_title(title)
+    ax.grid(True, alpha=0.3)
+axes[-1].set_xlabel("Duration (minutes)")
+plt.tight_layout()
+plt.savefig(OUTPUT_PNG, dpi=150)
+plt.show()
+print(f"Chart saved to {OUTPUT_PNG}")
+
+# Classify profiles
+def classify_peak(utc_ts):
+    h = utc_ts.tz_localize("UTC").astimezone(SITE_TZ).hour
+    if 11 <= h <= 13:
+        return "noon"
+    elif h >= 23 or h <= 1:
+        return "midnight"
+    return "other"
+
+valid["peak_class"] = valid["peak"].apply(classify_peak)
+
+# Build filtered noon/midnight tables
+def build_special_profiles(df, label):
+    subset = df[df["peak_class"] == label].sort_values("start").reset_index(drop=True)
+    kept = []
+    last_start = None
+    for _, row in subset.iterrows():
+        if last_start is None or (row["start"] - last_start).total_seconds() / 3600 >= MIN_GAP_HOURS:
+            kept.append(row)
+            last_start = row["start"]
+    return pd.DataFrame(kept)[["profile", "start", "peak", "end"]].reset_index(drop=True)
+
+midnight_df = build_special_profiles(valid, "midnight")
+noon_df = build_special_profiles(valid, "noon")
+
+midnight_df.to_csv(OUT_MIDNIGHT, index=False)
+noon_df.to_csv(OUT_NOON, index=False)
+
+# Summary
+total_days_possible = (valid["end"].max() - valid["start"].min()).days + 1
+print(f"\nFound {len(midnight_df)} midnight profiles out of {total_days_possible} possible")
+print(f"Found {len(noon_df)} noon profiles out of {total_days_possible} possible")
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[1], line 26[0m
+[1;32m     23[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mFound [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(files)[38;5;132;01m}[39;00m[38;5;124m RS01SBPS profileIndices files[39m[38;5;124m"[39m)
+[1;32m     25[0m frames [38;5;241m=[39m [pd[38;5;241m.[39mread_csv(f, parse_dates[38;5;241m=[39m[[38;5;124m"[39m[38;5;124mstart[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mpeak[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mend[39m[38;5;124m"[39m]) [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m files]
+[0;32m---> 26[0m pi [38;5;241m=[39m pd[38;5;241m.[39mconcat(frames, ignore_index[38;5;241m=[39m[38;5;28;01mTrue[39;00m)[38;5;241m.[39msort_values([38;5;124m"[39m[38;5;124mstart[39m[38;5;124m"[39m)[38;5;241m.[39mreset_index(drop[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[1;32m     27[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mTotal profiles loaded: [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(pi)[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[1;32m     28[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mDate range: [39m[38;5;132;01m{[39;00mpi[[38;5;124m'[39m[38;5;124mstart[39m[38;5;124m'[39m][38;5;241m.[39mmin()[38;5;132;01m}[39;00m[38;5;124m to [39m[38;5;132;01m{[39;00mpi[[38;5;124m'[39m[38;5;124mend[39m[38;5;124m'[39m][38;5;241m.[39mmax()[38;5;132;01m}[39;00m[38;5;124m"[39m)
+
+File [0;32m~/miniconda3/envs/argosy/lib/python3.11/site-packages/pandas/core/reshape/concat.py:372[0m, in [0;36mconcat[0;34m(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)[0m
+[1;32m    369[0m [38;5;28;01melif[39;00m copy [38;5;129;01mand[39;00m using_copy_on_write():
+[1;32m    370[0m     copy [38;5;241m=[39m [38;5;28;01mFalse[39;00m
+[0;32m--> 372[0m op [38;5;241m=[39m _Concatenator(
+[1;32m    373[0m     objs,
+[1;32m    374[0m     axis[38;5;241m=[39maxis,
+[1;32m    375[0m     ignore_index[38;5;241m=[39mignore_index,
+[1;32m    376[0m     join[38;5;241m=[39mjoin,
+[1;32m    377[0m     keys[38;5;241m=[39mkeys,
+[1;32m    378[0m     levels[38;5;241m=[39mlevels,
+[1;32m    379[0m     names[38;5;241m=[39mnames,
+[1;32m    380[0m     verify_integrity[38;5;241m=[39mverify_integrity,
+[1;32m    381[0m     copy[38;5;241m=[39mcopy,
+[1;32m    382[0m     sort[38;5;241m=[39msort,
+[1;32m    383[0m )
+[1;32m    385[0m [38;5;28;01mreturn[39;00m op[38;5;241m.[39mget_result()
+
+File [0;32m~/miniconda3/envs/argosy/lib/python3.11/site-packages/pandas/core/reshape/concat.py:429[0m, in [0;36m_Concatenator.__init__[0;34m(self, objs, axis, join, keys, levels, names, ignore_index, verify_integrity, copy, sort)[0m
+[1;32m    426[0m     objs [38;5;241m=[39m [38;5;28mlist[39m(objs)
+[1;32m    428[0m [38;5;28;01mif[39;00m [38;5;28mlen[39m(objs) [38;5;241m==[39m [38;5;241m0[39m:
+[0;32m--> 429[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([38;5;124m"[39m[38;5;124mNo objects to concatenate[39m[38;5;124m"[39m)
+[1;32m    431[0m [38;5;28;01mif[39;00m keys [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    432[0m     objs [38;5;241m=[39m [38;5;28mlist[39m(com[38;5;241m.[39mnot_none([38;5;241m*[39mobjs))
+
+[0;31mValueError[0m: No objects to concatenate
+ValueError: No objects to concatenate
+
