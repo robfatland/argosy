@@ -53,9 +53,13 @@ import numpy as np
 import xarray as xr
 from scipy.ndimage import minimum_filter1d
 
+import ooipaths as op
+
 # == Configuration =============================================================
 
-PP06_BASE = Path("~/ooi/postproc/pp06").expanduser()
+# Site for this run. Path layout comes from ooipaths (single source of truth).
+SITE = op.DEFAULT_SITE
+PP06_BASE = op.postproc_base(SITE) / "pp06"
 
 # Rolling minimum window size (number of samples)
 WINDOW_SIZE = 11
@@ -90,7 +94,9 @@ def main():
 
     start_time = time.time()
 
-    year_dirs = sorted(PP06_BASE.glob("redux*"))
+    # pp06 year folders are 4-digit-year names (per-site layout postproc/pp06/<yyyy>;
+    # older layouts used a redux<yyyy> prefix).
+    year_dirs = sorted(d for d in PP06_BASE.glob("[0-9][0-9][0-9][0-9]") if d.is_dir())
     for year_dir in year_dirs:
         year_count = 0
         files = sorted(year_dir.glob("*_backscatter_*.nc"))

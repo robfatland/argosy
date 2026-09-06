@@ -30,18 +30,22 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+import ooipaths as op
+
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
-REDUX_BASE = Path.home() / "ooi" / "redux"
-POSTPROC_BASE = Path.home() / "ooi" / "postproc"
-METADATA_DIR = Path.home() / "ooi" / "metadata"
-VIZ_DIR = Path.home() / "ooi" / "visualizations"
-EXCLUSIONS_CSV = Path.home() / "argosy" / "sensor_exclusions.csv"
+# Site for this run. Path layout comes from ooipaths (single source of truth).
+SITE = op.DEFAULT_SITE
+REDUX_BASE = op.redux_base(SITE)
+POSTPROC_BASE = op.postproc_base(SITE)
+METADATA_DIR = op.metadata_dir(SITE)
+VIZ_DIR = op.visualizations_dir(SITE)
+EXCLUSIONS_CSV = op.exclusions_csv()
 
 PROFILE_LISTS = {
-    "noon": METADATA_DIR / "ooi_rca_sb_noon_global_profile_indices.csv",
-    "midnight": METADATA_DIR / "ooi_rca_sb_midnight_global_profile_indices.csv",
+    "noon": op.special_profile_list("noon", SITE),
+    "midnight": op.special_profile_list("midnight", SITE),
 }
 
 PP_FOLDERS = {
@@ -95,7 +99,7 @@ def is_excluded(exclusions, sensor_var, mid_time):
 
 def find_shards_for_profile(global_index, year):
     """Find all shard files in redux for a given global profile index and year."""
-    redux_dir = REDUX_BASE / f"redux{year}"
+    redux_dir = op.redux_dir(year, SITE)
     if not redux_dir.exists():
         return []
     pattern = f"*_{global_index}_*_V1.nc"
@@ -173,10 +177,10 @@ def copy_shard(src_path, output_dir):
 
 def find_lsd_shards(year, sensor_var):
     """Find all LSD sensor shards with daily_index 4 or 9 for a given year."""
-    redux_dir = REDUX_BASE / f"redux{year}"
+    redux_dir = op.redux_dir(year, SITE)
     if not redux_dir.exists():
         return []
-    files = sorted(redux_dir.glob(f"RCA_sb_sp_{sensor_var}_*.nc"))
+    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE, version="*")))
     return [f for f in files if get_daily_index(f) in LSD_DAILY_INDICES]
 
 
@@ -242,7 +246,7 @@ def main():
             continue
 
         included_hsd += 1
-        output_dir = POSTPROC_BASE / pp_folder / "redux" / f"redux{year}"
+        output_dir = op.postproc_dir(pp_folder, year, SITE)
 
         for shard_file in shard_files:
             sensor = get_sensor_name(shard_file)
@@ -267,15 +271,17 @@ def main():
     excluded_lsd_points = {s: 0 for s in LSD_SENSORS}
     excluded_lsd_embargo = {s: 0 for s in LSD_SENSORS}
 
-    years = sorted(set(int(d.name.replace("redux", ""))
-                       for d in REDUX_BASE.glob("redux*") if d.is_dir()))
+    # Year subdirs are 4-digit-year names directly under REDUX_BASE (per-site
+    # layout ~/ooi/<site>/redux/<yyyy>; older layouts used a redux<yyyy> prefix).
+    years = sorted(int(d.name) for d in REDUX_BASE.glob("[0-9][0-9][0-9][0-9]")
+                   if d.is_dir())
 
     for sensor_var, config in LSD_SENSORS.items():
         min_pts = config["min_points"]
 
         for year in years:
             shards = find_lsd_shards(year, sensor_var)
-            output_dir = POSTPROC_BASE / pp_folder / "redux" / f"redux{year}"
+            output_dir = op.postproc_dir(pp_folder, year, SITE)
 
             for shard_file in shards:
                 # Check data point count

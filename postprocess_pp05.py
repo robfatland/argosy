@@ -10,8 +10,8 @@ Usage:
     python postprocess_pp05.py
 
 Output:
-    ~/ooi/metadata/pp05_manifest.csv
-    ~/ooi/metadata/pp05_exclusion_summary.csv
+    ~/ooi/<site>/metadata/qc/pp05_manifest.csv
+    ~/ooi/<site>/metadata/qc/pp05_exclusion_summary.csv
 
 The manifest CSV has columns:
     filepath, sensor, year, doy, global_idx, daily_idx, n_valid, n_suspect
@@ -25,12 +25,16 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+import ooipaths as op
+
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
-REDUX_BASE = Path.home() / "ooi" / "redux"
-METADATA_DIR = Path.home() / "ooi" / "metadata"
-EXCLUSIONS_CSV = Path.home() / "argosy" / "sensor_exclusions.csv"
+# Site for this run. Path layout comes from ooipaths (single source of truth).
+SITE = op.DEFAULT_SITE
+REDUX_BASE = op.redux_base(SITE)
+METADATA_DIR = op.metadata_dir(SITE)
+EXCLUSIONS_CSV = op.exclusions_csv()
 
 # Site-specific suspect ranges (Oregon Slope Base, 0-200m)
 SUSPECT_RANGES = {
@@ -146,8 +150,15 @@ def main():
     if exclusions:
         print(f"Loaded {sum(len(v) for v in exclusions.values())} exclusion window(s)")
 
-    year_dirs = sorted(REDUX_BASE.glob("redux*"))
-    years = [int(d.name.replace("redux", "")) for d in year_dirs if d.is_dir()]
+    # Year subdirs live directly under REDUX_BASE named by 4-digit year (e.g.
+    # ~/ooi/<site>/redux/2015). (Older layouts used redux<yyyy>; the per-site
+    # restructure dropped that prefix, so glob the numeric year dirs.)
+    year_dirs = sorted(d for d in REDUX_BASE.glob("[0-9][0-9][0-9][0-9]") if d.is_dir())
+    years = [int(d.name) for d in year_dirs]
+    if not years:
+        print(f"ERROR: no redux year directories found under {REDUX_BASE}")
+        print("       (expected ~/ooi/<site>/redux/<yyyy>/ populated with shards)")
+        return
     print(f"Redux years: {years[0]}-{years[-1]}")
 
     stats = {s: {'included': 0, 'excl_embargo': 0, 'excl_range': 0,
@@ -155,8 +166,8 @@ def main():
              for s in ALL_SENSORS}
 
     # Resume logic: check which years are already in the manifest
-    METADATA_DIR.mkdir(parents=True, exist_ok=True)
-    manifest_path = METADATA_DIR / "pp05_manifest.csv"
+    manifest_path = op.pp05_manifest(SITE)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     completed_years = set()
     if manifest_path.exists():
         existing = pd.read_csv(manifest_path)
@@ -177,7 +188,7 @@ def main():
         if year in completed_years:
             continue
 
-        redux_dir = REDUX_BASE / f"redux{year}"
+        redux_dir = op.redux_dir(year, SITE)
         if not redux_dir.exists():
             continue
 
@@ -187,7 +198,7 @@ def main():
             # HSD sensors
             for sensor_var in HSD_SENSORS:
                 try:
-                    files = sorted(redux_dir.glob(f"RCA_sb_sp_{sensor_var}_*_V1.nc"))
+                    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE)))
                 except OSError:
                     continue
 
@@ -222,7 +233,7 @@ def main():
             # LSD sensors
             for sensor_var, min_pts in LSD_SENSORS.items():
                 try:
-                    files = sorted(redux_dir.glob(f"RCA_sb_sp_{sensor_var}_*_V1.nc"))
+                    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE)))
                 except OSError:
                     continue
 
@@ -277,7 +288,7 @@ def main():
 
     # Write exclusion summary (stats may be incomplete if resumed — re-read manifest for accuracy)
     manifest_df = pd.read_csv(manifest_path)
-    summary_path = METADATA_DIR / "pp05_exclusion_summary.csv"
+    summary_path = op.pp05_exclusion_summary(SITE)
     with open(summary_path, 'w') as f:
         f.write("sensor,included,excl_embargo,excl_range,excl_points,excl_par_night,n_suspect_values\n")
         for s in ALL_SENSORS:
