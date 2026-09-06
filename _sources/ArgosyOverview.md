@@ -6,17 +6,16 @@ date: ""
 
 \newpage
 
-# START HERE
+# Argosy Overview
 
-**Argosy** is an ocean science research project in book form; and at the same time it is also a working environment for analysis of data: From the OOI Regional Cabled Array shallow profilers and from other data sources. The main concept is: Raw ocean-observatory data is transformed for comparative analysis. 
+**Argosy** is an ocean science research narrative in book form; and at the same time it is a working environment for analysis of data. The starting point of this analysis focuses on data from the OOI Regional Cabled Array shallow profilers and expands to other data sources. The main idea is that raw ocean observation data is transformed and subjected to comparative analysis. 
 
 
-**Argosy** has a considerable number of 'moving parts' or components, so the uninitiated reader is encouraged to persevere until the project framework comes together. For example above we mentioned shallow profilers; but just what and where are they? A shallow profiler is a cluster of about fifteen sensors suspended in the water column at a depth of 200 meters, considered to be the limiting depth for sunlight penetration into the ocean. We consider three shallow profiler installations located off the coast of Oregon. These are referred to (with abbreviations) as Oregon Slope Base (`sb`), Oregon Offshore (`oo`) and Axial Base (`ab`). Each of these sensor clusters ascends on a cable to within 5 meters of the surface and then retracts back down to its mooring at 200 meters, completing one profile of the upper part of the ocean water column at each respective site. This sensor profile is repeated nine times each day, generating raw source data to subsequently be processed and analysed. The processing work is consequently divided into two phases. 
+**Argosy** has a considerable number of 'moving parts', so the uninitiated reader is encouraged to persevere as the project framework takes shape. For example, just what and where are shallow profilers? A shallow profiler is a cluster of about fifteen sensors suspended in the water column at a depth of 200 meters, the limiting depth of sunlight penetration into the ocean. We consider three shallow profiler installations located off the coast of Oregon referred to (with abbreviations) as Oregon Slope Base (`sb`), Oregon Offshore (`oo`) and Axial Base (`ab`). Each of these sensor clusters ascends on a cable to within 5 meters of the surface and then retracts back down to its mooring at 200 meters, completing one profile of the upper part of the ocean water column at each respective site. This sensor profile is repeated nine times each day, generating raw source data to subsequently be processed and analysed. The processing work is consequently divided into two phases. 
 
 
 - **Phase 1**: A pipeline from raw to 'analysis ready' data. 
 - **Phase 2**: Interpretive data analysis: Concerning both *what the ocean is like* in an average sense; and *what anomalies* might be detected and interpreted.
-
 
 
 This is an example reference: {cite}`nash2005`.
