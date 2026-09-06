@@ -146,6 +146,8 @@ with a lag of days to weeks depending on wind regime.
   plume." JGR. doi:10.1029/2008JC004964
 - Adams et al. (2015). "Anomalous near-surface low-salinity pulses off the central
   Oregon coast." Scientific Reports. doi:10.1038/srep17145
+- Nash & Moum (2005). "River plumes as a source of large-amplitude internal waves
+  in the coastal ocean." Nature, 437, 400–403. doi:10.1038/nature03936
 
 
 ## ERDDAP data access URLs

@@ -177,25 +177,47 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ArgosyOverview.html">START HERE</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../../OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="../../SensorTable.html">Sensor Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../Sharding.html">Profile Metadata and Sharding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../DevelopmentLog.html">Development Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/bibliography.html">Bibliography</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../chapters/DataDownload.html">Data Download</a></li>
 
@@ -402,7 +424,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-publish-the-jupyter-book">1. Build &amp; publish the Jupyter Book</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-pdf-per-file-and-the-whole-book-synthesis">2. Markdown → PDF (per file, and the whole-book synthesis)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-python-programs-with-working-matplotlib-widgets">3. Standalone Python programs with working matplotlib widgets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poster-pdf-export-agu">4. Poster PDF export (AGU)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-ooinet-download-url-list-where-it-lives">3b. OOINET download URL list — where it lives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-pipeline-create-run-destroy-a-disposable-ec2-runner">4. Cloud pipeline: create / run / destroy a disposable EC2 runner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-reconnect-to-monitor-a-running-pipeline-after-ssm-timeout">4b. Reconnect to &amp; monitor a running pipeline (after SSM timeout)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poster-pdf-export-agu">5. Poster PDF export (AGU)</a></li>
 </ul>
             </nav>
         </div>
@@ -481,8 +506,94 @@ window): use <code class="docutils literal notranslate"><span class="pre">matplo
 (In WSL2, interactive TkAgg needs a working X/display; Agg does not — prefer Agg for
 batch/animation output, TkAgg only for genuinely interactive tools.)</p>
 </section>
+<section id="b-ooinet-download-url-list-where-it-lives">
+<h2>3b. OOINET download URL list — where it lives<a class="headerlink" href="#b-ooinet-download-url-list-where-it-lives" title="Link to this heading">#</a></h2>
+<p>The download step reads OOINET async-staging URLs (one per line, <code class="docutils literal notranslate"><span class="pre">#</span></code> lines ignored) from a
+single fixed file: <strong><code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code></strong>. This is the default for
+<code class="docutils literal notranslate"><span class="pre">pipeline/download.py</span></code> and the notebook. Workflow: place a data order in the OOINET web
+interface → the “order ready” email gives a staging URL → paste it (one per line) into
+<code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code> → run the download. <code class="docutils literal notranslate"><span class="pre">download.py</span></code> infers each URL’s
+instrument from the URL text (CTDPF/FLORT/PHSEN/PCO2W/NUTNR/PARAD) and routes files to
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/ooinet/scalar/&lt;year&gt;_&lt;instrument&gt;/</span></code>. On success a URL is moved to
+<code class="docutils literal notranslate"><span class="pre">~/argosy/downlinklist_completed.txt</span></code>. (<code class="docutils literal notranslate"><span class="pre">download.py</span> <span class="pre">--url-list</span> <span class="pre">&lt;path&gt;</span></code> can override, but the
+default single file is the norm.)</p>
+</section>
+<section id="cloud-pipeline-create-run-destroy-a-disposable-ec2-runner">
+<h2>4. Cloud pipeline: create / run / destroy a disposable EC2 runner<a class="headerlink" href="#cloud-pipeline-create-run-destroy-a-disposable-ec2-runner" title="Link to this heading">#</a></h2>
+<p>Phase 1 pipeline on a throwaway EC2 box (download → shard → pp06 → sync to S3), via AWS
+CDK. Full detail + prerequisites in <code class="docutils literal notranslate"><span class="pre">cloud/README.md</span></code>. Quick form:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># one-time: npm install -g aws-cdk ; conda create -n argosy-cdk python=3.11 -y ;</span>
+<span class="c1">#           conda activate argosy-cdk ; pip install aws-cdk-lib constructs ; cdk bootstrap</span>
+<span class="c1"># CDK lives in the SEPARATE env `argosy-cdk` (keeps it out of the argosy analysis env).</span>
+conda<span class="w"> </span>activate<span class="w"> </span>argosy-cdk
+<span class="nb">cd</span><span class="w"> </span>~/argosy/cloud
+cdk<span class="w"> </span>deploy<span class="w">                                    </span><span class="c1"># CREATE (prints the instance id + connect cmd)</span>
+<span class="c1"># connect KEYLESS via SSM (no SSH key, no open port):</span>
+aws<span class="w"> </span>ssm<span class="w"> </span>start-session<span class="w"> </span>--target<span class="w"> </span>&lt;instance-id&gt;
+sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>ec2-user
+<span class="c1"># populate ~/argosy/download_link_list.txt, then:</span>
+bash<span class="w"> </span>~/argosy/pipeline/run_pipeline.sh<span class="w"> </span>&lt;site&gt;<span class="w">               </span><span class="c1"># e.g. oo</span>
+<span class="nb">cd</span><span class="w"> </span>~/argosy/cloud<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cdk<span class="w"> </span>destroy<span class="w">                            </span><span class="c1"># DELETE (stops billing)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The whole pipeline honors <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code> (set by run_pipeline.sh) — <code class="docutils literal notranslate"><span class="pre">ooipaths.DEFAULT_SITE</span></code>
+reads it, so every script targets the chosen site with no code edits.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code> removes the instance AND its 500 GB volume (part of the stack). Always confirm
+no orphaned EBS volume remains in the console — that’s the usual accidental-cost trap.</p></li>
+<li><p>Instance type default <code class="docutils literal notranslate"><span class="pre">c6i.xlarge</span></code> (~&lt;$0.40/hr, us-west-2). Local-then-sync: results land on
+the box’s local <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/</span></code> then <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">sync</span></code> up to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/</span></code>.</p></li>
+</ul>
+</section>
+<section id="b-reconnect-to-monitor-a-running-pipeline-after-ssm-timeout">
+<h2>4b. Reconnect to &amp; monitor a running pipeline (after SSM timeout)<a class="headerlink" href="#b-reconnect-to-monitor-a-running-pipeline-after-ssm-timeout" title="Link to this heading">#</a></h2>
+<p>SSM sessions time out; the <code class="docutils literal notranslate"><span class="pre">nohup</span></code>’d pipeline keeps running. To pick monitoring back up:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aws<span class="w"> </span>ssm<span class="w"> </span>start-session<span class="w"> </span>--target<span class="w"> </span>&lt;instance-id&gt;<span class="w">   </span><span class="c1"># you land as ssm-user</span>
+sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>ec2-user<span class="w">                             </span><span class="c1"># ALWAYS do this — repo, logs, ~/ooi are ec2-user&#39;s</span>
+</pre></div>
+</div>
+<p><strong>Gotcha (why you land in the wrong place):</strong> <code class="docutils literal notranslate"><span class="pre">ssm-user</span></code>’s home is empty; everything lives under
+<code class="docutils literal notranslate"><span class="pre">/home/ec2-user</span></code>. Globs like <code class="docutils literal notranslate"><span class="pre">~/ooi/*.log</span></code> return “No such file” until you switch users.</p>
+<p><strong>Is it still running / where is it?</strong> (non-invasive; the log itself is block-buffered when piped
+through <code class="docutils literal notranslate"><span class="pre">tee</span></code>, so it looks frozen — trust the filesystem, not the log):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;run_pipeline|shard.py|download.py|postprocess&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>grep
+<span class="c1"># process STATE &#39;D&#39; = busy on disk I/O (normal for big CTD files), &#39;R&#39;/&#39;S&#39; = running/sleeping.</span>
+</pre></div>
+</div>
+<p><strong>Best progress check = the redux tree, not the log</strong> (year with growing count = current position):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== </span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%H:%M:%S&#39;</span><span class="k">)</span><span class="s2"> shard status ===&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;proc : </span><span class="k">$(</span>ps<span class="w"> </span>-o<span class="w"> </span>%cpu<span class="o">=</span>,stat<span class="o">=</span>,etime<span class="o">=</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pgrep<span class="w"> </span>-f<span class="w"> </span>shard.py<span class="k">)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;NOT RUNNING&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;shards total : </span><span class="k">$(</span>find<span class="w"> </span>~/ooi/&lt;site&gt;/redux<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.nc&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+<span class="k">for</span><span class="w"> </span>d<span class="w"> </span><span class="k">in</span><span class="w"> </span>~/ooi/&lt;site&gt;/redux/*/<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;  %s  %6d\n&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$d</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$d</span><span class="s2">&quot;</span><span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.nc&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+find<span class="w"> </span>~/ooi/&lt;site&gt;/redux<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.nc&#39;</span><span class="w"> </span>-printf<span class="w"> </span><span class="s1">&#39;%T+ %p\n&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-3<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s|.*/||&#39;</span>
+</pre></div>
+</div>
+<p><strong>Rate / ETA</strong> (run twice ~60s apart; the delta is shards/min):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>~/ooi/&lt;site&gt;/redux<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.nc&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="p">;</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">60</span><span class="p">;</span><span class="w"> </span>find<span class="w"> </span>~/ooi/&lt;site&gt;/redux<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.nc&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</pre></div>
+</div>
+<p><strong>Make the log itself live</strong> (fixes the “tail shows nothing” problem) — set <code class="docutils literal notranslate"><span class="pre">PYTHONUNBUFFERED=1</span></code>
+so stdout is line-buffered, before launching any stage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONUNBUFFERED</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ARGOSY_SITE</span><span class="o">=</span>&lt;site&gt;
+<span class="nb">cd</span><span class="w"> </span>~/argosy
+nohup<span class="w"> </span>bash<span class="w"> </span>pipeline/run_pipeline.sh<span class="w"> </span>&lt;site&gt;<span class="w"> </span>&lt;stage&gt;<span class="w"> </span>&gt;<span class="w"> </span>~/ooi/&lt;site&gt;_&lt;stage&gt;_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%dT%H%M%S<span class="k">)</span>.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+tail<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ls<span class="w"> </span>-t<span class="w"> </span>~/ooi/&lt;site&gt;_&lt;stage&gt;_*.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>Stages</strong> (run separately after a partial/recovered run; <code class="docutils literal notranslate"><span class="pre">all</span></code> does the whole chain):
+<code class="docutils literal notranslate"><span class="pre">download</span></code> → <code class="docutils literal notranslate"><span class="pre">shard</span></code> → <code class="docutils literal notranslate"><span class="pre">pp</span></code> (pp05, pp06, pp06_filter2, pp06_filter3) → <code class="docutils literal notranslate"><span class="pre">sync</span></code> (to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/</span></code>).
+Success check for shard = the final <code class="docutils literal notranslate"><span class="pre">attempted=</span> <span class="pre">written=</span> <span class="pre">skipped=</span></code> block has <strong>nonzero <code class="docutils literal notranslate"><span class="pre">written</span></code></strong>;
+<code class="docutils literal notranslate"><span class="pre">attempted=0</span></code> means profile indices are missing (see note below).</p>
+<p><strong>profileIndices are a required shard input</strong> and are NOT in the download or git data tree. A fresh
+box has none → sharding silently yields <code class="docutils literal notranslate"><span class="pre">attempted=0</span></code>. <code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span></code>’s download stage now pulls
+them from <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/profileIndices/</span></code>; one-time per site, push them up first from WSL:
+<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">sync</span> <span class="pre">~/ooi/&lt;site&gt;/profileIndices/</span> <span class="pre">s3://s3ooi/&lt;site&gt;/profileIndices/</span></code>
+(filenames are <code class="docutils literal notranslate"><span class="pre">&lt;designator&gt;_profiles_&lt;yyyy&gt;.csv</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">CE04OSPS_profiles_2022.csv</span></code> for <code class="docutils literal notranslate"><span class="pre">oo</span></code>).</p>
+<p><strong>When the run is fully done:</strong> verify <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">ls</span> <span class="pre">s3://s3ooi/&lt;site&gt;/redux/</span> <span class="pre">--recursive</span> <span class="pre">--summarize</span> <span class="pre">|</span> <span class="pre">tail</span></code>,
+then <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/argosy/cloud</span> <span class="pre">&amp;&amp;</span> <span class="pre">cdk</span> <span class="pre">destroy</span></code> (billing meter!) and confirm no orphaned EBS in the console.</p>
+</section>
 <section id="poster-pdf-export-agu">
-<h2>4. Poster PDF export (AGU)<a class="headerlink" href="#poster-pdf-export-agu" title="Link to this heading">#</a></h2>
+<h2>5. Poster PDF export (AGU)<a class="headerlink" href="#poster-pdf-export-agu" title="Link to this heading">#</a></h2>
 <p>The AGU poster is HTML/CSS (<code class="docutils literal notranslate"><span class="pre">poster/AGUPoster.html</span></code>, KaTeX for math). Export to a
 size-exact PDF via headless Chromium — see <code class="docutils literal notranslate"><span class="pre">poster/README.md</span></code> for the command and the
 QR-code generation step.</p>
@@ -538,7 +649,10 @@ QR-code generation step.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-publish-the-jupyter-book">1. Build &amp; publish the Jupyter Book</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-pdf-per-file-and-the-whole-book-synthesis">2. Markdown → PDF (per file, and the whole-book synthesis)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-python-programs-with-working-matplotlib-widgets">3. Standalone Python programs with working matplotlib widgets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poster-pdf-export-agu">4. Poster PDF export (AGU)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-ooinet-download-url-list-where-it-lives">3b. OOINET download URL list — where it lives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-pipeline-create-run-destroy-a-disposable-ec2-runner">4. Cloud pipeline: create / run / destroy a disposable EC2 runner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-reconnect-to-monitor-a-running-pipeline-after-ssm-timeout">4b. Reconnect to &amp; monitor a running pipeline (after SSM timeout)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poster-pdf-export-agu">5. Poster PDF export (AGU)</a></li>
 </ul>
   </nav></div>
 

@@ -12,7 +12,11 @@ Last refreshed: 2026-06-26
 
 | File | Description |
 |------|-------------|
-| `ooipaths.py` | Single source of truth for the `~/ooi` data filesystem layout (per-site, Aug 2026). Site registry (`sb`/`oo`/`ab` → OOI designators) and path accessors (`redux_dir`, `postproc_dir`, `metadata_dir`, `profile_index_dir`, `analysis_dir`, `ooinet_dir`, `shard_glob`, etc.), all taking a `site` arg. Layout: `~/ooi/<site>/{ooinet, redux/<yyyy>, postproc/<pp>/<yyyy>, ...}`. |
+| `ooipaths.py` | Single source of truth for the `~/ooi` data filesystem layout (per-site, Aug 2026). Site registry (`sb`/`oo`/`ab` → OOI designators) and path accessors (`redux_dir`, `postproc_dir`, `metadata_dir`, `profile_index_dir`, `analysis_dir`, `ooinet_dir`, `shard_glob`, etc.), all taking a `site` arg. `DEFAULT_SITE` reads `$ARGOSY_SITE` (whole-pipeline site override). Layout: `~/ooi/<site>/{ooinet, redux/<yyyy>, postproc/<pp>/<yyyy>, ...}`. |
+| `pipeline/download.py` | OOINET acquisition for Phase 1 (extracted from DataDownload.ipynb; notebook + EC2 share it). `estimate_download_volume`, `bulk_download`, `download_all`. CLI `--site/--estimate`. |
+| `pipeline/shard.py` | Shards OOINET source → per-sensor per-profile `redux` files (extracted from DataSharding.ipynb; notebook + EC2 share it). Restart-tolerant. CLI `--site/--instruments`. |
+| `pipeline/run_pipeline.sh` | EC2 entrypoint: download→shard→pp06→`aws s3 sync` to S3 for one site (local-then-sync), honors `ARGOSY_SITE`. Optional per-site URL list. |
+| `cloud/app.py` | AWS CDK (Python) app: disposable EC2 pipeline runner (500 GB gp3, IAM S3 role, SSH SG, miniconda user-data). `cdk deploy`=create, `cdk destroy`=delete. |
 | `postprocess_pp05.py` | Generates pp05 manifest (QC-filtered analysis dataset). Manifest-based: writes `~/ooi/<site>/metadata/pp05_manifest.csv`. Resumable per-year. |
 | `postprocess_pp06.py` | Builds pp06 physical dataset from pp05-qualified shards. Filter 0 (baseline copy) + Filter 1 (MRA walk on salinity/density). Includes 8 HSD + 3 LSD sensors. Output: `~/ooi/<site>/postproc/pp06/`. |
 | `postprocess_pp06_filter2.py` | Savitzky-Golay smoothing (Filter 2) for CDOM, ChlorA, Backscatter quantization noise. Operates in-place on pp06 shards. |

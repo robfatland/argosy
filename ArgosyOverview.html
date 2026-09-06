@@ -217,6 +217,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
@@ -453,13 +454,14 @@ document.write(`
   <p>\newpage</p>
 <section class="tex2jax_ignore mathjax_ignore" id="start-here">
 <h1>START HERE<a class="headerlink" href="#start-here" title="Link to this heading">#</a></h1>
-<p><strong>Argosy</strong> is a cloud-forward workflow and analysis environment for the OOI Regional Cabled
-Array shallow profilers: raw ocean-observatory data → sharded, quality-controlled,
-analysis-ready datasets → oceanographic analysis. It begins with the Oregon Slope Base (<code class="docutils literal notranslate"><span class="pre">sb</span></code>)
-profiler and expands to Oregon Offshore (<code class="docutils literal notranslate"><span class="pre">oo</span></code>) and Axial Base (<code class="docutils literal notranslate"><span class="pre">ab</span></code>). Work is split into
-<strong>Phase 1</strong> (pipeline: raw → <code class="docutils literal notranslate"><span class="pre">pp06</span></code>) and <strong>Phase 2</strong> (analysis: coincidence, residual
-climatology, SGA, internal waves, Columbia plume, satellite cross-comparison).</p>
-<p>This repository is dual-purpose: a published <strong>Jupyter Book</strong> (readable narrative) and a
+<p><strong>Argosy</strong> is an ocean science research project in book form; and at the same time it is also a working environment for analysis of data: From the OOI Regional Cabled Array shallow profilers and from other data sources. The main concept is: Raw ocean-observatory data is transformed for comparative analysis.</p>
+<p><strong>Argosy</strong> has a considerable number of ‘moving parts’ or components, so the uninitiated reader is encouraged to persevere until the project framework comes together. For example above we mentioned shallow profilers; but just what and where are they? A shallow profiler is a cluster of about fifteen sensors suspended in the water column at a depth of 200 meters, considered to be the limiting depth for sunlight penetration into the ocean. We consider three shallow profiler installations located off the coast of Oregon. These are referred to (with abbreviations) as Oregon Slope Base (<code class="docutils literal notranslate"><span class="pre">sb</span></code>), Oregon Offshore (<code class="docutils literal notranslate"><span class="pre">oo</span></code>) and Axial Base (<code class="docutils literal notranslate"><span class="pre">ab</span></code>). Each of these sensor clusters ascends on a cable to within 5 meters of the surface and then retracts back down to its mooring at 200 meters, completing one profile of the upper part of the ocean water column at each respective site. This sensor profile is repeated nine times each day, generating raw source data to subsequently be processed and analysed. The processing work is consequently divided into two phases.</p>
+<ul class="simple">
+<li><p><strong>Phase 1</strong>: A pipeline from raw to ‘analysis ready’ data.</p></li>
+<li><p><strong>Phase 2</strong>: Interpretive data analysis: Concerning both <em>what the ocean is like</em> in an average sense; and <em>what anomalies</em> might be detected and interpreted.</p></li>
+</ul>
+<p>This is an example reference: <span id="id1">[<a class="reference internal" href="reference/bibliography.html#id2" title="Jonathan D. Nash and James N. Moum. River plumes as a source of large-amplitude internal waves in the coastal ocean. Nature, 437:400–403, 2005. doi:10.1038/nature03936.">1</a>]</span>.</p>
+<p>The Argosy repository is published as a <strong>Jupyter Book</strong> (readable narrative) and a
 <strong>working research repository</strong> (scripts + planning notes). The GitHub landing page is
 <code class="docutils literal notranslate"><span class="pre">README.md</span></code>; the book’s ordered narrative is defined by <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>.</p>
 <section id="who-are-you-routing">
@@ -480,7 +482,7 @@ kept in the <code class="docutils literal notranslate"><span class="pre">operati
 <section id="quick-reference-pointers-to-key-actions">
 <h2>Quick Reference: Pointers to Key Actions<a class="headerlink" href="#quick-reference-pointers-to-key-actions" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Building PDFs</strong>: See <a class="reference internal" href="#building-the-pdf"><span class="xref myst">Building the PDF</span></a>, this file.</p></li>
+<li><p><strong>Building PDFs</strong>: See the “Building the PDF” section below in this file. Per-file PDF and book publish commands are in the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file.</p></li>
 <li><p><strong>Data file paths</strong>: Always obtain via <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">ooipaths</span> <span class="pre">as</span> <span class="pre">op</span></code>; <code class="docutils literal notranslate"><span class="pre">op.redux_dir(year,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">op.postproc_dir(pp,</span> <span class="pre">year,</span> <span class="pre">site)</span></code>, etc.). Per-site layout <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/...</span></code>; never hardcode. See <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> → “Recap of the data filesystem logic”.</p></li>
 <li><p><strong>S3 backup (syncing ooinet)</strong>: See <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> → “S3 sync: data to AWS object storage”</p></li>
 <li><p><strong>Generating pp05 manifest</strong>: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">postprocess_pp05.py</span></code> — see <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code></p></li>

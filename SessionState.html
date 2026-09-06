@@ -177,25 +177,47 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DevelopmentLog.html">Development Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
 
@@ -400,11 +422,15 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#last-updated">Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-session-1">Previous session (1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#live-ec2-state-read-this-first-next-session">LIVE EC2 STATE (read this first next session)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answered-this-session-design-note">Answered this session (design note)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session">Completed this session</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-progress-partially-done">In progress / partially done</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverted-needs-redo">Reverted / needs redo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blocked-waiting-on-user">Blocked / waiting on user</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action">Next action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-logged-this-session-git-hygiene">Lesson logged this session (git hygiene)</a></li>
 </ul>
             </nav>
         </div>
@@ -420,24 +446,95 @@ document.write(`
 <h1>Session State<a class="headerlink" href="#session-state" title="Link to this heading">#</a></h1>
 <section id="last-updated">
 <h2>Last updated<a class="headerlink" href="#last-updated" title="Link to this heading">#</a></h2>
-<p>2026-09-05 — Metadata folder sorted into 7 self-documenting subfolders (qc/profiles/features/annotations/external/cache/scans). Earlier: per-site filesystem restructure COMPLETE.</p>
+<p>2026-09-06 (session 2) — Resumed the live oo EC2 run. Diagnosed why the first full pipeline pass
+produced NOTHING despite a “pipeline done” banner: sharding reported <code class="docutils literal notranslate"><span class="pre">attempted=0</span></code> because
+<code class="docutils literal notranslate"><span class="pre">~/ooi/oo/profileIndices/</span></code> was EMPTY on the box (the CE04OSPS_profiles_<em>.csv are hand-maintained,
+live outside the download AND outside git’s data tree, so the fresh clone lacked them → pp05 then
+crashed on <code class="docutils literal notranslate"><span class="pre">years[0]</span></code> IndexError). FIX: user pushed the 13 oo profileIndices to
+<code class="docutils literal notranslate"><span class="pre">s3://s3ooi/oo/profileIndices/</span></code>, pulled them onto the box, re-ran <code class="docutils literal notranslate"><span class="pre">shard</span></code> — now writing shards
+correctly (990+ and climbing, correct RCA_oo_sp_</em> names). Hardened <code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span></code>: download
+stage now pulls profileIndices from S3 + warns if absent; shard stage guards the same. Added
+steering recipe 4b (reconnect/monitor). Also: cleared sb local redux (S3-verified complete) to
+reclaim vhdx, left an empty dir + self-doc README as a Phase-1 marker. Added Nash &amp; Moum 2005 to
+references.bib + <a class="reference external" href="http://ColumbiaPlumePlan.md">ColumbiaPlumePlan.md</a>; fixed the bibliography (added <code class="docutils literal notranslate"><span class="pre">reference/bibliography</span></code> to
+_toc.yml — it was missing, so ALL {cite} refs had nothing to resolve against); verified via build.</p>
+</section>
+<section id="previous-session-1">
+<h2>Previous session (1)<a class="headerlink" href="#previous-session-1" title="Link to this heading">#</a></h2>
+<p>Deployed disposable EC2 (CDK) and LAUNCHED the full oo Phase 1 pipeline. Fixed two classes of
+blocker: (1) CDK attached the 1 TB EBS as a SECOND disk instead of root — worked around live
+(formatted/mounted nvme1n1 at /data, symlinked ~/ooi -&gt; /data/ooi) AND fixed the CDK stack
+(device_name /dev/sda1 -&gt; /dev/xvda); (2) <a class="reference external" href="http://ooipaths.py">ooipaths.py</a> + pipeline/* + the 5 oo download URLs were
+UNTRACKED in git so the EC2 clone lacked them — committed + pushed (added .gitattributes pinning LF).</p>
+</section>
+<section id="live-ec2-state-read-this-first-next-session">
+<h2>LIVE EC2 STATE (read this first next session)<a class="headerlink" href="#live-ec2-state-read-this-first-next-session" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Instance <code class="docutils literal notranslate"><span class="pre">i-0a018916cfb9a8e46</span></code> (us-west-2, acct 879605964811). Connect:
+<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ssm</span> <span class="pre">start-session</span> <span class="pre">--target</span> <span class="pre">i-0a018916cfb9a8e46</span></code> (keyless SSM; plugin installed on localhost).</p></li>
+<li><p><strong>BILLING METER IS RUNNING.</strong> c6i.xlarge on-demand. Must <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code> when the run + S3 verify
+are done (from <code class="docutils literal notranslate"><span class="pre">~/argosy/cloud</span></code>, <code class="docutils literal notranslate"><span class="pre">argosy-cdk</span></code> conda env). Confirm no orphaned EBS after destroy.</p></li>
+<li><p>Box layout: 8 GB AMI root (nvme0n1, was the trap) + 1 TB <code class="docutils literal notranslate"><span class="pre">/dev/nvme1n1</span></code> xfs mounted at <code class="docutils literal notranslate"><span class="pre">/data</span></code>;
+<code class="docutils literal notranslate"><span class="pre">~/ooi</span> <span class="pre">-&gt;</span> <span class="pre">/data/ooi</span></code> symlink so all pipeline output lands on the 1 TB. Minimal conda env <code class="docutils literal notranslate"><span class="pre">argosy</span></code>
+(python 3.11 xarray netcdf4 pandas numpy scipy requests beautifulsoup4 boto3 awscli) — NOT the
+full environment.yml (won’t fit / not needed). conda ToS accepted for pkgs/main + pkgs/r.</p></li>
+<li><p>Pipeline launched with: `export ARGOSY_SITE=oo; nohup bash ~/argosy/pipeline/run_pipeline.sh oo</p>
+<blockquote>
+<div><p>~/ooi/oo_pipeline_<ts>.log 2&gt;&amp;1 &amp;<code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">run_pipeline's</span> <span class="pre">own</span> <span class="pre">log:</span> </code>~/pipeline_oo_<ts>.log<code class="docutils literal notranslate"><span class="pre">.</span>&#160;&#160; <span class="pre">Was</span> <span class="pre">in</span> <span class="pre">stage</span> </code>[1/3] download<code class="docutils literal notranslate"><span class="pre">at</span> <span class="pre">session</span> <span class="pre">end.</span> <span class="pre">Stages:</span> <span class="pre">download</span> <span class="pre">-&gt;</span> <span class="pre">shard</span> <span class="pre">-&gt;</span> <span class="pre">pp</span> <span class="pre">(pp05,</span> <span class="pre">pp06,</span>&#160;&#160; <span class="pre">pp06_filter2,</span> <span class="pre">pp06_filter3)</span> <span class="pre">-&gt;</span></code>aws s3 sync<code class="docutils literal notranslate"><span class="pre">redux/postproc/metadata</span> <span class="pre">to</span></code>s3://s3ooi/oo/`.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Resume check next session:</strong> re-attach SSM, <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">~/ooi/oo_pipeline_*.log</span></code>. Watch the
+DOFST-vs-CTDPF question (expectation: DO rides inside CTDPF as <code class="docutils literal notranslate"><span class="pre">corrected_dissolved_oxygen</span></code>,
+no separate DOFST download). Then verify <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/oo/</span></code>, THEN <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>.</p></li>
+<li><p>The 5 oo async URLs (in download_link_list.txt, now on GitHub) are OOINET async-result links
+dated 20260905 tied to <a class="reference external" href="mailto:kilroy1618&#37;&#52;&#48;gmail&#46;com">kilroy1618<span>&#64;</span>gmail<span>&#46;</span>com</a> — they EXPIRE in ~2 weeks. Re-order if the run
+needs a rerun after that.</p></li>
+</ul>
+</section>
+<section id="answered-this-session-design-note">
+<h2>Answered this session (design note)<a class="headerlink" href="#answered-this-session-design-note" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>run_pipeline.sh emits <strong>no PNG</strong> and does not merge overlapping-time files into one series.
+Sharding SPLITS source files into per-profile shards; time-overlap redundancy is absorbed via
+idempotent per-profile shard naming (shows up as the <code class="docutils literal notranslate"><span class="pre">skipped=</span></code> count). Any consolidated
+coverage/curtain PNG is a separate future viz step (proposed <code class="docutils literal notranslate"><span class="pre">pipeline/coverage_plot.py</span></code>, Agg
+backend -&gt; ~/ooi/oo/visualizations/); NOT yet built. User expressed interest.</p></li>
+</ul>
 </section>
 <section id="completed-this-session">
 <h2>Completed this session<a class="headerlink" href="#completed-this-session" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Metadata subfolder sort</strong>: <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/metadata/</span></code> reorganized into <code class="docutils literal notranslate"><span class="pre">qc/</span> <span class="pre">profiles/</span> <span class="pre">features/</span> <span class="pre">annotations/</span> <span class="pre">external/</span> <span class="pre">cache/</span> <span class="pre">scans/</span></code>, each with a README (per new steering guideline).
-Files moved without renaming. <code class="docutils literal notranslate"><span class="pre">ooipaths.metadata_dir(site,</span> <span class="pre">sub)</span></code> + <code class="docutils literal notranslate"><span class="pre">METADATA_SUBDIRS</span></code> added;
-producer/consumer scripts updated (incl. converting plume/<em>.py + iw/</em>.py to ooipaths). All
-accessors verified against relocated files. VisQC completion logged as Pending To Do.
-New steering rule added: create a README when making a subfolder for existing files.</p></li>
-<li><p><strong><a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a> restructure</strong>: merged duplicate “QC Filter” sections; rehomed orphaned
-pp01/pp02 depth-histogram block; reordered into pipeline-logical flow. Now 363 lines
-(under 400-line convention).</p></li>
-<li><p><strong>HSD acronym typo fixed</strong> (“HDS” → “HSD”, and wrong expansion “High Data-density Sampling”
-→ “High Sample Density”): <code class="docutils literal notranslate"><span class="pre">postprocess_pp06.py</span></code> (docstring + <code class="docutils literal notranslate"><span class="pre">HSD_SENSORS</span></code>/<code class="docutils literal notranslate"><span class="pre">hsd_manifest</span></code>
-identifiers, recompiles clean), <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code>, <code class="docutils literal notranslate"><span class="pre">SpectralGraphAnalysis.md</span></code>, <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>.</p></li>
-<li><p><strong>Confirmed no HSD fix needed in notebooks</strong>: scanned all <code class="docutils literal notranslate"><span class="pre">chapters/*.ipynb</span></code> cell sources;
-the “HDS” grep hits were base64 image-output blobs, not editable text. Nothing pending.</p></li>
+<li><p><strong>Cloud Phase 1 pipeline scaffold</strong> (EC2 create/destroy). <code class="docutils literal notranslate"><span class="pre">pipeline/download.py</span></code> extracts the
+OOINET download logic from DataDownload.ipynb (no duplication; notebook+EC2 share it).
+<code class="docutils literal notranslate"><span class="pre">pipeline/run_pipeline.sh</span></code> = download→shard→pp06→sync-to-S3, honors <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>.
+<code class="docutils literal notranslate"><span class="pre">ooipaths.DEFAULT_SITE</span></code> now reads <code class="docutils literal notranslate"><span class="pre">$ARGOSY_SITE</span></code> (whole-pipeline site switch). <code class="docutils literal notranslate"><span class="pre">cloud/</span></code> CDK
+(Python) app: on-demand EC2 (c6i.xlarge ~&lt;$0.40/hr, 500GB gp3 deleted-on-destroy, S3 IAM role,
+SSH SG, miniconda user-data); <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>/<code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>. All compiles; cdk synth deferred
+(aws-cdk not installed on localhost — user does CDK one-time setup). pipeline/ + cloud/ READMEs</p>
+<ul>
+<li><p>steering recipe added.
+PENDING for user: install CDK toolchain + <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">bootstrap</span></code>; apply DataDownload notebook-thinning
+edits; extract sharding to pipeline/shard.py (run_pipeline currently skips shard stage).</p></li>
+</ul>
+</li>
+<li><p><strong>Multi-site (<code class="docutils literal notranslate"><span class="pre">oo</span></code>) enablement prep</strong>: <code class="docutils literal notranslate"><span class="pre">~/ooi/oo/</span></code> skeleton created; 13 CE04OSPS profileIndices
+placed; ooipaths verified site-generic for oo (no guard; RCA_oo_sp_ shard token). Notebook audit
+found 2 hardcoded-sb fixes needed (shard filename in DataSharding; doc string in DataDownload) —
+logged as Pending To Do for user to apply. User is ordering oo scalar data (all 11 types) from OOINET.</p></li>
+<li><p><strong>AGU poster</strong> (<code class="docutils literal notranslate"><span class="pre">poster/AGUPoster.html</span></code>): embedded real title (3-tier format), authors stub,
+session OS025, abstract 2097211, condensed abstract; panels remapped to the submitted abstract’s
+narrative (baseline envelopes / self+inter coincidence / pycnocline finding / corroborated+open-science).</p></li>
+<li><p><strong>Docs reorg for personae + Phase 1/2 + republish</strong> (details in DevelopmentLog Completed):
+<a class="reference external" href="http://DeveloperGuide.md">DeveloperGuide.md</a> created (absorbs retired <a class="reference external" href="http://Workflow.md">Workflow.md</a>); <a class="reference external" href="http://README.md">README.md</a> rewritten (persona-framed,
+book+Abernathey links, START HERE, publish cmd kept in steering); ArgosyOverview got START HERE</p>
+<ul>
+<li><p>persona fork; _toc.yml restructured (Orientation/Phase1/Phase2/Reference/Chapters, working
+docs excluded); <a class="reference external" href="http://intro.md">intro.md</a> reciprocal repo pointer; scaffolding deleted; indexes reconciled.
+Book rebuilt + published (34 cosmetic warnings). Fixed dangling <code class="docutils literal notranslate"><span class="pre">building-the-pdf</span></code> xref.</p></li>
+</ul>
+</li>
+<li><p><strong>Earlier this run</strong>: per-site filesystem restructure COMPLETE; metadata sorted into 7
+self-documenting subfolders; AGU poster scaffold; operational-recipes steering; <a class="reference external" href="http://Publishing.md">Publishing.md</a>.</p></li>
 <li><p><strong>Script-name/cross-reference audit</strong>: no drift. All pp05/pp06 scripts + <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code>
 exist and match the doc.</p></li>
 <li><p><strong><a class="reference external" href="http://DataOps.md">DataOps.md</a> created</strong>: split S3 sync/backup + localhost WSL vhdx disk management out of
@@ -502,10 +599,29 @@ oxygen) from others (T/S/depth), honest train/test split by profile or time.</p>
 <section id="next-action">
 <h2>Next action<a class="headerlink" href="#next-action" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Restructure + metadata sort done. Open threads to pick from: (a) complete the VisQC workflow
-(Pending To Do — output writer + Corrector + thickness reconciliation); (b) cloud batch
-sharding scaffold (plan of record, prerequisite now satisfied); (c) StubWork.ipynb path
-cleanup (Open Topics). No blocking items.</p></li>
+<li><p><strong>#1 (time/cost sensitive): finish the live EC2 oo run.</strong> Re-attach SSM to
+<code class="docutils literal notranslate"><span class="pre">i-0a018916cfb9a8e46</span></code>, tail the pipeline log, let download-&gt;shard-&gt;pp-&gt;sync complete, verify
+results in <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/oo/</span></code>, then <strong><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code></strong> (billing meter running) and confirm no
+orphaned EBS. See “LIVE EC2 STATE” above for exact commands.</p></li>
+<li><p>Then (lower priority) open threads:
+(a) <strong>AGU poster</strong> — fill the scaffold (four theme figures, final title/authors/abstract, QR).
+(b) complete the <strong>VisQC</strong> workflow (output writer + Corrector + thickness reconciliation).
+(c) proposed <code class="docutils literal notranslate"><span class="pre">pipeline/coverage_plot.py</span></code> (consolidated overlap/coverage PNG — user asked about it).
+(d) get <strong>ab</strong> site to sb/oo’s stage (multi-site expansion).
+(e) thin DataDownload.ipynb + DataSharding.ipynb to call pipeline/ modules (still pending).
+(f) cleanup backlog: OOIFAQ Google-Docs artifacts; StubWork.ipynb paths; notebook-TOC decisions.</p></li>
+</ul>
+</section>
+<section id="lesson-logged-this-session-git-hygiene">
+<h2>Lesson logged this session (git hygiene)<a class="headerlink" href="#lesson-logged-this-session-git-hygiene" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Several pipeline-critical files (<code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline/*</span></code>, the oo URLs in
+<code class="docutils literal notranslate"><span class="pre">download_link_list.txt</span></code>) were UNTRACKED locally, so the EC2 clone silently lacked them. When
+provisioning any fresh clone (EC2/CI/collaborator), first confirm needed files are committed +
+pushed: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span> <span class="pre">--short</span> <span class="pre">--untracked-files=all</span></code>. Windows-side git has core.autocrlf=true;
+<code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> now pins LF for .sh/.py/.yml so bash scripts don’t break on Linux.</p></li>
+<li><p>Committing/pushing from the Windows/PowerShell side fails (no git author identity there); do
+git commits from the WSL side where identity is configured.</p></li>
 </ul>
 </section>
 </section>
@@ -557,11 +673,15 @@ cleanup (Open Topics). No blocking items.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#last-updated">Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-session-1">Previous session (1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#live-ec2-state-read-this-first-next-session">LIVE EC2 STATE (read this first next session)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answered-this-session-design-note">Answered this session (design note)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session">Completed this session</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-progress-partially-done">In progress / partially done</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverted-needs-redo">Reverted / needs redo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blocked-waiting-on-user">Blocked / waiting on user</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action">Next action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-logged-this-session-git-hygiene">Lesson logged this session (git hygiene)</a></li>
 </ul>
   </nav></div>
 

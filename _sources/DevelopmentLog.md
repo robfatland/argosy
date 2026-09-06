@@ -112,7 +112,16 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- **pCO2 on Oregon Offshore — check with Wendi/Joe: does it exist?** When ordering `oo` data
+  (Sep 2026) there was no clear pCO2 (PCO2W) link in the OOINET order interface after a careful
+  look. `oo` currently has 5 instrument orders (PHSEN, CTDPF, FLORT, NUTNR, PARAD) covering 10 of
+  11 scalar sensors — proceeding with those 10. Confirm whether Oregon Offshore has a pCO2 sensor
+  at all, or whether it's available via another route; add it if so.
 - Explore access to and use of the data cube provided by Joe and Wendi: How does it map to the data scheme of this repo?
+- Cloud-native data access (future optimization): the current pipeline downloads from OOINET async
+  staging URLs. Consider THREDDS/OPeNDAP or the OOI Gold Copy S3 buckets (`ooigoldcopy`) — an
+  in-region S3→S3 copy could eliminate the download step entirely for cloud runs. Deferred to keep
+  the first EC2 build to one new variable at a time.
 - Open-science publishing: decide do-or-don't on OSF (Open Science Framework) as a project hub for repo+data+poster. Zenodo (code by-reference + poster/data by-upload) and Figshare (redundant visibility) are the current plan; OSF is the open question. See `Publishing.md`.
 - Baffle LH with cyclonicity, learn critical depth vis a population and compensation depth vis individual and review SeaFlow with Cornell
 - Clean up `chapters/StubWork.ipynb`: still uses hardcoded `~/ooi/...` paths (left as-is during
@@ -213,6 +222,90 @@ This is at much lower task resolution.
   was reverted to git state. Rebuild plan documented in `~/argosy/VisNotebookRebuild.md`.
 
 
+## Completed (Sep 2026) — Phase 1 pipeline validated on real oo data + --years/--sensors filters
+
+- **Added `--years` (download.py + shard.py) and `--sensors` (shard.py) filters** for slice-testing
+  and incremental top-ups. Verified.
+- **Local slice test on Oregon Offshore PASSED**: `download.py --site oo --years 2016` then
+  `shard.py --site oo --sensors dissolvedoxygen --years 2016` produced **2112 DO shards**
+  (`RCA_oo_sp_dissolvedoxygen_2016_*`). Proves end-to-end: URL→instrument routing, year filter,
+  sensor filter, per-site naming, restart-skip. Test data deleted after.
+- **Settled the DO-source question**: `oo`'s CTD stream carries `corrected_dissolved_oxygen`
+  (DO shards were written from CTD files), same as `sb`. The separate DOFST product is redundant
+  for our purposes — ignore it.
+- **Size finding (drives the cloud decision)**: 2016 `oo` source = ~47 GB (CTD alone 41 GB, FLORT
+  5.4 GB, PAR 870 MB, NUTNR 28 MB, PHSEN 1.7 MB). Extrapolated across ~10 years, full `oo`
+  download is plausibly ~300–400 GB → strongly favors downloading on the EC2 box (fast in-region
+  pipe + 500 GB root) over the home connection. This is what the cloud build is for.
+- Note: `download.py` pre-creates empty `<year>_<instrument>` folders for all 2014–2026 (harmless
+  scaffolding; could be made lazy). pp05/pp06 not exercised in the slice test (same site-agnostic
+  code already proven on sb).
+
+
+## Completed (Sep 2026) — cloud Phase 1 pipeline scaffold (EC2 create/destroy)
+
+- **`pipeline/` folder created** (Phase 1 = get data → shard → pp06), with README.
+- **`pipeline/download.py`**: OOINET acquisition extracted from `DataDownload.ipynb` (cells 2+4)
+  so notebook + EC2 call the SAME code (no duplication). `estimate_download_volume`,
+  `bulk_download(instrument, ooi_instrument, site)`, `download_all(site)`; `ooipaths`-based dests;
+  requests/bs4 optional-import guarded; CLI `--site/--estimate`. Compiles + imports clean.
+- **`pipeline/run_pipeline.sh`**: EC2 entrypoint, local-then-sync (download→shard→pp→`aws s3 sync`
+  to `s3://s3ooi/<site>/`). Honors `ARGOSY_SITE`.
+- **`ooipaths.DEFAULT_SITE` now reads `$ARGOSY_SITE`** (validated), so the WHOLE pipeline can be
+  pointed at a site with an env var — no per-script `--site` plumbing. Verified: unset→sb,
+  ARGOSY_SITE=oo→oo paths.
+- **`cloud/` CDK (Python) app**: `ArgosyPipelineStack` = on-demand EC2 (default `c6i.xlarge`,
+  ~<$0.40/hr; 500 GB gp3 root, delete_on_termination), IAM role (S3 to s3ooi + SSM), SG (SSH from
+  operator IP), user-data (miniconda + clone + env). `cdk deploy`=create, `cdk destroy`=delete
+  (volume goes with the stack). `cloud/README.md` + `operational-recipes` steering recipe added.
+  Python compiles; `cdk synth` NOT run here (aws-cdk not installed on this box — user does CDK setup).
+- Decisions locked: EC2 on-demand (not spot/Batch) first pass; async-download-URL path (reuse
+  existing scraper), not THREDDS/S3-gold-copy (logged as future); local-then-sync; CDK Python.
+
+
+## Completed (Sep 2026) — multi-site enablement prep (Oregon Offshore / oo)
+
+- **`oo` site skeleton created**: `~/ooi/oo/{ooinet/scalar,ooinet/vector,redux,postproc,metadata,
+  analysis,visualizations,profileIndices}`. The 13 `CE04OSPS_profiles_2014..2026.csv` files copied
+  into `~/ooi/oo/profileIndices/` (from the full clone that had landed under `sb/profileIndices/`).
+- **`ooipaths` already site-generic**: the old `sb`-only guard in `ooinet_dir` was removed during
+  the layout flip; all accessors validate the site and resolve `oo` correctly (verified:
+  designator CE04OSPS, ooinet/redux/postproc/metadata paths, `shard_glob` → `RCA_oo_sp_...`).
+- **Audit result**: DataDownload + DataSharding are site-parameterized via `SITE=op.DEFAULT_SITE`
+  and `op.*` accessors, EXCEPT two spots (see Pending To Do): a hardcoded `RCA_sb_sp_...` shard
+  filename in DataSharding, and a stale `~/ooi/ooinet/rca/SlopeBase/...` doc string in DataDownload.
+- To process `oo`: set `SITE = "oo"` (or `op.DEFAULT_SITE` stays `sb`; pass site explicitly) in the
+  notebooks after the two fixes below. Cloud-batch-vs-local decision deferred until the `oo` data
+  order arrives (see "Cloud batch sharding pipeline" plan).
+
+
+## Completed (Sep 2026) — docs reorg for personae + Phase 1/2 + republish
+
+- **Repo reorganized around 4 personae + Phase 1/Phase 2.** Personae: Arthur Casual (science
+  reader), Maggie Glass (OOI FB/DSC), Angus Neversee (external reuser), Chuck Boom (collaborator).
+- **`DeveloperGuide.md` created** (absorbs the retired `Workflow.md`): technical map for
+  Chuck+Angus — filesystem layout (per-site), workflow tasks 0–6, OOINET ordering, filename
+  anatomy, shard convention. `Workflow.md` deleted; all refs repointed.
+- **`README.md` rewritten** as the 30-sec front door (persona-framed; book link + stale note +
+  Abernathey links; START HERE → ArgosyOverview; SETUP for Angus). Publish cmd kept OUT (steering).
+- **`ArgosyOverview.md`**: added START HERE + "Who are you?" persona fork at top; reconciled
+  companion-file list into Orientation/Phase1/Phase2/Reference/Working groups.
+- **`_toc.yml`** restructured: Orientation / Phase 1 — Pipeline / Phase 2 — Analysis / Reference /
+  Chapters. Working docs (this log, SessionState, VisQC, Testing, CoincidencePlans,
+  pp06ErraticFilterPrompt, Publishing) intentionally excluded from the book.
+- **`intro.md`** now opens with a reciprocal pointer to the GitHub repo.
+- Deleted scaffolding `markdown.md`, `markdown-notebooks.md`. Added "New here → ArgosyOverview"
+  preambles to Analysis, OOIObservatory, PostProcessing.
+- **AGU poster scaffold** (`poster/AGUPoster.html` + README), **`operational-recipes` steering**
+  (verified book-publish, per-file PDF, TkAgg-widget recipes), **`Publishing.md`** (DOI plan).
+- **Book rebuilt + published** to GitHub Pages (34 warnings, all cosmetic/expected — toctree
+  notices for repo-only docs, a Google-Docs-paste FAQ with H3/bookmark artifacts, slides.md).
+  Fixed the one real dangling xref (`building-the-pdf`) in ArgosyOverview.
+- **Deferred cleanup** (non-blocking): OOIFAQandGeneralInfoSummary.md H3-start + broken
+  `bookmark=id.*` links (Google Docs export); slides.md missing image; decide whether
+  chapters/ColumbiaPlume|InternalWaves|TidalSignal.ipynb + notebooks.ipynb join the book TOC.
+
+
 ## Completed (Sep 2026) — metadata subfolder sort
 
 - **Metadata folder inventory + sort DONE** (resolves the old "jumbled catch-all" open topic).
@@ -249,6 +342,28 @@ This is at much lower task resolution.
 
 ## Pending To Do
 
+- **Harden the CDK user-data env bootstrap** (found during first `oo` deploy, Sep 2026):
+  (1) `conda env create` now hits `CondaToSNonInteractiveError` — the user-data must run
+  `conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main` (and `/r`)
+  BEFORE creating the env. (2) The `|| true` masks env-create failure so the box boots "green"
+  but unusable — consider removing it or writing a readiness sentinel. (3) Consider defaulting to
+  the minimal pipeline env (`python=3.11 xarray netcdf4 pandas numpy scipy requests beautifulsoup4
+  boto3 awscli`) instead of the full `environment.yml` for the cloud box, since the box only runs
+  Phase 1, not analysis/SGA/plots.
+- **Thin `DataSharding.ipynb` to call `pipeline/shard.py`** (user notebook edit): the module
+  now exists; replace the big inline cell with `from pipeline.shard import shard_all; shard_all(site=SITE)`.
+- **Thin `DataDownload.ipynb` to call `pipeline/download.py`** (user applies notebook edits):
+  replace the inline function defs in cells 2 & 4 with `from pipeline.download import
+  estimate_download_volume, download_all` and a one-line call. Keeps the notebook as a thin
+  wrapper; logic lives once in the module. (Audit/dedup/plot cells 6/8/11/13 stay in the notebook.)
+- **Two notebook edits for multi-site (`oo`) processing** (user applies; then JSON-validate):
+  1. `DataSharding.ipynb` — the shard filename is hardcoded `RCA_sb_sp_{output_var}_...`. Change to
+     `f"RCA_{SITE}_sp_{output_var}_{profile_year}_{julian_day:03d}_{profile_index}_{daily_sequence}_V1.nc"`
+     (`SITE` is already in scope). Otherwise `oo` shards get written with an `sb` token.
+  2. `DataDownload.ipynb` — stale doc line says `~/ooi/ooinet/rca/SlopeBase/{scalar|vector}/...`;
+     update to `~/ooi/<site>/ooinet/{scalar|vector}/<yyyy>_<instrument>` (cosmetic).
+  Also: to run either notebook for Oregon Offshore, set `SITE = "oo"` in its preamble cell (or
+  pass `site="oo"`), and confirm the OOINET order used platform `CE04OSPS`.
 - **Complete the VisQC workflow** (`iw/VisQCInspector.py` + planned `iw/VisQCCorrector.py`).
   The Inspector is a working TkAgg GUI (steps through profiles, adjustable cline boundary lines)
   but is NOT functional as a QC tool: (1) it has no accept/correct/discard controls and writes

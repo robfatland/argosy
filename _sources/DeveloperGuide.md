@@ -1,11 +1,9 @@
 # Developer Guide
 
-> **New here?** Start at `ArgosyOverview.md`. This guide is the technical map for people
-> who want to run or extend argosy — the collaborator (**Chuck**, has repo context) and the
-> external researcher (**Angus**, arriving cold and wanting to reuse the work).
-> - **Angus (cold start):** begin with `SETUP.md` (environment + public data access), then
->   read the filesystem and workflow sections here.
-> - **Chuck (has context):** use this as the orientation index; jump to the stage you need.
+> **New here?** Read the big picture in `ArgosyOverview.md`. This guide is a technical map
+> for a collaborator ("Chuck") or a separate research program ("Angus") ready to dive in
+> to Argosy. Concerning the working environment and data access: Consult `SETUP.md`.
+
 
 This document describes the repository and data filesystem layout, and the end-to-end
 workflow from data ordering (Phase 1) through analysis (Phase 2). For the exhaustive file
@@ -14,6 +12,11 @@ PDF, standalone widgets) see the `operational-recipes` steering file.
 
 
 ## Two-phase structure
+
+
+We want to distinguish between the process of getting and cleaning the data (Phase 1) from
+the analysis of that data (Phase 2).
+
 
 - **Phase 1 — Pipeline:** raw OOINET data → sharded `redux` → quality-controlled analysis-ready
   `pp06` (and annotated derivatives). Workflow tasks 0–3 + 6 below. Docs: this guide,
@@ -29,13 +32,12 @@ Oregon Offshore (`oo`) and Axial Base (`ab`) to the same stage.
 
 ## Filesystem layout
 
-Two independent trees: the repository (`~/argosy`, code + markdown, GitHub) and the data
-(`~/ooi`, NetCDF + derived products, mirrored to S3). No data files live in `~/argosy`
-(exception: `~/argosy/images/` holds chart copies for the book/PDF).
 
-**All path knowledge is centralized in `ooipaths.py`** (repo root). Code obtains paths from it
-(e.g. `op.redux_dir(year, site)`, `op.postproc_dir(pp, year, site)`) rather than hardcoding.
-The data tree is per-site; `<site>` is a 2-letter code (`sb`/`oo`/`ab`).
+We have a Jupyter Book (plus working code): A GitHub repo; and to keep the repo size manageable we have a separate data directory. That is: We work from two independent directory trees: the repository (`~/argosy`, code + markdown, GitHub) and the data (`~/ooi`, NetCDF + derived products, mirrored to S3). The data footprint in `~/argosy` is light, for example `~/argosy/images/` holds copies of charts for the book/PDF.
+
+
+To manage file paths we have a Python library `ooipaths.py`. **All path knowledge is centralized in `ooipaths.py`** found in the repo root. Other code uses this library to generate paths. For example `op.redux_dir(year, site)` will provide a path to a redux sub-folder given a site of interest and a year. `<site>` is a 2-letter code (`sb`/`oo`/`ab`) corresponding to the three OOI shallow profilers, respectively Oregon Slope Base, Oregon Offshore (Endurance), and Axial Base.
+
 
 ```
 ~/argosy/                         repository (Jupyter Book + working scripts/markdown)
@@ -83,7 +85,11 @@ Raw `ooinet` for `sb` is ~204 GB (archived to S3, deletable locally); `redux` ~1
 - Left-hand filters: Array, Cable, Platform, Instrument.
 - In the Data Catalog box: use the **+** action to add datasets to the download table.
   - **Do not use the time-window interface** in the catalog.
+  - Selections will appear in a Data Navigation table (top center of browser page)
   - Select datasets with **Stream type == `Science`**.
+  - Select the download button to raise an order dialog box
+  - Use profileIndices to identify the start day of operations; for example Oregon Offshore started operation on 03-AUG-2015
+  - Using checkboxes enable "Include Provenance" and "Include Annotations"
 - Click **Download** → finalize the order:
   - Type the time range manually, e.g. `2015-01-01 00:00:00.0`.
   - Optionally uncheck **Download All Parameters** and ctrl-click specific parameters.

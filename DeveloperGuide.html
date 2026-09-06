@@ -215,6 +215,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
@@ -448,14 +449,9 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="developer-guide">
 <h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Link to this heading">#</a></h1>
 <blockquote>
-<div><p><strong>New here?</strong> Start at <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>. This guide is the technical map for people
-who want to run or extend argosy — the collaborator (<strong>Chuck</strong>, has repo context) and the
-external researcher (<strong>Angus</strong>, arriving cold and wanting to reuse the work).</p>
-<ul class="simple">
-<li><p><strong>Angus (cold start):</strong> begin with <code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code> (environment + public data access), then
-read the filesystem and workflow sections here.</p></li>
-<li><p><strong>Chuck (has context):</strong> use this as the orientation index; jump to the stage you need.</p></li>
-</ul>
+<div><p><strong>New here?</strong> Read the big picture in <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>. This guide is a technical map
+for a collaborator (“Chuck”) or a separate research program (“Angus”) ready to dive in
+to Argosy. Concerning the working environment and data access: Consult <code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code>.</p>
 </div></blockquote>
 <p>This document describes the repository and data filesystem layout, and the end-to-end
 workflow from data ordering (Phase 1) through analysis (Phase 2). For the exhaustive file
@@ -463,6 +459,8 @@ inventory see <code class="docutils literal notranslate"><span class="pre">CodeM
 PDF, standalone widgets) see the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file.</p>
 <section id="two-phase-structure">
 <h2>Two-phase structure<a class="headerlink" href="#two-phase-structure" title="Link to this heading">#</a></h2>
+<p>We want to distinguish between the process of getting and cleaning the data (Phase 1) from
+the analysis of that data (Phase 2).</p>
 <ul class="simple">
 <li><p><strong>Phase 1 — Pipeline:</strong> raw OOINET data → sharded <code class="docutils literal notranslate"><span class="pre">redux</span></code> → quality-controlled analysis-ready
 <code class="docutils literal notranslate"><span class="pre">pp06</span></code> (and annotated derivatives). Workflow tasks 0–3 + 6 below. Docs: this guide,
@@ -477,12 +475,8 @@ Oregon Offshore (<code class="docutils literal notranslate"><span class="pre">oo
 </section>
 <section id="filesystem-layout">
 <h2>Filesystem layout<a class="headerlink" href="#filesystem-layout" title="Link to this heading">#</a></h2>
-<p>Two independent trees: the repository (<code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>, code + markdown, GitHub) and the data
-(<code class="docutils literal notranslate"><span class="pre">~/ooi</span></code>, NetCDF + derived products, mirrored to S3). No data files live in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>
-(exception: <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code> holds chart copies for the book/PDF).</p>
-<p><strong>All path knowledge is centralized in <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code></strong> (repo root). Code obtains paths from it
-(e.g. <code class="docutils literal notranslate"><span class="pre">op.redux_dir(year,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">op.postproc_dir(pp,</span> <span class="pre">year,</span> <span class="pre">site)</span></code>) rather than hardcoding.
-The data tree is per-site; <code class="docutils literal notranslate"><span class="pre">&lt;site&gt;</span></code> is a 2-letter code (<code class="docutils literal notranslate"><span class="pre">sb</span></code>/<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>).</p>
+<p>We have a Jupyter Book (plus working code): A GitHub repo; and to keep the repo size manageable we have a separate data directory. That is: We work from two independent directory trees: the repository (<code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>, code + markdown, GitHub) and the data (<code class="docutils literal notranslate"><span class="pre">~/ooi</span></code>, NetCDF + derived products, mirrored to S3). The data footprint in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code> is light, for example <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code> holds copies of charts for the book/PDF.</p>
+<p>To manage file paths we have a Python library <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code>. <strong>All path knowledge is centralized in <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code></strong> found in the repo root. Other code uses this library to generate paths. For example <code class="docutils literal notranslate"><span class="pre">op.redux_dir(year,</span> <span class="pre">site)</span></code> will provide a path to a redux sub-folder given a site of interest and a year. <code class="docutils literal notranslate"><span class="pre">&lt;site&gt;</span></code> is a 2-letter code (<code class="docutils literal notranslate"><span class="pre">sb</span></code>/<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>) corresponding to the three OOI shallow profilers, respectively Oregon Slope Base, Oregon Offshore (Endurance), and Axial Base.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">argosy</span><span class="o">/</span>                         <span class="n">repository</span> <span class="p">(</span><span class="n">Jupyter</span> <span class="n">Book</span> <span class="o">+</span> <span class="n">working</span> <span class="n">scripts</span><span class="o">/</span><span class="n">markdown</span><span class="p">)</span>
     <span class="n">chapters</span><span class="o">/</span>                     <span class="n">Jupyter</span> <span class="n">Book</span> <span class="n">executable</span> <span class="n">notebooks</span>
     <span class="n">ooipaths</span><span class="o">.</span><span class="n">py</span>                   <span class="n">single</span> <span class="n">source</span> <span class="n">of</span> <span class="n">truth</span> <span class="k">for</span> <span class="n">data</span> <span class="n">paths</span>
@@ -530,7 +524,11 @@ See <code class="docutils literal notranslate"><span class="pre">PostProcessing.
 <li><p>In the Data Catalog box: use the <strong>+</strong> action to add datasets to the download table.</p>
 <ul>
 <li><p><strong>Do not use the time-window interface</strong> in the catalog.</p></li>
+<li><p>Selections will appear in a Data Navigation table (top center of browser page)</p></li>
 <li><p>Select datasets with <strong>Stream type == <code class="docutils literal notranslate"><span class="pre">Science</span></code></strong>.</p></li>
+<li><p>Select the download button to raise an order dialog box</p></li>
+<li><p>Use profileIndices to identify the start day of operations; for example Oregon Offshore started operation on 03-AUG-2015</p></li>
+<li><p>Using checkboxes enable “Include Provenance” and “Include Annotations”</p></li>
 </ul>
 </li>
 <li><p>Click <strong>Download</strong> → finalize the order:</p>

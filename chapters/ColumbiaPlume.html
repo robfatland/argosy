@@ -177,25 +177,47 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ArgosyOverview.html">START HERE</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="../SensorTable.html">Sensor Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Sharding.html">Profile Metadata and Sharding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../DevelopmentLog.html">Development Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="DataDownload.html">Data Download</a></li>
 
@@ -504,105 +526,145 @@ document.write(`
 <span class="g g-Whitespace">    </span><span class="mi">613</span>     <span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">614</span> <span class="k">return</span> <span class="n">ds</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/backends/store.py:46,</span> in <span class="ni">StoreBackendEntrypoint.open_dataset</span><span class="nt">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">filename_or_obj</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/backends/store.py:58,</span> in <span class="ni">StoreBackendEntrypoint.open_dataset</span><span class="nt">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta)</span>
 <span class="g g-Whitespace">     </span><span class="mi">44</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">filename_or_obj</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">()</span>
-<span class="ne">---&gt; </span><span class="mi">46</span> <span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">coord_names</span> <span class="o">=</span> <span class="n">conventions</span><span class="o">.</span><span class="n">decode_cf_variables</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">coord_names</span> <span class="o">=</span> <span class="n">conventions</span><span class="o">.</span><span class="n">decode_cf_variables</span><span class="p">(</span>
 <span class="g g-Whitespace">     </span><span class="mi">47</span>     <span class="nb">vars</span><span class="p">,</span>
 <span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="n">attrs</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="n">mask_and_scale</span><span class="o">=</span><span class="n">mask_and_scale</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span>     <span class="n">decode_times</span><span class="o">=</span><span class="n">decode_times</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span>     <span class="n">concat_characters</span><span class="o">=</span><span class="n">concat_characters</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span>     <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span>     <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span>     <span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">decode_timedelta</span><span class="o">=</span><span class="n">decode_timedelta</span><span class="p">,</span>
 <span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">58</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">59</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">set_coords</span><span class="p">(</span><span class="n">coord_names</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">vars</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span> <span class="n">ds</span><span class="o">.</span><span class="n">set_close</span><span class="p">(</span><span class="n">filename_or_obj</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/conventions.py:431,</span> in <span class="ni">decode_cf_variables</span><span class="nt">(variables, attributes, concat_characters, mask_and_scale, decode_times, decode_coords, drop_variables, use_cftime, decode_timedelta)</span>
-<span class="g g-Whitespace">    </span><span class="mi">424</span> <span class="n">stack_char_dim</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="n">concat_characters</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span>     <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;S1&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">427</span>     <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="g g-Whitespace">    </span><span class="mi">428</span>     <span class="ow">and</span> <span class="n">stackable</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">430</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">431</span>     <span class="n">new_vars</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">decode_cf_variable</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">432</span>         <span class="n">k</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">433</span>         <span class="n">v</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">434</span>         <span class="n">concat_characters</span><span class="o">=</span><span class="n">concat_characters</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">435</span>         <span class="n">mask_and_scale</span><span class="o">=</span><span class="n">mask_and_scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">436</span>         <span class="n">decode_times</span><span class="o">=</span><span class="n">decode_times</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">437</span>         <span class="n">stack_char_dim</span><span class="o">=</span><span class="n">stack_char_dim</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">438</span>         <span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">439</span>         <span class="n">decode_timedelta</span><span class="o">=</span><span class="n">decode_timedelta</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">440</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">441</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">442</span>     <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span><span class="sa">f</span><span class="s2">&quot;Failed to decode variable </span><span class="si">{</span><span class="n">k</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/dataset.py:652,</span> in <span class="ni">Dataset.__init__</span><span class="nt">(self, data_vars, coords, attrs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">649</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">650</span>     <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">_variables</span>
+<span class="ne">--&gt; </span><span class="mi">652</span> <span class="n">variables</span><span class="p">,</span> <span class="n">coord_names</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">indexes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">merge_data_and_coords</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">653</span>     <span class="n">data_vars</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">compat</span><span class="o">=</span><span class="s2">&quot;broadcast_equals&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">654</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span> <span class="k">if</span> <span class="n">attrs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span> <span class="bp">self</span><span class="o">.</span><span class="n">_close</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/conventions.py:281,</span> in <span class="ni">decode_cf_variable</span><span class="nt">(name, var, concat_characters, mask_and_scale, decode_times, decode_endianness, stack_char_dim, use_cftime, decode_timedelta)</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">CFTimedeltaCoder</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">280</span> <span class="k">if</span> <span class="n">decode_times</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">281</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">CFDatetimeCoder</span><span class="p">(</span><span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span> <span class="k">if</span> <span class="n">decode_endianness</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">isnative</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="n">var</span> <span class="o">=</span> <span class="n">variables</span><span class="o">.</span><span class="n">EndianCoder</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/merge.py:569,</span> in <span class="ni">merge_data_and_coords</span><span class="nt">(data_vars, coords, compat, join)</span>
+<span class="g g-Whitespace">    </span><span class="mi">567</span> <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_vars</span><span class="p">,</span> <span class="n">coords</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">568</span> <span class="n">explicit_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">569</span> <span class="k">return</span> <span class="n">merge_core</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>     <span class="n">objects</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span>     <span class="n">compat</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span>     <span class="n">join</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">573</span>     <span class="n">explicit_coords</span><span class="o">=</span><span class="n">explicit_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="n">indexes</span><span class="o">=</span><span class="n">Indexes</span><span class="p">(</span><span class="n">indexes</span><span class="p">,</span> <span class="n">coords</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">575</span> <span class="p">)</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/times.py:724,</span> in <span class="ni">CFDatetimeCoder.decode</span><span class="nt">(self, variable, name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">722</span> <span class="n">units</span> <span class="o">=</span> <span class="n">pop_to</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">723</span> <span class="n">calendar</span> <span class="o">=</span> <span class="n">pop_to</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;calendar&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">724</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">_decode_cf_datetime_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cftime</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">725</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">726</span>     <span class="n">decode_cf_datetime</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">727</span>     <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">728</span>     <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">729</span>     <span class="n">use_cftime</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_cftime</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">730</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">731</span> <span class="n">data</span> <span class="o">=</span> <span class="n">lazy_elemwise_func</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/merge.py:755,</span> in <span class="ni">merge_core</span><span class="nt">(objects, compat, join, combine_attrs, priority_arg, explicit_coords, indexes, fill_value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span> <span class="n">coerced</span> <span class="o">=</span> <span class="n">coerce_pandas_values</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">752</span> <span class="n">aligned</span> <span class="o">=</span> <span class="n">deep_align</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="n">coerced</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="n">join</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indexes</span><span class="o">=</span><span class="n">indexes</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span>
+<span class="g g-Whitespace">    </span><span class="mi">754</span> <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">755</span> <span class="n">collected</span> <span class="o">=</span> <span class="n">collect_variables_and_indexes</span><span class="p">(</span><span class="n">aligned</span><span class="p">,</span> <span class="n">indexes</span><span class="o">=</span><span class="n">indexes</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">756</span> <span class="n">prioritized</span> <span class="o">=</span> <span class="n">_get_priority_vars_and_indexes</span><span class="p">(</span><span class="n">aligned</span><span class="p">,</span> <span class="n">priority_arg</span><span class="p">,</span> <span class="n">compat</span><span class="o">=</span><span class="n">compat</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">757</span> <span class="n">variables</span><span class="p">,</span> <span class="n">out_indexes</span> <span class="o">=</span> <span class="n">merge_collected</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">758</span>     <span class="n">collected</span><span class="p">,</span> <span class="n">prioritized</span><span class="p">,</span> <span class="n">compat</span><span class="o">=</span><span class="n">compat</span><span class="p">,</span> <span class="n">combine_attrs</span><span class="o">=</span><span class="n">combine_attrs</span>
+<span class="g g-Whitespace">    </span><span class="mi">759</span> <span class="p">)</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/times.py:182,</span> in <span class="ni">_decode_cf_datetime_dtype</span><span class="nt">(data, units, calendar, use_cftime)</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="k">def</span> <span class="nf">_decode_cf_datetime_dtype</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="n">data</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">calendar</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">use_cftime</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="c1"># Verify that at least the first and last date can be decoded</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span>     <span class="c1"># successfully. Otherwise, tracebacks end up swallowed by</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="c1"># Dataset.__repr__ when users try to view their lazily decoded array.</span>
-<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">values</span> <span class="o">=</span> <span class="n">indexing</span><span class="o">.</span><span class="n">ImplicitToExplicitIndexingAdapter</span><span class="p">(</span><span class="n">indexing</span><span class="o">.</span><span class="n">as_indexable</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>     <span class="n">example_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-<span class="ne">--&gt; </span><span class="mi">182</span>         <span class="p">[</span><span class="n">first_n_items</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">last_item</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">decode_cf_datetime</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">use_cftime</span><span class="p">)</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/merge.py:354,</span> in <span class="ni">collect_variables_and_indexes</span><span class="nt">(list_of_mappings, indexes)</span>
+<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="n">indexes_</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">352</span>     <span class="n">append_all</span><span class="p">(</span><span class="n">coords_</span><span class="p">,</span> <span class="n">indexes_</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">354</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">as_variable</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">indexes</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">356</span>     <span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">indexes</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/formatting.py:102,</span> in <span class="ni">last_item</span><span class="nt">(array)</span>
-<span class="g g-Whitespace">     </span><span class="mi">99</span>     <span class="k">return</span> <span class="p">[]</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="n">indexer</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span>
-<span class="ne">--&gt; </span><span class="mi">102</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">indexer</span><span class="p">]))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/variable.py:169,</span> in <span class="ni">as_variable</span><span class="nt">(obj, name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>         <span class="k">raise</span> <span class="n">MissingDimensionsError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> has more than 1-dimension and the same name as one of its &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span>             <span class="sa">f</span><span class="s2">&quot;dimensions </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">dims</span><span class="si">!r}</span><span class="s2">. xarray disallows such variables because they &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>             <span class="s2">&quot;conflict with the coordinates used to label dimensions.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">169</span>     <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">to_index_variable</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span> <span class="k">return</span> <span class="n">obj</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:484,</span> in <span class="ni">ImplicitToExplicitIndexingAdapter.__array__</span><span class="nt">(self, dtype)</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">484</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/variable.py:630,</span> in <span class="ni">Variable.to_index_variable</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">628</span> <span class="k">def</span> <span class="nf">to_index_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IndexVariable</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">629</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Return this variable as an xarray.IndexVariable&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">630</span>     <span class="k">return</span> <span class="n">IndexVariable</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">631</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_dims</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_encoding</span><span class="p">,</span> <span class="n">fastpath</span><span class="o">=</span><span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">632</span>     <span class="p">)</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:487,</span> in <span class="ni">ImplicitToExplicitIndexingAdapter.get_duck_array</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span> <span class="k">def</span> <span class="nf">get_duck_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">487</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">()</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/variable.py:2910,</span> in <span class="ni">IndexVariable.__init__</span><span class="nt">(self, dims, data, attrs, encoding, fastpath)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2908</span> <span class="c1"># Unlike in Variable, always eagerly load values into memory</span>
+<span class="g g-Whitespace">   </span><span class="mi">2909</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">PandasIndexingAdapter</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">2910</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">PandasIndexingAdapter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:1478,</span> in <span class="ni">PandasIndexingAdapter.__init__</span><span class="nt">(self, array, dtype)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1475</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">DTypeLike</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1476</span>     <span class="kn">from</span> <span class="nn">xarray.core.indexes</span> <span class="kn">import</span> <span class="n">safe_cast_to_index</span>
+<span class="ne">-&gt; </span><span class="mi">1478</span>     <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">safe_cast_to_index</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1480</span>     <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1481</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">get_valid_numpy_dtype</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexes.py:190,</span> in <span class="ni">safe_cast_to_index</span><span class="nt">(array)</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>             <span class="n">emit_user_level_warning</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>                 <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>                     <span class="s2">&quot;`pandas.Index` does not support the `float16` dtype.&quot;</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>                 <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>             <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float64&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">190</span>     <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span> <span class="k">return</span> <span class="n">_maybe_cast_to_cftimeindex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:471,</span> in <span class="ni">ExplicitlyIndexedNDArrayMixin.__array__</span><span class="nt">(self, dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">468</span> <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="nn">    469     # This is necessary because we apply the indexing key</span> in <span class="ni">self.get_duck_array</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">470</span>     <span class="c1"># Note this is the base class for all lazy indexing classes</span>
+<span class="ne">--&gt; </span><span class="mi">471</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/indexing.py:557,</span> in <span class="ni">LazilyIndexedArray.get_duck_array</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span> <span class="c1"># self.array[self.key] is now a numpy array when</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span> <span class="c1"># self.array is a BackendArray subclass</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span> <span class="c1"># and self.key is BasicIndexer((slice(None, None, None),))</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span> <span class="c1"># so we need the explicit check for ExplicitlyIndexed</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">ExplicitlyIndexed</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">557</span>     <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">558</span> <span class="k">return</span> <span class="n">_wrap_numpy_scalars</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
 
 <span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/variables.py:74,</span> in <span class="ni">_ElementwiseFunctionArray.get_duck_array</span><span class="nt">(self)</span>
 <span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="k">def</span> <span class="nf">get_duck_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">74</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">get_duck_array</span><span class="p">())</span>
 
-<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/variables.py:211,</span> in <span class="ni">_apply_mask</span><span class="nt">(data, encoded_fill_values, decoded_fill_value, dtype)</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span> <span class="k">def</span> <span class="nf">_apply_mask</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">205</span>     <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span>     <span class="n">encoded_fill_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="n">decoded_fill_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">DTypeLike</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">209</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">210</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Mask all matching values in a NumPy arrays.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">211</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="n">condition</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">213</span>     <span class="k">for</span> <span class="n">fv</span> <span class="ow">in</span> <span class="n">encoded_fill_values</span><span class="p">:</span>
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/times.py:289,</span> in <span class="ni">decode_cf_datetime</span><span class="nt">(num_dates, units, calendar, use_cftime)</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="k">if</span> <span class="n">use_cftime</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">289</span>         <span class="n">dates</span> <span class="o">=</span> <span class="n">_decode_datetime_with_pandas</span><span class="p">(</span><span class="n">flat_num_dates</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span>     <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="n">OutOfBoundsDatetime</span><span class="p">,</span> <span class="n">OutOfBoundsTimedelta</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">291</span>         <span class="n">dates</span> <span class="o">=</span> <span class="n">_decode_datetime_with_cftime</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">292</span>             <span class="n">flat_num_dates</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span>
+<span class="g g-Whitespace">    </span><span class="mi">293</span>         <span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/coding/times.py:230,</span> in <span class="ni">_decode_datetime_with_pandas</span><span class="nt">(flat_num_dates, units, calendar)</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">_netcdf_to_numpy_timeunit</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span>     <span class="c1"># TODO: the strict enforcement of nanosecond precision Timestamps can be</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span>     <span class="c1"># relaxed when addressing GitHub issue #7493.</span>
+<span class="ne">--&gt; </span><span class="mi">230</span>     <span class="n">ref_date</span> <span class="o">=</span> <span class="n">nanosecond_precision_timestamp</span><span class="p">(</span><span class="n">ref_date</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span> <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="c1"># ValueError is raised by pd.Timestamp for non-ISO timestamp</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="c1"># strings, in which case we fall back to using cftime</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span>     <span class="k">raise</span> <span class="n">OutOfBoundsDatetime</span>
+
+<span class="nn">File ~/miniconda3/envs/argosy/lib/python3.11/site-packages/xarray/core/pdcompat.py:104,</span> in <span class="ni">nanosecond_precision_timestamp</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Return a nanosecond-precision Timestamp object.</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span><span class="sd"> Note this function should no longer be needed after addressing GitHub issue</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span><span class="sd"> #7493.</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span> <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;2.0.0&quot;</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">104</span>     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">as_unit</span><span class="p">(</span><span class="s2">&quot;ns&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>

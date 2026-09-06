@@ -177,25 +177,47 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../ArgosyOverview.html">Quick Reference: Pointers to Key Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ArgosyOverview.html">START HERE</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="../SensorTable.html">Sensor Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Workflow.html">File System and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Sharding.html">Profile Metadata and Sharding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DataOps.html">DataOps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Visualization.html">Visualization Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../DevelopmentLog.html">Development Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../chapters/DataDownload.html">Data Download</a></li>
 
@@ -402,6 +424,8 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Editing</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#export-to-pdf-vector-print-ready">Export to PDF (vector, print-ready)</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#host-online-qr">Host online + QR</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#agu-submission-metadata-authoritative">AGU submission metadata (authoritative)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#panel-mapping-poster-vs-abstract">Panel mapping (poster vs. abstract)</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#status-todo">Status / TODO</a></li>
 </ul>
 
@@ -456,13 +480,39 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;i
 </li>
 </ul>
 </section>
+<section id="agu-submission-metadata-authoritative">
+<h1>AGU submission metadata (authoritative)<a class="headerlink" href="#agu-submission-metadata-authoritative" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Meeting: <strong>AGU26</strong> — <a class="reference external" href="https://www.agu.org/annual-meeting">https://www.agu.org/annual-meeting</a></p></li>
+<li><p>Abstract submission ID: <strong>2097211</strong></p></li>
+<li><p>Session: <strong>OS025 — Long-Term Ocean Observatories as Drivers of Sensor and Data Science Innovation</strong></p></li>
+<li><p>Title: <em>Coincident Anomalies in Ten Years of Photic Zone Profiles: An Interpretive
+Framework for OOI Shallow Profiler Data</em></p></li>
+<li><p>Title/session/abstract are now embedded in <code class="docutils literal notranslate"><span class="pre">AGUPoster.html</span></code> (submitted abstract text
+condensed to fit the poster; full text is in the AGU submission).</p></li>
+</ul>
+</section>
+<section id="panel-mapping-poster-vs-abstract">
+<h1>Panel mapping (poster vs. abstract)<a class="headerlink" href="#panel-mapping-poster-vs-abstract" title="Link to this heading">#</a></h1>
+<p>The abstract frames <strong>three</strong> coincidence types (self / inter-sensor / corroborated) plus a
+baseline-envelope method and a pycnocline finding. The 4-panel grid maps these as:</p>
+<ol class="arabic simple">
+<li><p>Baseline envelopes &amp; anomaly definition (the method)</p></li>
+<li><p>Self &amp; inter-sensor coincidence</p></li>
+<li><p>Pycnocline signals (internal waves / water-mass emplacement) — the headline result</p></li>
+<li><p>Corroborated coincidence + open/reproducible science (external sources + cloud)
+(Earlier scaffold themes “residual climatology” and “cross-comparison/umbrella” are folded
+into panels 1 and 4 respectively. Revisit if you’d rather split differently.)</p></li>
+</ol>
+</section>
 <section id="status-todo">
 <h1>Status / TODO<a class="headerlink" href="#status-todo" title="Link to this heading">#</a></h1>
 <ul class="contains-task-list simple">
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Final title, authors, affiliations, abstract</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Four theme figures (currently placeholders)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Title, session, abstract embedded (AGU26 / OS025 / 2097211)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Confirm co-authors + affiliations (currently “R. Fatland [+ co-authors TBD]”)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Four panel figures (currently placeholders)</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Decide poster online home (Pages vs Zenodo DOI) → generate QR to it</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Confirm AGU session size/orientation requirement (assumed 48×36 landscape)</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Confirm AGU poster size/orientation requirement (assumed 48×36 landscape, readable &#64;2m)</p></li>
 </ul>
 </section>
 
@@ -515,6 +565,8 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;i
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Editing</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#export-to-pdf-vector-print-ready">Export to PDF (vector, print-ready)</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#host-online-qr">Host online + QR</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#agu-submission-metadata-authoritative">AGU submission metadata (authoritative)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#panel-mapping-poster-vs-abstract">Panel mapping (poster vs. abstract)</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#status-todo">Status / TODO</a></li>
 </ul>
 

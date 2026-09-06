@@ -8,14 +8,21 @@ date: ""
 
 # START HERE
 
-**Argosy** is a cloud-forward workflow and analysis environment for the OOI Regional Cabled
-Array shallow profilers: raw ocean-observatory data → sharded, quality-controlled,
-analysis-ready datasets → oceanographic analysis. It begins with the Oregon Slope Base (`sb`)
-profiler and expands to Oregon Offshore (`oo`) and Axial Base (`ab`). Work is split into
-**Phase 1** (pipeline: raw → `pp06`) and **Phase 2** (analysis: coincidence, residual
-climatology, SGA, internal waves, Columbia plume, satellite cross-comparison).
+**Argosy** is an ocean science research project in book form; and at the same time it is also a working environment for analysis of data: From the OOI Regional Cabled Array shallow profilers and from other data sources. The main concept is: Raw ocean-observatory data is transformed for comparative analysis. 
 
-This repository is dual-purpose: a published **Jupyter Book** (readable narrative) and a
+
+**Argosy** has a considerable number of 'moving parts' or components, so the uninitiated reader is encouraged to persevere until the project framework comes together. For example above we mentioned shallow profilers; but just what and where are they? A shallow profiler is a cluster of about fifteen sensors suspended in the water column at a depth of 200 meters, considered to be the limiting depth for sunlight penetration into the ocean. We consider three shallow profiler installations located off the coast of Oregon. These are referred to (with abbreviations) as Oregon Slope Base (`sb`), Oregon Offshore (`oo`) and Axial Base (`ab`). Each of these sensor clusters ascends on a cable to within 5 meters of the surface and then retracts back down to its mooring at 200 meters, completing one profile of the upper part of the ocean water column at each respective site. This sensor profile is repeated nine times each day, generating raw source data to subsequently be processed and analysed. The processing work is consequently divided into two phases. 
+
+
+- **Phase 1**: A pipeline from raw to 'analysis ready' data. 
+- **Phase 2**: Interpretive data analysis: Concerning both *what the ocean is like* in an average sense; and *what anomalies* might be detected and interpreted.
+
+
+
+This is an example reference: {cite}`nash2005`.
+
+
+The Argosy repository is published as a **Jupyter Book** (readable narrative) and a
 **working research repository** (scripts + planning notes). The GitHub landing page is
 `README.md`; the book's ordered narrative is defined by `_toc.yml`.
 
@@ -37,7 +44,7 @@ kept in the `operational-recipes` steering file, not here.
 ## Quick Reference: Pointers to Key Actions
 
 
-- **Building PDFs**: See [Building the PDF](#building-the-pdf), this file.
+- **Building PDFs**: See the "Building the PDF" section below in this file. Per-file PDF and book publish commands are in the `operational-recipes` steering file.
 - **Data file paths**: Always obtain via `ooipaths.py` (`import ooipaths as op`; `op.redux_dir(year, site)`, `op.postproc_dir(pp, year, site)`, etc.). Per-site layout `~/ooi/<site>/...`; never hardcode. See `PostProcessing.md` → "Recap of the data filesystem logic".
 - **S3 backup (syncing ooinet)**: See `DataOps.md` → "S3 sync: data to AWS object storage"
 - **Generating pp05 manifest**: `python postprocess_pp05.py` — see `PP05_QCAnalysis.md`

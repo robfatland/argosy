@@ -81,7 +81,109 @@ window): use `matplotlib.use('Agg')` instead (also before pyplot). Example: `vis
 batch/animation output, TkAgg only for genuinely interactive tools.)
 
 
-## 4. Poster PDF export (AGU)
+## 3b. OOINET download URL list — where it lives
+
+The download step reads OOINET async-staging URLs (one per line, `#` lines ignored) from a
+single fixed file: **`~/argosy/download_link_list.txt`**. This is the default for
+`pipeline/download.py` and the notebook. Workflow: place a data order in the OOINET web
+interface → the "order ready" email gives a staging URL → paste it (one per line) into
+`~/argosy/download_link_list.txt` → run the download. `download.py` infers each URL's
+instrument from the URL text (CTDPF/FLORT/PHSEN/PCO2W/NUTNR/PARAD) and routes files to
+`~/ooi/<site>/ooinet/scalar/<year>_<instrument>/`. On success a URL is moved to
+`~/argosy/downlinklist_completed.txt`. (`download.py --url-list <path>` can override, but the
+default single file is the norm.)
+
+
+## 4. Cloud pipeline: create / run / destroy a disposable EC2 runner
+
+Phase 1 pipeline on a throwaway EC2 box (download → shard → pp06 → sync to S3), via AWS
+CDK. Full detail + prerequisites in `cloud/README.md`. Quick form:
+
+```bash
+# one-time: npm install -g aws-cdk ; conda create -n argosy-cdk python=3.11 -y ;
+#           conda activate argosy-cdk ; pip install aws-cdk-lib constructs ; cdk bootstrap
+# CDK lives in the SEPARATE env `argosy-cdk` (keeps it out of the argosy analysis env).
+conda activate argosy-cdk
+cd ~/argosy/cloud
+cdk deploy                                    # CREATE (prints the instance id + connect cmd)
+# connect KEYLESS via SSM (no SSH key, no open port):
+aws ssm start-session --target <instance-id>
+sudo su - ec2-user
+# populate ~/argosy/download_link_list.txt, then:
+bash ~/argosy/pipeline/run_pipeline.sh <site>               # e.g. oo
+cd ~/argosy/cloud && cdk destroy                            # DELETE (stops billing)
+```
+
+- The whole pipeline honors `ARGOSY_SITE` (set by run_pipeline.sh) — `ooipaths.DEFAULT_SITE`
+  reads it, so every script targets the chosen site with no code edits.
+- `cdk destroy` removes the instance AND its 500 GB volume (part of the stack). Always confirm
+  no orphaned EBS volume remains in the console — that's the usual accidental-cost trap.
+- Instance type default `c6i.xlarge` (~<$0.40/hr, us-west-2). Local-then-sync: results land on
+  the box's local `~/ooi/<site>/` then `aws s3 sync` up to `s3://s3ooi/<site>/`.
+
+
+## 4b. Reconnect to & monitor a running pipeline (after SSM timeout)
+
+SSM sessions time out; the `nohup`'d pipeline keeps running. To pick monitoring back up:
+
+```bash
+aws ssm start-session --target <instance-id>   # you land as ssm-user
+sudo su - ec2-user                             # ALWAYS do this — repo, logs, ~/ooi are ec2-user's
+```
+
+**Gotcha (why you land in the wrong place):** `ssm-user`'s home is empty; everything lives under
+`/home/ec2-user`. Globs like `~/ooi/*.log` return "No such file" until you switch users.
+
+**Is it still running / where is it?** (non-invasive; the log itself is block-buffered when piped
+through `tee`, so it looks frozen — trust the filesystem, not the log):
+
+```bash
+ps aux | grep -E "run_pipeline|shard.py|download.py|postprocess" | grep -v grep
+# process STATE 'D' = busy on disk I/O (normal for big CTD files), 'R'/'S' = running/sleeping.
+```
+
+**Best progress check = the redux tree, not the log** (year with growing count = current position):
+
+```bash
+echo "=== $(date '+%H:%M:%S') shard status ==="
+echo "proc : $(ps -o %cpu=,stat=,etime= -p $(pgrep -f shard.py) 2>/dev/null || echo 'NOT RUNNING')"
+echo "shards total : $(find ~/ooi/<site>/redux -name '*.nc' | wc -l)"
+for d in ~/ooi/<site>/redux/*/; do printf '  %s  %6d\n' "$(basename "$d")" "$(find "$d" -name '*.nc' | wc -l)"; done
+find ~/ooi/<site>/redux -name '*.nc' -printf '%T+ %p\n' | sort | tail -3 | sed 's|.*/||'
+```
+
+**Rate / ETA** (run twice ~60s apart; the delta is shards/min):
+
+```bash
+find ~/ooi/<site>/redux -name '*.nc' | wc -l; sleep 60; find ~/ooi/<site>/redux -name '*.nc' | wc -l
+```
+
+**Make the log itself live** (fixes the "tail shows nothing" problem) — set `PYTHONUNBUFFERED=1`
+so stdout is line-buffered, before launching any stage:
+
+```bash
+export PYTHONUNBUFFERED=1 ARGOSY_SITE=<site>
+cd ~/argosy
+nohup bash pipeline/run_pipeline.sh <site> <stage> > ~/ooi/<site>_<stage>_$(date +%Y%m%dT%H%M%S).log 2>&1 &
+tail -f "$(ls -t ~/ooi/<site>_<stage>_*.log | head -1)"
+```
+
+**Stages** (run separately after a partial/recovered run; `all` does the whole chain):
+`download` → `shard` → `pp` (pp05, pp06, pp06_filter2, pp06_filter3) → `sync` (to `s3://s3ooi/<site>/`).
+Success check for shard = the final `attempted= written= skipped=` block has **nonzero `written`**;
+`attempted=0` means profile indices are missing (see note below).
+
+**profileIndices are a required shard input** and are NOT in the download or git data tree. A fresh
+box has none → sharding silently yields `attempted=0`. `run_pipeline.sh`'s download stage now pulls
+them from `s3://s3ooi/<site>/profileIndices/`; one-time per site, push them up first from WSL:
+`aws s3 sync ~/ooi/<site>/profileIndices/ s3://s3ooi/<site>/profileIndices/`
+(filenames are `<designator>_profiles_<yyyy>.csv`, e.g. `CE04OSPS_profiles_2022.csv` for `oo`).
+
+**When the run is fully done:** verify `aws s3 ls s3://s3ooi/<site>/redux/ --recursive --summarize | tail`,
+then `cd ~/argosy/cloud && cdk destroy` (billing meter!) and confirm no orphaned EBS in the console.
+
+
+## 5. Poster PDF export (AGU)
 
 The AGU poster is HTML/CSS (`poster/AGUPoster.html`, KaTeX for math). Export to a
 size-exact PDF via headless Chromium — see `poster/README.md` for the command and the

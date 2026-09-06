@@ -35,9 +35,31 @@ in the HTML, or use a headless-print tool that reads it.)
   python -c "import qrcode; qrcode.make('<POSTER_URL>').save('poster/figs/qr.png')"
   ```
 
+## AGU submission metadata (authoritative)
+
+- Meeting: **AGU26** — https://www.agu.org/annual-meeting
+- Abstract submission ID: **2097211**
+- Session: **OS025 — Long-Term Ocean Observatories as Drivers of Sensor and Data Science Innovation**
+- Title: *Coincident Anomalies in Ten Years of Photic Zone Profiles: An Interpretive
+  Framework for OOI Shallow Profiler Data*
+- Title/session/abstract are now embedded in `AGUPoster.html` (submitted abstract text
+  condensed to fit the poster; full text is in the AGU submission).
+
+## Panel mapping (poster vs. abstract)
+
+The abstract frames **three** coincidence types (self / inter-sensor / corroborated) plus a
+baseline-envelope method and a pycnocline finding. The 4-panel grid maps these as:
+1. Baseline envelopes & anomaly definition (the method)
+2. Self & inter-sensor coincidence
+3. Pycnocline signals (internal waves / water-mass emplacement) — the headline result
+4. Corroborated coincidence + open/reproducible science (external sources + cloud)
+(Earlier scaffold themes "residual climatology" and "cross-comparison/umbrella" are folded
+into panels 1 and 4 respectively. Revisit if you'd rather split differently.)
+
 ## Status / TODO
 
-- [ ] Final title, authors, affiliations, abstract
-- [ ] Four theme figures (currently placeholders)
+- [x] Title, session, abstract embedded (AGU26 / OS025 / 2097211)
+- [ ] Confirm co-authors + affiliations (currently "R. Fatland [+ co-authors TBD]")
+- [ ] Four panel figures (currently placeholders)
 - [ ] Decide poster online home (Pages vs Zenodo DOI) → generate QR to it
-- [ ] Confirm AGU session size/orientation requirement (assumed 48×36 landscape)
+- [ ] Confirm AGU poster size/orientation requirement (assumed 48×36 landscape, readable @2m)

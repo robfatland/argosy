@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bibliography &#8212; Argosy</title>
+    <title>Related code still at the repo root (not yet moved here) &#8212; Argosy</title>
   
   
   
@@ -57,11 +57,9 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/bibliography';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pipeline/README';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Download" href="../chapters/DataDownload.html" />
-    <link rel="prev" title="OOINET Slope Base Scalar Data Status" href="../OOINETSlopeBaseDataStatus.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,6 +121,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -212,10 +212,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
@@ -297,7 +297,7 @@
       
       
       
-      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2Freference/bibliography.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2Fpipeline/README.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -327,7 +327,7 @@
       
       
       
-      <li><a href="../_sources/reference/bibliography.md" target="_blank"
+      <li><a href="../_sources/pipeline/README.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -398,7 +398,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -409,11 +411,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Bibliography</h1>
+    <h1>Related code still at the repo root (not yet moved here)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Related code still at the repo root (not yet moved here)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#design-notes">Design notes</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -423,16 +435,46 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="bibliography">
-<h1>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading">#</a></h1>
-<div class="docutils container" id="id1">
-<div role="list" class="citation-list">
-<div class="citation" id="id2" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<p>Jonathan D. Nash and James N. Moum. River plumes as a source of large-amplitude internal waves in the coastal ocean. <em>Nature</em>, 437:400–403, 2005. <a class="reference external" href="https://doi.org/10.1038/nature03936">doi:10.1038/nature03936</a>.</p>
-</div>
-</div>
-</div>
+  <p>This folder <code class="docutils literal notranslate"><span class="pre">~/argosy/pipeline/</span></code> contains files for the <strong>Phase 1 pipeline</strong>: getting data
+from OOINET, sharding it into <code class="docutils literal notranslate"><span class="pre">redux</span></code>, and reducing it to <code class="docutils literal notranslate"><span class="pre">pp06</span></code> (a post-processing-cleaned,
+analysis-ready version). The goal is one authoritative copy of this logic that runs identically
+locally (from the notebooks) and headless on cloud/EC2 — see <code class="docutils literal notranslate"><span class="pre">cloud/</span></code> for the EC2 create/destroy
+machinery that invokes it.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">download.py</span></code> — OOINET acquisition. Extracted from <code class="docutils literal notranslate"><span class="pre">chapters/DataDownload.ipynb</span></code> so the
+notebook and the EC2 job call the same code (no duplication). Functions: <code class="docutils literal notranslate"><span class="pre">estimate_download_volume()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bulk_download(instrument,</span> <span class="pre">ooi_instrument,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">download_all(site)</span></code>. Reads the async staging
+URLs from <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code>; writes to <code class="docutils literal notranslate"><span class="pre">ooipaths.ooinet_dir(site,</span> <span class="pre">&quot;scalar&quot;)</span></code>.
+Restart-tolerant. CLI: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">download.py</span> <span class="pre">--site</span> <span class="pre">oo</span></code> (or <code class="docutils literal notranslate"><span class="pre">--estimate</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shard.py</span></code> — shard OOINET source files into per-sensor, per-profile <code class="docutils literal notranslate"><span class="pre">redux</span></code> files. Extracted
+from <code class="docutils literal notranslate"><span class="pre">chapters/DataSharding.ipynb</span></code> (same no-duplication pattern as <a class="reference external" href="http://download.py">download.py</a>). Walks the
+profile index, slices ascent/descent windows per sensor, writes
+<code class="docutils literal notranslate"><span class="pre">RCA_&lt;site&gt;_sp_&lt;sensor&gt;_&lt;yyyy&gt;_&lt;ddd&gt;_&lt;gpi&gt;_&lt;daily&gt;_V1.nc</span></code>. Restart-tolerant (skips existing).
+CLI: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">shard.py</span> <span class="pre">--site</span> <span class="pre">oo</span> <span class="pre">[--instruments</span> <span class="pre">ctd</span> <span class="pre">flor</span> <span class="pre">...]</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span></code> — EC2 entrypoint: download → shard → pp06 for one site, then sync results
+to S3 (local-then-sync). Incremental / restart-aware. Invoked by the cloud user-data.
+Optional 3rd arg or <code class="docutils literal notranslate"><span class="pre">pipeline/&lt;site&gt;_url_list.txt</span></code> supplies the OOINET URL list.</p></li>
+</ul>
+<section id="related-code-still-at-the-repo-root-not-yet-moved-here">
+<h1>Related code still at the repo root (not yet moved here)<a class="headerlink" href="#related-code-still-at-the-repo-root-not-yet-moved-here" title="Link to this heading">#</a></h1>
+<p>Post-processing is <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code>-based and site-parameterized; <code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span></code> calls it in place:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">postprocess_pp05.py</span></code>, <code class="docutils literal notranslate"><span class="pre">postprocess_pp06.py</span></code>, <code class="docutils literal notranslate"><span class="pre">postprocess_pp06_filter2.py</span></code>,
+<code class="docutils literal notranslate"><span class="pre">postprocess_pp06_filter3.py</span></code>, <code class="docutils literal notranslate"><span class="pre">postprocess_special_profiles.py</span></code>.
+Consolidating these under <code class="docutils literal notranslate"><span class="pre">pipeline/</span></code> is a possible future tidy-up (not done to avoid churn).</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span></code> calls these in place. Consolidating them under <code class="docutils literal notranslate"><span class="pre">pipeline/</span></code> is a possible
+future tidy-up; not done now to avoid churn.</p>
+</section>
+<section id="design-notes">
+<h1>Design notes<a class="headerlink" href="#design-notes" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>All destinations come from <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> (per-site layout), so AWS is an accelerator, not a
+dependency: the same code runs from the notebook on localhost.</p></li>
+<li><p>The notebook’s audit/dedup/plot cells (sensor audit, CTD overlap/minimum-cover, availability
+plot) remain in <code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code> — they are human-in-the-loop (generate review-then-run
+deletion scripts) and viz, so they stay notebook-side rather than in the headless module.</p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -448,7 +490,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./reference"
+            path: "./pipeline"
         },
         predefinedOutput: true
     }
@@ -465,30 +507,29 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../OOINETSlopeBaseDataStatus.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">OOINET Slope Base Scalar Data Status</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../chapters/DataDownload.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Download</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Related code still at the repo root (not yet moved here)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#design-notes">Design notes</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

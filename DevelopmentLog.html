@@ -215,6 +215,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
@@ -428,6 +429,10 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-topics">Open Topics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-june-2026">Completed (June 2026)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-phase-1-pipeline-validated-on-real-oo-data-years-sensors-filters">Completed (Sep 2026) — Phase 1 pipeline validated on real oo data + –years/–sensors filters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-cloud-phase-1-pipeline-scaffold-ec2-create-destroy">Completed (Sep 2026) — cloud Phase 1 pipeline scaffold (EC2 create/destroy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-multi-site-enablement-prep-oregon-offshore-oo">Completed (Sep 2026) — multi-site enablement prep (Oregon Offshore / oo)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-docs-reorg-for-personae-phase-1-2-republish">Completed (Sep 2026) — docs reorg for personae + Phase 1/2 + republish</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-metadata-subfolder-sort">Completed (Sep 2026) — metadata subfolder sort</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-aug-2026-documentation-cleanup">Completed (Aug 2026) — documentation cleanup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pending-to-do">Pending To Do</a></li>
@@ -581,7 +586,16 @@ Analysis of start-depth vs tidal prediction documented in <code class="docutils 
 <section id="open-topics">
 <h2>Open Topics<a class="headerlink" href="#open-topics" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>pCO2 on Oregon Offshore — check with Wendi/Joe: does it exist?</strong> When ordering <code class="docutils literal notranslate"><span class="pre">oo</span></code> data
+(Sep 2026) there was no clear pCO2 (PCO2W) link in the OOINET order interface after a careful
+look. <code class="docutils literal notranslate"><span class="pre">oo</span></code> currently has 5 instrument orders (PHSEN, CTDPF, FLORT, NUTNR, PARAD) covering 10 of
+11 scalar sensors — proceeding with those 10. Confirm whether Oregon Offshore has a pCO2 sensor
+at all, or whether it’s available via another route; add it if so.</p></li>
 <li><p>Explore access to and use of the data cube provided by Joe and Wendi: How does it map to the data scheme of this repo?</p></li>
+<li><p>Cloud-native data access (future optimization): the current pipeline downloads from OOINET async
+staging URLs. Consider THREDDS/OPeNDAP or the OOI Gold Copy S3 buckets (<code class="docutils literal notranslate"><span class="pre">ooigoldcopy</span></code>) — an
+in-region S3→S3 copy could eliminate the download step entirely for cloud runs. Deferred to keep
+the first EC2 build to one new variable at a time.</p></li>
 <li><p>Open-science publishing: decide do-or-don’t on OSF (Open Science Framework) as a project hub for repo+data+poster. Zenodo (code by-reference + poster/data by-upload) and Figshare (redundant visibility) are the current plan; OSF is the open question. See <code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code>.</p></li>
 <li><p>Baffle LH with cyclonicity, learn critical depth vis a population and compensation depth vis individual and review SeaFlow with Cornell</p></li>
 <li><p>Clean up <code class="docutils literal notranslate"><span class="pre">chapters/StubWork.ipynb</span></code>: still uses hardcoded <code class="docutils literal notranslate"><span class="pre">~/ooi/...</span></code> paths (left as-is during
@@ -707,6 +721,93 @@ range updates, exclusion filter, time-aligned indexing). Changes proved fragile;
 was reverted to git state. Rebuild plan documented in <code class="docutils literal notranslate"><span class="pre">~/argosy/VisNotebookRebuild.md</span></code>.</p></li>
 </ul>
 </section>
+<section id="completed-sep-2026-phase-1-pipeline-validated-on-real-oo-data-years-sensors-filters">
+<h2>Completed (Sep 2026) — Phase 1 pipeline validated on real oo data + –years/–sensors filters<a class="headerlink" href="#completed-sep-2026-phase-1-pipeline-validated-on-real-oo-data-years-sensors-filters" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Added <code class="docutils literal notranslate"><span class="pre">--years</span></code> (<a class="reference external" href="http://download.py">download.py</a> + <a class="reference external" href="http://shard.py">shard.py</a>) and <code class="docutils literal notranslate"><span class="pre">--sensors</span></code> (<a class="reference external" href="http://shard.py">shard.py</a>) filters</strong> for slice-testing
+and incremental top-ups. Verified.</p></li>
+<li><p><strong>Local slice test on Oregon Offshore PASSED</strong>: <code class="docutils literal notranslate"><span class="pre">download.py</span> <span class="pre">--site</span> <span class="pre">oo</span> <span class="pre">--years</span> <span class="pre">2016</span></code> then
+<code class="docutils literal notranslate"><span class="pre">shard.py</span> <span class="pre">--site</span> <span class="pre">oo</span> <span class="pre">--sensors</span> <span class="pre">dissolvedoxygen</span> <span class="pre">--years</span> <span class="pre">2016</span></code> produced <strong>2112 DO shards</strong>
+(<code class="docutils literal notranslate"><span class="pre">RCA_oo_sp_dissolvedoxygen_2016_*</span></code>). Proves end-to-end: URL→instrument routing, year filter,
+sensor filter, per-site naming, restart-skip. Test data deleted after.</p></li>
+<li><p><strong>Settled the DO-source question</strong>: <code class="docutils literal notranslate"><span class="pre">oo</span></code>’s CTD stream carries <code class="docutils literal notranslate"><span class="pre">corrected_dissolved_oxygen</span></code>
+(DO shards were written from CTD files), same as <code class="docutils literal notranslate"><span class="pre">sb</span></code>. The separate DOFST product is redundant
+for our purposes — ignore it.</p></li>
+<li><p><strong>Size finding (drives the cloud decision)</strong>: 2016 <code class="docutils literal notranslate"><span class="pre">oo</span></code> source = ~47 GB (CTD alone 41 GB, FLORT
+5.4 GB, PAR 870 MB, NUTNR 28 MB, PHSEN 1.7 MB). Extrapolated across ~10 years, full <code class="docutils literal notranslate"><span class="pre">oo</span></code>
+download is plausibly ~300–400 GB → strongly favors downloading on the EC2 box (fast in-region
+pipe + 500 GB root) over the home connection. This is what the cloud build is for.</p></li>
+<li><p>Note: <code class="docutils literal notranslate"><span class="pre">download.py</span></code> pre-creates empty <code class="docutils literal notranslate"><span class="pre">&lt;year&gt;_&lt;instrument&gt;</span></code> folders for all 2014–2026 (harmless
+scaffolding; could be made lazy). pp05/pp06 not exercised in the slice test (same site-agnostic
+code already proven on sb).</p></li>
+</ul>
+</section>
+<section id="completed-sep-2026-cloud-phase-1-pipeline-scaffold-ec2-create-destroy">
+<h2>Completed (Sep 2026) — cloud Phase 1 pipeline scaffold (EC2 create/destroy)<a class="headerlink" href="#completed-sep-2026-cloud-phase-1-pipeline-scaffold-ec2-create-destroy" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pipeline/</span></code> folder created</strong> (Phase 1 = get data → shard → pp06), with README.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pipeline/download.py</span></code></strong>: OOINET acquisition extracted from <code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code> (cells 2+4)
+so notebook + EC2 call the SAME code (no duplication). <code class="docutils literal notranslate"><span class="pre">estimate_download_volume</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bulk_download(instrument,</span> <span class="pre">ooi_instrument,</span> <span class="pre">site)</span></code>, <code class="docutils literal notranslate"><span class="pre">download_all(site)</span></code>; <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code>-based dests;
+requests/bs4 optional-import guarded; CLI <code class="docutils literal notranslate"><span class="pre">--site/--estimate</span></code>. Compiles + imports clean.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pipeline/run_pipeline.sh</span></code></strong>: EC2 entrypoint, local-then-sync (download→shard→pp→<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">sync</span></code>
+to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/</span></code>). Honors <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ooipaths.DEFAULT_SITE</span></code> now reads <code class="docutils literal notranslate"><span class="pre">$ARGOSY_SITE</span></code></strong> (validated), so the WHOLE pipeline can be
+pointed at a site with an env var — no per-script <code class="docutils literal notranslate"><span class="pre">--site</span></code> plumbing. Verified: unset→sb,
+ARGOSY_SITE=oo→oo paths.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cloud/</span></code> CDK (Python) app</strong>: <code class="docutils literal notranslate"><span class="pre">ArgosyPipelineStack</span></code> = on-demand EC2 (default <code class="docutils literal notranslate"><span class="pre">c6i.xlarge</span></code>,
+~&lt;$0.40/hr; 500 GB gp3 root, delete_on_termination), IAM role (S3 to s3ooi + SSM), SG (SSH from
+operator IP), user-data (miniconda + clone + env). <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>=create, <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>=delete
+(volume goes with the stack). <code class="docutils literal notranslate"><span class="pre">cloud/README.md</span></code> + <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering recipe added.
+Python compiles; <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">synth</span></code> NOT run here (aws-cdk not installed on this box — user does CDK setup).</p></li>
+<li><p>Decisions locked: EC2 on-demand (not spot/Batch) first pass; async-download-URL path (reuse
+existing scraper), not THREDDS/S3-gold-copy (logged as future); local-then-sync; CDK Python.</p></li>
+</ul>
+</section>
+<section id="completed-sep-2026-multi-site-enablement-prep-oregon-offshore-oo">
+<h2>Completed (Sep 2026) — multi-site enablement prep (Oregon Offshore / oo)<a class="headerlink" href="#completed-sep-2026-multi-site-enablement-prep-oregon-offshore-oo" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">oo</span></code> site skeleton created</strong>: <code class="docutils literal notranslate"><span class="pre">~/ooi/oo/{ooinet/scalar,ooinet/vector,redux,postproc,metadata,</span> <span class="pre">analysis,visualizations,profileIndices}</span></code>. The 13 <code class="docutils literal notranslate"><span class="pre">CE04OSPS_profiles_2014..2026.csv</span></code> files copied
+into <code class="docutils literal notranslate"><span class="pre">~/ooi/oo/profileIndices/</span></code> (from the full clone that had landed under <code class="docutils literal notranslate"><span class="pre">sb/profileIndices/</span></code>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> already site-generic</strong>: the old <code class="docutils literal notranslate"><span class="pre">sb</span></code>-only guard in <code class="docutils literal notranslate"><span class="pre">ooinet_dir</span></code> was removed during
+the layout flip; all accessors validate the site and resolve <code class="docutils literal notranslate"><span class="pre">oo</span></code> correctly (verified:
+designator CE04OSPS, ooinet/redux/postproc/metadata paths, <code class="docutils literal notranslate"><span class="pre">shard_glob</span></code> → <code class="docutils literal notranslate"><span class="pre">RCA_oo_sp_...</span></code>).</p></li>
+<li><p><strong>Audit result</strong>: DataDownload + DataSharding are site-parameterized via <code class="docutils literal notranslate"><span class="pre">SITE=op.DEFAULT_SITE</span></code>
+and <code class="docutils literal notranslate"><span class="pre">op.*</span></code> accessors, EXCEPT two spots (see Pending To Do): a hardcoded <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_...</span></code> shard
+filename in DataSharding, and a stale <code class="docutils literal notranslate"><span class="pre">~/ooi/ooinet/rca/SlopeBase/...</span></code> doc string in DataDownload.</p></li>
+<li><p>To process <code class="docutils literal notranslate"><span class="pre">oo</span></code>: set <code class="docutils literal notranslate"><span class="pre">SITE</span> <span class="pre">=</span> <span class="pre">&quot;oo&quot;</span></code> (or <code class="docutils literal notranslate"><span class="pre">op.DEFAULT_SITE</span></code> stays <code class="docutils literal notranslate"><span class="pre">sb</span></code>; pass site explicitly) in the
+notebooks after the two fixes below. Cloud-batch-vs-local decision deferred until the <code class="docutils literal notranslate"><span class="pre">oo</span></code> data
+order arrives (see “Cloud batch sharding pipeline” plan).</p></li>
+</ul>
+</section>
+<section id="completed-sep-2026-docs-reorg-for-personae-phase-1-2-republish">
+<h2>Completed (Sep 2026) — docs reorg for personae + Phase 1/2 + republish<a class="headerlink" href="#completed-sep-2026-docs-reorg-for-personae-phase-1-2-republish" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Repo reorganized around 4 personae + Phase 1/Phase 2.</strong> Personae: Arthur Casual (science
+reader), Maggie Glass (OOI FB/DSC), Angus Neversee (external reuser), Chuck Boom (collaborator).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code> created</strong> (absorbs the retired <code class="docutils literal notranslate"><span class="pre">Workflow.md</span></code>): technical map for
+Chuck+Angus — filesystem layout (per-site), workflow tasks 0–6, OOINET ordering, filename
+anatomy, shard convention. <code class="docutils literal notranslate"><span class="pre">Workflow.md</span></code> deleted; all refs repointed.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">README.md</span></code> rewritten</strong> as the 30-sec front door (persona-framed; book link + stale note +
+Abernathey links; START HERE → ArgosyOverview; SETUP for Angus). Publish cmd kept OUT (steering).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code></strong>: added START HERE + “Who are you?” persona fork at top; reconciled
+companion-file list into Orientation/Phase1/Phase2/Reference/Working groups.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code></strong> restructured: Orientation / Phase 1 — Pipeline / Phase 2 — Analysis / Reference /
+Chapters. Working docs (this log, SessionState, VisQC, Testing, CoincidencePlans,
+pp06ErraticFilterPrompt, Publishing) intentionally excluded from the book.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">intro.md</span></code></strong> now opens with a reciprocal pointer to the GitHub repo.</p></li>
+<li><p>Deleted scaffolding <code class="docutils literal notranslate"><span class="pre">markdown.md</span></code>, <code class="docutils literal notranslate"><span class="pre">markdown-notebooks.md</span></code>. Added “New here → ArgosyOverview”
+preambles to Analysis, OOIObservatory, PostProcessing.</p></li>
+<li><p><strong>AGU poster scaffold</strong> (<code class="docutils literal notranslate"><span class="pre">poster/AGUPoster.html</span></code> + README), <strong><code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering</strong>
+(verified book-publish, per-file PDF, TkAgg-widget recipes), <strong><code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code></strong> (DOI plan).</p></li>
+<li><p><strong>Book rebuilt + published</strong> to GitHub Pages (34 warnings, all cosmetic/expected — toctree
+notices for repo-only docs, a Google-Docs-paste FAQ with H3/bookmark artifacts, <a class="reference external" href="http://slides.md">slides.md</a>).
+Fixed the one real dangling xref (<code class="docutils literal notranslate"><span class="pre">building-the-pdf</span></code>) in ArgosyOverview.</p></li>
+<li><p><strong>Deferred cleanup</strong> (non-blocking): <a class="reference external" href="http://OOIFAQandGeneralInfoSummary.md">OOIFAQandGeneralInfoSummary.md</a> H3-start + broken
+<code class="docutils literal notranslate"><span class="pre">bookmark=id.*</span></code> links (Google Docs export); <a class="reference external" href="http://slides.md">slides.md</a> missing image; decide whether
+chapters/ColumbiaPlume|InternalWaves|TidalSignal.ipynb + notebooks.ipynb join the book TOC.</p></li>
+</ul>
+</section>
 <section id="completed-sep-2026-metadata-subfolder-sort">
 <h2>Completed (Sep 2026) — metadata subfolder sort<a class="headerlink" href="#completed-sep-2026-metadata-subfolder-sort" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -746,6 +847,29 @@ duplicate/corrupted S3-backup pointer in <code class="docutils literal notransla
 <section id="pending-to-do">
 <h2>Pending To Do<a class="headerlink" href="#pending-to-do" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>Harden the CDK user-data env bootstrap</strong> (found during first <code class="docutils literal notranslate"><span class="pre">oo</span></code> deploy, Sep 2026):
+(1) <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span></code> now hits <code class="docutils literal notranslate"><span class="pre">CondaToSNonInteractiveError</span></code> — the user-data must run
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">tos</span> <span class="pre">accept</span> <span class="pre">--override-channels</span> <span class="pre">--channel</span> <span class="pre">https://repo.anaconda.com/pkgs/main</span></code> (and <code class="docutils literal notranslate"><span class="pre">/r</span></code>)
+BEFORE creating the env. (2) The <code class="docutils literal notranslate"><span class="pre">||</span> <span class="pre">true</span></code> masks env-create failure so the box boots “green”
+but unusable — consider removing it or writing a readiness sentinel. (3) Consider defaulting to
+the minimal pipeline env (<code class="docutils literal notranslate"><span class="pre">python=3.11</span> <span class="pre">xarray</span> <span class="pre">netcdf4</span> <span class="pre">pandas</span> <span class="pre">numpy</span> <span class="pre">scipy</span> <span class="pre">requests</span> <span class="pre">beautifulsoup4</span> <span class="pre">boto3</span> <span class="pre">awscli</span></code>) instead of the full <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> for the cloud box, since the box only runs
+Phase 1, not analysis/SGA/plots.</p></li>
+<li><p><strong>Thin <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> to call <code class="docutils literal notranslate"><span class="pre">pipeline/shard.py</span></code></strong> (user notebook edit): the module
+now exists; replace the big inline cell with <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pipeline.shard</span> <span class="pre">import</span> <span class="pre">shard_all;</span> <span class="pre">shard_all(site=SITE)</span></code>.</p></li>
+<li><p><strong>Thin <code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code> to call <code class="docutils literal notranslate"><span class="pre">pipeline/download.py</span></code></strong> (user applies notebook edits):
+replace the inline function defs in cells 2 &amp; 4 with <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pipeline.download</span> <span class="pre">import</span> <span class="pre">estimate_download_volume,</span> <span class="pre">download_all</span></code> and a one-line call. Keeps the notebook as a thin
+wrapper; logic lives once in the module. (Audit/dedup/plot cells 6/8/11/13 stay in the notebook.)</p></li>
+<li><p><strong>Two notebook edits for multi-site (<code class="docutils literal notranslate"><span class="pre">oo</span></code>) processing</strong> (user applies; then JSON-validate):</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> — the shard filename is hardcoded <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_{output_var}_...</span></code>. Change to
+<code class="docutils literal notranslate"><span class="pre">f&quot;RCA_{SITE}_sp_{output_var}_{profile_year}_{julian_day:03d}_{profile_index}_{daily_sequence}_V1.nc&quot;</span></code>
+(<code class="docutils literal notranslate"><span class="pre">SITE</span></code> is already in scope). Otherwise <code class="docutils literal notranslate"><span class="pre">oo</span></code> shards get written with an <code class="docutils literal notranslate"><span class="pre">sb</span></code> token.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataDownload.ipynb</span></code> — stale doc line says <code class="docutils literal notranslate"><span class="pre">~/ooi/ooinet/rca/SlopeBase/{scalar|vector}/...</span></code>;
+update to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/ooinet/{scalar|vector}/&lt;yyyy&gt;_&lt;instrument&gt;</span></code> (cosmetic).
+Also: to run either notebook for Oregon Offshore, set <code class="docutils literal notranslate"><span class="pre">SITE</span> <span class="pre">=</span> <span class="pre">&quot;oo&quot;</span></code> in its preamble cell (or
+pass <code class="docutils literal notranslate"><span class="pre">site=&quot;oo&quot;</span></code>), and confirm the OOINET order used platform <code class="docutils literal notranslate"><span class="pre">CE04OSPS</span></code>.</p></li>
+</ol>
+</li>
 <li><p><strong>Complete the VisQC workflow</strong> (<code class="docutils literal notranslate"><span class="pre">iw/VisQCInspector.py</span></code> + planned <code class="docutils literal notranslate"><span class="pre">iw/VisQCCorrector.py</span></code>).
 The Inspector is a working TkAgg GUI (steps through profiles, adjustable cline boundary lines)
 but is NOT functional as a QC tool: (1) it has no accept/correct/discard controls and writes
@@ -1045,6 +1169,10 @@ in the shard pool compress time coverage.</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-topics">Open Topics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-june-2026">Completed (June 2026)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-phase-1-pipeline-validated-on-real-oo-data-years-sensors-filters">Completed (Sep 2026) — Phase 1 pipeline validated on real oo data + –years/–sensors filters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-cloud-phase-1-pipeline-scaffold-ec2-create-destroy">Completed (Sep 2026) — cloud Phase 1 pipeline scaffold (EC2 create/destroy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-multi-site-enablement-prep-oregon-offshore-oo">Completed (Sep 2026) — multi-site enablement prep (Oregon Offshore / oo)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-docs-reorg-for-personae-phase-1-2-republish">Completed (Sep 2026) — docs reorg for personae + Phase 1/2 + republish</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-sep-2026-metadata-subfolder-sort">Completed (Sep 2026) — metadata subfolder sort</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-aug-2026-documentation-cleanup">Completed (Aug 2026) — documentation cleanup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pending-to-do">Pending To Do</a></li>
