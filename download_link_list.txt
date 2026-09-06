@@ -1,0 +1,5 @@
+https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260905T215342573Z-CE04OSPS-SF01B-2B-PHSENA108-streamed-phsen_data_record
+https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260905T214551278Z-CE04OSPS-SF01B-2A-CTDPFA107-streamed-ctdpf_sbe43_sample
+https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260905T215627092Z-CE04OSPS-SF01B-3A-FLORTD104-streamed-flort_d_data_record
+https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260905T220019023Z-CE04OSPS-SF01B-4A-NUTNRA102-streamed-nutnr_a_sample
+https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260905T215800213Z-CE04OSPS-SF01B-3C-PARADA102-streamed-parad_sa_sample
