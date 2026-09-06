@@ -47,6 +47,25 @@ fi
 
 run_download() {
     echo "--- [1/3] download (site=$SITE) ---" | tee -a "$LOG"
+    # Profile indices (start/peak/end per profile) are a REQUIRED input for sharding
+    # but are hand-maintained CSVs kept OUTSIDE the download (and outside git's data
+    # tree). A fresh box (EC2/CI) has none, which makes sharding silently produce
+    # attempted=0 (load_profile_indices() returns None -> every shard is skipped).
+    # Pull them from S3 here so every provisioned box has them before shard runs.
+    # One-time per site: push them up with
+    #   aws s3 sync ~/ooi/<site>/profileIndices/ s3://s3ooi/<site>/profileIndices/
+    echo "--- pulling profileIndices from S3 (site=$SITE) ---" | tee -a "$LOG"
+    mkdir -p "$HOME/ooi/$SITE/profileIndices"
+    aws s3 sync "s3://s3ooi/$SITE/profileIndices/" "$HOME/ooi/$SITE/profileIndices/" 2>&1 | tee -a "$LOG"
+    idx_count=$(find "$HOME/ooi/$SITE/profileIndices" -name '*_profiles_*.csv' 2>/dev/null | wc -l)
+    if [ "$idx_count" -eq 0 ]; then
+        echo "WARNING: no profile-index CSVs under ~/ooi/$SITE/profileIndices/ after S3 sync." | tee -a "$LOG"
+        echo "         Sharding will produce attempted=0. Push them first:" | tee -a "$LOG"
+        echo "         aws s3 sync ~/ooi/$SITE/profileIndices/ s3://s3ooi/$SITE/profileIndices/" | tee -a "$LOG"
+    else
+        echo "  profileIndices present: $idx_count file(s)" | tee -a "$LOG"
+    fi
+
     if [ -n "$URL_LIST" ]; then
         python pipeline/download.py --site "$SITE" --url-list "$URL_LIST" 2>&1 | tee -a "$LOG"
     else
@@ -56,6 +75,14 @@ run_download() {
 
 run_shard() {
     echo "--- [2/3] shard (site=$SITE) ---" | tee -a "$LOG"
+    # Sharding needs profile indices; without them it silently produces attempted=0.
+    # Guard here too, since `shard` may be run as a standalone stage (download skipped).
+    idx_count=$(find "$HOME/ooi/$SITE/profileIndices" -name '*_profiles_*.csv' 2>/dev/null | wc -l)
+    if [ "$idx_count" -eq 0 ]; then
+        echo "WARNING: no profile-index CSVs under ~/ooi/$SITE/profileIndices/ — sharding will" | tee -a "$LOG"
+        echo "         produce attempted=0. Pull them first:" | tee -a "$LOG"
+        echo "         aws s3 sync s3://s3ooi/$SITE/profileIndices/ ~/ooi/$SITE/profileIndices/" | tee -a "$LOG"
+    fi
     python pipeline/shard.py --site "$SITE" 2>&1 | tee -a "$LOG"
 }
 
