@@ -1,0 +1,7 @@
+# Force LF for files that run on Linux (EC2 pipeline box, WSL). Windows git has
+# core.autocrlf=true which would otherwise commit CRLF and break bash shebangs
+# ("bad interpreter") and Python scripts run under Linux.
+*.sh   text eol=lf
+*.py   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
