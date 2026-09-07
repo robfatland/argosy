@@ -8,8 +8,9 @@
 #
 # Outputs:
 #   - Stacked curtain plot PNG: ~/ooi/visualizations/CurtainPlots_<loc>_<start>_<end>.png
-#   - Contour values CSV: ~/ooi/metadata/curtain_contour_values_<loc>_<start>_<end>.csv
+#   - Contour values CSV: ~/ooi/<site>/metadata/cache/curtain_contour_values_<loc>_<start>_<end>.csv
 
+import sys
 import glob, csv
 import numpy as np
 import xarray as xr
@@ -20,19 +21,24 @@ from pathlib import Path
 from scipy.ndimage import uniform_filter1d
 import pandas as pd
 
-# == Data source selection ======================================================
-source_choice = input("Data source (redux/pp01/pp02/pp05/pp06, default pp06): ").strip().lower()
-if source_choice in ('pp01', 'pp02'):
-    DATA_BASE = Path(f"~/ooi/postproc/{source_choice}/redux").expanduser()
-elif source_choice == 'pp06':
-    DATA_BASE = Path("~/ooi/postproc/pp06").expanduser()
-elif source_choice == 'pp05':
-    DATA_BASE = Path("~/ooi/redux").expanduser()
-else:
-    source_choice = "pp06"
-    DATA_BASE = Path("~/ooi/postproc/pp06").expanduser()
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
 
-print(f"Source: {source_choice} ({DATA_BASE})")
+# == Data source selection ======================================================
+def source_year_dir(source, year):
+    """Per-year data directory for a source choice, via ooipaths accessors.
+    pp05/redux read redux directly; pp01/pp02/pp06 read their postproc tree."""
+    if source in ('redux', 'pp05'):
+        return op.redux_dir(year, SITE)
+    return op.postproc_dir(source, year, SITE)
+
+source_choice = input("Data source (redux/pp01/pp02/pp05/pp06, default pp06): ").strip().lower()
+if source_choice not in ('redux', 'pp01', 'pp02', 'pp05', 'pp06'):
+    source_choice = "pp06"
+
+print(f"Source: {source_choice}")
 
 # == All 8 HSD sensors =========================================================
 ALL_SENSORS = [
@@ -72,7 +78,7 @@ else:
 
 # == Configuration =============================================================
 LOCATION = "SlopeBase"
-REDUX_DIRS = [str(DATA_BASE / f"redux{y}") for y in range(TIME_START.year, TIME_END.year + 1)]
+REDUX_DIRS = [str(source_year_dir(source_choice, y)) for y in range(TIME_START.year, TIME_END.year + 1)]
 
 DEPTH_MIN, DEPTH_MAX, DEPTH_BINS = 0, 200, 200
 GAP_HOURS, LP_WINDOW, CONTOUR_GAP_DAYS = 12, 27, 3
@@ -290,10 +296,10 @@ plt.tight_layout()
 s_tag = TIME_START.strftime("%Y%m%d")
 e_tag = TIME_END.strftime("%Y%m%d")
 
-png_path = Path(f"~/ooi/visualizations/CurtainPlots_{LOCATION}_{s_tag}_{e_tag}.png").expanduser()
+png_path = op.visualizations_dir(SITE) / f"CurtainPlots_{LOCATION}_{s_tag}_{e_tag}.png"
 fig.savefig(png_path, dpi=150, facecolor="white")
 
-csv_path = Path(f"~/ooi/metadata/curtain_contour_values_{LOCATION}_{s_tag}_{e_tag}.csv").expanduser()
+csv_path = op.metadata_dir(SITE, "cache") / f"curtain_contour_values_{LOCATION}_{s_tag}_{e_tag}.csv"
 with open(csv_path, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['sensor', 'n_contours', 'contour_values', 'vmin_5pct', 'vmax_95pct'])

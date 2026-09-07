@@ -15,10 +15,10 @@
 | `InternalWaves.md` | `~/argosy/` | This file. Reference documentation for the internal wave analysis. |
 | `InternalWaves.ipynb` | `~/argosy/chapters/` | Notebook for the internal wave inventory analysis. Uses `%run` to launch modules. |
 | `internal_wave_physics.py` | `~/argosy/iw/` | Shared physics module. Stream function formulation guaranteeing divergence-free displacement fields. |
-| `internal_wave.py` | `~/argosy/iw/` | Generates the internal wave animation (particles, pycnocline boundary, orbit ellipses). Output: `~/ooi/visualizations/internal_wave.mp4`. |
+| `internal_wave.py` | `~/argosy/iw/` | Generates the internal wave animation (particles, pycnocline boundary, orbit ellipses). Output: `~/ooi/sb/visualizations/internal_wave.mp4`. |
 | `TestInternalWaveIncompressibility.py` | `~/argosy/iw/` | Validates incompressibility: tracks area of 3 rectangular cells over one period. Pass criterion: <3% variation. Currently passes at <2%. |
 | *(pending)* | `~/argosy/iw/` | Module for internal wave detection from real T/S profile data. |
-| `cline_extract.py` | `~/argosy/iw/` | Extracts pycnocline, thermocline, halocline, oxycline depth/strength per profile. Output: `~/ooi/metadata/cline_extract_slopebase.csv`. |
+| `cline_extract.py` | `~/argosy/iw/` | Extracts pycnocline, thermocline, halocline, oxycline depth/strength per profile. Output: `~/ooi/sb/metadata/cline_extract_slopebase.csv`. |
 
 Test specification (how to run, pass/fail criteria): see `Testing.md` → "Internal Waves".
 
@@ -173,7 +173,7 @@ secondary_pycnocline_depth, secondary_pycnocline_strength,
 mld
 ```
 
-One row per profile. Output: `~/ooi/metadata/cline_extract_slopebase.csv`.
+One row per profile. Output: `~/ooi/sb/metadata/cline_extract_slopebase.csv`.
 
 Units:
 - Depths in meters (positive downward from surface)

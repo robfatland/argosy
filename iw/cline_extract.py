@@ -4,10 +4,11 @@
 # Run: python ~/argosy/iw/cline_extract.py
 #   or: %run ~/argosy/iw/cline_extract.py
 #
-# Output: ~/ooi/metadata/cline_extract_slopebase.csv
+# Output: ~/ooi/<site>/metadata/features/cline_extract_<site>.csv  (site = sb|oo|ab)
 #
 # See InternalWaves.md → "Cline Extraction" for full documentation.
 
+import sys
 import numpy as np
 import xarray as xr
 import pandas as pd
@@ -15,16 +16,23 @@ import gsw
 from pathlib import Path
 from scipy.signal import savgol_filter, find_peaks
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
 
-PP06_BASE = Path("~/ooi/postproc/pp06").expanduser()
-OUTPUT_DIR = Path("~/ooi/metadata").expanduser()
+PP06_BASE = op.postproc_base(SITE) / "pp06"
+OUTPUT_DIR = op.metadata_dir(SITE, "features")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-EXCLUSIONS_CSV = Path("~/argosy/sensor_exclusions.csv").expanduser()
+EXCLUSIONS_CSV = op.exclusions_csv()
 
-SITE_NAME = "slopebase"
-SITE_LAT = 44.53
-SITE_LON = -125.39
+# Output/records keyed by the 2-letter site code (was hardcoded 'slopebase').
+SITE_NAME = SITE
+# Nominal site position (per-site; formerly hardcoded to Slope Base).
+_SITE_LATLON = {"sb": (44.53, -125.39), "oo": (44.374, -124.956), "ab": (45.830, -129.753)}
+SITE_LAT, SITE_LON = _SITE_LATLON.get(SITE, (45.0, -125.0))
 
 START_YEAR = 2015
 END_YEAR = 2025
@@ -72,7 +80,7 @@ gpi_index = {}
 SENSORS_NEEDED = ['temperature', 'salinity', 'dissolvedoxygen']
 
 for year in range(START_YEAR, END_YEAR + 1):
-    redux_dir = PP06_BASE / f"redux{year}"
+    redux_dir = op.postproc_dir("pp06", year, SITE)
     if not redux_dir.exists():
         continue
     for sensor in SENSORS_NEEDED:

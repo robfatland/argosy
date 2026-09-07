@@ -17,7 +17,6 @@ dependencies:
   - asciitree=0.3.3=py_2
   - asttokens=2.0.5=pyhd3eb1b0_0
   - async-lru=2.0.5=py311h06a4308_0
-  - attrs=23.1.0=py311h06a4308_0
   - aws-c-common=0.6.8=h5eee18b_1
   - aws-c-event-stream=0.1.6=h6a678d5_6
   - aws-checksums=0.1.11=h5eee18b_2
@@ -334,6 +333,7 @@ dependencies:
       - arrow==1.4.0
       - arxiv==4.0.0
       - async-timeout==4.0.3
+      - attrs==26.1.0
       - azure-core==1.26.4
       - azure-cosmos==4.3.1
       - backoff==2.2.1
@@ -344,10 +344,12 @@ dependencies:
       - boto3==1.43.56
       - botocore==1.43.56
       - bounded-pool-executor==0.0.3
+      - cattrs==26.1.0
       - click==8.4.1
       - click-plugins==1.1.1
       - cligj==0.7.2
       - colorcet==3.0.1
+      - constructs==10.8.1
       - datasets==5.0.0
       - datashader==0.16.0
       - deltalake==1.5.1
@@ -513,7 +515,7 @@ dependencies:
       - torchvision==0.20.1
       - transformers==5.10.2
       - triton==3.1.0
-      - typeguard==4.5.1
+      - typeguard==4.6.0
       - typer==0.25.1
       - typing-extensions==4.15.0
       - typing-inspection==0.4.2

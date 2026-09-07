@@ -8,8 +8,14 @@ from scipy.spatial.distance import pdist, squareform
 import pickle
 from pathlib import Path
 
+# Make the repo root importable so `import ooipaths` works under %run.
+import sys
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # Output directory
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 
 # Load config
 with open(SGA_DIR / 'sga_config.pkl', 'rb') as f:

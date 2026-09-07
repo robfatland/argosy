@@ -1,5 +1,7 @@
 # Analysis
 
+> New to argosy? Start at `ArgosyOverview.md`. This is a Phase 2 (analysis) document.
+
 
 Our objective is to subject shallow profiler data and other 'umbrella' data
 to analysis and interpretation. This document briefly reviews the data 

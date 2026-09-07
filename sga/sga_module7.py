@@ -8,8 +8,14 @@ import matplotlib.pyplot as plt
 import pickle
 from pathlib import Path
 
+# Make the repo root importable so `import ooipaths` works under %run.
+import sys
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # Output directory for SGA intermediate and result files
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 SGA_DIR.mkdir(parents=True, exist_ok=True)
 
 # Configuration

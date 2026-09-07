@@ -100,7 +100,7 @@ does not fully explain the observed variability.
 | `TidalSignal.ipynb` | `~/argosy/chapters/` | Notebook: runs the analysis module |
 | `TimeSeriesProfileCorrelation.py` | `~/argosy/` | Module: 5-panel chart, cross-correlation analysis |
 | `tidal_constituents.json` | `~/argosy/` | 14 tidal constituents for 3 RCA sites (self-contained) |
-| `TidalSignal.png` | `~/ooi/visualizations/` | Output figure (5 panels) |
+| `TidalSignal.png` | `~/ooi/sb/visualizations/` | Output figure (5 panels) |
 
 
 ## Section 4: Further Work

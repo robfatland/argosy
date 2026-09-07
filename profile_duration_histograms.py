@@ -14,21 +14,28 @@ Also writes:
 And prints a per-year summary table to stdout.
 """
 
+import sys
 import glob
 import pandas as pd
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from pathlib import Path
 from zoneinfo import ZoneInfo
+
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
 
 # ── Config ────────────────────────────────────────────────────────────────────
 SITE_TZ             = ZoneInfo("America/Los_Angeles")
-PROFILE_INDICES_DIR = "/home/rob/ooi/profileIndices"
-SITE_PATTERN        = "RS01SBPS_profiles_*.csv"
-OUTPUT_PNG          = "/home/rob/ooi/visualizations/SlopeBaseProfileHistograms.png"
-OUT_MIDNIGHT        = "/home/rob/ooi/metadata/ooi_rca_sb_midnight_global_profile_indices.csv"
-OUT_NOON            = "/home/rob/ooi/metadata/ooi_rca_sb_noon_global_profile_indices.csv"
+PROFILE_INDICES_DIR = str(op.profile_index_dir(SITE))
+SITE_PATTERN        = f"{op.site_designator(SITE)}_profiles_*.csv"
+OUTPUT_PNG          = str(op.visualizations_dir(SITE) / "SlopeBaseProfileHistograms.png")
+OUT_MIDNIGHT        = str(op.special_profile_list("midnight", SITE))
+OUT_NOON            = str(op.special_profile_list("noon", SITE))
 
 MIN_GAP_HOURS = 20.0   # minimum separation between same-class profiles
 

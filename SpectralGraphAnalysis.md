@@ -4,8 +4,8 @@
 - 7 sequential modules 
 - run from `chapters/SpectralGraphAnalysis.ipynb`
 - operates on post-processing tier 6 (`pp06`) shard dataset
-    - source data location: `~/ooi/postproc/pp06`
-    - considers 6 HDS scalar sensors: Temp, salinity, DO, density, ChlorA, backscatter
+    - source data location: `~/ooi/sb/postproc/pp06`
+    - considers 6 HSD scalar sensors: Temp, salinity, DO, density, ChlorA, backscatter
         - CDOM, PAR, nitrate, pH, pCO2 not considered
             - CDOM has too many dropouts
             - PAR is diurnal; will confuse matters
@@ -16,7 +16,7 @@
         - for handling weak/quantized signals
     - backscatter is filtered to remove spikes
 - Jupyter Lab environment is used to render charts
-- Results are written in `~/ooi/analysis/sga`
+- Results are written in `~/ooi/sb/analysis/sga`
 
 
 ## Motivation overview
@@ -42,7 +42,7 @@
     - Build a global-index-keyed file lookup
     - Builds `sensor_files[sensor][global_idx] = filepath`
     - Creates `profile_index.csv` with columns: global_idx, year, doy, daily_idx, date
-    - Out: `~/ooi/analysis/sga/profile_index.csv`, `~/ooi/analysis/sga/sensor_files.pkl`
+    - Out: `~/ooi/sb/analysis/sga/profile_index.csv`, `~/ooi/sb/analysis/sga/sensor_files.pkl`
     - 10 seconds
 2. Generate a feature matrix
     - Interpolate each profile to a standard depth grid
@@ -191,7 +191,7 @@ Left off here.
 
 Before running the full pipeline, verify:
 
-- [ ] pp06 exists and is populated (`ls ~/ooi/postproc/pp06/`)
+- [ ] pp06 exists and is populated (`ls ~/ooi/sb/postproc/pp06/`)
 - [ ] environment.yml matches current packages (`conda env export` and diff)
 - [ ] `profile_index.csv` column names match what Modules 4+ expect
   (global_idx, year, doy, daily_idx, date)

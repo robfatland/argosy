@@ -2,7 +2,7 @@
 
 Survey date: May 13, 2026
 
-Source: `~/ooi/ooinet/rca/SlopeBase/scalar/`
+Source: `~/ooi/sb/ooinet/scalar/` (survey conducted May 2026 under the pre-restructure path `~/ooi/ooinet/rca/SlopeBase/scalar/`)
 
 Scope: Oregon Slope Base shallow profiler, scalar instruments, 2015–2025.
 (2014 and 2026 set aside for now.)

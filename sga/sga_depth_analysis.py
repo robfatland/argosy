@@ -7,13 +7,19 @@
 # Output: Histograms of shallowest and deepest depth values per profile.
 # These inform the choice of depth grid for Module 2.
 
+import sys
 import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # Configuration
-DATA_BASE = Path("~/ooi/postproc/pp06").expanduser()
+DATA_BASE = op.postproc_base(SITE) / "pp06"
 SENSOR = 'temperature'
 START_YEAR = 2020
 END_YEAR = 2025
@@ -28,7 +34,7 @@ max_depths = []
 file_count = 0
 
 for year in range(START_YEAR, END_YEAR + 1):
-    redux_dir = DATA_BASE / f"redux{year}"
+    redux_dir = op.postproc_dir("pp06", year, SITE)
     if not redux_dir.exists():
         print(f"  redux{year}: not found, skipping")
         continue
@@ -113,7 +119,7 @@ axes[1].grid(True, alpha=0.3)
 plt.tight_layout()
 
 # Save
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 SGA_DIR.mkdir(parents=True, exist_ok=True)
 plt.savefig(SGA_DIR / 'depth_range_histograms.png', dpi=150, bbox_inches='tight')
 plt.show()

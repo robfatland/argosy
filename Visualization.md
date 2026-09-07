@@ -27,7 +27,7 @@ Visualization sections are numbered in sequence with sub-topic to follow:
         - The minimum value is 0, the default starts at 1, the maximum value is 100
     - `index0` is the index of the first profile (chronologically) in the bundle plot
         - this is an integer from 1 to 157 (the number of profiles produced in the redux step)
-        - the code will need to translate from the index0 value to the corresponding filename from `~/ooi/redux/redux2018`
+        - the code will need to translate from the index0 value to the corresponding filename from `~/ooi/sb/redux/2018`
         - if the bundle specifications `nProfiles` and `index0` go over the end file (file 157) the code handles this gracefully
         - The bundle plot only refreshes when the User is done dragging the slider to a new value (left mouse button release)
 - Each refresh of the bundle plot should indicate the profile range as `yyyy-doy-profile to yyyy-doy-profile`:

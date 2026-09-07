@@ -13,6 +13,7 @@
 #   - Blue: salinity inter-profile vertical offset (relative to mean)
 #   - Black: profile start depth (~180m) and end depth (~15m) relative to their means
 
+import sys
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
@@ -20,8 +21,13 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import pandas as pd
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
-DATA_BASE = Path("~/ooi/postproc/pp06").expanduser()
+DATA_BASE = op.postproc_base(SITE) / "pp06"
 DEPTH_GRID = np.linspace(27, 185, 3950)  # 0.04m (4cm) resolution for cross-correlation
 DG_STEP = DEPTH_GRID[1] - DEPTH_GRID[0]  # meters per grid step
 
@@ -46,7 +52,7 @@ def get_profiles_in_range(sensor, data_base, time_start, time_end):
     """Get sorted list of (global_idx, filepath, actual_mid_time) for profiles in time range."""
     profiles = []
     for year in range(time_start.year, time_end.year + 1):
-        redux_dir = data_base / f"redux{year}"
+        redux_dir = op.postproc_dir("pp06", year, SITE)
         if not redux_dir.exists():
             continue
         files = sorted(redux_dir.glob(f"*_{sensor}_*.nc"))
@@ -404,7 +410,7 @@ if r['start_depths']:
 plt.tight_layout()
 
 # Save
-out_path = Path("~/ooi/visualizations/TidalSignal.png").expanduser()
+out_path = op.visualizations_dir(SITE) / "TidalSignal.png"
 out_path.parent.mkdir(parents=True, exist_ok=True)
 plt.savefig(out_path, dpi=150, bbox_inches='tight')
 plt.show()

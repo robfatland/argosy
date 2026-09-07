@@ -2,14 +2,21 @@
 # Creates the feature matrix using global-index-based file lookup.
 # Run this as: %run /home/rob/argosy/sga/sga_module2.py
 
+import sys
 import xarray as xr
 import numpy as np
 import pandas as pd
 from pathlib import Path
 import pickle
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+
+SITE = op.DEFAULT_SITE
+
 # Output directory
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 
 # Load config
 with open(SGA_DIR / 'sga_config.pkl', 'rb') as f:

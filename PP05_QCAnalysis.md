@@ -88,7 +88,7 @@ Reference: [OOI qc-lookup repository](https://github.com/oceanobservatories/qc-l
 
 Build monthly depth-binned climatology from the pp05 dataset. Score each
 profile by RMS deviation from climatology. Flag profiles exceeding 4 standard
-deviations. Write flagged profiles to `~/ooi/metadata/pp05_flagged_profiles.csv`
+deviations. Write flagged profiles to `~/ooi/<site>/metadata/pp05_flagged_profiles.csv`
 for human review. Confirmed bad profiles get added to `sensor_exclusions.csv`.
 
 
@@ -113,7 +113,7 @@ directly from redux. This avoids disk space issues entirely.
 
 Output:
 ```
-~/ooi/metadata/
+~/ooi/<site>/metadata/
     pp05_manifest.csv             (filepath, sensor, year, doy, global_idx, daily_idx, n_valid, n_suspect)
     pp05_exclusion_summary.csv    (per-sensor counts: included, excluded by tier)
 ```
@@ -127,10 +127,10 @@ The manifest marks these files but does not modify the source data.
 
 | Dataset | Selection | QC level | Format |
 |---------|-----------|----------|--------|
-| redux | All profiles, all sensors | None (raw shards) | Files in `~/ooi/redux/redux<yyyy>/` |
-| pp01 | Noon profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions | Files in `~/ooi/postproc/pp01/redux/` |
-| pp02 | Midnight profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions | Files in `~/ooi/postproc/pp02/redux/` |
-| pp05 | All profiles (HSD) + daily_index 4/9 (LSD) | Tier 1 + Tier 2 gross range | Manifest CSV at `~/ooi/metadata/pp05_manifest.csv` |
+| redux | All profiles, all sensors | None (raw shards) | Files in `~/ooi/<site>/redux/<yyyy>/` |
+| pp01 | Noon profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions | Files in `~/ooi/<site>/postproc/pp01/<yyyy>/` |
+| pp02 | Midnight profiles (HSD) + daily_index 4/9 (LSD) | Depth filter + exclusions | Files in `~/ooi/<site>/postproc/pp02/<yyyy>/` |
+| pp05 | All profiles (HSD) + daily_index 4/9 (LSD) | Tier 1 + Tier 2 gross range | Manifest CSV at `~/ooi/<site>/metadata/pp05_manifest.csv` |
 
 pp05 is manifest-based: no physical file copies. The manifest lists which redux
 files pass QC. Analysis code reads the manifest, then loads files directly from

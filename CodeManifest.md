@@ -12,12 +12,17 @@ Last refreshed: 2026-06-26
 
 | File | Description |
 |------|-------------|
-| `postprocess_pp05.py` | Generates pp05 manifest (QC-filtered analysis dataset). Manifest-based: writes `~/ooi/metadata/pp05_manifest.csv`. Resumable per-year. |
-| `postprocess_pp06.py` | Builds pp06 physical dataset from pp05-qualified shards. Filter 0 (baseline copy) + Filter 1 (MRA walk on salinity/density). Includes 8 HDS + 3 LSD sensors. Output: `~/ooi/postproc/pp06/`. |
+| `ooipaths.py` | Single source of truth for the `~/ooi` data filesystem layout (per-site, Aug 2026). Site registry (`sb`/`oo`/`ab` → OOI designators) and path accessors (`redux_dir`, `postproc_dir`, `metadata_dir`, `profile_index_dir`, `analysis_dir`, `ooinet_dir`, `shard_glob`, etc.), all taking a `site` arg. `DEFAULT_SITE` reads `$ARGOSY_SITE` (whole-pipeline site override). Layout: `~/ooi/<site>/{ooinet, redux/<yyyy>, postproc/<pp>/<yyyy>, ...}`. |
+| `pipeline/download.py` | OOINET acquisition for Phase 1 (extracted from DataDownload.ipynb; notebook + EC2 share it). `estimate_download_volume`, `bulk_download`, `download_all`. CLI `--site/--estimate`. |
+| `pipeline/shard.py` | Shards OOINET source → per-sensor per-profile `redux` files (extracted from DataSharding.ipynb; notebook + EC2 share it). Restart-tolerant. CLI `--site/--instruments`. |
+| `pipeline/run_pipeline.sh` | EC2 entrypoint: download→shard→pp06→`aws s3 sync` to S3 for one site (local-then-sync), honors `ARGOSY_SITE`. Optional per-site URL list. |
+| `cloud/app.py` | AWS CDK (Python) app: disposable EC2 pipeline runner (500 GB gp3, IAM S3 role, SSH SG, miniconda user-data). `cdk deploy`=create, `cdk destroy`=delete. |
+| `postprocess_pp05.py` | Generates pp05 manifest (QC-filtered analysis dataset). Manifest-based: writes `~/ooi/<site>/metadata/pp05_manifest.csv`. Resumable per-year. |
+| `postprocess_pp06.py` | Builds pp06 physical dataset from pp05-qualified shards. Filter 0 (baseline copy) + Filter 1 (MRA walk on salinity/density). Includes 8 HSD + 3 LSD sensors. Output: `~/ooi/<site>/postproc/pp06/`. |
 | `postprocess_pp06_filter2.py` | Savitzky-Golay smoothing (Filter 2) for CDOM, ChlorA, Backscatter quantization noise. Operates in-place on pp06 shards. |
 | `postprocess_pp06_filter3.py` | Rolling-minimum baseline despiking (Filter 3) for backscatter (Briggs et al. 2011). Operates in-place on pp06 shards. |
 | `postprocess_special_profiles.py` | Generates pp01 (noon) and pp02 (midnight) subsets. HSD via noon/midnight metadata; LSD via daily_index 4/9 with min-points filter. |
-| `profile_duration_histograms.py` | Computes profile duration histograms from profileIndices. Classifies noon/midnight profiles. Writes to `~/ooi/metadata/` and `~/ooi/visualizations/`. |
+| `profile_duration_histograms.py` | Computes profile duration histograms from profileIndices. Classifies noon/midnight profiles. Writes to `~/ooi/<site>/metadata/` and `~/ooi/<site>/visualizations/`. |
 | `TimeSeriesProfileCorrelation.py` | Cross-correlation between adjacent profiles on a regular depth grid. Produces vertical offset time series (tidal/current displacement). |
 
 
@@ -28,10 +33,6 @@ Last refreshed: 2026-06-26
 | `sensortable.csv` | Sensor table: sensor name, instrument, key, data variable, shard name, side, extreme low/high. |
 | `sensor_exclusions.csv` | Manual QC embargo list: sensor, start date, end date, reason. Consumed by curtain plot and postprocess scripts. |
 | `tidal_constituents.json` | Extracted tidal harmonic constituents (amplitude, phase, frequency) for 3 sites, 14 constituents. |
-| `vcurrent.csv` | Vector sensor channels for velocity (3: east, north, up). |
-| `vspectralirr.csv` | Vector sensor channels for spectral irradiance (7 wavelengths). |
-| `vopticalabsorb.csv` | Vector sensor channels for optical absorption (73 channels). |
-| `vbeamatten.csv` | Vector sensor channels for beam attenuation (73 channels). |
 
 
 ## SGA directory (`~/argosy/sga`)
@@ -55,7 +56,7 @@ Last refreshed: 2026-06-26
 | File | Description |
 |------|-------------|
 | `internal_wave_physics.py` | Shared physics module. Stream function formulation guaranteeing divergence-free displacement fields. |
-| `internal_wave.py` | Generates internal wave animation (particles, pycnocline boundary, orbit ellipses). Output: `~/ooi/visualizations/internal_wave.mp4`. |
+| `internal_wave.py` | Generates internal wave animation (particles, pycnocline boundary, orbit ellipses). Output: `~/ooi/<site>/visualizations/internal_wave.mp4`. |
 | `TestInternalWaveIncompressibility.py` | Validates incompressibility: tracks area of 3 rectangular cells over one period. Pass: <3% variation. |
 
 
@@ -64,8 +65,8 @@ Last refreshed: 2026-06-26
 | File | Description |
 |------|-------------|
 | `bundle_chart.py` | Standalone interactive bundle chart. Global-index navigation, dynamic data source (redux/pp01–pp06), persistent range memory, display names, nav buttons. |
-| `curtain_plot.py` | Interactive curtain plot for HSD sensors. Source selector, sensor exclusions, contour overlays. Outputs PNG + contour CSV to `~/ooi/`. |
-| `bundle_animation.py` | Bundle animation: sliding-window temperature profile time-lapse. Mean±std or overlay mode. Output: `~/ooi/visualizations/bundle_animation.mp4`. |
+| `curtain_plot.py` | Interactive curtain plot for HSD sensors. Source selector, sensor exclusions, contour overlays. Outputs PNG + contour CSV to `~/ooi/<site>/`. |
+| `bundle_animation.py` | Bundle animation: sliding-window temperature profile time-lapse. Mean±std or overlay mode. Output: `~/ooi/<site>/visualizations/bundle_animation.mp4`. |
 
 
 ## Chapters directory (`~/argosy/chapters`)
@@ -73,7 +74,7 @@ Last refreshed: 2026-06-26
 | File | Description |
 |------|-------------|
 | `DataDownload.ipynb` | Downloads NetCDF source files from OOINET staging URLs. |
-| `DataSharding.ipynb` | Shards source files into single-sensor single-profile NetCDF files in `~/ooi/redux/redux<yyyy>`. |
+| `DataSharding.ipynb` | Shards source files into single-sensor single-profile NetCDF files in `~/ooi/<site>/redux/<yyyy>`. |
 | `Visualizations.ipynb` | Bundle plots, curtain plots, and bundle animations. Source selector (redux/pp01/pp02/pp05). |
 | `MidnightNoon.ipynb` | Midnight/noon profile exploration. |
 | `SpectralGraphAnalysis.ipynb` | Spectral graph analysis of profile data (runs the sga/ modules). |
@@ -106,10 +107,11 @@ of these same files.
 | `ArgosyOverview.md` | Entry point. Pointers to Key Actions, documentation index, AI guidelines, PDF build. |
 | `OOIObservatory.md` | OOI background, glossary, sites, challenges. |
 | `SensorTable.md` | Sensor table, HSD/LSD categories, sampling details, vector sensor specs. |
-| `Workflow.md` | File system layout, workflow tasks 0–6, data download details, raw data filenames, degenerate source files. |
+| `DeveloperGuide.md` | Technical map for collaborators/reusers: filesystem layout, workflow tasks 0–6, OOINET ordering + download, raw filename anatomy, shard convention. Absorbs the former `Workflow.md`. |
 | `Sharding.md` | Shard filename conventions, profile metadata, sensor operation modes. |
 | `Visualization.md` | Bundle plots, curtain plots, animations, midnight/noon annotation. |
-| `PostProcessing.md` | pp01/pp02 generation, sensor exclusions workflow, QC flags, S3 backup procedure, localhost disk management. |
+| `PostProcessing.md` | redux → ppNN pipeline: pp01/pp02 generation, pp05/pp06 filters, sensor exclusions workflow, QC flags. |
+| `DataOps.md` | Data operations: S3 backup/sync/restore, localhost WSL vhdx disk management. |
 | `PP05_QCAnalysis.md` | pp05 methodology: three-tier exclusion, suspect ranges, manifest design. |
 | `SpectralGraphAnalysis.md` | Module-by-module guide for the SGA notebook (rehearsal script, diagnostics, known issues). |
 | `TidalAnalysis.md` | Tidal prediction (TPXO10), start-depth correlation, blowdown events, further work. |
@@ -118,8 +120,14 @@ of these same files.
 | `VectorData.md` | Vector sensor integration (velocity, spectral irradiance, spectrophotometer). |
 | `Analysis.md` | Derived oceanographic parameters, data exploration ideas, SGA methodology. |
 | `Umbrella.md` | Expansion beyond shallow profiler: other data resources. |
+| `ColumbiaPlumePlan.md` | Columbia River plume detection plan; satellite (PO.DAAC) cross-comparison. |
+| `RCAWritLarge.md` | Broader Regional Cabled Array context. |
+| `OOIFAQandGeneralInfoSummary.md` | OOI FAQ / general information summary. |
 | `OOINETSlopeBaseDataStatus.md` | OOINET data availability status for Slope Base. |
+| `OOIUsability.md` | Usability notes on OOI data-access tools (OOINET parameter selection, provenance, annotations); friction points as DSC feedback. Working doc, not in the book. |
 | `Testing.md` | Test definitions: SGA synthetic validation, internal wave incompressibility check. |
+| `VisQC.md` | Visual QC workflow design (cline review; Inspector + planned Corrector). |
+| `Publishing.md` | Open-science / DOI archiving plan (Zenodo, Figshare, OSF; postproc subset). |
 | `SessionState.md` | Machine-readable session state for AI continuity (last updated, in-progress, blocked). |
 | `pp06ErraticFilterPrompt.md` | Design notes/prompt for pp06 erratic filter system. |
 | `DevelopmentLog.md` | Development narrative, open topics, pending items, Next prompt section. |

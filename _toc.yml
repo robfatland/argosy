@@ -1,28 +1,51 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
+#
+# Ordering authority for the published Jupyter Book. Structured by project phase.
+# Working/planning docs (DevelopmentLog, SessionState, VisQC, Testing, CoincidencePlans,
+# pp06ErraticFilterPrompt, Publishing) are intentionally EXCLUDED — they live in the repo
+# but are not part of the reader-facing book. Standalone artifacts (README, slides, the
+# AGU poster) are also intentionally out.
 
 format: jb-book
 root: intro
 parts:
 
-- caption: Documentation
+- caption: Orientation
   chapters:
     - file: ArgosyOverview
     - file: OOIObservatory
+    - file: RCAWritLarge
+    - file: OOIFAQandGeneralInfoSummary
     - file: SensorTable
-    - file: Workflow
+    - file: SETUP
+    - file: DeveloperGuide
+
+- caption: Phase 1 — Pipeline (raw to pp06)
+  chapters:
     - file: Sharding
-    - file: Visualization
     - file: PostProcessing
     - file: PP05_QCAnalysis
     - file: VectorData
+    - file: DataOps
+
+- caption: Phase 2 — Analysis
+  chapters:
+    - file: Visualization
     - file: Analysis
+    - file: SpectralGraphAnalysis
+    - file: InternalWaves
+    - file: TidalAnalysis
+    - file: ColumbiaPlumePlan
     - file: Umbrella
+
+- caption: Reference
+  chapters:
     - file: CodeManifest
     - file: OOINETSlopeBaseDataStatus
-    - file: DevelopmentLog
+    - file: reference/bibliography
 
-- caption: Chapters
+- caption: Chapters (executable notebooks)
   chapters:
     - file: chapters/DataDownload
     - file: chapters/DataSharding

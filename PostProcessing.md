@@ -1,42 +1,97 @@
 # PostProcessing
 
-
-Modifying redux by stages for analysis
-
-
-- Cleaning the data (removing bad data, noise reduction via filters)
-- Selecting particular data subsets
+> New to argosy? Start at `ArgosyOverview.md`. This is a Phase 1 (pipeline) document.
 
 
-The root data directory is referred to as `~/ooi`. The source data is downloaded to
-`~/ooi/ooinet` for sharding; informally Level 1 > Level 2. The sharded or "redux" 
-data consists of one NetCDF file per sensor per profile when available. Profiles
-are numbered sequentially according to external metadata. This provides a global
-profile index of consecutive integers starting 1, 2, 3, ... in 2015 for the
-Oregon Slope Base shallow profiler. There are nine possible profiles per day so
-from one day to the next the global profile index will increment by at most 9. 
-If a profile fails to run for some reason we have a non-profile or a missing 
-profile that is *not* assigned a global profile index. 
+The *redux* dataset maps profiles from raw OOINET data to shard files in the redux directory. From there the next step is "post-processing" to create multiple versions of the data, moving towards actual analysis.
+Thematically the post-processing results feature...
 
 
-The redux dataset, consisting of sensor-shard profiles, contains a considerable amount 
-of problematic data. We will operate on this data in stages to produce intermediate
-versions of the data and ultimately a "polished" version of the data suitable for
-analysis. Each postprocessing result gets its own designator in the format `ppNN`
-where `NN` is a two digit number starting at 01. Hence `pp01` and `pp02` are the
-first two postprocessing results and they happen to be unrelated to `pp05`. 
+- cleaner data: bad data removed, noise reduced via filters
+- data subsets: noon/midnight profiles
 
 
-The shallow profiler has a total of 15 sensors; 4 vector and 11 scalar. Of the
-11 scalar sensors three are considered Low Sample Density (LSD: 10 to 150 samples
-per profile) while the remaining 8 are considered High Sample Density (HSD: thousands
-of samples per profile). The LSD sensors only operate on profiles 4 and 9 each
-day; they do not operate on the other 7 profiles. A "day" is delimited using
-Greenwich Mean Time so there is about an 8 hour offset in time. For this reason
-profile 4 runs at midnight local time and profile 9 runs at noon local time, 
-approximately. To create a data subset that contains LSD data we isolate noon to
-`pp01` and midnight to `pp02` as described below.
+## Recap of the data filesystem logic 
 
+
+The data filesystem contains multiple types of data isolated from the project/repository directory `~/argosy`. 
+
+
+### Sites
+
+The project covers three shallow-profiler sites. All three share the identical
+sensor layout (15 sensors: 4 vector + 11 scalar), so the sensor breakdown stated
+elsewhere in this doc applies to every site. Each site maintains its own Global
+Profile Index (GPI) sequence starting at 1.
+
+| Code | Site | OOI designator | SP node | Array |
+|------|------|----------------|---------|-------|
+| `sb` | Oregon Slope Base | `RS01SBPS` | `SF01A` | RCA (Cabled Continental Margin) |
+| `oo` | Oregon Offshore | `CE04OSPS` | `SF01B` | Coastal Endurance (cabled) |
+| `ab` | Axial Base | `RS03AXPS` | `SF03A` | RCA |
+
+These two-letter codes are the project-standard site identifiers used in the
+planned per-site directory layout (`~/ooi/<site>/...`) and in shard filenames.
+`~/ooi` is implicitly the RCA/Endurance *shallow-profiler* corpus; deep profilers
+and seafloor nodes, if added later, get their own root and their own structure.
+
+> **Note:** The layout described below reflects the *current* single-site state.
+> A restructure to the per-site tree (`~/ooi/<site>/{ooinet,redux/<yyyy>,postproc/<pp>/<yyyy>,profileIndices,metadata}`)
+> is planned and centralized through the `ooipaths.py` path module. See the
+> "Filesystem restructure" plan in `DevelopmentLog.md`.
+
+### Current layout
+
+All path knowledge is centralized in the `ooipaths.py` module (repo root); code should
+obtain paths from it rather than hardcoding. The layout is per-site: `<site>` is the
+2-letter code (`sb`/`oo`/`ab`, see Sites table above).
+
+- Data filesystem root on localhost is `~/ooi`
+- Per-site subtree: `~/ooi/<site>/{ooinet, redux, postproc, profileIndices, metadata, analysis, visualizations}`
+- Source raw data $\to$ `~/ooi/<site>/ooinet[/scalar|vector]`
+    - Backed up to `s3://s3ooi/ooinet/` (see note); local copy deletable to free space
+- Shards (redux) $\to$ `~/ooi/<site>/redux/<yyyy>` (e.g. `~/ooi/sb/redux/2016`)
+    - One NetCDF file per sensor per profile as available
+    - profiles numbered sequentially per external metadata
+        - Per site: Global Profile Index (GPI) starting 1, 2, 3, ...
+    - Nine possible profiles per day
+    - A skipped profile does not result in a GPI skip
+    - `redux` contains considerable problematic data
+        - This data is modified in stages to produce more usable subsets
+        - This is 'postprocessing'
+        - Results get a designator like `pp06`
+        - The various `pp` results form a directed graph
+- Postprocessing results $\to$ `~/ooi/<site>/postproc/<pp>/<yyyy>` (e.g. `~/ooi/sb/postproc/pp06/2022`)
+    - Uniform nesting across all pp results (pp01/pp02 no longer carry an extra `redux/` level)
+    - Within each year the files break out by sensor
+    - shallow profiler has 15 sensors
+        - 4 vector
+        - 11 scalar
+            - Three Low Sample Density (LSD: 10 to 150 per profile)
+                - Profiles 4 and 9 only (midnight and noon)
+            - Eight High Sample Density (HSD: thousands per profile)
+    - Days are delimited using Greenwich Mean Time
+        - 8 hour offset relative to local
+        - profile 4 runs at midnight local time
+        - profile 9 runs at noon local time
+        - Noon-only is `pp01` and Midnight-only is `pp02`
+    - Data file example (filenames are unchanged by the per-site restructure — the site
+      lives in the directory path AND the `RCA_<site>_sp` filename token):
+        - `~/ooi/sb/postproc/pp06/2022/RCA_sb_sp_dissolvedoxygen_2022_043_13614_1_V1.nc`
+              - Regional Cabled Array
+              - `sb` = Slope Base (site token)
+              - Shallow Profiler
+              - Sensor = Dissolved Oxygen (HSD)
+              - Year 2022, Julian day 43
+              - Global Profile Index 13614
+              - Day relative profile is number 1
+              - This is version 1 (V1) of this data
+              - File is NetCDF format
+- `~/ooi/<site>/profileIndices` stores start/peak/end timestamps for profiles
+- Metadata is stored in `~/ooi/<site>/metadata`
+    - This does not include profile start/peak/end timestamps
+    - A breakdown of metadata types, folders and names is pending
+        - See "Metadata folder inventory" in `DevelopmentLog.md` → Pending To Do
 
 
 ## Post-Processing 01 02 noon midnight profile subset
@@ -50,6 +105,45 @@ chemical sensors. From 2017 onward, three sensors operate exclusively on these t
 profiles: nitrate (ascent, ~150 pts/profile), pCO2 (descent, ~10 pts), and pH (descent,
 ~10 pts). pH has shard files for all 9 daily indices but only indices 4 and 9 contain
 usable data.
+
+
+### Implementation
+
+
+Single script: `~/argosy/postprocess_special_profiles.py`
+
+```
+python postprocess_special_profiles.py noon      # writes to pp01
+python postprocess_special_profiles.py midnight  # writes to pp02
+```
+
+The script:
+- Reads the corresponding metadata CSV
+- For each profile global index, locates all matching shard files in `~/ooi/<site>/redux/<yyyy>/`
+- Applies depth filter on the temperature shard
+- Copies passing shards to `~/ooi/<site>/postproc/pp01/<yyyy>/` (or pp02), renaming V1 to V2
+- Handles missing shards gracefully: logs and skips
+- Prints summary: total profiles in CSV, excluded by depth filter, copied per sensor, missing shards
+
+
+### Results (May 2026)
+
+
+| | pp01 (noon) | pp02 (midnight) |
+|---|---|---|
+| Profiles in CSV | 2480 | 2443 |
+| No shards in redux | 1 | 2 |
+| Excluded (depth > 50m) | 200 | 186 |
+| Included | 2279 | 2255 |
+| Total shards copied | 17,148 | 17,029 |
+
+
+Depth histograms, computed from included profiles only, 2-meter bins, x-axis brackets
+non-zero data ±6m:
+- `~/ooi/sb/visualizations/pp01_depth_histogram_deep.png`
+- `~/ooi/sb/visualizations/pp01_depth_histogram_shallow.png`
+- `~/ooi/sb/visualizations/pp02_depth_histogram_deep.png`
+- `~/ooi/sb/visualizations/pp02_depth_histogram_shallow.png`
 
 
 ## Postprocessing 05+: basic data cleaning
@@ -82,14 +176,16 @@ The scalar sensors fall into two groups as described above.
 from the redux dataset.
 
 
-- Source: `~/ooi/redux/redux<yyyy>` where `yyyy` is a year: 2015, 2016 etcetera
+- Source: `~/ooi/<site>/redux/<yyyy>` where `<yyyy>` is a year: 2015, 2016 etcetera
 - pp05 rules
     - Exclude profiles falling within manual exclusion windows (`sensor_exclusions.csv`)
     - Exclude profiles where >20% of values fall outside site-specific suspect ranges
     - For HSD sensors: include all 9 daily profiles (PAR excludes nighttime indices 3/4/5)
     - For LSD sensors: include only daily_index 4 and 9; require minimum valid points (nitrate >= 50, pH >= 5, pCO2 >= 5)
     - Per-sensor logic: excluding one sensor's shard does not affect other sensors at the same global index
-- Output: `~/ooi/metadata/pp05_manifest.csv`
+- Output: `~/ooi/<site>/metadata/pp05_manifest.csv`
+- Note: the manifest's `filepath` column stores absolute source paths; if the data tree
+  moves, regenerate the manifest or path-patch it (see the restructure gotcha in `DevelopmentLog.md`).
 - Script: `~/argosy/postprocess_pp05.py`
 - Manifest columns: `filepath, sensor, year, doy, global_idx, daily_idx, n_valid, n_suspect`
 - Resumable: appends per-year, skips completed years. Delete the manifest to regenerate from scratch.
@@ -106,7 +202,7 @@ filtering to remove erratic data points within individual profiles.
 
 - Source: pp05 manifest → corresponding redux shard files
 - Sensors: temperature, salinity, density, dissolvedoxygen, cdom, chlora, backscatter, par
-- Output: `~/ooi/postproc/pp06/redux<yyyy>/<shard_files>.nc`
+- Output: `~/ooi/<site>/postproc/pp06/<yyyy>/<shard_files>.nc`
 - Script: `~/argosy/postprocess_pp06.py` (Filter 0 + Filter 1)
 - Script: `~/argosy/postprocess_pp06_filter2.py` (Filter 2)
 - Script: `~/argosy/postprocess_pp06_filter3.py` (Filter 3)
@@ -169,69 +265,6 @@ See `TidalAnalysis.md` for the TPXO10 tidal prediction methodology and start-dep
 correlation results. Not yet implemented as a postprocessing correction.
 
 
-## QC Filter (qartod flags)
-
-
-### Motivation
-
-OOI source NetCDF files include per-observation QARTOD quality flags
-(`<variable>_qartod_results`): 1=Pass, 2=Not Evaluated, 3=Suspect, 4=Fail, 9=Missing.
-
-A study of a January 2018 CTD file (1.57M observations, 18 days) found:
-- Temperature: 0.11% suspect (1,707 obs)
-- Conductivity: 9.38% suspect (147,535 obs) — likely clogged cell issue
-- All other variables: 0% suspect
-
-The conductivity issue is significant. Derived salinity passes its own gross-range
-test even when conductivity is flagged, suggesting the flag may be overly conservative.
-
-### Status
-
-Not yet incorporated into the pipeline. A future filter (pp03 or pp04) could use
-qartod flags to exclude suspect observations before or during sharding. Key question:
-do the 0.11% suspect temperature values fall within profiles (actionable) or at rest
-(ignorable)?
-
-
-Computed from included profiles only, 2-meter bins, x-axis brackets non-zero data ±6m:
-- `~/ooi/visualizations/pp01_depth_histogram_deep.png`
-- `~/ooi/visualizations/pp01_depth_histogram_shallow.png`
-- `~/ooi/visualizations/pp02_depth_histogram_deep.png`
-- `~/ooi/visualizations/pp02_depth_histogram_shallow.png`
-
-
-### Implementation
-
-
-Single script: `~/argosy/postprocess_special_profiles.py`
-
-```
-python postprocess_special_profiles.py noon      # writes to pp01
-python postprocess_special_profiles.py midnight  # writes to pp02
-```
-
-The script:
-- Reads the corresponding metadata CSV
-- For each profile global index, locates all matching shard files in `~/ooi/redux/redux<yyyy>/`
-- Applies depth filter on the temperature shard
-- Copies passing shards to `~/ooi/postproc/pp01/redux/redux<yyyy>/` (or pp02), renaming V1 to V2
-- Handles missing shards gracefully: logs and skips
-- Prints summary: total profiles in CSV, excluded by depth filter, copied per sensor, missing shards
-
-
-### Results (May 2026)
-
-
-| | pp01 (noon) | pp02 (midnight) |
-|---|---|---|
-| Profiles in CSV | 2480 | 2443 |
-| No shards in redux | 1 | 2 |
-| Excluded (depth > 50m) | 200 | 186 |
-| Included | 2279 | 2255 |
-| Total shards copied | 17,148 | 17,029 |
-
-
-
 ## QC Filter
 
 
@@ -256,7 +289,7 @@ The QARTOD system is the more interpretable and actionable of the two.
 
 Source file examined:
 ```
-~/ooi/ooinet/rca/SlopeBase/scalar/2018_ctd/
+~/ooi/sb/ooinet/scalar/2018_ctd/
   deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_
   20180119T191420.236756-20180206T235959.424256.nc
 ```
@@ -323,105 +356,7 @@ A future QC-based filter (potentially pp03 or pp04) could:
 - Design and implement the filter as a post-processing step.
 
 
-## S3 Backup: Syncing ooinet to AWS
+## Data operations (S3 sync, disk management)
 
-The `~/ooi/ooinet/` directory (204 GB of source NetCDF files from OOINET) is
-backed up to S3. This allows the local copy to be deleted to free disk space,
-with the data retrievable from the cloud if re-sharding is ever needed.
-
-### Sync command
-
-```bash
-aws s3 sync ~/ooi/ooinet/ s3://s3ooi/ooinet/ --storage-class STANDARD_IA
-```
-
-- Uploads only new/changed files (compares size and modification time)
-- `STANDARD_IA`: ~$0.0125/GB/month (~$2.55/month for 204 GB)
-- One-directional: local → S3. Does not delete from S3 if deleted locally.
-- Safe to interrupt with Ctrl+C and restart — picks up where it left off.
-- Bandwidth throttle (optional): `aws configure set default.s3.max_bandwidth 25MB/s`
-
-### When to run
-
-Run overnight or when stepping away. The main impact is network bandwidth.
-Does not lock files or interfere with local reads. At 50 Mbps upload: ~9 hours
-for a full 200 GB sync.
-
-### Verification after sync
-
-```bash
-aws s3 ls s3://s3ooi/ooinet/ --recursive --summarize | tail -3
-```
-
-Compare object count and total size against:
-```bash
-du -sh ~/ooi/ooinet/
-find ~/ooi/ooinet -type f | wc -l
-```
-
-### After verification: freeing local space
-
-Once the sync is verified complete, `~/ooi/ooinet/` can be deleted locally to
-reclaim ~204 GB. Redux (18 GB) and postproc remain local as working datasets.
-To restore from S3 if needed:
-
-```bash
-aws s3 sync s3://s3ooi/ooinet/ ~/ooi/ooinet/
-```
-
-
-## Localhost Data Management
-
-### WSL virtual disk (ext4.vhdx)
-
-WSL stores its entire Linux filesystem in a single file on C: drive:
-```
-C:\Users\robfa\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc\LocalState\ext4.vhdx
-```
-
-Key behaviors:
-- The vhdx **grows** automatically as WSL writes data
-- It does **not shrink** automatically when data is deleted inside WSL
-- `df -h /` inside WSL reports virtual capacity, NOT actual C: drive free space
-- The real constraint is C: drive free space (check with `Get-PSDrive C` in PowerShell)
-
-### Checking actual free space
-
-From inside WSL, `df` is misleading. Always check from Windows:
-```powershell
-Get-PSDrive C | ForEach-Object { "C: Free: $([math]::Round($_.Free/1GB,1)) GB" }
-```
-
-### Compacting the vhdx (reclaiming C: space after deleting data in WSL)
-
-After deleting large amounts of data inside WSL, the vhdx retains its size on C:.
-To reclaim that space:
-
-1. Inside WSL, discard freed blocks: `sudo fstrim -v /`
-2. **Close Kiro/VS Code** (it holds the vhdx open via `\\wsl.localhost\` paths)
-3. Open Command Prompt **as Administrator**
-4. Run:
-```
-wsl --shutdown
-diskpart
-select vdisk file="C:\Users\robfa\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc\LocalState\ext4.vhdx"
-compact vdisk
-exit
-```
-
-Important: Kiro must be closed first — its file access keeps the vhdx locked.
-
-### When compaction is NOT needed
-
-If you delete data inside WSL and then write new data of similar size, the vhdx
-reuses the freed internal space without growing. Compaction is only needed when
-you want to reclaim C: space for other Windows programs. WSL itself is not
-constrained by the vhdx being "too large" — it can use all internal free space
-regardless of whether the vhdx has been compacted.
-
-### Current state (May 2026)
-
-- `~/ooi/ooinet/` deleted locally (204 GB), backed up to `s3://s3ooi/ooinet/`
-- vhdx is 288 GB on disk with ~75 GB used internally (~213 GB internal headroom)
-- C: drive has ~32 GB free (would be ~230 GB after successful compaction)
-- WSL can write ~200 GB of new data without any C: space issues
+Cloud backup to S3 and localhost disk-space management have moved to `DataOps.md`.
+See `DataOps.md` for S3 sync/verify/restore commands and WSL vhdx compaction.

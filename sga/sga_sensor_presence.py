@@ -7,6 +7,7 @@
 #
 # Input: start month (MM-YYYY) and end month (MM-YYYY)
 
+import sys
 import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,8 +15,13 @@ from pathlib import Path
 from datetime import datetime
 import pandas as pd
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # Configuration
-DATA_BASE = Path("~/ooi/postproc/pp06").expanduser()
+DATA_BASE = op.postproc_base(SITE) / "pp06"
 SENSORS = ['temperature', 'salinity', 'density', 'dissolvedoxygen',
            'cdom', 'chlora', 'backscatter']
 
@@ -45,7 +51,7 @@ years_to_scan = list(range(start_year, end_year + 1))
 sensor_dates = {sensor: [] for sensor in SENSORS}
 
 for year in years_to_scan:
-    redux_dir = DATA_BASE / f"redux{year}"
+    redux_dir = op.postproc_dir("pp06", year, SITE)
     if not redux_dir.exists():
         continue
 
@@ -94,7 +100,7 @@ ax.grid(True, axis='x', alpha=0.3)
 plt.tight_layout()
 
 # Save
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 SGA_DIR.mkdir(parents=True, exist_ok=True)
 plt.savefig(SGA_DIR / 'sensor_presence.png', dpi=150, bbox_inches='tight')
 plt.show()

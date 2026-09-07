@@ -1,0 +1,206 @@
+# BR — Bicameral Redesign (September 2026)
+
+> **Status: DESIGN / DELIBERATION. No file moves, renames, new folders, or rewrites yet.**
+> This document thinks through options and tradeoffs first, then converges on a plan.
+> Implementation happens only after the plan below is settled and explicitly approved.
+
+## What BR is
+
+BR is the **Bicameral Redesign**, a September 2026 fix-up of Argosy. "Bicameral" alludes to
+Argosy's two-chamber nature: the **Jupyter Book** (the science narrative, reader-facing) and
+the **working data-analysis environment** (code + data that produce results). The redesign
+aims to make that dichotomy clean and legible instead of tangled by organic growth.
+
+It serves two personae in particular:
+- **Arthur** (science reader) — sees the Book. Should encounter Phase 2 analysis, not pipeline plumbing.
+- **Chuck** (collaborator) — works the machinery. Needs the pipeline and analysis code cleanly separated and discoverable.
+
+## Goals (the "done" criteria for BR)
+
+1. **Phase separation is physical, not just conceptual.** Phase 1 (pipeline) code and Phase 2
+   (analysis) code live in clearly distinct, self-describing locations.
+2. **The Book contains Phase 2, and (almost) no Phase 1.** Phase-1 code that grew inside Book
+   notebooks is identified and moved out (or demoted to repo-only working notebooks).
+3. **Default time range is 2014–2026 (soon 2027) and runs without hanging.** No hardcoded
+   narrow windows (e.g. the leftover 2024 defaults); year ranges derive from data or config.
+4. **Everything conforms to the per-site data restructure** (`~/ooi/<site>/...`, all paths via
+   `ooipaths.py`, 2-letter site codes, no `slopebase`-style legacy tokens).
+5. Redesign supports Arthur (Book) and Chuck (machinery) reading paths without friction.
+
+## Non-goals / constraints
+
+- Not a science-methods change: the physics/QC logic stays; this is about **organization**.
+- Must not break the AB run happening in parallel (see "Parallel track" below).
+- Follow the project rule: don't move data into `~/argosy`; generated data → `~/ooi`.
+
+
+## Bicameral model (the two chambers)
+
+| | Chamber A: Jupyter Book | Chamber B: Working environment |
+|---|---|---|
+| Audience | Arthur (reader), Maggie (oversight) | Chuck (collaborator), the pipeline itself |
+| Content | Phase 2 analysis, narrative, figures | Phase 1 pipeline, QC, data production |
+| In `_toc.yml`? | Yes | No (repo-only) |
+| Examples | internal-wave analysis, SGA, tidal, plume | download/shard/pp/VisQC, ooipaths |
+
+**Phase 1** = the data pipeline that produces analysis-ready datasets **and metadata**
+(download → shard → pp05 → pp06 → **pp07/VisQC**). Tends NOT to appear in the Book.
+**Phase 2** = analysis on those datasets (internal wave amplitude/speed, SGA, tidal, plume).
+SHOULD appear in the Book.
+
+
+## Central question raised this session: where does VisQC / cline work live?
+
+The `iw/` folder currently MIXES both phases (inventory below). The user proposes:
+- **VisQC is a good Phase-1 process name**, with two outputs:
+  1. a **pp07** version of the shard data (by site and year) — human-QC-corrected shards;
+  2. a **metadata file, one line per profile**, describing clines + N² + MLD.
+- Open question: should this Phase-1 QC work get its **own dedicated directory**, or go into
+  **`~/argosy/pipeline/`** (alongside download.py / shard.py / run_pipeline.sh)?
+
+### Current `iw/` inventory (classified)
+
+Phase 1 (pipeline/QC — operate on pp06 to produce metadata / planned pp07):
+- `cline_extract.py` — batch: pp06 → per-profile cline depths/strengths/thickness, N²(max/depth),
+  MLD, σ₀; writes `metadata/features/cline_extract_<site>.csv`. (This IS the "one line per
+  profile" metadata the user describes for VisQC output #2.)
+- `cline_plot.py` — time-series viewer of the cline_extract CSV (dual-mode after this session).
+- `VisQCInspector.py` — interactive human QC over pp06 (two-panel GUI + Accept/Correct/Discard
+  → `metadata/annotations/visqc_visitation_<site>.csv`).
+
+Phase 2 (analysis/theory — Book-facing):
+- `internal_wave.py` — idealized westward internal-wave animation (→ mp4).
+- `internal_wave_physics.py` — stream-function physics (incompressible displacement field).
+- `TestInternalWaveIncompressibility.py` — area-conservation test of that physics.
+
+So `iw/` = "internal waves" but has accreted the Phase-1 cline/QC toolchain that merely
+*feeds* internal-wave analysis. That is the mess to untangle.
+
+### Option set for the Phase-1 QC code location (NOT YET DECIDED)
+
+**Option 1 — Fold into `~/argosy/pipeline/`.**
+- Pro: one home for all Phase-1 code; matches the mental model "pipeline = Phase 1"; run_pipeline
+  could eventually call cline_extract as a pp-adjacent step.
+- Con: `pipeline/` so far is batch/headless/cloud-run (download/shard/pp). VisQCInspector is an
+  interactive local GUI — a different beast. Mixing batch and GUI in one folder may re-blur things.
+
+**Option 2 — A dedicated Phase-1 QC folder (e.g. `~/argosy/visqc/` or `~/argosy/qc/`).**
+- Pro: names the process the user likes ("VisQC"); keeps interactive QC distinct from the
+  headless pipeline; clear home for Inspector + Corrector + cline_extract + cline_plot.
+- Con: a third code folder to know about; need to decide what counts as "QC" vs "pipeline."
+
+**Option 3 — Split by execution mode, not just phase:** batch pp-producers (cline_extract) into
+`pipeline/`; interactive tools (VisQCInspector, cline_plot) into a `visqc/` or `tools/` folder.
+- Pro: respects the batch-vs-interactive distinction that Option 1's con exposes.
+- Con: cline_extract and its viewer/inspector get separated, though they're a tight family.
+
+**DECIDED (2026-09-07): Option 2 — a dedicated `~/argosy/visqc/` directory** for the 0607 task.
+Rationale from the user: do NOT muddy `~/argosy/pipeline/` (which is headless/batch/cloud) with
+the interactive VisQC work. The `visqc/` folder holds the cline/QC family (cline_extract,
+cline_plot, VisQCInspector, future VisQCCorrector). The three Phase-2 internal-wave files move to
+a Phase-2 analysis home (see below). Keeps "VisQC = Phase-1 process producing pp07 + per-profile
+metadata" intact and unmixed. (Still open: whether the folder should be named `visqc/` given
+cline_extract isn't strictly "visual" — see open question 5; but `visqc/` is the working choice.)
+
+### The pp07 question (needs a definition before building)
+
+pp07 is referenced as the deferred "human-corrected shards" output (VisQC.md, Analysis.md's
+`pp05 > pp06 > pp07`). BR should NAIL DOWN:
+- Is pp07 a full re-shard, or a filtered/annotated copy of pp06 (like filter2/filter3)? (Prior
+  finding: filters read pp06, not redux — pp07 likely follows.)
+- Layout: `~/ooi/<site>/postproc/pp07/<yyyy>/` (consistent with pp06). Confirm.
+- Who writes it: the planned `VisQCCorrector.py` (Stage 2), consuming the visitation CSV +
+  cline_extract + pp06.
+
+
+## Where do the Phase-2 internal-wave files go?
+
+Candidates: a `~/argosy/analysis/` or `~/argosy/iw/` (kept, but Phase-2-only after the cline/QC
+family moves out). The Book chapter `InternalWaves.ipynb` is the Phase-2 narrative that should
+consume these. Decide alongside the SGA/tidal/plume folders (are those already organized by
+phase? — audit pending).
+
+
+## Phase-1 code that grew inside the Jupyter Book (audit pending)
+
+Book notebooks (`chapters/`) currently include: DataDownload, DataSharding, MidnightNoon,
+Visualizations, SpectralGraphAnalysis, StubWork. Of these, **DataDownload** and **DataSharding**
+are Phase-1 pipeline steps living in Book space. BR should decide:
+- Move them out of the Book (repo-only notebooks, or supersede by `pipeline/download.py` +
+  `pipeline/shard.py` which already exist)?
+- The SessionState already flags "thin DataDownload/DataSharding to call pipeline/ modules" —
+  BR is the natural place to resolve that.
+- MidnightNoon / Visualizations: Phase-1 or Phase-2? (Visualization feeds analysis; midnight/noon
+  is profile classification metadata = arguably Phase 1.) Audit + classify each chapter.
+
+
+## Default time-range hardening (cross-cutting)
+
+Leftover narrow defaults to purge (found so far):
+- `VisQCInspector.py`: default start 2024-01-01 (now env-overridable, but 2024 is the default).
+- `cline_plot.py`: FIXED this session (now full data span).
+- `cline_extract.py`: START_YEAR/END_YEAR = 2015/2025 — should be 2014–2026 (→2027).
+BR guideline: year ranges come from the data present or explicit config, spanning 2014–2026+,
+and long runs must not hang.
+
+
+## Parallel track (does NOT wait on BR)
+
+AB data is on order from OOINET (node SF03A, RS03AXPS, start 2014-12-01, **includes pCO2**).
+When the staging URLs arrive: git commit-sweep → `cdk deploy` → `run_pipeline.sh ab all` →
+verify S3 → `cdk destroy`. See SessionState "NEXT SITE = ab" checklist. BR design work proceeds
+in parallel and should not block (or be blocked by) the AB run.
+
+
+## Open questions to resolve (running list)
+
+1. [DECIDED] VisQC/cline code location: **`~/argosy/visqc/`** (Option 2). Don't muddy `pipeline/`.
+2. [PARKED — needs data review in the Vis notebook] Define pp07 precisely (re-shard vs filtered
+   copy of pp06; who writes it; layout `postproc/pp07/<yyyy>/`?).
+3. [PARKED — undecided; remind user] Phase-2 internal-wave file home; reconcile with SGA/tidal/
+   plume folder organization.
+4. [DECIDED] `chapters/` classification: **MidnightNoon OUT** of Book (Phase-1 profile class.);
+   **Visualizations STAYS** in Book (Phase-2); **DataDownload OUT**, **DataSharding OUT** (Phase-1,
+   superseded by pipeline/download.py + pipeline/shard.py). SpectralGraphAnalysis stays (Phase-2);
+   StubWork = scratch (TBD).
+5. [DECIDED] Folder is **`visqc/`** and it DOES house cline_extract + cline_plot ("part and
+   parcel"), not only the visual inspector. There is NO separate `qc/`.
+6. [OPEN] How much of this is reversible/low-risk vs. needs care (git-tracked moves, import updates).
+
+
+## Possible orphans (repo scan, 2026-09-07)
+
+Scan scope: `~/argosy` code + docs only (not the `~/ooi` data tree). "Orphan" = no textual
+reference in .py/.md/.ipynb/.yml/.sh.
+
+**Deleted this session (user-approved):**
+- `ctd_coverage.png`, `ctd_minimum_cover.png` — raw-OOINET-overlap visuals produced by
+  DataDownload/DataSharding; stray at repo root (generated images belong in
+  `~/ooi/<site>/visualizations/`). Notebook code that made them is not a concern.
+- `vbeamatten.csv`, `vcurrent.csv`, `vopticalabsorb.csv`, `vspectralirr.csv` — vector-sensor
+  channel CSVs anticipating a future vector-data download; not needed now. NOTE: three of these
+  (vcurrent, vspectralirr, vopticalabsorb) are still referenced by `SensorTable.md` and
+  `CodeManifest.md` → those docs need reconciliation (BR follow-up). `vbeamatten.csv` was
+  already unreferenced. `SensorTable.md` also references a `vspectrophot.csv` that never existed.
+
+**Also noticed (not deleted — clutter, gitignored `_*.py`):**
+- `_check_ranges.py`, `_check_smap.py`, `_check_sst.py` — leftover temp scripts (convention says
+  delete after use). Untracked; safe to remove anytime.
+
+**BR follow-up: DONE (2026-09-07).** Reconciled the vector-CSV references after the vXXXX.csv
+deletions: `SensorTable.md` (companion-files line reworded to "deferred until vector download";
+phantom `vspectrophot.csv` mention dropped), `CodeManifest.md` (four v*.csv rows removed), and
+the `argosy-conventions.md` steering (vector-channel line reworded). No dangling references remain.
+
+
+## Change log (BR deliberation)
+
+- 2026-09-07: BR.md created. Inventoried `iw/` (3 Phase-1 QC files + 3 Phase-2 IW files).
+  Framed the bicameral model, the VisQC-location option set (leaning Option 2, not decided),
+  the pp07-definition gap, the Book-notebook audit, and the time-range hardening. No files moved.
+- 2026-09-07 (later): Decisions recorded. #1 visqc/ (Option 2). #4 notebook classification:
+  MidnightNoon out, Visualizations stays, DataDownload+DataSharding out. #5 visqc/ houses the
+  cline family too (no separate qc/). #2 (pp07) parked pending Vis-notebook data review. #3 (IW
+  Phase-2 home) parked, remind user. Also clarified the environment model: GitHub is master;
+  laptop = working master (edit+commit+push); EC2 only pulls (ephemeral, dies on cdk destroy) —
+  so download_link_list.txt lives on the laptop and travels laptop→GitHub→EC2.

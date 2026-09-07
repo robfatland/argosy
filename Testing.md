@@ -11,7 +11,7 @@ but with clearly defined, known properties. Run SGA modules 1–7 on this synthe
 data and verify that the clustering output matches expectations.
 
 Synthetic dataset design:
-- Location: `~/ooi/postproc/pp06synthetic/redux<yyyy>/`
+- Location: `~/ooi/<site>/postproc/pp06synthetic/<yyyy>/` (e.g. `~/ooi/sb/postproc/pp06synthetic/2022/`)
 - Format: identical shard filenames and NetCDF structure to pp06
 - Content: two distinct water column "states" (e.g. summer-stratified vs winter-mixed)
   constructed analytically with known temperature/salinity/density profiles

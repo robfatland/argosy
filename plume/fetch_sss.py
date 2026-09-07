@@ -4,21 +4,27 @@
 # Fetches SMAP daily SSS in yearly chunks, computes 8-day rolling mean.
 # Merges with any existing data in the output CSV (fills gaps).
 #
-# Output: ~/ooi/metadata/satellite_sss_slopebase.csv
+# Output: ~/ooi/<site>/metadata/external/satellite_sss_slopebase.csv
 #
 # Dataset: SMAP SSS Daily, Global 0.25° (noaacwSMAPsssDaily)
 # Variable: sss (with altitude dimension = 0)
 # No authentication required.
 
 import pandas as pd
+import sys
 import numpy as np
 from pathlib import Path
 from io import StringIO
 import urllib.request
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
 
-OUTPUT_DIR = Path("~/ooi/metadata").expanduser()
+OUTPUT_DIR = op.metadata_dir(SITE, "external")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_PATH = OUTPUT_DIR / "satellite_sss_slopebase.csv"
 

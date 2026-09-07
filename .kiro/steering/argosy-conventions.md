@@ -8,7 +8,13 @@
 
 - Repository: `~/argosy` — code, markdown, Jupyter Book. No data files here.
 - Data: `~/ooi` — all NetCDF source files, redux shards, postproc, analysis outputs, visualizations.
+  Per-site layout: `~/ooi/<site>/{ooinet, redux/<yyyy>, postproc/<pp>/<yyyy>, profileIndices, metadata, analysis, visualizations}`
+  where `<site>` is a 2-letter code (`sb`=Slope Base, `oo`=Oregon Offshore, `ab`=Axial Base).
+  All path knowledge is centralized in `~/argosy/ooipaths.py` — code MUST obtain paths from it
+  (e.g. `op.redux_dir(year, site)`, `op.postproc_dir(pp, year, site)`) rather than hardcoding.
 - The two are mirrored independently: `argosy` to GitHub, `ooi` to S3 (`s3ooi` bucket).
+  S3 mirrors the per-site layout: `s3://s3ooi/<site>/redux/<yyyy>/`, `s3://s3ooi/<site>/postproc/<pp>/<yyyy>/`.
+  Exception: `s3://s3ooi/ooinet/rca/...` (204 GB raw archive) retains legacy keys, not re-keyed.
 
 ## Documentation
 
@@ -41,23 +47,26 @@
 ## Sensor table
 
 - Authoritative source: `~/argosy/sensortable.csv`
-- Folder naming in `~/ooi/ooinet/rca/SlopeBase/scalar/` uses the `key` column: `<year>_<key>` (e.g. `2018_ctd`, `2022_nitr`, `2015_par`).
-- Vector channel files: `vcurrent.csv`, `vspectralirr.csv`, `vopticalabsorb.csv`, `vbeamatten.csv`.
+- Folder naming in `~/ooi/<site>/ooinet/scalar/` uses the `key` column: `<year>_<key>` (e.g. `2018_ctd`, `2022_nitr`, `2015_par`). For Slope Base: `~/ooi/sb/ooinet/scalar/`.
+- Vector channel definitions (velocity, spectral irradiance, optical absorption, beam attenuation) are deferred until vector-data download is implemented (placeholder `v*.csv` files removed Sep 2026; regenerate when needed). See `VectorData.md`.
 - When the sensor table changes, update both `sensortable.csv` and `SensorTable.md`.
 
 ## Data pipeline
 
 - Download: `chapters/DataDownload.ipynb`. URLs in `~/argosy/download_link_list.txt` (lines starting with `#` are ignored).
-- Sharding: `chapters/DataSharding.ipynb`. Reads from `~/ooi/ooinet/...`, writes to `~/ooi/redux/redux<yyyy>/`.
-- Post-processing: `~/argosy/postprocess_special_profiles.py`. Reads redux, writes to `~/ooi/postproc/pp01/` or `pp02/`.
+- Sharding: `chapters/DataSharding.ipynb`. Reads from `~/ooi/<site>/ooinet/...`, writes to `~/ooi/<site>/redux/<yyyy>/`.
+- Post-processing: `~/argosy/postprocess_special_profiles.py`. Reads redux, writes to `~/ooi/<site>/postproc/pp01/<yyyy>/` or `pp02/`.
 - Sensor exclusions: `~/argosy/sensor_exclusions.csv`. Manual QC embargo list (sensor, start, end, reason). Consumed by the curtain plot and the postprocess script. Add entries when fouling or anomalies are observed.
-- Profile metadata: `~/ooi/profileIndices/` (read-only clone from GitHub). Derived metadata goes to `~/ooi/metadata/`.
-- Visualizations saved to disk go to `~/ooi/visualizations/`. Copies for the repo go to `~/argosy/images/`.
+- Profile metadata: `~/ooi/<site>/profileIndices/` (from GitHub clone; designator-keyed CSVs placed per site — an explicit ingest step). Derived metadata goes to `~/ooi/<site>/metadata/`.
+- Visualizations saved to disk go to `~/ooi/<site>/visualizations/`. Copies for the repo go to `~/argosy/images/`.
 
 ## Shard filename convention
 
-`RCA_sb_sp_<sensor>_<yyyy>_<ddd>_<global_index>_<daily_index>_<version>.nc`
+`RCA_<site>_sp_<sensor>_<yyyy>_<ddd>_<global_index>_<daily_index>_<version>.nc`
+(e.g. `RCA_sb_sp_temperature_2022_043_13614_1_V1.nc`)
 
+- `<site>`: 2-letter site token, matches the site directory (`sb`/`oo`/`ab`). Filenames were
+  NOT changed by the per-site restructure — the site appears in both the path and this token.
 - `<sensor>`: from `shard` column of sensor table (e.g. `temperature`, `dissolvedoxygen`, `nitrate`)
 - `<global_index>`: from `profileIndices` (starts at 1 in July 2015, exceeds 20000 by 2026)
 - `<daily_index>`: 1–9 (which profile of the day)
@@ -111,6 +120,17 @@ These conventions ensure smooth handoff between kiro sessions (context window fu
 - Remove completed items from "Pending To Do".
 - Update "## Next" to reflect the actual next priority.
 - If a new operational procedure was added to any doc, add the pointer in `ArgosyOverview.md` → "Pointers to Key Actions".
+
+### Self-documenting subfolders (README on creation)
+
+When creating a subfolder to hold an existing set of files, create a `README.md` in that
+subfolder that begins:
+
+> This folder `<path>` contains files for `<short purpose statement>`.
+
+Append a bullet list of the source files (scripts that produce or consume the folder's
+contents, e.g. `VisQCInspector.py`) with one-line summaries of what each does. The goal is
+to make data folders (especially `metadata/` and its subfolders) somewhat self-documenting.
 
 ## Key rules
 

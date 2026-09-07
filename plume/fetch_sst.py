@@ -4,21 +4,27 @@
 # Fetches NOAA Coral Reef Watch daily SST in yearly chunks.
 # Merges with any existing data in the output CSV (fills gaps, doesn't overwrite).
 #
-# Output: ~/ooi/metadata/satellite_sst_slopebase.csv
+# Output: ~/ooi/<site>/metadata/external/satellite_sst_slopebase.csv
 #
 # Dataset: NOAA CRW Daily Global 5km SST (noaacrwsstDaily)
 # Variable: analysed_sst
 # No authentication required.
 
 import pandas as pd
+import sys
 import numpy as np
 from pathlib import Path
 from io import StringIO
 import urllib.request
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
 
-OUTPUT_DIR = Path("~/ooi/metadata").expanduser()
+OUTPUT_DIR = op.metadata_dir(SITE, "external")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_PATH = OUTPUT_DIR / "satellite_sst_slopebase.csv"
 

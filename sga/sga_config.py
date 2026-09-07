@@ -6,11 +6,18 @@
 # For meta-runs (parameter sweeps), modify this config and re-run the pipeline.
 
 import pickle
+import sys
 from pathlib import Path
 import numpy as np
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+
+SITE = op.DEFAULT_SITE
+
 # Output directory
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 SGA_DIR.mkdir(parents=True, exist_ok=True)
 
 # =============================================================================
@@ -19,7 +26,7 @@ SGA_DIR.mkdir(parents=True, exist_ok=True)
 
 config = {
     # --- Data source ---
-    'data_base': str(Path("~/ooi/postproc/pp06").expanduser()),
+    'data_base': str(op.postproc_base(SITE) / "pp06"),
 
     # --- Time range ---
     'start_year': 2023,

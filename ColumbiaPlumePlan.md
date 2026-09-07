@@ -79,8 +79,8 @@ offshore_sss = ds['sss_smap'].sel(latitude=44.66, longitude=-124.95, method='nea
 slopebase_sss = ds['sss_smap'].sel(latitude=44.53, longitude=-125.39, method='nearest')
 
 # Save to CSV
-offshore_sss.to_dataframe().to_csv('~/ooi/metadata/smap_sss_offshore.csv')
-slopebase_sss.to_dataframe().to_csv('~/ooi/metadata/smap_sss_slopebase.csv')
+offshore_sss.to_dataframe().to_csv('~/ooi/oo/metadata/smap_sss_offshore.csv')
+slopebase_sss.to_dataframe().to_csv('~/ooi/sb/metadata/smap_sss_slopebase.csv')
 ```
 
 Note: Variable names and coordinate names may differ slightly. Check with
@@ -129,11 +129,11 @@ with a lag of days to weeks depending on wind regime.
 
 | Source | Location | Status |
 |--------|----------|--------|
-| pp06 salinity/temperature shards | ~/ooi/postproc/pp06/ | Available |
-| pp06 CDOM/backscatter shards | ~/ooi/postproc/pp06/ | Available |
+| pp06 salinity/temperature shards | ~/ooi/sb/postproc/pp06/ | Available |
+| pp06 CDOM/backscatter shards | ~/ooi/sb/postproc/pp06/ | Available |
 | SMAP SSS V6.0 | PO.DAAC (NASA) | Free, needs Earthdata account |
 | USGS Columbia River discharge | waterdata.usgs.gov | Free, public |
-| Profile metadata (timestamps) | ~/ooi/profileIndices/ | Available |
+| Profile metadata (timestamps) | ~/ooi/sb/profileIndices/ | Available |
 
 
 ## References
@@ -146,6 +146,8 @@ with a lag of days to weeks depending on wind regime.
   plume." JGR. doi:10.1029/2008JC004964
 - Adams et al. (2015). "Anomalous near-surface low-salinity pulses off the central
   Oregon coast." Scientific Reports. doi:10.1038/srep17145
+- Nash & Moum (2005). "River plumes as a source of large-amplitude internal waves
+  in the coastal ocean." Nature, 437, 400–403. doi:10.1038/nature03936
 
 
 ## ERDDAP data access URLs

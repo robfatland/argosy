@@ -11,16 +11,22 @@
 # Gaps > 1 day are broken (no connecting diagonals).
 # Output: inline display + PNG to ~/ooi/visualizations/
 
+import sys
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from pathlib import Path
 from datetime import datetime
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
 
-CSV_PATH = Path("~/ooi/metadata/surface_extract_slopebase.csv").expanduser()
-OUTPUT_DIR = Path("~/ooi/visualizations").expanduser()
+CSV_PATH = op.metadata_dir(SITE, "features") / "surface_extract_slopebase.csv"
+OUTPUT_DIR = op.visualizations_dir(SITE)
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 SITE_NAME = "slopebase"
@@ -36,10 +42,10 @@ print(f"Loaded {len(df)} records from {CSV_PATH.name}")
 print(f"  Time range: {df['timestamp'].iloc[0]} to {df['timestamp'].iloc[-1]}")
 
 # Load SMAP satellite data if available
-SMAP_SSS_PATH = Path("~/ooi/metadata/satellite_sss_slopebase.csv").expanduser()
-SMAP_SST_PATH = Path("~/ooi/metadata/satellite_sst_slopebase.csv").expanduser()
+SMAP_SSS_PATH = op.metadata_dir(SITE, "external") / "satellite_sss_slopebase.csv"
+SMAP_SST_PATH = op.metadata_dir(SITE, "external") / "satellite_sst_slopebase.csv"
 # Fallback to old combined file
-SMAP_OLD_PATH = Path("~/ooi/metadata/smap_sss_slopebase.csv").expanduser()
+SMAP_OLD_PATH = op.metadata_dir(SITE, "external") / "smap_sss_slopebase.csv"
 
 smap_sss_df = None
 smap_sst_df = None

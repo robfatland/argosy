@@ -51,10 +51,10 @@ conda activate argosy
 The project expects data in `~/ooi/` (separate from the repo):
 
 ```bash
-mkdir -p ~/ooi/postproc/pp06
-mkdir -p ~/ooi/analysis/sga
-mkdir -p ~/ooi/metadata
-mkdir -p ~/ooi/visualizations
+mkdir -p ~/ooi/sb/postproc/pp06
+mkdir -p ~/ooi/sb/analysis/sga
+mkdir -p ~/ooi/sb/metadata
+mkdir -p ~/ooi/sb/visualizations
 ```
 
 
@@ -64,7 +64,7 @@ The pp06 dataset (~15 GB, ~151K NetCDF shard files) is hosted on a public S3
 bucket. No AWS credentials needed:
 
 ```bash
-aws s3 sync s3://s3ooi/pp06/ ~/ooi/postproc/pp06/ --no-sign-request
+aws s3 sync s3://s3ooi/sb/postproc/pp06/ ~/ooi/sb/postproc/pp06/ --no-sign-request
 ```
 
 This will take 10-30 minutes depending on network speed.
@@ -99,9 +99,9 @@ navigation buttons. Select source `pp06` from the dropdown.
 |------|----------|
 | `~/argosy/` | Code, documentation, notebooks (Git-tracked) |
 | `~/argosy/sga/` | Spectral Graph Analysis module scripts |
-| `~/ooi/postproc/pp06/` | QC-filtered shard data (from S3) |
-| `~/ooi/analysis/sga/` | SGA intermediate outputs |
-| `~/ooi/metadata/` | Profile indices, manifests |
+| `~/ooi/sb/postproc/pp06/` | QC-filtered shard data (from S3) |
+| `~/ooi/sb/analysis/sga/` | SGA intermediate outputs |
+| `~/ooi/sb/metadata/` | Profile indices, manifests |
 
 
 ## 7. Key Files

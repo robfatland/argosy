@@ -3,22 +3,29 @@
 
 ## Purpose
 
-VisQC is a two-stage workflow for validating and correcting the derived cline metadata
-(pycnocline depth, thermocline depth, etc.) produced by `iw/cline_extract.py`.
-
-The premise: automated peak-finding sometimes fails. It may latch onto noise, pick a
-secondary feature instead of the primary, or produce a depth estimate that is clearly
-wrong when you look at the actual profile. VisQC provides a human-in-the-loop step
-to catch and correct these errors before the metadata feeds into internal wave analysis.
+This `VisQC` work is related to internal wave (abbreviated `iw`) detection. It is a quality control and annotation process. The QC: From postproc level 06 data we move to level 07. The annotation: VisQC is a two-stage workflow for validating and correcting the derived cline metadata: Pycno, thermo, halo and oxy. Estimates of these clines are first produced by `~/argosy/iw/cline_extract.py`; then corrected manually.
 
 
-## Stage 1: VisQCInspector.py
+Automatic cline identification often fails due to noise and signal ambiguity. Actual ocean water does not conform to a simple description. VisQC provides for human-in-the-loop correction.
 
-An interactive tool that steps through profiles one at a time:
-- Displays T (bottom x-axis) and S (top x-axis) vs depth (y-axis, surface at top)
-- Overlays the derived metadata (cline depth markers, strength annotations)
-- Widget buttons to: accept, correct (adjust depth), or discard the profile
-- Outputs a visitation metadata CSV tracking decisions made
+
+## Step 1: VisQCInspector.py
+
+
+Run this interactive tool to step through profiles one at a time for a selected year.
+
+
+- **Left panel**: T, S, DO, density traces vs depth (surface at top), independent
+  auto-scaled x-axes; two adjustable cline boundary lines (upper/lower) for the selected
+  sensor's cline (nudge buttons or click-to-set).
+- **Right panel**: potential density σ₀ (TEOS-10 via `gsw`) vs depth for the same profile,
+  derived from the salinity + temperature shards. Shows a note if `gsw` isn't installed.
+- Widget buttons: **Accept**, **Correct** (save adjusted boundaries), **Discard**.
+- Writes one row per (gpi, sensor) to the visitation CSV at
+  `metadata/annotations/visqc_visitation_<site>.csv` (re-deciding overwrites that pair's
+  row). Columns: `timestamp, gpi, sensor, decision, upper_depth, lower_depth, cline_depth,
+  cline_thickness, reviewed_at`. Accept/Discard auto-advance to the next profile.
+- Site via `ARGOSY_SITE`; start date via `VISQC_START_DATE` (default 2024-01-01).
 
 ## Stage 2: VisQCCorrector.py
 

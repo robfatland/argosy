@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Argosy — AGU Poster</title>
+
+<!-- KaTeX: write LaTeX math as $...$ or $$...$$ exactly as usual -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[
+          {left:'$$',right:'$$',display:true},
+          {left:'$',right:'$',display:false}]});"></script>
+
+<style>
+/* ============================================================================
+   POSTER GEOMETRY — 48 x 36 in landscape.
+   Authoring in inches so the physical size is exact. 1in = 96 CSS px.
+   "Readable at 2 m" drives the minimum font sizes below (do not shrink body
+   text below ~28pt / ~0.39in without re-checking legibility).
+   Export to PDF: see poster/README.md.
+   ============================================================================ */
+:root {
+  --accent:      #123a5e;   /* deep ocean blue — headers/rules */
+  --accent-soft: #e8eef4;   /* panel tint */
+  --ink:         #1a1a1a;
+  --muted:       #55606b;
+  --gap: 0.6in;
+}
+
+html, body { margin: 0; padding: 0; }
+
+.poster {
+  width: 48in;
+  height: 36in;
+  box-sizing: border-box;
+  padding: 0.7in;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  display: grid;
+  grid-template-rows: auto 1fr;    /* title band, then body */
+  row-gap: var(--gap);
+}
+
+/* ---- Title band: title/authors/abstract upper-left + logo/QR upper-right ---- */
+.titleband {
+  display: grid;
+  grid-template-columns: 1fr 8in;  /* left text block, right meta block */
+  column-gap: var(--gap);
+  border-bottom: 0.06in solid var(--accent);
+  padding-bottom: 0.4in;
+}
+.title      { display: flex; flex-direction: column; color: var(--accent); margin: 0 0 0.15in; }
+.title-main { font-size: 1.5in; line-height: 1.0;  font-weight: 800; }
+.title-sub  { font-size: 0.6in; line-height: 1.05; font-weight: 600; }
+.authors  { font-size: 0.5in; font-weight: 600; margin: 0 0 0.1in; }
+.affil    { font-size: 0.32in; color: var(--muted); margin: 0 0 0.25in; }
+.abstract { font-size: 0.34in; line-height: 1.3; max-width: 26in; }
+.abstract b { color: var(--accent); }
+
+.meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; }
+.qr {
+  width: 5in; height: 5in;
+  border: 0.03in dashed var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; color: var(--muted); font-size: 0.28in;
+}
+.qr-caption { font-size: 0.26in; color: var(--muted); margin-top: 0.12in; text-align: right; }
+
+/* ---- Body: 2 x 2 theme grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gap);
+}
+.panel {
+  background: var(--accent-soft);
+  border-top: 0.08in solid var(--accent);
+  border-radius: 0.1in;
+  padding: 0.45in;
+  display: grid;
+  grid-template-rows: auto 1fr auto;  /* heading, figure, caption */
+  row-gap: 0.25in;
+  overflow: hidden;
+}
+.panel h2 { font-size: 0.6in; color: var(--accent); margin: 0; }
+.panel .theme-num { font-size: 0.34in; color: var(--muted); font-weight: 700; }
+
+/* Figure placeholder — swap the .figph div for <img src="..."> when ready */
+.figph {
+  border: 0.03in dashed var(--muted);
+  background: repeating-linear-gradient(45deg,#fff,#fff 0.4in,#f2f5f8 0.4in,#f2f5f8 0.8in);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 0.4in; text-align: center;
+}
+.panel figure { margin: 0; height: 100%; }
+.panel figure img { width: 100%; height: 100%; object-fit: contain; }
+.caption { font-size: 0.3in; line-height: 1.25; color: var(--ink); }
+
+.footer {
+  grid-column: 1 / -1;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.28in; color: var(--muted);
+  border-top: 0.04in solid var(--accent);
+  padding-top: 0.2in;
+}
+</style>
+</head>
+
+<body>
+<div class="poster">
+
+  <!-- ===================== TITLE BAND ===================== -->
+  <header class="titleband">
+    <div class="titletext">
+      <h1 class="title">
+        <span class="title-sub">Coincident Anomalies in</span>
+        <span class="title-main">Ten Years of Photic Zone Profiles</span>
+        <span class="title-sub">An Interpretive Framework for OOI Shallow Profiler Data</span>
+      </h1>
+      <p class="authors">R. Fatland [+ co-authors TBD]</p>
+      <p class="affil">University of Washington · OOI Regional Cabled Array &nbsp;|&nbsp; AGU26 · Session OS025 · Abstract 2097211</p>
+      <p class="abstract">
+        Three OOI Regional Cabled Array shallow profilers have produced continuous
+        9-per-day profiles of the upper 200 m since 2015 — a decade-long synoptic
+        characterization of the Northeast Pacific photic zone. We present visualization,
+        analysis, and an interpretive framework for these 15-parameter time series (CTD,
+        bio-optical, biogeochemical), with a reproducible data-cleaning workflow. The
+        framework centers on three forms of <b>anomaly coincidence</b>: <b>self</b>
+        (a single sensor, repeated across profiles), <b>inter-sensor</b> (across multiple
+        sensors), and <b>corroborated</b> (confirmed by external sources — deep profilers,
+        circulation models, remote sensing, Argo). Anomalies are defined against per-sensor
+        mean±std baseline envelopes over seasonal/annual/multi-year windows (published with
+        the tools). We show self- and inter-sensor coincident signals at/near the pycnocline
+        interpreted as internal waves and coherent water-mass emplacement persisting over
+        multiple tidal cycles. Published as an open-science GitHub repository with a
+        step-by-step acquisition→analysis workflow. E.g. buoyancy frequency
+        $N^2 = -\tfrac{g}{\rho_0}\,\dfrac{\partial \rho}{\partial z}$.
+      </p>
+    </div>
+    <div class="meta">
+      <div class="qr">QR CODE<br>(placeholder)<br><span style="font-size:0.22in">encode poster/Zenodo URL</span></div>
+      <div class="qr-caption">Scan for the online poster<br>&amp; the argosy repository</div>
+    </div>
+  </header>
+
+  <!-- ===================== 2 x 2 THEME GRID ===================== -->
+  <main class="grid">
+
+    <section class="panel">
+      <h2><span class="theme-num">1 · </span>Baseline envelopes &amp; the anomaly definition</h2>
+      <div class="figph">[ figure placeholder — per-sensor mean±std envelope over a time window ]</div>
+      <p class="caption">One-line caption stub. Anomalies defined vs. per-sensor mean±std
+        baselines over seasonal / annual / multi-year windows (published with the tools).</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="theme-num">2 · </span>Self &amp; inter-sensor coincidence</h2>
+      <div class="figph">[ figure placeholder — self- and inter-sensor coincident anomalies ]</div>
+      <p class="caption">One-line caption stub. Self-coincidence (one sensor, repeated across
+        profiles) and inter-sensor coincidence (anomalies registering across multiple sensors).</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="theme-num">3 · </span>Pycnocline signals: internal waves &amp; water-mass emplacement</h2>
+      <div class="figph">[ figure placeholder — pycnocline coincident signal over tidal cycles ]</div>
+      <p class="caption">One-line caption stub. Coincident signals at/near the pycnocline
+        interpreted as internal waves and coherent water-mass emplacement over multiple tidal cycles.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="theme-num">4 · </span>Corroborated coincidence + open, reproducible science</h2>
+      <div class="figph">[ figure placeholder — external corroboration + cloud/open-science ]</div>
+      <p class="caption">One-line caption stub. Corroboration from external sources (deep
+        profilers, circulation models, remote sensing, Argo) and the cloud/open-science
+        workflow (public S3, DOI-archived releases, step-by-step GitHub repo).</p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>github.com/robfatland/argosy</span>
+    <span>Jupyter Book: robfatland.github.io/argosy</span>
+    <span>AGU26 · OS025 · Long-Term Ocean Observatories as Drivers of Sensor &amp; Data Science Innovation</span>
+  </footer>
+
+</div>
+</body>
+</html>

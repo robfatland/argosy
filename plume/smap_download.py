@@ -4,7 +4,7 @@
 # Uses NOAA CoastWatch ERDDAP server to request just the pixels we need.
 # Two HTTP requests return full time series in seconds — no bulk download.
 #
-# Output: ~/ooi/metadata/smap_sss_slopebase.csv  (SSS + SST merged)
+# Output: ~/ooi/<site>/metadata/external/smap_sss_slopebase.csv  (SSS + SST merged; legacy)
 #
 # Datasets:
 #   SSS: SMAP Daily, Global 0.25°, 2015-present (noaacwSMAPsssDaily)
@@ -12,15 +12,21 @@
 #
 # No authentication required (public ERDDAP server).
 
+import sys
 import pandas as pd
 import numpy as np
 from pathlib import Path
 from io import StringIO
 import urllib.request
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
 
-OUTPUT_DIR = Path("~/ooi/metadata").expanduser()
+OUTPUT_DIR = op.metadata_dir(SITE, "external")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Slope Base shallow profiler coordinates

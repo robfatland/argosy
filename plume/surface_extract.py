@@ -5,21 +5,27 @@
 # salinity, temperature, dissolved oxygen, and CDOM. Computes mean, std, and
 # vertical gradient for each sensor. Saves results to CSV.
 #
-# Output: ~/ooi/metadata/surface_extract_<site>.csv
+# Output: ~/ooi/<site>/metadata/features/surface_extract_<site>.csv
 #
 # This supports the Columbia River plume detection analysis (see ColumbiaPlumePlan.md).
 
+import sys
 import numpy as np
 import xarray as xr
 import pandas as pd
 from pathlib import Path
 from datetime import datetime, timedelta
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
+
 # == Configuration =============================================================
 
-PP06_BASE = Path("~/ooi/postproc/pp06").expanduser()
-OUTPUT_DIR = Path("~/ooi/metadata").expanduser()
-EXCLUSIONS_CSV = Path("~/argosy/sensor_exclusions.csv").expanduser()
+PP06_BASE = op.postproc_base(SITE) / "pp06"
+OUTPUT_DIR = op.metadata_dir(SITE, "features")
+EXCLUSIONS_CSV = op.exclusions_csv()
 
 # Sensors to extract
 SENSORS = ['salinity', 'temperature', 'dissolvedoxygen', 'cdom']
@@ -64,7 +70,7 @@ print(f"Scanning pp06 for {SITE_NAME} ({START_YEAR}–{END_YEAR})...")
 gpi_index = {}
 
 for year in range(START_YEAR, END_YEAR + 1):
-    redux_dir = PP06_BASE / f"redux{year}"
+    redux_dir = op.postproc_dir("pp06", year, SITE)
     if not redux_dir.exists():
         continue
     for sensor in SENSORS:

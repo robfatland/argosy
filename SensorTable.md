@@ -50,13 +50,16 @@ attributes
     
 The **sensor table** is a comprehensive list of sensor types for the shallow profiler. 
 This is written to a standalone reference CSV file: `~/argosy/sensortable.csv`.
-Vector sensor details are in companion files: `vcurrent.csv`, `vspectralirr.csv`, `vspectrophot.csv`.
+Vector sensor channel definitions (velocity, spectral irradiance, optical absorption, beam
+attenuation) are deferred until vector-data download is implemented; see `VectorData.md`. (The
+earlier placeholder CSVs `vcurrent.csv` / `vspectralirr.csv` / `vopticalabsorb.csv` /
+`vbeamatten.csv` were removed in the Sep 2026 cleanup and will be regenerated when needed.)
     
     
 Premise: Jupyter cell code in the `DataSharding.ipynb` notebook shards multiple types of 
 source 'instrument' NetCDF datafiles to produce single-sensor shard files, one file
 per profile. Shards are written into folders spanning single years; with folder names
-`~/ooi/redux/redux<yyyy>` where `<yyyy>` is a four-digit year. The sensor table localizes the
+`~/ooi/<site>/redux/<yyyy>` (e.g. `~/ooi/sb/redux/2018`) where `<yyyy>` is a four-digit year. The sensor table localizes the
 metadata concerned with managing the sensor data.
     
     

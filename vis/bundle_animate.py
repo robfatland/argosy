@@ -8,6 +8,7 @@
 #
 # The animation renders the chart only (no widget controls).
 
+import sys
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -20,6 +21,11 @@ import numpy as np
 from datetime import datetime, timedelta
 import pandas as pd
 import calendar
+
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
 from zoneinfo import ZoneInfo
 
 OREGON_TZ = ZoneInfo('America/Los_Angeles')
@@ -61,16 +67,15 @@ SENSORS = {
     'par':             {'low': 0.0,    'high': 300.0,  'units': 'µmol photons m⁻²s⁻¹',  'color': 'gold',     'display_name': 'PAR'},
 }
 
-SOURCE_PATHS = {
-    'redux': Path("~/ooi/redux").expanduser(),
-    'pp01':  Path("~/ooi/postproc/pp01/redux").expanduser(),
-    'pp02':  Path("~/ooi/postproc/pp02/redux").expanduser(),
-    'pp05':  Path("~/ooi/redux").expanduser(),
-    'pp06':  Path("~/ooi/postproc/pp06").expanduser(),
-}
+def source_year_dir(source, year):
+    """Per-year data directory for a source choice, via ooipaths accessors.
+    pp05 is virtual (reads redux + manifest filter); redux reads redux directly."""
+    if source in ('redux', 'pp05'):
+        return op.redux_dir(year, SITE)
+    return op.postproc_dir(source, year, SITE)   # pp01, pp02, pp06
 
 _pp05_manifest_set = set()
-_pp05_manifest_path = Path("~/ooi/metadata/pp05_manifest.csv").expanduser()
+_pp05_manifest_path = op.pp05_manifest(SITE)
 if _pp05_manifest_path.exists():
     _pp05_df = pd.read_csv(_pp05_manifest_path)
     _pp05_manifest_set = set(zip(_pp05_df['sensor'], _pp05_df['global_idx']))
@@ -148,13 +153,12 @@ def build_index_map(source):
     """Scan shard files and build global-index-keyed lookup."""
     global sensor_index_map, _gidx_dates
 
-    data_base = SOURCE_PATHS[source]
     use_manifest = (source == 'pp05')
     sensor_index_map = {sensor: {} for sensor in SENSORS}
     _gidx_dates = {}
 
     for year in range(start_year, end_year + 1):
-        redux_dir = data_base / f"redux{year}"
+        redux_dir = source_year_dir(source, year)
         if not redux_dir.exists():
             continue
         for sensor in SENSORS:
@@ -256,7 +260,7 @@ status_label = widgets.Label(value='Ready. Configure settings then click Animate
 estimate_label = widgets.Label(value='')
 
 # Load timing history for runtime estimation
-_timing_path = Path("~/ooi/metadata/bundle_animation_timing.csv").expanduser()
+_timing_path = op.metadata_dir(SITE, "cache") / "bundle_animation_timing.csv"
 _rate_sec_per_frame = None
 if _timing_path.exists():
     try:
@@ -413,7 +417,7 @@ def generate_animation(b):
         progress_bar.layout.visibility = 'hidden'
         return
 
-    output_path = Path("~/ooi/visualizations/bundle_animation.mp4").expanduser()
+    output_path = op.visualizations_dir(SITE) / "bundle_animation.mp4"
     status_label.value = (
         f'Generating {n_frames} frames at {fps} fps → {output_path}')
     progress_bar.max = n_frames
@@ -621,7 +625,7 @@ def generate_animation(b):
     sec_per_frame = t_elapsed / n_frames if n_frames > 0 else 0
 
     # Write timing data for future prediction
-    timing_path = Path("~/ooi/metadata/bundle_animation_timing.csv").expanduser()
+    timing_path = op.metadata_dir(SITE, "cache") / "bundle_animation_timing.csv"
     timing_path.parent.mkdir(parents=True, exist_ok=True)
     write_header = not timing_path.exists()
     with open(timing_path, 'a') as tf:

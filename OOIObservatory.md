@@ -1,5 +1,8 @@
 # OOI Observatory Reference
 
+> New to argosy? Start at `ArgosyOverview.md`.
+
+
 This document describes the Ocean Observatories Initiative (OOI) observatory structure,
 the Regional Cabled Array sites, challenges working with OOINET, a project glossary,
 and reference websites.

@@ -10,8 +10,17 @@ per-profile per-sensor files, and the TMLD (Temperature Mixed Layer Depth) tool.
 
 Profile metadata for both shallow and deep profilers is maintained in a public GitHub
 repository as a set of CSV files delineated by platform and year. Each row of a
-metadata file corresponds to a unique profile. This repository is cloned from 
-GitHub to the location `~/ooi/profileIndices`.
+metadata file corresponds to a unique profile. The repository is cloned from GitHub,
+and its CSV files are placed under the per-site data tree.
+
+**Per-site placement (explicit step, not automatic):** the clone provides files for
+all sites keyed by OOI designator (e.g. `RS01SBPS_profiles_<yyyy>.csv` for Slope Base,
+`CE04OSPS_...` for Oregon Offshore, `RS03AXPS_...` for Axial Base). Place each site's
+files under that site's folder: `~/ooi/<site>/profileIndices/`. For Slope Base the
+location is `~/ooi/sb/profileIndices/`. Code obtains this path via
+`ooipaths.profile_index_dir(site)`; do not hardcode it. When onboarding a new site,
+copying its designator CSVs into `~/ooi/<site>/profileIndices/` is a required manual
+step of the ingest workflow.
     
     
 The first column of the profile CSV file is a global index (a profile counter) specific 
@@ -62,7 +71,7 @@ In the initial work we are concerned with `RS01SBPS`.
 
 
 To select profile time-series data from a sensor/instrument on the Oregon Slope Base shallow 
-profiler: Use time ranges in `~/ooi/profileIndices/RS01SBPS_profiles_2018.csv`. 
+profiler: Use time ranges in `~/ooi/sb/profileIndices/RS01SBPS_profiles_2018.csv`. 
 
 
 Note: Some sensors operate continuously (such as CTD temperature). Others operate
@@ -150,8 +159,12 @@ Example design concept:
 ## sharding 
 
 
-### translating source / raw input files to `~/ooi/redux/redux<YYYY>` folders / profile+sensor files
+### translating source / raw input files to `~/ooi/<site>/redux/<YYYY>` folders / profile+sensor files
 
+> **Layout note (per-site, Aug 2026):** paths below are written for Slope Base (`sb`)
+> using concrete examples like `~/ooi/sb/redux/2018`. In general the source tree is
+> `~/ooi/<site>/ooinet/scalar/<YYYY>_<instrum>` and redux output is `~/ooi/<site>/redux/<YYYY>`.
+> Code obtains these via `ooipaths` (`redux_dir`, `ooinet_dir`); do not hardcode.
 
 Instrument source / raw input folders are sorted as noted by year: `2018_ctd`, `2015_par` etcetera.
 
@@ -164,11 +177,11 @@ Instrument source / raw input folders are sorted as noted by year: `2018_ctd`, `
     - The data variable will be `sea_water_temperature` (input data variable) 
     - This will be written as data variable `temperature` in the output file
 - The file will include coordinate `depth`
-- The output folder will be `~/ooi/redux/redux2018` where the individual profile files will be written. 
+- The output folder will be `~/ooi/sb/redux/2018` where the individual profile files will be written. 
 - One file is written per profile
 
 
-The output folders are `~/ooi/redux/redux<yyyy>`
+The output folders are `~/ooi/sb/redux/<yyyy>`
 
 
 The filename format for each redux profile `.nc` file:
@@ -275,7 +288,7 @@ the Jupyter configuration does not support interactive chart location selection.
     
 
 - Generate a CSV file with three columns, resides in `~/argosy/TMLD`.
-    - First column = global profile index as recorded in the profile filename in ~/ooi/redux/redux2018
+    - First column = global profile index as recorded in the profile filename in ~/ooi/sb/redux/2018
     - Second column is `Estimated TMLD`
         - 'Estimated Temperature Mixed Layer Depth' (meters, positive downward)
     - Third column = temperature at that depth for that profile
@@ -314,7 +327,7 @@ the Jupyter configuration does not support interactive chart location selection.
 - Process these files to expand the time series for Oregon Slope Base shallow profiler <sensor> profiles
     - Example sensors: `dissolvedoxygen`, `density`, `salinity` 
     - Use those strings in the output filenames sensor field
-- Input file location for year `<YYYY>` is `~/ooi/ooinet/rca/SlopeBase/scalar/<YYYY>_ctd`
+- Input file location for year `<YYYY>` is `~/ooi/sb/ooinet/scalar/<YYYY>_ctd`
 - The original input file was:
     - `deployment0004_RS01SBPS-SF01A-2A-CTDPFA102-streamed-ctdpf_sbe43_sample_20180208T000000.840174-20180226T115959.391002.nc`
     - The string `CTDPF` indicates a CTD file. File extension must be `.nc`
@@ -333,7 +346,7 @@ This text may be somewhat redundant to what came above (to reconcile)
         - We are still focused on just temperature data
         - The output files are called `redux` files
         - There follows some more detail on how this code will work
-    - Source data folders have name format `~/ooi/ooinet/rca/SlopeBase/scalar/<yyyy>_<instrum>`
+    - Source data folders have name format `~/ooi/sb/ooinet/scalar/<yyyy>_<instrum>`
         - <yyyy> runs from 2014 through 2026
         - <instrum> designators are found in the **Sensor Table** (see `SensorReference.md`)
         - The program should prompt for y/n for each year (folder) for which there is data 
@@ -341,8 +354,8 @@ This text may be somewhat redundant to what came above (to reconcile)
     - Output files as developed earlier with these changes:
         - remove data variables `lat` and `lon` and remove `obs` from the output `.nc` file. Retain time, depth and temperature.
         - when writing the output `redux` file: select destination folder based on this profile's year as follows:
-            - a profile from 2018 will be written to `~/ooi/redux/redux2018`
-            - a profile from 2019 will be written to `~/ooi/redux/redux2019`
+            - a profile from 2018 will be written to `~/ooi/sb/redux/2018`
+            - a profile from 2019 will be written to `~/ooi/sb/redux/2019`
             - and so forth: Possible year values are 2014 through 2026
 
     
@@ -363,12 +376,12 @@ For each file listed we want to perform the following procedure:
         - State this
         - State the data variables that *are* present
         - prompt the User for instructions: `Continue [C] or Halt [H]?`
-- For this input CTD file start a counter of how many profile files have been written to `~/ooi/redux/redux2018`
+- For this input CTD file start a counter of how many profile files have been written to `~/ooi/sb/redux/2018`
 - Formulate the filename for the current profile
-- Using the appropriate `start` and `peak` times from the appropriate `~/ooi/profileIndices` folder CSV file: 
-    - Extract and write a temperature profile file to the folder `~/ooi/redux/redux2018` following the same format as before
+- Using the appropriate `start` and `peak` times from the appropriate `~/ooi/sb/profileIndices` folder CSV file: 
+    - Extract and write a temperature profile file to the folder `~/ooi/sb/redux/2018` following the same format as before
     - In this process: Keep a running sum of how many data samples there are in each profile
-    - Output files in ~/ooi/redux/redux2018 feature sea_water_temperature renamed `temperature` plus `depth` against dimension `time`
+    - Output files in ~/ooi/sb/redux/2018 feature sea_water_temperature renamed `temperature` plus `depth` against dimension `time`
     - Do not retain other data variables or other coordinates, particularly `lat` and `lon`
 - Repeat this procedure of writing temperature profile files, incrementing the 'writes' counter
 - After every 90 profile writes: Print the number of profiles written for this input file so far

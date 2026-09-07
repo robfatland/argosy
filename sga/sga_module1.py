@@ -2,6 +2,7 @@
 # Scans pp06 shard files and creates a profile index keyed by global index.
 # Run this as: %run /home/rob/argosy/sga/sga_module1.py
 
+import sys
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -10,8 +11,14 @@ import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+
+SITE = op.DEFAULT_SITE
+
 # Output directory
-SGA_DIR = Path('~/ooi/analysis/sga').expanduser()
+SGA_DIR = op.analysis_dir("sga", SITE)
 SGA_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load config
@@ -32,7 +39,7 @@ print(f"  Active sensors ({len(SENSORS)}): {SENSORS}")
 sensor_files = {sensor: {} for sensor in SENSORS}
 
 for year in range(start_year, end_year + 1):
-    redux_dir = DATA_BASE / f"redux{year}"
+    redux_dir = op.postproc_dir("pp06", year, SITE)
     if not redux_dir.exists():
         continue
     for sensor in SENSORS:

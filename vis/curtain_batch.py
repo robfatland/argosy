@@ -18,6 +18,8 @@ from datetime import datetime
 
 # Import shared rendering logic
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
 from curtain_core import (
     SENSOR_CONFIGS, SENSOR_ALIASES, VALID_SENSOR_NAMES,
     load_profiles, render_curtain,
@@ -25,8 +27,9 @@ from curtain_core import (
 
 # == Configuration =============================================================
 
-DATA_BASE = Path("~/ooi/postproc/pp06").expanduser()
-OUTPUT_DIR = Path("~/ooi/visualizations").expanduser()
+SITE = op.DEFAULT_SITE
+DATA_BASE = op.postproc_base(SITE) / "pp06"
+OUTPUT_DIR = op.visualizations_dir(SITE)
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 LOCATION = "SlopeBase"

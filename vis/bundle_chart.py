@@ -12,6 +12,7 @@
 #   - Data source is selectable via dropdown (redux, pp01, pp02, pp05, pp06).
 #     pp05 uses a manifest filter; all others read files directly.
 
+import sys
 import matplotlib.pyplot as plt
 import xarray as xr
 from pathlib import Path
@@ -21,6 +22,11 @@ import numpy as np
 from datetime import datetime, timedelta
 import pandas as pd
 from zoneinfo import ZoneInfo
+
+# Make the repo root importable so `import ooipaths` works under %run.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
+SITE = op.DEFAULT_SITE
 
 
 # == Utility ===================================================================
@@ -74,19 +80,17 @@ SENSORS = {
     'par':             {'low': 0.0,    'high': 300.0,  'units': 'µmol photons m⁻²s⁻¹',  'color': 'gold',     'display_name': 'PAR'},
 }
 
-# Data source paths
-SOURCE_PATHS = {
-    'redux': Path("~/ooi/redux").expanduser(),
-    'pp01':  Path("~/ooi/postproc/pp01/redux").expanduser(),
-    'pp02':  Path("~/ooi/postproc/pp02/redux").expanduser(),
-    'pp05':  Path("~/ooi/redux").expanduser(),          # virtual — uses manifest
-    'pp06':  Path("~/ooi/postproc/pp06").expanduser(),  # physical copy
-}
+def source_year_dir(source, year):
+    """Per-year data directory for a source choice, via ooipaths accessors.
+    pp05 is virtual (reads redux + manifest filter); redux reads redux directly."""
+    if source in ('redux', 'pp05'):
+        return op.redux_dir(year, SITE)
+    return op.postproc_dir(source, year, SITE)   # pp01, pp02, pp06
 
 # pp05 manifest (loaded once, indexed as a set for O(1) lookup)
 _pp05_manifest = None
 _pp05_manifest_set = set()
-_pp05_manifest_path = Path("~/ooi/metadata/pp05_manifest.csv").expanduser()
+_pp05_manifest_path = op.pp05_manifest(SITE)
 if _pp05_manifest_path.exists():
     _pp05_manifest = pd.read_csv(_pp05_manifest_path)
     _pp05_manifest_set = set(zip(_pp05_manifest['sensor'], _pp05_manifest['global_idx']))
@@ -104,13 +108,12 @@ def build_index_map(source, start_year, end_year):
     """Scan shard files and build global-index-keyed lookup."""
     global sensor_index_map, min_global_idx, max_global_idx
 
-    data_base = SOURCE_PATHS[source]
     use_manifest = (source == 'pp05')
 
     sensor_index_map = {sensor: {} for sensor in SENSORS}
 
     for year in range(start_year, end_year + 1):
-        redux_dir = data_base / f"redux{year}"
+        redux_dir = source_year_dir(source, year)
         if not redux_dir.exists():
             continue
         for sensor in SENSORS:

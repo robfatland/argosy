@@ -4,10 +4,16 @@
 #   - curtain_plot.py (interactive, multi-sensor)
 #   - curtain_batch.py (command-line, single-sensor, yearly batch)
 
+import sys
 import glob
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Make the repo root importable so `import ooipaths` works.
+sys.path.insert(0, str(Path("~/argosy").expanduser()))
+import ooipaths as op
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.dates as mdates
@@ -76,7 +82,14 @@ def load_profiles(sensor_config, data_base, time_start, time_end):
 
     Returns list of (mid_time, depth_column) tuples, or empty list.
     """
-    redux_dirs = [str(data_base / f"redux{y}") for y in range(time_start.year, time_end.year + 1)]
+    # Discover year directories — handles both new (<yyyy>) and old (redux<yyyy>) naming.
+    redux_dirs = []
+    for y in range(time_start.year, time_end.year + 1):
+        candidate = data_base / str(y)             # new layout: <yyyy>
+        if not candidate.is_dir():
+            candidate = data_base / f"redux{y}"    # old layout: redux<yyyy>
+        if candidate.is_dir():
+            redux_dirs.append(str(candidate))
 
     files = []
     for d in redux_dirs:

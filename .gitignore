@@ -24,3 +24,5 @@ _build/
 # OS files
 .DS_Store
 Thumbs.db
+# CDK synth output (regenerated on every deploy)
+cloud/cdk.out/
