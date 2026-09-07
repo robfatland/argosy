@@ -138,6 +138,24 @@ def apply_filter1(sal_data, depth_data):
     return keep, discard_records
 
 
+def _apply_mask(ds, var, mask):
+    """Apply a boolean keep-mask along the dimension that `var` actually rides on.
+
+    The mask length equals len(ds[var].values). Older code assumed that dimension
+    was always 'obs' (fallback 'time'), but shards can carry the science variable on
+    a differently-named/sized dimension, which caused
+    'Boolean index has wrong length: X instead of Y'. Here we index the variable's
+    OWN first dimension, and guard the length so a mismatch is reported clearly
+    rather than raising a cryptic boolean-index error.
+    """
+    dim = ds[var].dims[0]
+    if len(mask) != ds.sizes[dim]:
+        raise ValueError(
+            f"mask length {len(mask)} != {var} dim '{dim}' size {ds.sizes[dim]}"
+        )
+    return ds.isel({dim: mask})
+
+
 # == Main ======================================================================
 
 def main():
@@ -252,9 +270,9 @@ def main():
                         })
                         total_samples_discarded += 1
 
-                    # Write filtered salinity
+                    # Write filtered salinity (index along salinity's own dimension)
                     if np.any(keep_mask):
-                        ds_sal_filtered = ds_sal.isel(obs=keep_mask) if 'obs' in ds_sal.dims else ds_sal.isel(time=keep_mask)
+                        ds_sal_filtered = _apply_mask(ds_sal, 'salinity', keep_mask)
                         ds_sal_filtered.to_netcdf(dst_path)
                     else:
                         # All data discarded — don't write file
@@ -284,14 +302,24 @@ def main():
                                 })
                                 total_samples_discarded += 1
 
-                        # Write filtered density
+                        # Write filtered density using the SAME salinity mask.
+                        # This is only valid when density and salinity are sample-
+                        # aligned (same length). If they differ, skip rather than
+                        # mis-align — report so the mismatch is visible.
+                        den_dim = ds_den['density'].dims[0]
                         if np.any(keep_mask):
-                            ds_den_filtered = ds_den.isel(obs=keep_mask) if 'obs' in ds_den.dims else ds_den.isel(time=keep_mask)
-                            ds_den_filtered.to_netcdf(density_dst)
+                            if len(keep_mask) == ds_den.sizes[den_dim]:
+                                ds_den_filtered = _apply_mask(ds_den, 'density', keep_mask)
+                                ds_den_filtered.to_netcdf(density_dst)
+                                filtered += 1
+                                year_filtered += 1
+                            else:
+                                print(f"  SKIP density {density_src.name}: length "
+                                      f"{ds_den.sizes[den_dim]} != salinity mask "
+                                      f"{len(keep_mask)}")
+                                errors += 1
 
                         ds_den.close()
-                        filtered += 1
-                        year_filtered += 1
 
                 except Exception as e:
                     print(f"  ERROR processing {src_path.name}: {e}")
