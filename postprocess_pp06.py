@@ -2,11 +2,11 @@
 postprocess_pp06.py — Build the pp06 physical dataset from pp05-qualified shards.
 
 pp06 is a physical copy of redux shard files that pass the pp05 QC manifest,
-restricted to the 8 HDS (High Data-density Sampling) scalar sensors.
+restricted to the 8 HSD (High Sample Density) scalar sensors.
 Additionally, Filter 1 is applied to salinity and density shards to suppress
 conductivity cell erratics.
 
-Sensors included (8 HDS):
+Sensors included (8 HSD):
     temperature, salinity, density, dissolvedoxygen,
     cdom, chlora, backscatter, par
 
@@ -33,12 +33,16 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+import ooipaths as op
+
 # == Configuration =============================================================
 
-MANIFEST_PATH = Path("~/ooi/metadata/pp05_manifest.csv").expanduser()
-OUTPUT_BASE = Path("~/ooi/postproc/pp06").expanduser()
+# Site for this run. Path layout comes from ooipaths (single source of truth).
+SITE = op.DEFAULT_SITE
+MANIFEST_PATH = op.pp05_manifest(SITE)
+OUTPUT_BASE = op.postproc_base(SITE) / "pp06"
 
-HDS_SENSORS = [
+HSD_SENSORS = [
     'temperature', 'salinity', 'density', 'dissolvedoxygen',
     'cdom', 'chlora', 'backscatter', 'par',
     'nitrate', 'pco2', 'ph',
@@ -150,15 +154,15 @@ def main():
     print(f"Loading pp05 manifest: {MANIFEST_PATH}")
     manifest = pd.read_csv(MANIFEST_PATH)
 
-    # Filter to HDS sensors only
-    hds_manifest = manifest[manifest['sensor'].isin(HDS_SENSORS)].copy()
+    # Filter to HSD sensors only
+    hsd_manifest = manifest[manifest['sensor'].isin(HSD_SENSORS)].copy()
     print(f"  Total manifest entries: {len(manifest)}")
-    print(f"  HDS sensor entries: {len(hds_manifest)}")
-    print(f"  Sensors: {sorted(hds_manifest['sensor'].unique())}")
+    print(f"  HSD sensor entries: {len(hsd_manifest)}")
+    print(f"  Sensors: {sorted(hsd_manifest['sensor'].unique())}")
     print()
 
-    hds_manifest['year'] = hds_manifest['year'].astype(int)
-    years = sorted(hds_manifest['year'].unique())
+    hsd_manifest['year'] = hsd_manifest['year'].astype(int)
+    years = sorted(hsd_manifest['year'].unique())
     print(f"  Years: {years[0]} to {years[-1]} ({len(years)} years)")
     print(f"  Filter 1 params: PPC=[{SALINITY_PPC_LO}, {SALINITY_PPC_HI}], "
           f"SSC={SALINITY_SSC} PSU, init_consecutive={MRA_INIT_CONSECUTIVE}")
@@ -175,7 +179,7 @@ def main():
     filter1_log = []
 
     # Stats
-    total_files = len(hds_manifest)
+    total_files = len(hsd_manifest)
     copied = 0
     filtered = 0
     skipped_missing = 0
@@ -186,8 +190,8 @@ def main():
     start_time = time.time()
 
     for year in years:
-        year_df = hds_manifest[hds_manifest['year'] == year]
-        out_dir = OUTPUT_BASE / f"redux{year}"
+        year_df = hsd_manifest[hsd_manifest['year'] == year]
+        out_dir = op.postproc_dir("pp06", year, SITE)
 
         if not args.dry_run:
             out_dir.mkdir(parents=True, exist_ok=True)
