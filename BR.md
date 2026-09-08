@@ -303,3 +303,54 @@ the `argosy-conventions.md` steering (vector-channel line reworded). No dangling
   to bundle). Cost/security note: public GET egress bills the bucket OWNER (~$0.09/GB out); risk is
   bulk/bot download of a discoverable public prefix — bounded but unbounded-in-principle; mitigations
   = Requester Pays (needs downloader AWS acct), CloudFront caching, or accept bounded open-science cost.
+
+
+## Design topic: SignoffQC — standalone scalar sign-off tool (DECIDED, building)
+
+A Phase-1 QC/annotation tool, sibling to VisQCInspector, in the decided `visqc/` folder. Purpose:
+a human "first pass" to SIGN OFF on scalar data (mark suspect sensors), NOT cline estimation.
+
+- **Launch:** `python visqc/SignoffQC.py --site <sb|oo|ab> --year <yyyy>` (TkAgg GUI; needs display).
+- **Layout:** one window, four charts on a horizontal row, each with multiple auto-scaled x-axes
+  (may later switch to SensorTable low/high ranges):
+  - Chart 1: temperature, salinity, density
+  - Chart 2: dissolvedoxygen, cdom, chlora
+  - Chart 3: backscatter, nitrate, par
+  - Chart 4: ph, pco2
+- **Title:** GMT→local (America/Los_Angeles) time-of-day, with parenthetical "midnight"/"noon" for
+  those extended profiles (reuse bundle_chart.check_noon_midnight logic).
+- **Navigation:** Advance / Back (a profile qualifies if ≥1 of the 11 sensors is present); plus a
+  Julian-day text field + Go To button for time navigation within the year.
+- **Per-sensor state buttons (11):** tri-state Ok / None / Discard. If data present → Ok; clicking
+  toggles Ok↔Discard. If absent → None and clicking does nothing.
+- **LSD nuance:** ph/pco2/nitrate run only on daily-index 4 & 9. So mark absence as
+  **None (expected)** for non-noon/midnight profiles, **None (missing)** for noon/midnight profiles.
+- **Display toggles:** one per trace, initially on, to declutter.
+- **Data source:** **pp06** (less data to page through than redux).
+- **Output = state table, ONE ROW PER GPI** (transposed from the original 13-row sketch):
+  `metadata/annotations/scalar_signoff_<site>_<year>.csv`. Columns: gpi, visits, then 11 sensor
+  state columns (temperature…pco2) each Ok/None-expected/None-missing/Discard. `visits` starts 0,
+  increments each time the tool lands on that GPI ("has the user seen this profile?").
+- **Resume/merge:** relaunching a year LOADS the existing table and continues (increment visits,
+  preserve prior Discards) — idempotent, no overwrite. Same pattern as pp scripts / VisQC.
+- **Role in the pipeline:** pp07 will be built in a TBD way, and the SignoffQC output table will be
+  PART of its input (the discard decisions feed pp07 construction). This resolves BR open-Q 6's
+  "how does Discard connect" for the scalar sign-off case: it's a pp07 input, distinct from
+  `sensor_exclusions.csv` (the time-window embargo list).
+
+## Design topic: notebook bundle explorer — Local/S3 source switch (DESIGN)
+
+Goal: let the Jupyter Book enable data exploration WITHOUT the reader downloading ~15 GB of shards
+— a source switch (Local vs S3) so shards can be pulled per-profile from S3 on demand (slower, but
+no bulk download). Fits the "compute-to-data / don't pull to laptop" tenet.
+- Implemented via a shared **source-access module** (`visqc/shard_source.py` or similar) that
+  abstracts (a) file DISCOVERY — glob local FS vs `list-objects` on S3 — and (b) file OPEN — local
+  path vs `xr.open_dataset` over `s3fs`/`fsspec`. Notebook bundle_chart consumes it via a Local/S3
+  dropdown.
+- **Public-access constraint:** only **pp06** is public on S3 (redux/pp01/pp02/pp05 private). So the
+  S3 source can serve ONLY pp06 to an unauthenticated Book reader; the UI must reflect that (other
+  sources are Local-only). Per-profile shards are small (KB) so latency is modest; cache the S3
+  index (listing) since it's the slow part.
+- Shared plotting core: factor `plot_bundle` so the notebook (interactive ipywidgets) and any
+  standalone variant share one implementation (parallels the cline_plot dual-mode / pipeline module
+  pattern).

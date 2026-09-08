@@ -128,6 +128,22 @@ thing that made oo silently produce `attempted=0`. Steps, all from WSL:
   coverage/curtain PNG is a separate future viz step (proposed `pipeline/coverage_plot.py`, Agg
   backend -> ~/ooi/oo/visualizations/); NOT yet built. User expressed interest.
 
+## Completed this session (session 3, continued — visqc tools built)
+- **`visqc/SignoffQC.py`** — standalone scalar-data sign-off GUI (Phase 1, TkAgg). 4 charts (T/S/den;
+  DO/CDOM/ChlorA; backscatter/nitrate/PAR; pH/pCO2), multi-axis auto-scaled. 11 tri-state sensor
+  buttons Ok/Discard (None does nothing); LSD absence shown None(expected) off noon/midnight vs
+  None(missing) on. Display toggles per trace. Advance/Back + Julian-day GoTo. GMT->local title with
+  noon/midnight tag. Reads **pp06**. Output = ONE ROW PER GPI at
+  `metadata/annotations/scalar_signoff_<site>_<year>.csv` (cols: gpi, visits, 11 sensor states);
+  resume/merge (preserves prior Discards, increments visits). Feeds future pp07. Compiles clean.
+  Run: `python ~/argosy/visqc/SignoffQC.py --site <sb|oo|ab> --year <yyyy>`.
+- **`visqc/shard_source.py`** — Local/S3 `ShardSource` abstraction for the notebook bundle explorer
+  (discovery: glob local vs s3fs list; open: local path vs s3fs). anon s3fs for public pp06; other
+  sources over S3 need creds. Index cached per year. Compiles clean. NOT yet wired into
+  bundle_chart / Visualizations.ipynb.
+- Both recorded as design topics in `BR.md`. Decisions there: visqc/ folder, pp06 source, per-GPI
+  row CSV, None(expected/missing), SignoffQC output is a pp07 input.
+
 ## Completed this session (session 3, continued — S3 access safety + budget)
 - **S3 public policy reconciled + tightened**: live bucket policy was sb-only with redux + ALL pp
   levels public (and the repo JSON was stale `pp06/*`). Now: public read (GetObject+ListBucket) on
@@ -296,6 +312,20 @@ thing that made oo silently produce `attempted=0`. Steps, all from WSL:
   DataDownload/DataSharding OUT of the Book (decided). BR also holds: the "where do components go?"
   tenet, the descent-data-recovery topic (on-demand Lambda vs bulk shard.py pass), and the orphan
   cleanup (done). Guideline: deliberate design first, then implement.
+- **TEST the two new visqc tools** (built, compile-clean, NOT yet run against real data):
+  - **SignoffQC.py**: needs a display (TkAgg + python3-tk). Run
+    `python ~/argosy/visqc/SignoffQC.py --site sb --year 2022` (sb pp06 is local after the earlier
+    sync; or pick a year present locally). Check: 4 charts render with multi-axis traces; noon/
+    midnight tag correct; tri-state buttons flip Ok<->Discard and None does nothing; LSD shows
+    None(expected) off-index vs None(missing) on noon/midnight; Advance/Back + Julian GoTo navigate;
+    the CSV `metadata/annotations/scalar_signoff_sb_2022.csv` is written one-row-per-GPI and RESUMES
+    (visits increment, Discards persist) on relaunch. Watch layout collisions (title vs stacked top
+    x-axis labels) like VisQCInspector needed.
+  - **shard_source.py**: needs `s3fs` (`pip install s3fs` in argosy env if absent). Quick test:
+    `ShardSource(site='sb', source='pp06', location='s3').build_index(2022)` returns non-empty per
+    sensor, and `.open(ref)` yields a Dataset — proving public-pp06 anon S3 read works. Then wire the
+    Local/S3 switch into bundle_chart / Visualizations.ipynb (separate task).
+- **Commit the new visqc/ files + BR + SessionState** (laptop) when ready.
 - Then (lower priority) open threads:
   (a) **AGU poster** — fill the scaffold (four theme figures, final title/authors/abstract, QR).
   (b) complete the **VisQC** workflow (output writer + Corrector + thickness reconciliation).
