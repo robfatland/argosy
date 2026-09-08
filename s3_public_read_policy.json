@@ -6,7 +6,11 @@
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::s3ooi/pp06/*"
+            "Resource": [
+                "arn:aws:s3:::s3ooi/sb/postproc/pp06/*",
+                "arn:aws:s3:::s3ooi/oo/postproc/pp06/*",
+                "arn:aws:s3:::s3ooi/ab/postproc/pp06/*"
+            ]
         },
         {
             "Sid": "PublicListPp06",
@@ -16,7 +20,11 @@
             "Resource": "arn:aws:s3:::s3ooi",
             "Condition": {
                 "StringLike": {
-                    "s3:prefix": "pp06/*"
+                    "s3:prefix": [
+                        "sb/postproc/pp06/*",
+                        "oo/postproc/pp06/*",
+                        "ab/postproc/pp06/*"
+                    ]
                 }
             }
         }

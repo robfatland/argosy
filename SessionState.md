@@ -128,6 +128,26 @@ thing that made oo silently produce `attempted=0`. Steps, all from WSL:
   coverage/curtain PNG is a separate future viz step (proposed `pipeline/coverage_plot.py`, Agg
   backend -> ~/ooi/oo/visualizations/); NOT yet built. User expressed interest.
 
+## Completed this session (session 3, continued — S3 access safety + budget)
+- **S3 public policy reconciled + tightened**: live bucket policy was sb-only with redux + ALL pp
+  levels public (and the repo JSON was stale `pp06/*`). Now: public read (GetObject+ListBucket) on
+  **pp06 ONLY, all 3 sites** (`{sb,oo,ab}/postproc/pp06/*`). Applied + verified via put/get-bucket-
+  policy. redux (more flawed than pp06), pp01/02/05, metadata, ooinet all PRIVATE now.
+  `s3_public_read_policy.json` rewritten; `DataOps.md` fixed; steering rule "Public data sharing
+  (S3)" added (ASK before exposing new datasets). Safety assessment recorded in BR open-Q 8:
+  security surface demonstrably safe (read-only, scoped, non-sensitive); cost surface NOT bounded
+  (public egress unbounded in principle; ~$4.14/full 3-site pull of ~46 GB).
+- **Budget + kill switch** (cost guardrail): `cloud/budget.json` ($100/mo ACCOUNT cost budget) +
+  `cloud/budget_notifications.json` (email at ACTUAL 50%/100% + FORECASTED 100%). $100 chosen to not
+  false-trip on routine EC2 runs. **USER TODO to activate**: put email in budget_notifications.json,
+  get acct id (`aws sts get-caller-identity --query Account --output text`), run `aws budgets
+  create-budget --account-id <id> --budget file://cloud/budget.json --notifications-with-subscribers
+  file://cloud/budget_notifications.json`, then CONFIRM the SNS email subscription. Subject line is
+  AWS-generated (not customizable without a Lambda relay). Not real-time (updates a few times/day).
+  Kill switch built + syntax-checked: `cloud/s3_public_off.sh` (delete bucket policy → all public
+  access OFF) and `cloud/s3_public_on.sh` (re-apply pp06 policy). Documented in steering recipe 6.
+  Expected flow: alarm email → user asks kiro → run `bash ~/argosy/cloud/s3_public_off.sh`.
+
 ## Completed this session (session 3, continued — AB + BR)
 - **AB Phase 1 launched** on a fresh box (download running); see "AB run — LIVE" up top.
 - **git commit-sweep DONE**: working tree clean + pushed. Untracked `_build/`, `__pycache__`,

@@ -223,6 +223,31 @@ in parallel and should not block (or be blocked by) the AB run.
 6. [OPEN] How much of this is reversible/low-risk vs. needs care (git-tracked moves, import updates).
 7. [OPEN] Descent-data recovery: on-demand (Lambda + S3 byte-range) vs bulk (shard.py descent pass
    on the ephemeral box). Plus the shard-name direction-token decision. See "Descent-data recovery".
+8. [OPEN] **Which data products should be free to download from S3, and how bundled?** Currently
+   ONLY pp06 is public (all 3 sites, `<site>/postproc/pp06/*`, ~46 GB total). Candidates for future
+   public release: pp07 (once defined), the per-profile cline/N²/MLD metadata, noon/midnight subsets
+   (pp01/pp02), tidal_constituents.json, etc. Open: what belongs in the public set, and should
+   related products be BUNDLED (e.g. a single downloadable release / Zenodo archive) rather than
+   loose prefixes? Egress is owner-billed, so scope deliberately. Steering rule now requires ASKING
+   the human before making any new dataset public.
+
+   **Safety assessment of the public pp06 policy (2026-09-07):**
+   - DEMONSTRABLY SAFE on the SECURITY surface: grants only GetObject + ListBucket on the pp06
+     prefixes — no Put/Delete/config, so no tamper/ransom/upload-cost path. Scope is prefix-limited
+     (redux, pp01/02/05, metadata, 204 GB ooinet all private — verified). Data is non-sensitive
+     derived measurements (no PII/creds). "Use outside intent" = unintended VOLUME, not unintended
+     access; open scientific reuse is fine.
+   - NOT demonstrably safe on the COST surface: public GetObject egress is UNBOUNDED in principle.
+     ~$4.14 per full 3-site pull (46 GB × $0.09/GB), but no rate limit, no cap, no requester auth —
+     a bot/scraper/loop could run the bill arbitrarily high. ListBucket makes contents enumerable,
+     easing both legit reuse and abuse. So: bounded surface + low expected cost, but unbounded
+     worst-case bill. NOT "demonstrably safe" in the cost sense.
+   - Mitigations (in increasing effort): AWS Budgets alarm (smoke detector — alerts, doesn't
+     prevent; DOING NOW at $25 ≈ ~5 downloads) → CloudFront+WAF rate-limit → Requester Pays (needs
+     downloader AWS acct, kills frictionless access) → publish the fixed pp06 set via ZENODO instead
+     of live public S3 (offloads hosting+egress to an open-data service; likely the right long-term
+     home per the "where do components go?" tenet). LEANING: keep S3 public-read for now WITH a
+     budget alarm + a manual kill switch, migrate to Zenodo for the durable public release.
 
 
 ## Possible orphans (repo scan, 2026-09-07)
@@ -266,3 +291,15 @@ the `argosy-conventions.md` steering (vector-channel line reworded). No dangling
   deleted from localhost after backup; web components = GitHub master, Zenodo archival, published
   Book, AGU26 poster via QR). Added the "Descent-data recovery" design topic (open-demand-vs-bulk;
   Lambda big-file caveat; shard.py already does descent for pH/pCO2). Open questions 7 added.
+- 2026-09-07 (S3 public-access reconciliation): Found a THREE-WAY mismatch — repo
+  `s3_public_read_policy.json` said `pp06/*` (flat, pre-restructure/stale), DataOps.md said
+  `sb/redux/*`+`sb/postproc/*`, and the LIVE bucket policy said `sb/redux/*`+`sb/postproc/*`
+  (sb-only, redux public, all pp levels public). DECISION: only pp06 public, all 3 sites.
+  Rewrote `s3_public_read_policy.json` → GetObject+ListBucket on `{sb,oo,ab}/postproc/pp06/*`;
+  APPLIED via put-bucket-policy and verified the live policy matches. redux + pp01/02/05 +
+  metadata + ooinet now private. Reasons: redux is more flawed than pp06; narrower public surface;
+  egress is owner-billed. Added steering rule "Public data sharing (S3)" (ASK before exposing new
+  datasets). Fixed DataOps.md to describe reality. New BR open question 8 (what else to share / how
+  to bundle). Cost/security note: public GET egress bills the bucket OWNER (~$0.09/GB out); risk is
+  bulk/bot download of a discoverable public prefix — bounded but unbounded-in-principle; mitigations
+  = Requester Pays (needs downloader AWS acct), CloudFront caching, or accept bounded open-science cost.

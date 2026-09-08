@@ -20,10 +20,16 @@ s3://s3ooi/
   ooinet/rca/...                    raw archive (legacy keys, see note)
 ```
 
-- Public-read policy grants unauthenticated `s3:GetObject` on `sb/redux/*` and
-  `sb/postproc/*` (and `ListBucket` on those prefixes). Metadata/analysis and
-  `ooinet/` remain private. To add a site, extend the policy with `<site>/redux/*`
-  and `<site>/postproc/*` deliberately.
+- Public-read policy grants unauthenticated `s3:GetObject` + `ListBucket` on **pp06 only**,
+  for all three sites: `sb/postproc/pp06/*`, `oo/postproc/pp06/*`, `ab/postproc/pp06/*`.
+  Policy JSON: `~/argosy/s3_public_read_policy.json`; apply with
+  `aws s3api put-bucket-policy --bucket s3ooi --policy file://s3_public_read_policy.json`.
+  **redux, the other pp levels (pp01/pp02/pp05), metadata/analysis, and `ooinet/` all remain
+  private.** redux is intentionally NOT public — it is a more flawed dataset than pp06, and we
+  don't want reusers building on the inferior version. When a NEW dataset is created (pp07, other
+  future products), ASK before extending the policy — see the steering rule "Public data sharing
+  (S3)" and the BR open topic on shareable products/bundling. Egress is billed to the bucket owner,
+  so each public prefix is a deliberate cost/security decision.
 - **`ooinet/` exception:** the 204 GB raw archive was NOT re-keyed during the
   per-site restructure — it retains its original `ooinet/rca/...` scheme. Re-keying
   204 GB for tidiness isn't worth the cost/time; revisit only when a second site's

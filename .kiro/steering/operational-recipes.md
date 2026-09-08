@@ -188,3 +188,28 @@ then `cd ~/argosy/cloud && cdk destroy` (billing meter!) and confirm no orphaned
 The AGU poster is HTML/CSS (`poster/AGUPoster.html`, KaTeX for math). Export to a
 size-exact PDF via headless Chromium — see `poster/README.md` for the command and the
 QR-code generation step.
+
+
+## 6. S3 public-access KILL SWITCH (run when the budget alarm email fires)
+
+Trigger scenario: the AWS Budgets "smoke detector" (monthly $100 account budget) emails that
+spend crossed a threshold — likely runaway egress from the public `pp06` data. To STOP all public
+access to the `s3ooi` bucket immediately, run from WSL (AWS creds active):
+
+```bash
+bash ~/argosy/cloud/s3_public_off.sh      # KILL: deletes the bucket policy → no public access
+```
+
+- Your own IAM/root access is unaffected (that's IAM, not the bucket policy).
+- To RE-OPEN the intended public pp06 access later:
+```bash
+bash ~/argosy/cloud/s3_public_on.sh       # re-applies s3_public_read_policy.json (pp06, 3 sites)
+```
+
+Context / what's public: only `{sb,oo,ab}/postproc/pp06/*` (~46 GB total; ~$4.14/full download at
+$0.09/GB egress, owner-billed). redux + other pp levels + metadata + ooinet are private. See
+`DataOps.md` (S3 layout) and `BR.md` open-question 8 (safety assessment; Zenodo as durable home).
+
+Budget: `argosy-monthly-100` ($100/mo account cost, ACTUAL 50%+100% and FORECASTED 100% email
+alerts). Not real-time (updates a few times/day). Recreate via `cloud/budget.json` +
+`cloud/budget_notifications.json` and `aws budgets create-budget` (see cloud/ + SessionState).

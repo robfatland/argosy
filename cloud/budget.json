@@ -1,0 +1,9 @@
+{
+    "BudgetName": "argosy-monthly-100",
+    "BudgetLimit": {
+        "Amount": "100",
+        "Unit": "USD"
+    },
+    "TimeUnit": "MONTHLY",
+    "BudgetType": "COST"
+}
