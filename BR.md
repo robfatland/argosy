@@ -49,6 +49,61 @@ It serves two personae in particular:
 SHOULD appear in the Book.
 
 
+## Design tenet: where do the components go? (laptop vs cloud vs web)
+
+Argosy is a reasonably complex project with many moving parts, so the recurring question is
+"where does each component go?" The guiding placement map:
+
+- **The Argosy repo** holds the Jupyter Book AND the computational code (sorted within it).
+- **The data** lives in the `ooi/` directory, kept SEPARATE from `argosy/`.
+- **The data is backed up on S3 object storage.** Once backed up:
+  - high-volume, low-touch data is DELETED from localhost as superfluous (reclaim disk);
+  - some S3 content is kept in a collaborative/shared state — no cost to download.
+- **The localhost machine (laptop etc.) is for EDITING and ORCHESTRATION** — of both the Book
+  and the computation. It is NOT where heavy data-touching computation should happen.
+- **Actual computation should be relegated to the cloud when doing so makes sense.** For any new
+  data task the question to ask FIRST is: *"Is this a cloud task?"* (Compute goes to the data,
+  which lives in S3 — not the other way around. Getting AWAY from "pull the data to the laptop
+  and work on it locally" is an explicit goal.)
+- **Other components live elsewhere on the web:**
+  - **GitHub** — the safe master copy of the repo (localhost + EC2 are clones).
+  - **Zenodo / similar** — archival + open-science / DOI use.
+  - **Published Jupyter Book** — the reader-facing site (GitHub Pages).
+  - **Published AGU26 poster** — reached via QR code.
+
+Consequence for design decisions (e.g. descent-data recovery, VisQC pp07 production): prefer
+cloud-side compute against the S3-resident raw/redux/pp data over pulling large files to the
+laptop. See "Descent-data recovery" below for a worked example of applying this tenet.
+
+
+## Descent-data recovery (design topic — applies the cloud-vs-laptop tenet)
+
+Motivation: temperature (and other ascent-only sensors) on DESCENT is useful as a comparison
+with ascent. Mechanism (confirmed correct against `shard.py`): descent is just the OTHER
+time-window slice of the SAME source file — `peak → end` instead of `start → peak`, using the
+profileIndices `peak` and `end` timestamps for a GPI. The sharder ALREADY does this for pH/pCO2
+(direction="descent" in SENSOR_MAP), so producing descent temperature is a naming/where-to-run
+decision, not new physics.
+
+Naming problem: current shard name `RCA_<site>_sp_<sensor>_<yyyy>_<ddd>_<gpi>_<daily>_V1.nc` has
+no direction token, so ascent + descent temperature would collide. Options: sensor-name token
+(`temperature_desc`), a direction field in the filename, or a separate redux subtree.
+
+Where to run it (the "is this a cloud task?" question — YES, the raw is in S3):
+1. **Lambda, per-request descent shard** — serverless, on-demand. CAVEAT: CTD source files are
+   ~500 MB each; Lambda /tmp up to 10 GB fits one, but memory + 15-min limit make multi-file /
+   many-GPI requests marginal. Best for occasional/interactive "give me descent for GPI X".
+2. **Lambda + prebuilt index** (GPI → source file + byte range) so it does a cheap S3 byte-range
+   read instead of scanning 500 MB. More setup, much faster/cheaper per call.
+3. **Bulk pass on the ephemeral EC2 box** — add a `descent` direction to `shard.py`'s SENSOR_MAP,
+   run as one more pipeline stage while the box is up, sync descent shards to S3. Best if descent
+   is a STANDARD Phase-1 product rather than ad-hoc. No new service; reuses existing machinery.
+4. **AWS Batch / Fargate** for the bulk case without a persistent box.
+
+Underlying decision = **on-demand vs bulk**. Bulk-standard → Option 3 (simplest, cheapest, cloud-
+side). Genuinely ad-hoc → Option 1/2 (Lambda + S3 byte-range). PARKED for decision.
+
+
 ## Central question raised this session: where does VisQC / cline work live?
 
 The `iw/` folder currently MIXES both phases (inventory below). The user proposes:
@@ -166,6 +221,8 @@ in parallel and should not block (or be blocked by) the AB run.
 5. [DECIDED] Folder is **`visqc/`** and it DOES house cline_extract + cline_plot ("part and
    parcel"), not only the visual inspector. There is NO separate `qc/`.
 6. [OPEN] How much of this is reversible/low-risk vs. needs care (git-tracked moves, import updates).
+7. [OPEN] Descent-data recovery: on-demand (Lambda + S3 byte-range) vs bulk (shard.py descent pass
+   on the ephemeral box). Plus the shard-name direction-token decision. See "Descent-data recovery".
 
 
 ## Possible orphans (repo scan, 2026-09-07)
@@ -204,3 +261,8 @@ the `argosy-conventions.md` steering (vector-channel line reworded). No dangling
   Phase-2 home) parked, remind user. Also clarified the environment model: GitHub is master;
   laptop = working master (edit+commit+push); EC2 only pulls (ephemeral, dies on cdk destroy) —
   so download_link_list.txt lives on the laptop and travels laptop→GitHub→EC2.
+- 2026-09-07 (later still): Added the "where do the components go?" design tenet (localhost =
+  edit/orchestrate; compute → cloud when it makes sense; data in ooi/ + S3, high-volume low-touch
+  deleted from localhost after backup; web components = GitHub master, Zenodo archival, published
+  Book, AGU26 poster via QR). Added the "Descent-data recovery" design topic (open-demand-vs-bulk;
+  Lambda big-file caveat; shard.py already does descent for pH/pCO2). Open questions 7 added.

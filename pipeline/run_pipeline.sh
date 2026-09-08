@@ -38,6 +38,12 @@ fi
 
 cd "$ARGOSY" || { echo "no $ARGOSY"; exit 1; }
 
+# Ensure the data root exists. On a fresh box ~/ooi may not exist yet; the stages below
+# write under it, and callers often redirect their own log to ~/ooi/. Create it early so
+# a bare fresh box doesn't fail before any stage runs. (Real data still lands here; on the
+# EBS-as-root layout ~/ooi is a normal dir on the big root volume.)
+mkdir -p "$HOME/ooi" "$HOME/ooi/$SITE"
+
 # Optional per-site URL list (3rd arg); defaults to pipeline/<site>_url_list.txt if present,
 # else download.py's built-in ~/argosy/download_link_list.txt.
 URL_LIST="${3:-}"

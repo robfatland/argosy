@@ -1,7 +1,46 @@
 # Session State
 
 ## Last updated
-2026-09-07 (session 3) — **oo Phase 1 COMPLETE and verified in S3; EC2 box DESTROYED (meter off).**
+2026-09-07 (session 3, continued) — **AB Phase 1 pipeline LAUNCHED on a fresh EC2 box; DOWNLOAD
+stage running.** Also: started the **Bicameral Redesign (BR)** deliberation phase (see `BR.md`),
+did a full git commit-sweep (working tree now clean + pushed), reconciled orphan cleanup, and
+enhanced the VisQC Inspector. Details in "LIVE EC2 STATE" and "Completed this session" below.
+
+### AB run — COMPLETE + verified in S3; box being destroyed (2026-09-07)
+- **AB Phase 1 DONE end-to-end with ZERO mid-run intervention** (contrast oo's 4 fixes) — validates
+  the whole disposable-box automation on a fresh clone. Shard `written>0` for ALL 11 sensors
+  INCLUDING **pco2 (5842)** — the oo gap is closed for AB. pp05 saw Redux years 2014-2026, pp06/
+  filters clean, sync to `s3://s3ooi/ab/`. Verified S3==local: **pp06 152738**, **redux 186043**.
+- Box destroyed via `cdk destroy` (argosy-cdk env). Residual-EBS check (WSL, no console needed):
+  `aws ec2 describe-volumes --region us-west-2 --filters Name=status,Values=available --query
+  "Volumes[].[VolumeId,Size,CreateTime]" --output table` (anything listed = unattached/orphan →
+  `aws ec2 delete-volume --region us-west-2 --volume-id <id>`). Instance-gone check:
+  `aws ec2 describe-instances --region us-west-2 --filters Name=instance-state-name,Values=running,stopped ...`.
+- **All three sites (sb, oo, ab) are now through Phase 1 and mirrored to S3.**
+- NOTE: SessionState previously carried the STALE oo instance id `i-0a018916cfb9a8e46` as a "connect"
+  example — that box is destroyed; do NOT reuse it. Find a live box via describe-instances.
+
+### AB run — (historical, now complete) launch notes
+- Fresh box deployed via `cdk deploy` (new instance, us-west-2). git commit-sweep done FIRST this
+  time (untracked `_build/`+`__pycache__`+`.ipynb_checkpoints`; committed all BR work) so the clone
+  is complete. profileIndices verified in `s3://s3ooi/ab/profileIndices/` (13 RS03AXPS files) AND
+  locally before launch.
+- **Fresh-box gotcha hit + FIXED:** `~/ooi` did not exist on the new box, so the caller's log
+  redirect failed and the first launch exited immediately. Confirmed the CDK root-volume fix HELD
+  (single 1 TB `/dev/nvme0n1p1` root, 989 GB free — NOT the second-disk trap). Fix: `mkdir -p ~/ooi`
+  then relaunched. PERMANENT FIX applied (uncommitted, laptop): added `mkdir -p /home/ec2-user/ooi`
+  to `cloud/app.py` user-data AND `mkdir -p "$HOME/ooi" "$HOME/ooi/$SITE"` early in
+  `pipeline/run_pipeline.sh`. Commit these before the NEXT box.
+- Launched: `export PYTHONUNBUFFERED=1 ARGOSY_SITE=ab; cd ~/argosy; nohup bash
+  pipeline/run_pipeline.sh ab all > ~/ooi/ab_pipeline_<ts>.log 2>&1 &`. Confirmed DOWNLOAD running
+  (RS03AXPS-SF03A files routing to `<year>_par/` etc., ~file 44/166 on PAR at last check).
+- **Resume:** reconnect SSM → `sudo su - ec2-user` → snapshot with
+  `tail -30 "$(ls -t ~/ooi/ab_pipeline_*.log | head -1)"` (NOT tail -f). Watch: shard `written>0`
+  for ALL sensors INCLUDING **pco2** this time (pco2 was zero for oo — AB order included PCO2W);
+  pp05 "Redux years: 2014-2026"; run ONE job only (double-run caused the oo permission error).
+  Then verify `s3://s3ooi/ab/`, then **`cdk destroy`** (meter running) + confirm no orphaned EBS.
+
+## Session 3 earlier — oo Phase 1 COMPLETE and verified in S3; that EC2 box DESTROYED.
 Drove the oo run from shard through pp through sync on the disposable box, fixing FOUR more latent
 bugs along the way (all pre-restructure leftovers, now committed + pushed so `ab` won't hit them):
 (1) pp05 + special_profiles globbed `redux<yyyy>` year dirs but the per-site layout uses `<yyyy>` →
@@ -38,10 +77,10 @@ blocker: (1) CDK attached the 1 TB EBS as a SECOND disk instead of root — work
 (device_name /dev/sda1 -> /dev/xvda); (2) ooipaths.py + pipeline/* + the 5 oo download URLs were
 UNTRACKED in git so the EC2 clone lacked them — committed + pushed (added .gitattributes pinning LF).
 
-## EC2 STATE: NO LIVE BOX (destroyed session 3, meter off)
-- `ArgosyPipelineStack` destroyed via `cdk destroy` (from `~/argosy/cloud`, `argosy-cdk` env).
-  Instance `i-0a018916cfb9a8e46` + its 1 TB volume gone. TODO: eyeball the EC2 console once to
-  confirm no orphaned EBS (stack-managed volume should be deleted).
+## EC2 REFERENCE (the oo box was destroyed; a NEW ab box is now LIVE — see "AB run" above)
+- The oo box `i-0a018916cfb9a8e46` + its 1 TB volume were destroyed earlier. (Confirm no orphaned
+  EBS in the console.) The CURRENT live box is the ab one from the later `cdk deploy`.
+- The facts below (deploy/connect/env, EBS note) apply to any box, including the live ab one.
 - Reusable box facts for the next deploy: c6i.xlarge, us-west-2, acct 879605964811, keyless SSM
   (`aws ssm start-session --target <id>` → lands as ssm-user → `sudo su - ec2-user`). EC2 auth is
   the IAM instance role (S3 access to s3ooi; no keys on disk). Minimal conda env `argosy` via
@@ -89,7 +128,32 @@ thing that made oo silently produce `attempted=0`. Steps, all from WSL:
   coverage/curtain PNG is a separate future viz step (proposed `pipeline/coverage_plot.py`, Agg
   backend -> ~/ooi/oo/visualizations/); NOT yet built. User expressed interest.
 
-## Completed this session (session 3)
+## Completed this session (session 3, continued — AB + BR)
+- **AB Phase 1 launched** on a fresh box (download running); see "AB run — LIVE" up top.
+- **git commit-sweep DONE**: working tree clean + pushed. Untracked `_build/`, `__pycache__`,
+  `chapters/.ipynb_checkpoints` via `git rm --cached` (they were tracked pre-.gitignore); committed
+  all BR-session work (pp06 fix, visqc changes, cline fixes, doc reconciliation, cloud/poster/BR/
+  OOIUsability, orphan deletions). .gitignore also gained `cloud/cdk.out/`.
+- **~/ooi fresh-box fix** (uncommitted, laptop — commit before next box): `cloud/app.py` user-data
+  + `pipeline/run_pipeline.sh` both now `mkdir -p ~/ooi`.
+- **Bicameral Redesign (BR) started** — `BR.md` created (deliberation doc, no premature file moves).
+  Decisions: (1) Phase-1 cline/QC code → dedicated `~/argosy/visqc/` (NOT pipeline/); (4) Book
+  notebooks: MidnightNoon OUT, Visualizations STAYS, DataDownload+DataSharding OUT; (5) visqc/ holds
+  cline_extract+cline_plot too (no separate qc/). PARKED: (2) define pp07 (needs Vis-notebook data
+  review), (3) Phase-2 internal-wave file home. `iw/` inventory recorded (3 Phase-1 QC files vs 3
+  Phase-2 IW files). Orphan scan → deleted ctd_coverage/ctd_minimum_cover.png + 4 vector v*.csv +
+  3 stray `_check_*.py`; reconciled the v*.csv references in SensorTable.md/CodeManifest.md/steering.
+- **VisQC Inspector enhanced**: added the right-hand potential-density (σ₀, TEOS-10/gsw) panel;
+  Accept/Correct/Discard buttons writing `metadata/annotations/visqc_visitation_<site>.csv`
+  (schema: timestamp,gpi,sensor,decision,upper_depth,lower_depth,cline_depth,cline_thickness,
+  reviewed_at); fixed SITE_NAME 'slopebase'→2-letter code (renamed the existing sb CSV too),
+  START_DATE now env-configurable; widened window (22in) + deepened + lowered charts + bigger title
+  so controls/labels/title don't collide. `cline_plot.py` adapted: dual-mode (notebook sliders /
+  standalone Agg+PNG), site-code filename, full-data-span default (dropped hardcoded 2024).
+  `cline_extract.py` now keys on 2-letter site + per-site lat/lon. Added `OOIUsability.md` (OOINET
+  parameter/provenance/annotation friction as DSC feedback) + wired into ArgosyOverview/CodeManifest.
+
+## Completed earlier this session (session 3)
 - **oo Phase 1 COMPLETE**: shard (all sensors written>0 except pco2=0) → pp05 (243905-entry manifest)
   → pp06 (132056 shards, Errors:0) → filter2 (Sav-Gol cdom/chlora) → filter3 (backscatter despike,
   16942 files) → `aws s3 sync` to s3://s3ooi/oo/. Verified S3==local: pp06 132056, redux 157854.
@@ -201,16 +265,17 @@ thing that made oo silently produce `attempted=0`. Steps, all from WSL:
   oxygen) from others (T/S/depth), honest train/test split by profile or time.
 
 ## Next action
-- **#1: AB bring-up** — follow the FRONT-LOADED checklist above, IN ORDER. profileIndices to S3
-  FIRST (step 1), then skeleton, then order OOINET data (include pco2!), then the git commit-sweep,
-  then `cdk deploy` + `run_pipeline.sh ab all`. Rebuild-from-scratch is deliberate: it's the tested
-  path and exercises the fresh-provision automation the disposable-box design is for.
-- **#2: git commit-sweep** (blocker for a clean AB box AND for the book): the WSL working tree still
-  has many uncommitted changes (ooipaths conversion across scripts, docs, cloud/, poster/,
-  DeveloperGuide.md, operational-recipes.md steering, references.bib, _toc.yml, ArgosyOverview.md,
-  ColumbiaPlumePlan.md). A fresh box clones HEAD, so uncommitted = invisible to it (this bit us 3×
-  during oo). Commit + push from WSL. Then publish the book (`jupyter-book build .` ;
-  `ghp-import -n -p -f _build/html`) to surface the new Bibliography page.
+- **AB Phase 1 DONE** (verified in S3, box destroyed). Post-destroy: confirm no orphaned EBS with the
+  describe-volumes CLI in the "AB run — COMPLETE" section above (avoids the console).
+- **#1: commit the two ~/ooi fresh-box fixes** (`cloud/app.py`, `pipeline/run_pipeline.sh`) from the
+  laptop — still uncommitted; needed before any future box. Then optionally publish the book
+  (`jupyter-book build .` ; `ghp-import -n -p -f _build/html`) for the new Bibliography page.
+- **#2: BR (Bicameral Redesign) — now the main focus.** Resolve parked decisions in `BR.md`:
+  (2) define pp07 (needs Vis-notebook data review); (3) Phase-2 internal-wave file home. Then plan
+  + execute the `visqc/` move (cline_extract/cline_plot/VisQCInspector) and moving MidnightNoon/
+  DataDownload/DataSharding OUT of the Book (decided). BR also holds: the "where do components go?"
+  tenet, the descent-data-recovery topic (on-demand Lambda vs bulk shard.py pass), and the orphan
+  cleanup (done). Guideline: deliberate design first, then implement.
 - Then (lower priority) open threads:
   (a) **AGU poster** — fill the scaffold (four theme figures, final title/authors/abstract, QR).
   (b) complete the **VisQC** workflow (output writer + Corrector + thickness reconciliation).

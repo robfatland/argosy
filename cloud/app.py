@@ -74,6 +74,10 @@ class ArgosyPipelineStack(Stack):
             "wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O mc.sh",
             "bash mc.sh -b -p /home/ec2-user/miniconda3",
             "git clone https://github.com/robfatland/argosy.git /home/ec2-user/argosy || true",
+            # Data root: the pipeline writes under ~/ooi and callers redirect logs there.
+            # On a fresh box it doesn't exist yet — create it (on the EBS-as-root layout it's
+            # a normal dir on the big root volume, plenty of space).
+            "mkdir -p /home/ec2-user/ooi",
             "chown -R ec2-user:ec2-user /home/ec2-user",
             # Create the MINIMAL pipeline env (not environment.yml). The full analysis env
             # pulls ~2 GB of CUDA/MKL/Jupyter this box never uses; the pipeline only needs
