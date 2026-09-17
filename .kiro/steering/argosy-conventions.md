@@ -161,3 +161,46 @@ to make data folders (especially `metadata/` and its subfolders) somewhat self-d
 - **Cross-document references**: When an item in one document is addressed or elaborated in another, add a pointer (e.g. "See `Testing.md` for details"). This applies to Open Topics referencing Testing.md, DevelopmentLog referencing Analysis.md, etc. Keeps navigation efficient across the doc set.
 - Before running any long-running process that writes significant data (pp05, sharding, etc.), check Windows C: drive free space with `Get-PSDrive C`. If free space is 2GB or less, STOP and notify the user that the Windows drive is critically low — WSL will fail if the vhdx cannot grow.
 - **Public data sharing (S3):** the `s3ooi` bucket makes ONLY `pp06` publicly readable (unauthenticated `s3:GetObject`/`ListBucket` on `<site>/postproc/pp06/*` for sb/oo/ab; policy in `~/argosy/s3_public_read_policy.json`, applied via `aws s3api put-bucket-policy`). redux and other pp levels are intentionally private (redux is more flawed than pp06). As NEW datasets are created (pp07, other future sp-data versions/products), ASK the human whether they should be publicly available like pp06 before extending the bucket policy — do not expose new prefixes automatically. Note egress is billed to the bucket owner, so public exposure is a deliberate cost/security decision (see `DataOps.md` and BR.md).
+
+## Annotation problem (HIGH-PRIORITY thinking — Phase 1)
+
+Filed as a concept to develop, not yet implemented. This captures the user's framing so it
+survives session restarts.
+
+### The scale
+
+Roughly one million sensor~profiles across the archive: ~11 scalar sensors × 3 sites × up to
+9 profiles/day × 365 days × ~12 years (order-of-magnitude, not exact). For each profile — at
+minimum for T, S, rho (density), and DO — we want annotations:
+- a **MLD** (mixed-layer depth), and
+- a **cline** described as **top / max-gradient / bottom** (thermocline, halocline, pycnocline,
+  oxycline via the existing `CLINE_COLS` mapping in `VisQCInspector.py`).
+
+Annotations accumulate toward a **climatological view**, including a **time-of-day climatology
+crossed with time-of-year** (ties into the daily-index 4=midnight / 9=post-noon structure).
+On top of the climatology we want to **flag anomalies**.
+
+### The stance
+
+An expert system could produce all of these in minutes, but the point is to first *learn to be
+human experts* so we can judge any automated method against our own labels. That means building
+a **human-in-the-loop click-review** workflow.
+
+### Direction (current thinking, subject to change)
+
+- **Standalone GUI apps preferred over notebook-embedded** (Python assumed). Established pattern:
+  `iw/VisQCInspector.py` (TkAgg, per-(gpi,sensor) decision rows → visitation CSV under
+  `metadata/annotations/`). `TMLD/tmld_selector.py` is an earlier stalled try (currently empty).
+- **Start with ONE parameter — MLD — to build a human-labeled training dataset.** Sample rather
+  than exhaust: e.g. **one profile per day, chosen at random from the nine**, rather than all nine.
+- The human-labeled set becomes the **training dataset for subsequent ML** (learn the human MLD call).
+
+### Open problem: on-the-fly de-noising for gradient-based cline/MLD picking
+
+Gradient-based auto-derivation of the thermocline is easily fooled by signal noise/"scratchiness."
+Open question: what filter to apply, ideally **locally adaptive** — moderated along the profile by
+local standard deviation, like sidechaining/compressor behavior: where the profile is smooth, do
+little; where it is scratchy, replace with a smooth "through-the-center" trace. Candidate to
+evaluate: **LTTB** (Largest-Triangle-Three-Buckets). Goal is a filter built into the MLD
+inspection/marking tool that yields clean gradients for picking. See a fuller discussion of filter
+options in `MLDAnnotationPlan.md` (create when this work starts).

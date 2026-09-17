@@ -20,14 +20,16 @@ date: ""
 - **Phase 2**: Interpretive data analysis: Concerning both *what the ocean is like* in an average sense; and *what anomalies* might be detected and interpreted.
 
 
-This is an example reference: {cite}`nash2005`.
+Example references: {cite}`nash2005`, {cite}`holte2009`.
 
 
 The Argosy repository is published as a **Jupyter Book** (readable narrative) and a
 **working research repository** (scripts + planning notes). The GitHub landing page is
 `README.md`; the book's ordered narrative is defined by `_toc.yml`.
 
-## Who are you? (routing)
+
+## Who are you, the reader?
+
 
 - **Arthur — science reader:** read on below, then follow the Jupyter Book chapters. Science narrative, not computing machinery.
 - **Chuck — collaborator:** finish this, then head to **`DeveloperGuide.md`** (technical: filesystem layout, workflow tasks) and also `CodeManifest.md` (the file inventory).
