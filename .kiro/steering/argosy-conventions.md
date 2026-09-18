@@ -24,6 +24,9 @@
 - The `## Next` section at the end of `DevelopmentLog.md` is where complex prompts are staged.
 - PDF build: `pandoc` with `_header.tex`, command documented in `ArgosyOverview.md`.
 - Slide deck: `slides.md` (Marp format). Render with `marp slides.md -o slides.html`. Marp CLI is installed.
+  - When a Marp deck uses math syntax, recommend declaring the math typesetting library in the
+    document via the `math` global directive in the front matter (e.g. `math: katex` or
+    `math: mathjax`). Flag this whenever adding/using math in a Marp slide.
 
 ## Coding conventions
 

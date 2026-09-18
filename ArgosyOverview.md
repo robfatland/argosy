@@ -52,7 +52,9 @@ kept in the `operational-recipes` steering file, not here.
 - **Generating pp05 manifest**: `python postprocess_pp05.py` — see `PP05_QCAnalysis.md`
 - **Adding sensor exclusions**: Edit `~/argosy/sensor_exclusions.csv` — see `PostProcessing.md` → "Sensor exclusions"
 - **Localhost disk management**: WSL vhdx compaction, free space checks — see `DataOps.md` → "Localhost Data Management"
-- **Running curtain plots**: Vis.ipynb curtain plot cell — see `Visualization.md`
+- **Running curtain plots**: `chapters/Visualizations.ipynb` curtain plot cell — see `Visualization.md`
+- **Switching the SP site (sb/oo/ab) in the vis notebook**: each plot cell calls `op.select_site()` — press Enter to keep the `ARGOSY_SITE` default or type a 2-letter code to switch (no kernel restart needed). See the intro cell of `chapters/Visualizations.ipynb`.
+- **Building the MLD training dataset (human labels)**: two-program workflow — `PreSelectProfiles.py` (reproducible candidate sampling) then `MLD.py` (interactive TkAgg annotator). Full spec in `MLDAnnotationPlan.md`.
 
 \newpage
 

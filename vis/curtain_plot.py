@@ -24,7 +24,8 @@ import pandas as pd
 # Make the repo root importable so `import ooipaths` works under %run.
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
-SITE = op.DEFAULT_SITE
+# Choose the SP site interactively (Enter keeps the ARGOSY_SITE default).
+SITE = op.select_site(announce="Curtain plot")
 
 # == Data source selection ======================================================
 def source_year_dir(source, year):

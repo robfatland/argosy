@@ -1,6 +1,42 @@
 # Session State
 
 ## Last updated
+2026-09-15 — **Vis-notebook site switching + slide/deck fixups.** Made the three `vis/` tools
+site-switchable via a shared `op.select_site()` prompt; fixed the Marp deck image + math directive;
+documented the pp06 public-download path and the ARGOSY_SITE-at-launch gotcha. Details below;
+the older AB/oo Phase 1 EC2 narrative is retained further down.
+
+## Completed this session (2026-09-15)
+- **`ooipaths.select_site(default=None, announce=None)`** added (after `shard_glob`): starts from
+  `DEFAULT_SITE` (reads `ARGOSY_SITE`, else `sb`), prompts Enter=keep / 2-letter code to switch
+  (case-insensitive), silent fallback to default on no-stdin (cloud JupyterHub) or bad entry,
+  prints a confirmation line when `announce` is given.
+- **All three `vis/` scripts now call it**: `bundle_chart.py` (`announce="Bundle chart"`),
+  `curtain_plot.py` (`"Curtain plot"`), `bundle_animate.py` (`"Bundle animation"`), each replacing
+  the old `SITE = op.DEFAULT_SITE`. Lets Chuck switch sites by re-running a cell — no kernel restart
+  or `ARGOSY_SITE` export. Verified: py_compile + monkeypatched-input tests for sb and oo.
+- **`Visualizations.ipynb`** intro cell: added a "Switching sites (sb/oo/ab)" note. JSON validated.
+- **`ArgosyOverview.md`** Pointers: added a select_site pointer; fixed the stale curtain-plot pointer
+  (`Vis.ipynb` → `chapters/Visualizations.ipynb`).
+- **Marp deck (`slides.md`)**: added `math: katex` directive; fixed the broken title image
+  (`tidal_height_may2026.png` did not exist) → copied `~/ooi/sb/visualizations/TidalSignal.png` to
+  `images/TidalSignal.png` and pointed the slide at `images/TidalSignal.png`. Rendered clean via
+  `marp slides.md -o slides.html` (marp only on PATH under an interactive login shell — nvm).
+- **Steering**: filed the MLD "annotation problem" concept (high-priority Phase 1 thinking) and a
+  Marp `math`-directive recommendation in `argosy-conventions.md`.
+
+## Next action (2026-09-15)
+- **MLD annotation workflow spec is COMPLETE in `MLDAnnotationPlan.md`** (two programs:
+  `PreSelectProfiles.py` candidate sampling → `MLD.py` interactive TkAgg annotator). Key decisions:
+  5-day blocks from each site's first GPI, all4→T-only fallback, seeded pick, empty blocks kept
+  (N=0); label key = (gpi, sensor, who), per-who output files `mld_labels_<site>_<who>.csv`,
+  `--site/--year/--who` switches (who default `C`=Chuck, no UI chooser), four filters (None, savgol,
+  adaptive_savgol_std, adaptive_savgol_mad), continuous click depth + both raw/filtered values.
+- **Now building `PreSelectProfiles.py`** (candidate lists feed the tool). Then `MLD.py`.
+
+---
+
+## (Earlier) Last updated
 2026-09-07 (session 3, continued) — **AB Phase 1 pipeline LAUNCHED on a fresh EC2 box; DOWNLOAD
 stage running.** Also: started the **Bicameral Redesign (BR)** deliberation phase (see `BR.md`),
 did a full git commit-sweep (working tree now clean + pushed), reconciled orphan cleanup, and

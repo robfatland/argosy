@@ -25,7 +25,8 @@ import calendar
 # Make the repo root importable so `import ooipaths` works under %run.
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
-SITE = op.DEFAULT_SITE
+# Choose the SP site interactively (Enter keeps the ARGOSY_SITE default).
+SITE = op.select_site(announce="Bundle animation")
 from zoneinfo import ZoneInfo
 
 OREGON_TZ = ZoneInfo('America/Los_Angeles')

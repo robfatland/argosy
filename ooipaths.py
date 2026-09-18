@@ -184,6 +184,40 @@ def shard_glob(sensor, site=DEFAULT_SITE, version="V1"):
     return f"RCA_{site}_sp_{sensor}_*_{version}.nc"
 
 
+def select_site(default=None, announce=None):
+    """Interactively choose a shallow-profiler site, defaulting to the env var.
+
+    Starts from `default` (or DEFAULT_SITE, which reads ARGOSY_SITE, else 'sb').
+    Prompts the user to press Enter to keep the default, or type a 2-letter site
+    code (sb/oo/ab) to switch (case-insensitive). Falls back silently to the
+    default when stdin is unavailable (cloud JupyterHubs disable stdin) or on an
+    unrecognized entry.
+
+    If `announce` is given (e.g. a tool name), a confirmation line naming the
+    chosen site is printed. Returns the chosen 2-letter site code.
+    """
+    if default is None:
+        default = DEFAULT_SITE
+    _check_site(default)
+    options = ", ".join(f"{code}={SITE_INFO[code][0]}" for code in SITES)
+    prompt = f"SP site [{options}] — Enter to keep default '{default}': "
+    try:
+        choice = input(prompt).strip().lower()
+    except (EOFError, OSError, Exception):
+        choice = ""
+    if not choice:
+        site = default
+    elif choice in SITE_INFO:
+        site = choice
+    else:
+        print(f"  '{choice}' not a known site; keeping default '{default}'.")
+        site = default
+    if announce:
+        name, desig = SITE_INFO[site][0], SITE_INFO[site][1]
+        print(f"{announce} — viewing SP site: {site} ({name}, {desig})")
+    return site
+
+
 if __name__ == "__main__":
     # Quick self-check: print the per-site layout paths for the default site.
     print("OOI_ROOT       :", OOI_ROOT)
