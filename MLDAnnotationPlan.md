@@ -37,9 +37,18 @@ where casts are dense.
   equally-likely candidates like any other index.
 - **Determinism:** fixed **random seed** (parameter) so re-runs reproduce the candidate list.
 
-### Output
-One CSV per site at `~/ooi/<site>/metadata/annotations/mld_candidates_<site>.csv`.
-**Create the target folder if it does not exist** (test-and-create).
+### Output (working copy + blessed shared copy)
+- **Working copy** (regenerable): one CSV per site at
+  `~/ooi/<site>/metadata/annotations/mld_candidates_<site>_block<NN>.csv` — block width baked
+  into the name (zero-padded), so different block sizes coexist. **Create the folder if absent.**
+- **Blessed shared copy** (canonical): `PreSelectProfiles.py --bless` copies the working CSVs
+  into the repo folder **`~/argosy/mld_candidates/`** (small, committable manifests — a deliberate
+  exception to "no data in `~/argosy`", like `sensor_exclusions.csv`). `MLD.py` reads the
+  **blessed** copies, and both files are committed to git.
+- **Why bless instead of re-run:** selection draws at random from the profiles present in each
+  block, so it is only reproducible if the local pp06 set is identical across machines — which is
+  NOT guaranteed (partial syncs, newer data). Blessing one person's run and sharing it via git
+  guarantees Chuck and Rob label the SAME profiles (the whole point of inter-annotator agreement).
 
 Columns:
 
@@ -155,6 +164,9 @@ within a file — the value's real purpose is disambiguating rows once per-who f
 
 **One CSV per site per labeler** at
 `~/ooi/<site>/metadata/annotations/mld_labels_<site>_<who>.csv` (create folder if absent).
+The label filename should also carry the candidate block tag (e.g.
+`mld_labels_<site>_block05_<who>.csv`) so a label set is traceable to the candidate set it
+was made against.
 Baking `who` into the filename means each running tool instance writes/overwrites **only its own
 labeler's file** — no collision when Chuck and Rob work on separate computers and combine later.
 
