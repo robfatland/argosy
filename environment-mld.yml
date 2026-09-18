@@ -1,0 +1,35 @@
+# Portable minimal conda environment for running the MLD annotation workflow
+# (PreSelectProfiles.py + MLD.py). This mirrors the subset of the full `argosy`
+# env that these two programs actually need — see the imports in each file and
+# MLDAnnotationPlan.md.
+#
+# This is intentionally NOT the full `conda env export` snapshot (that lives in
+# environment.yml, pinned with exact build hashes for Rob's machine and not
+# portable). Versions here are left unpinned/minimally-pinned so the solver can
+# find a working set on a collaborator's platform.
+#
+# Setup (Chuck):
+#   conda env create -f environment-mld.yml
+#   conda activate argosy
+#   # interactive matplotlib backend (TkAgg) needs the OS Tk bindings:
+#   sudo apt install python3-tk        # Debian/Ubuntu/WSL
+#   python MLD.py --site sb --who C    # see MLD.py header / MLDAnnotationPlan.md
+#
+# NOTE: MLD.py uses matplotlib's TkAgg backend and requires a working display
+# (X server on WSL2). See operational-recipes section 3 for the standalone-GUI
+# matplotlib guidance.
+
+name: argosy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - xarray
+  - netcdf4
+  - matplotlib
+  - tk
+  - pip
