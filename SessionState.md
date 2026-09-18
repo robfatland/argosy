@@ -1,6 +1,39 @@
 # Session State
 
 ## Last updated
+2026-09-18 — **Collaborator (Chuck) MLD setup + env-sprawl topic filed.** Added a portable minimal
+conda spec so Chuck can run `MLD.py`, committed the (previously untracked) `MLD.py`, reconciled the
+MLD docs to "implemented", and filed the env-sprawl refactor as an Open Topic. `MLD.py` and
+`PreSelectProfiles.py` are both built. Details below; earlier 2026-09-15 vis/slide narrative retained
+further down.
+
+## Completed this session (2026-09-18)
+- **`environment-mld.yml`** created — portable minimal conda spec (`numpy, pandas, scipy, xarray,
+  netcdf4, matplotlib, tk` on `python=3.11`, `conda-forge`) for running the MLD workflow on a
+  collaborator's machine. Deliberately NOT the full `environment.yml` snapshot (exact build hashes,
+  `prefix:`, hundreds of unrelated packages — torch/CUDA, qiskit, pymatgen, etc.). YAML validated.
+- **Committed `MLD.py`** — it was untracked; the whole point is Chuck running it. Committed with
+  `environment-mld.yml` as `5e388d5` ("MLD: add MLD.py annotator + portable environment-mld.yml ...").
+- **Docs reconciled to reality**: `MLDAnnotationPlan.md` status flipped spec→implemented, who-code
+  table fixed (`I`→`C`), added "Implementation status" + "Collaborator setup" (env + `python3-tk` +
+  TkAgg-needs-display caveat). `mld_candidates/README.md` "MLD.py (planned)"→built. `CodeManifest.md`
+  root table gained `PreSelectProfiles.py`, `MLD.py`, `environment.yml`, `environment-mld.yml`,
+  `mld_candidates/`.
+- **Open Topic filed** in `DevelopmentLog.md`: **miniconda environment sprawl** — one `argosy` env
+  carrying hundreds of unrelated packages; refactor directions (purpose-scoped envs; curated
+  portable yml + separate lock snapshot; import audit). Deliberate design first, no destructive
+  `conda remove` yet.
+- **Chuck setup instructions relayed** to the user (git pull → `conda env create -f
+  environment-mld.yml` → `sudo apt install python3-tk` → `python MLD.py --site sb --who C`).
+
+## Next action (2026-09-18)
+- **Standing by for Chuck's result** running `MLD.py` (user is relaying instructions). Likely
+  follow-ups: X-display/TkAgg issues on his WSL, or env-solve issues → tune `environment-mld.yml`.
+- Then (deferred, user-driven): the env-sprawl refactor (see the new Open Topic) when there's appetite.
+
+---
+
+## (Earlier) Last updated
 2026-09-15 — **Vis-notebook site switching + slide/deck fixups.** Made the three `vis/` tools
 site-switchable via a shared `op.select_site()` prompt; fixed the Marp deck image + math directive;
 documented the pp06 public-download path and the ARGOSY_SITE-at-launch gotcha. Details below;

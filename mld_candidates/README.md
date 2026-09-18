@@ -16,7 +16,7 @@ Files:
 Producers / consumers:
 - `../PreSelectProfiles.py` — generates the working copies in `~/ooi/<site>/metadata/annotations/`
   and, with `--bless`, copies the chosen set here.
-- `MLD.py` (planned) — the interactive annotator; reads these blessed lists to drive labeling.
+- `../MLD.py` — the interactive TkAgg annotator; reads these blessed lists to drive labeling.
 
 Regeneration is NOT guaranteed identical across machines (selection depends on the local pp06
 set). Treat these blessed copies as authoritative; do not overwrite from an unverified re-run.

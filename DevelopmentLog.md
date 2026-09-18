@@ -112,6 +112,21 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- **Miniconda environment sprawl — refactor away the one-giant-env situation.** The single
+  `argosy` conda env now carries hundreds of installed packages, many unrelated to argosy
+  (e.g. torch/CUDA, qiskit + amazon-braket, pymatgen, transformers, icepyx/earthaccess) — see
+  the pip section of `environment.yml`. This bloats the pinned snapshot, slows solves, and makes
+  the env hard to reproduce on a collaborator's machine (which is exactly why a separate minimal
+  `environment-mld.yml` was created for Chuck). Refactor direction to evaluate: (a) define what
+  argosy *actually* needs (Phase-1 pipeline vs Phase-2 analysis vs book-build vs the standalone
+  GUIs) and carve out purpose-scoped envs (e.g. `argosy` core + optional extras), pruning the
+  unrelated science/ML stacks into their own separate envs; (b) maintain a hand-curated,
+  minimally-pinned `environment.yml` as the portable source of truth and keep the full
+  `conda env export` only as a lock/snapshot artifact (e.g. `environment.lock.yml`); (c) audit
+  which top-level packages are directly imported by argosy code vs pulled in ad hoc, and remove
+  the latter. Ties into the steering "environment stability" rule (snapshot after every
+  install) and the portability lesson from the Chuck/MLD setup. Decide the target env
+  topology before doing any destructive `conda remove`.
 - **pCO2 on Oregon Offshore — check with Wendi/Joe: does it exist?** When ordering `oo` data
   (Sep 2026) there was no clear pCO2 (PCO2W) link in the OOINET order interface after a careful
   look. `oo` currently has 5 instrument orders (PHSEN, CTDPF, FLORT, NUTNR, PARAD) covering 10 of

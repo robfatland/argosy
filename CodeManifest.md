@@ -24,6 +24,8 @@ Last refreshed: 2026-06-26
 | `postprocess_special_profiles.py` | Generates pp01 (noon) and pp02 (midnight) subsets. HSD via noon/midnight metadata; LSD via daily_index 4/9 with min-points filter. |
 | `profile_duration_histograms.py` | Computes profile duration histograms from profileIndices. Classifies noon/midnight profiles. Writes to `~/ooi/<site>/metadata/` and `~/ooi/<site>/visualizations/`. |
 | `TimeSeriesProfileCorrelation.py` | Cross-correlation between adjacent profiles on a regular depth grid. Produces vertical offset time series (tidal/current displacement). |
+| `PreSelectProfiles.py` | MLD workflow step 1: reproducible seeded sampling of one candidate profile per N-day block per site from pp06. Writes working CSVs to `~/ooi/<site>/metadata/annotations/`; `--bless` promotes them to `mld_candidates/`. See `MLDAnnotationPlan.md`. |
+| `MLD.py` | MLD workflow step 2: standalone TkAgg GUI to hand-label mixed-layer depth on blessed candidates. Per-`who` label CSV in `~/ooi/<site>/metadata/annotations/`. Needs a display + `python3-tk`. See `MLDAnnotationPlan.md`. |
 
 
 ### Data files
@@ -33,6 +35,9 @@ Last refreshed: 2026-06-26
 | `sensortable.csv` | Sensor table: sensor name, instrument, key, data variable, shard name, side, extreme low/high. |
 | `sensor_exclusions.csv` | Manual QC embargo list: sensor, start date, end date, reason. Consumed by curtain plot and postprocess scripts. |
 | `tidal_constituents.json` | Extracted tidal harmonic constituents (amplitude, phase, frequency) for 3 sites, 14 constituents. |
+| `environment.yml` | Full `conda env export` snapshot of the `argosy` env (pinned build hashes; not portable). |
+| `environment-mld.yml` | Portable minimal conda spec for running the MLD workflow (`PreSelectProfiles.py` + `MLD.py`) on a collaborator's machine. |
+| `mld_candidates/` | Blessed, committed candidate-profile lists (shared MLD labeling targets); see `mld_candidates/README.md`. |
 
 
 ## SGA directory (`~/argosy/sga`)

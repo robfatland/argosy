@@ -5,7 +5,7 @@ depth) training dataset** from the pp06 shallow-profiler data. The labels are th
 truth for a later ML model that will estimate MLD across the entire shard dataset (see
 `Analysis.md` and the "annotation problem" note in `argosy-conventions.md`).
 
-Status: **spec only — not yet implemented.** Two programs:
+Status: **implemented (Sep 2026).** Two programs, both in the repo root:
 1. `PreSelectProfiles.py` — selects candidate profiles (reproducible sampling).
 2. `MLD.py` — interactive standalone GUI to hand-label MLD on those candidates.
 
@@ -91,6 +91,10 @@ candidate list, lets a human place an MLD on a profile, writes one label row per
 - **Active sensor:** one of T / S / ρ / DO. **T is the default operational sensor;** a UI
   control selects which of the four is active. **Only one MLD is recorded per interaction.**
   The ρ trace is the pp06 `density` shard (potential density σ₀ is deferred).
+- **Depth axis:** 0 m at top to 100 m at bottom.
+- **Labeled-profile cue:** returning to an already-labeled (gpi, sensor) shows the committed
+  MLD as a green dashed line plus a green dot on the trace, so the User can see it is labeled
+  and where. The pending (Mode-2) pick is a blue dot.
 
 #### Two binary display states
 - **State 1 — filter application:** `file data` (default) OR `file data with the active filter
@@ -193,7 +197,7 @@ Columns (structured; not a packed string):
 | `mld_depth` | **continuous click depth** (interpolated, not snapped to a sample) |
 | `value_raw` | raw file-data sensor value interpolated at `mld_depth` |
 | `value_filtered` | filtered-trace sensor value interpolated at `mld_depth` (equals `value_raw` when filter = None) |
-| `who` | `A` / `I` / `R` / `X` |
+| `who` | `A` / `C` / `R` / `X` (`C` = Chuck, default; `R` = Rob) |
 | `filter_key` | `None` / `savgol` / `adaptive_savgol_std` / `adaptive_savgol_mad` |
 | `filter_p1`, `filter_p2` | structured filter slider settings (e.g. window, polyorder); empty when `None` |
 | `no_mld_recorded` | flag/marker for an explicit Mode-2 skip (no depth chosen) |
@@ -226,7 +230,29 @@ Columns (structured; not a packed string):
   concatenate later).
 
 
-## Next step
-Build `PreSelectProfiles.py` first (candidate lists are the input to the tool), then `MLD.py`.
-When implementation begins, add pointers in `ArgosyOverview.md` → "Pointers to Key Actions"
-and note the tool in `CodeManifest.md`.
+## Implementation status
+Both programs are built and committed in the repo root. `PreSelectProfiles.py` produces the
+per-site block candidate lists (working copies under
+`~/ooi/<site>/metadata/annotations/`, blessed copies committed to `~/argosy/mld_candidates/`);
+`MLD.py` reads the blessed lists and writes labels to
+`~/ooi/<site>/metadata/annotations/mld_labels_<site>_<who>.csv`.
+
+## Collaborator setup (running MLD.py on another machine)
+
+`MLD.py` needs a small subset of the `argosy` env, so a portable minimal spec is provided as
+**`environment-mld.yml`** (NOT the full `environment.yml` snapshot, which is pinned to exact
+Linux build hashes for Rob's machine and carries hundreds of unrelated packages — see the
+"environment sprawl" entry in `DevelopmentLog.md` → Open Topics). Dependencies: `numpy`,
+`pandas`, `scipy`, `xarray`, `netcdf4`, `matplotlib`, `tk` on `python=3.11`.
+
+```bash
+git pull                                   # get MLD.py, environment-mld.yml, mld_candidates/
+conda env create -f environment-mld.yml    # creates a conda env named "argosy"
+conda activate argosy
+sudo apt install python3-tk                # OS Tk bindings for the TkAgg GUI (WSL/Debian/Ubuntu)
+python MLD.py --site sb --who C            # C = Chuck (default); see MLD.py header for switches
+```
+
+Caveats: TkAgg needs a working display (an X server under WSL2) — headless will not work
+(see `operational-recipes` §3). The tool reads the **blessed** candidate lists in
+`~/argosy/mld_candidates/`, which is what guarantees Chuck and Rob label the same profiles.
