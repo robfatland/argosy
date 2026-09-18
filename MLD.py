@@ -12,11 +12,24 @@ Key behaviors
     is the pp06 `density` shard (potential density deferred).
   - Display State 1 — filter: file data (default) OR file data with the active filter applied.
   - Display State 2 — raw overlay (only when a filter is applied): also draw the raw file data
-    faintly in light blue behind the black filtered trace, or not.
-  - Filters: None / savgol / adaptive_savgol_std / adaptive_savgol_mad, with sliders.
-  - Advance Mode 1 (default, auto): click records depth for (gpi, sensor) and advances.
-  - Advance Mode 2 (manual): click places a large blue dot (re-clickable); <Advance> commits;
-    <Advance> with no point saves "no MLD recorded" and advances.
+    in gray behind the black filtered trace (gray drawn first, overwritten by black), or not.
+  - Filters: None / savgol / adaptive_savgol_std / adaptive_savgol_mad, with sliders. The
+    window slider runs 3..101 samples; the adaptivity slider runs 0..3 (headroom past 1).
+  - A click always COMMITS a real MLD for the current (gpi, sensor, who), overwriting any
+    prior value, in BOTH modes. So a pick (marker + line + table row) persists when you switch
+    Active sensor and return — enabling quick cross-sensor comparison. The modes differ only
+    in what happens after the commit:
+      Advance on click:          commit, then advance to the next candidate.
+      Stay on click (default):   commit, then remain (click again to reposition).
+  - <Advance>: keys on the COMMITTED table, never the transient marker. If a real MLD is
+    already on record for (gpi, sensor, who) it is left untouched (Advance never overwrites a
+    click with no-MLD); otherwise Advance records an explicit "no MLD recorded". no-MLD is a
+    real, necessary annotation (many profiles have no clear mixed layer). To log no-MLD in Stay
+    mode: either never click, or click then <Clear pick> then <Advance>.
+  - <Clear pick>: resets the current profile's ACTIVE sensor to untouched — clears a pending
+    pick and DELETES any committed label for (gpi, sensor, who), so it re-registers as
+    unlabeled (marker/line removed; Fwd/Rev-to-Null will find it again).
+  - Marker/trace color is per sensor: temperature=red, salinity=green, density=gold, DO=blue.
   - Navigation: prev/next, plus Forward-to-Null / Reverse-to-Null (jump to the next/previous
     candidate with no label for the ACTIVE sensor by the CURRENT who).
   - Session settings (active sensor, filter, sliders, display states, advance mode) persist
@@ -67,9 +80,11 @@ SENSOR_LABELS = {
     "density": "Density (kg/m³)",
     "dissolvedoxygen": "Dissolved O₂ (µmol/kg)",
 }
+# Per-sensor color, used for BOTH the profile trace and the committed/pending MLD marker
+# so a sensor reads the same everywhere. The raw overlay is drawn gray (see draw()).
 SENSOR_COLORS = {
-    "temperature": "red", "salinity": "blue",
-    "density": "purple", "dissolvedoxygen": "green",
+    "temperature": "red", "salinity": "green",
+    "density": "gold", "dissolvedoxygen": "blue",
 }
 RADIO_TO_SENSOR = {"Temp": "temperature", "Sal": "salinity",
                    "Density": "density", "DO": "dissolvedoxygen"}
@@ -218,11 +233,14 @@ def _apply_filter_impl(vals, filter_key, p1, p2):
         else:  # std
             rough[i] = np.std(seg)
 
-    # Normalize roughness to a 0..1 weight, THEN scale by adaptivity p2 in [0,1]:
+    # Normalize roughness to a 0..1 weight, THEN scale by adaptivity p2 (>= 0), clipping
+    # the per-point weight back to [0, 1]:
     #   p2 = 0  -> weight 0 everywhere (pure light/base trace)
-    #   p2 = 1  -> weight tracks normalized local roughness (full adaptive behavior)
+    #   p2 = 1  -> weight tracks normalized local roughness (only the roughest point hits 1)
+    #   p2 > 1  -> pushes more of the profile toward the heavy trace (weight saturates at 1
+    #             over a wider band); the slider allows up to 3 for headroom.
     # (Previously p2 ran 1..5 and saturated the weight to ~1 everywhere, making the
-    # adaptivity control a no-op — see slider range in _build_ui.)
+    # adaptivity control a no-op — see slider range in _build_ui / _sync_slider_ranges.)
     rmax = np.max(rough) if np.max(rough) > 0 else 1.0
     w = np.clip((rough / rmax) * float(p2), 0.0, 1.0)
     return (1.0 - w) * light + w * heavy
@@ -248,7 +266,7 @@ class MLDAnnotator:
         self.p1 = 11.0   # savgol window / adaptive base window
         self.p2 = 2.0    # savgol polyorder / adaptive adaptivity
         self.show_raw_overlay = True
-        self.auto_advance = True  # Mode 1 default
+        self.auto_advance = False  # default to Stay-on-click
 
         # Pending pick (Mode 2): (depth, value_raw, value_filtered) or None
         self.pending = None
@@ -274,10 +292,26 @@ class MLDAnnotator:
         self.labels.to_csv(self.labels_path, index=False)
 
     def _has_label(self, gpi, sensor):
+        """True if ANY row exists for (gpi, sensor, this who) — real MLD or no-MLD."""
         if self.labels.empty:
             return False
-        m = (self.labels["gpi"] == gpi) & (self.labels["sensor"] == sensor)
+        m = ((self.labels["gpi"] == gpi) & (self.labels["sensor"] == sensor)
+             & (self.labels["who"] == self.who))
         return bool(m.any())
+
+    def _has_real_mld(self, gpi, sensor):
+        """True only if a committed REAL MLD (not a no-MLD record) exists for
+        (gpi, sensor, this who). This — not the transient `pending` marker — is what
+        <Advance> must consult, so it never overwrites a click-committed MLD with no-MLD."""
+        if self.labels.empty:
+            return False
+        m = ((self.labels["gpi"] == gpi) & (self.labels["sensor"] == sensor)
+             & (self.labels["who"] == self.who))
+        if not m.any():
+            return False
+        r = self.labels[m].iloc[-1]
+        return (not bool(r.get("no_mld_recorded", False))) and pd.notna(r.get("mld_depth")) \
+            and str(r.get("mld_depth")) != ""
 
     def _start_index(self, start_year):
         if start_year is None:
@@ -325,7 +359,7 @@ class MLDAnnotator:
 
         # Display-state toggles: raw overlay + advance mode
         ax_chk = self.fig.add_axes([0.02, 0.38, 0.20, 0.10])
-        self.chk = CheckButtons(ax_chk, ["Raw overlay", "Auto-advance"],
+        self.chk = CheckButtons(ax_chk, ["Raw overlay", "Advance on click"],
                                 [self.show_raw_overlay, self.auto_advance])
         self.chk.on_clicked(self._on_check)
 
@@ -335,7 +369,7 @@ class MLDAnnotator:
         # _sync_slider_ranges() sets p2's range to match the active filter.
         ax_s1 = self.fig.add_axes([0.32, 0.20, 0.55, 0.03])
         ax_s2 = self.fig.add_axes([0.32, 0.15, 0.55, 0.03])
-        self.slider_p1 = Slider(ax_s1, "window", 3, 51, valinit=self.p1, valstep=2)
+        self.slider_p1 = Slider(ax_s1, "window", 3, 101, valinit=self.p1, valstep=2)
         self.slider_p2 = Slider(ax_s2, "poly / adapt", 1, 5, valinit=self.p2)
         self.slider_p1.on_changed(self._on_slider)
         self.slider_p2.on_changed(self._on_slider)
@@ -381,7 +415,10 @@ class MLDAnnotator:
                 self.ax.plot(raw, depth, color=color, lw=1.0)
             else:
                 if self.show_raw_overlay:
-                    self.ax.plot(raw, depth, color="lightblue", lw=1.0, zorder=1)
+                    # Drawn FIRST in gray so the black filtered trace overwrites it and the
+                    # difference between raw and filtered is easy to see (gray avoids colliding
+                    # with the per-sensor MLD marker color, e.g. red for temperature).
+                    self.ax.plot(raw, depth, color="gray", lw=1.0, zorder=1)
                 self.ax.plot(filt, depth, color="black", lw=1.2, zorder=2)
             self.ax.set_xlabel(SENSOR_LABELS[self.active_sensor], color=color)
 
@@ -389,28 +426,33 @@ class MLDAnnotator:
         self.ax.set_ylabel("Depth (m)")
         self.ax.grid(True, alpha=0.3)
 
-        # Existing committed label for this (gpi, sensor)? Draw a green dashed line at the
-        # recorded depth AND a green dot on the displayed trace, so a returning User can see
-        # the profile has been labeled and where.
+        # Existing committed label for this (gpi, sensor)? Draw a dashed line at the recorded
+        # depth AND a dot on the displayed trace, in the per-sensor color, so a returning User
+        # can see the profile has been labeled, for which sensor, and where. A no-MLD record
+        # is NOT drawn (there is no depth to mark).
+        marker_color = SENSOR_COLORS[self.active_sensor]
         if self._has_label(gpi, self.active_sensor):
             r = self.labels[(self.labels["gpi"] == gpi)
                             & (self.labels["sensor"] == self.active_sensor)].iloc[-1]
             if not bool(r.get("no_mld_recorded", False)) and pd.notna(r.get("mld_depth")):
                 mld_d = float(r["mld_depth"])
-                self.ax.axhline(mld_d, color="green", lw=1.4, ls="--", zorder=3)
+                self.ax.axhline(mld_d, color=marker_color, lw=1.4, ls="--", zorder=3)
                 if depth is not None and len(depth) > 0:
                     trace = filt if (self.filter_key != "None" and filt is not None) else raw
                     xval = float(np.interp(mld_d, depth, trace))
-                    self.ax.plot([xval], [mld_d], "o", color="green", markersize=6, zorder=4)
+                    self.ax.plot([xval], [mld_d], "o", color=marker_color,
+                                 markersize=7, markeredgecolor="black", zorder=4)
 
-        # Pending (Mode-2) pick as a blue dot
+        # Pending (Stay-mode) pick, same per-sensor color and size as the committed marker
+        # (a click commits immediately, so pending and committed represent the same thing).
         if self.pending is not None:
             d, vr, vf = self.pending
             xval = vf if (self.filter_key != "None") else vr
-            self.ax.plot([xval], [d], "o", color="blue", markersize=6, zorder=5)
+            self.ax.plot([xval], [d], "o", color=marker_color, markersize=7,
+                         markeredgecolor="black", zorder=5)
 
         labeled = "LABELED" if self._has_label(gpi, self.active_sensor) else "unlabeled"
-        mode = "AUTO" if self.auto_advance else "MANUAL"
+        mode = "advance-on-click" if self.auto_advance else "stay-on-click"
         self.fig.suptitle(
             f"MLD [{self.site}/{self.who}]  GPI {gpi}  {ts}  "
             f"[{self.idx + 1}/{len(self.candidates)}]  |  {self.active_sensor} ({labeled})  "
@@ -450,7 +492,7 @@ class MLDAnnotator:
         """
         s2 = self.slider_p2
         if self.filter_key in ("adaptive_savgol_std", "adaptive_savgol_mad"):
-            lo, hi, default, step, label = 0.0, 1.0, 0.5, None, "adaptivity"
+            lo, hi, default, step, label = 0.0, 3.0, 0.5, None, "adaptivity"
         else:  # savgol (or None; harmless when no filter shown)
             lo, hi, default, step, label = 1.0, 5.0, 2.0, 1.0, "polyorder"
         s2.valmin, s2.valmax = lo, hi
@@ -466,7 +508,7 @@ class MLDAnnotator:
     def _on_check(self, label):
         if label == "Raw overlay":
             self.show_raw_overlay = not self.show_raw_overlay
-        elif label == "Auto-advance":
+        elif label == "Advance on click":
             self.auto_advance = not self.auto_advance
         self.draw()
 
@@ -489,27 +531,65 @@ class MLDAnnotator:
             return
         vr, vf = self._values_at(depth, raw, filt, click_depth)
 
+        # In BOTH modes a click COMMITS a real MLD immediately (overwriting any prior row for
+        # this gpi/sensor/who). This lets the pick — marker, line, and table row — persist when
+        # the User switches Active sensor and returns, enabling cross-sensor comparison without
+        # extra clicks. The two modes differ only in what happens after the commit:
+        #   Auto-advance on click -> advance to the next candidate.
+        #   Stay on click         -> remain here (keep a pending marker for immediate feedback;
+        #                            the committed marker is redrawn anyway).
+        self._record(click_depth, vr, vf, no_mld=False)
         if self.auto_advance:
-            # Mode 1: record immediately, then advance.
-            self._record(click_depth, vr, vf, no_mld=False)
             self._advance_after_commit()
         else:
-            # Mode 2: stage the pick (re-clickable); commit on Advance.
             self.pending = (click_depth, vr, vf)
-            self._set_status(f"pending pick @ {click_depth:.1f} m "
-                             f"(raw={vr:.3f}, filt={vf:.3f}) — press Advance to commit")
+            self._set_status(f"saved {self.active_sensor} @ {click_depth:.1f} m "
+                             f"(raw={vr:.3f}, filt={vf:.3f}) — click again to reposition, "
+                             f"Clear pick to remove")
             self.draw()
 
     def _on_clear(self, _e):
+        """Reset the current profile's ACTIVE sensor to untouched.
+
+        Clears a staged (Mode-2) pending pick AND deletes any committed label row for the
+        current (gpi, active_sensor, who) — removing the green MLD line/dot and making the
+        profile register as unlabeled again (so Fwd/Rev-to-Null will land on it). Persists
+        the deletion to the CSV.
+        """
         self.pending = None
-        self._set_status("pick cleared")
+        gpi = self._current_gpi()
+        removed = False
+        if not self.labels.empty:
+            mask = ((self.labels["gpi"] == gpi)
+                    & (self.labels["sensor"] == self.active_sensor)
+                    & (self.labels["who"] == self.who))
+            removed = bool(mask.any())
+            if removed:
+                self.labels = self.labels[~mask][LABEL_COLUMNS]
+                self._save_labels()
+        if removed:
+            self._set_status(f"cleared {self.active_sensor} label for GPI {gpi} "
+                             f"-> {self.labels_path.name} (now untouched)")
+        else:
+            self._set_status(f"{self.active_sensor} for GPI {gpi} already untouched")
         self.draw()
 
     def _on_advance(self, _e):
-        # Mode 2 commit; also usable in Mode 1 to advance without a pick.
-        if self.pending is not None:
-            d, vr, vf = self.pending
-            self._record(d, vr, vf, no_mld=False)
+        """Advance to the next candidate WITHOUT tampering with an existing pick.
+
+        Advance keys on the COMMITTED table state, not the transient `pending` marker
+        (which gets cleared by sensor switches / navigation while the real row survives):
+          - A real MLD already committed for (gpi, sensor, who) -> leave it untouched,
+            just advance. (This is the click-then-Advance and the click/switch-sensor/
+            switch-back/Advance case — Advance must NOT overwrite it with no-MLD.)
+          - Otherwise (no real MLD: never clicked, or clicked then <Clear pick>) -> record
+            an explicit no-MLD ('there is no clear MLD here') and advance. no-MLD is a
+            legitimate, necessary annotation — many profiles have no clear mixed layer.
+        """
+        gpi = self._current_gpi()
+        if self._has_real_mld(gpi, self.active_sensor):
+            # Real MLD already on record from a click; do not touch it.
+            self._set_status(f"kept committed {self.active_sensor} MLD for GPI {gpi}; advancing")
         else:
             self._record(np.nan, np.nan, np.nan, no_mld=True)
         self._advance_after_commit()

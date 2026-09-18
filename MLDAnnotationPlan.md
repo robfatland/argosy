@@ -92,16 +92,20 @@ candidate list, lets a human place an MLD on a profile, writes one label row per
   control selects which of the four is active. **Only one MLD is recorded per interaction.**
   The ρ trace is the pp06 `density` shard (potential density σ₀ is deferred).
 - **Depth axis:** 0 m at top to 100 m at bottom.
+- **Per-sensor color:** trace and MLD marker share one color per sensor — **temperature = red,
+  salinity = green, density = gold, DO = blue** — so a sensor reads the same everywhere.
 - **Labeled-profile cue:** returning to an already-labeled (gpi, sensor) shows the committed
-  MLD as a green dashed line plus a green dot on the trace, so the User can see it is labeled
-  and where. The pending (Mode-2) pick is a blue dot.
+  MLD as a dashed line plus a dot on the trace **in the sensor's color** (with a black edge),
+  so the User can see it is labeled, for which sensor, and where. A no-MLD record draws no
+  marker (there is no depth). The just-clicked pick is the same color/size marker.
 
 #### Two binary display states
 - **State 1 — filter application:** `file data` (default) OR `file data with the active filter
   applied`.
 - **State 2 — raw overlay** (only meaningful when State 1 = "filter applied"): the unfiltered
-  file data is *also* drawn faintly in **light blue** behind the filtered trace, or not shown.
-  Filtered data always renders in **black**.
+  file data is *also* drawn in **gray** behind the filtered trace, or not shown. Filtered data
+  always renders in **black**. (Gray avoids colliding with the per-sensor marker colors, e.g.
+  the red temperature marker.) Default **on**.
 
 ### Filters
 A small, extensible registry. Initial set of **four**:
@@ -120,17 +124,37 @@ A small, extensible registry. Initial set of **four**:
 - **Minor open item:** exact adaptive formulation (how the local roughness metric maps to window
   width) — start with a reasonable default shared by both adaptive filters, expose one adaptivity
   slider, treat as tunable.
-- **Slider bounds (proposed):** savgol window 3–51 odd; polyorder 1–5 and always < window
-  (enforce in UI).
+- **Slider bounds (as built):** savgol window 3–101 odd; polyorder 1–5 and always < window
+  (enforced in code). Adaptive filters: base window 3–101 odd; adaptivity 0–3 (headroom past 1,
+  where 1 tracks normalized local roughness and >1 pushes more of the profile toward the heavy
+  trace, per-point weight clipped to 1).
 
-### Advance modes
-- **Mode 1 — Auto-advance (default):** clicking in the profile chart records the depth for the
-  current profile+sensor and immediately generates the next profile view.
-- **Mode 2 — Manual advance:** clicking marks the point with a **large blue dot** but records
-  nothing yet. Re-clicking relocates the dot freely (as many times as desired). The
-  **`<Advance>`** button commits the label and moves on. `<Advance>` with **no point placed**
-  saves **"no MLD recorded"** (an explicit skip) and advances.
-- A **UI toggle** switches between Mode 1 and Mode 2 (default Mode 1).
+### Advance / commit model (as built)
+A **click always COMMITS a real MLD** for the current (gpi, sensor, who), overwriting any prior
+value — in **both** modes. So a pick (marker + line + table row) **persists when the User
+switches Active sensor and returns**, which is the point: cross-sensor comparison with no extra
+clicks. The click marker uses the sensor color at the same size as the committed marker. The two
+modes differ only in what happens *after* the commit:
+- **Stay on click (default):** commit, then remain on the profile (click again to reposition —
+  each reposition overwrites the same row).
+- **Advance on click:** commit, then advance to the next candidate.
+
+**`<Advance>` button** keys on the **committed table state, not the transient marker** (the
+marker is cleared by sensor switches / navigation while the committed row survives — the earlier
+bug was Advance overwriting a real pick with no-MLD because it consulted the marker). Behavior:
+- a **real MLD already committed** for (gpi, sensor, who) → **left untouched**, just advance;
+- **no real MLD** (never clicked, or clicked then `<Clear pick>`) → record an explicit
+  **"no MLD recorded"** and advance.
+
+**`<Clear pick>`** resets the current profile's active sensor to **untouched**: clears any
+pending marker and **deletes the committed row** for (gpi, sensor, who), so it re-registers as
+unlabeled (Fwd/Rev-to-Null will find it again).
+
+**Recording no-MLD** (a necessary annotation — many profiles have no clear mixed layer): in Stay
+mode, either never click then `<Advance>`, or click then `<Clear pick>` then `<Advance>`.
+
+- A **UI toggle** ("Advance on click") switches the two modes; default is **Stay on click**
+  (toggle off).
 
 ### Navigation
 - Standard next/previous through the candidate list.
@@ -151,7 +175,7 @@ to (gpi, sensor)). A different sensor can be labeled on the same profile in a la
 adding a new row.
 
 ### The "who" code
-Provenance of the labeler; set once via `--who` at launch (default **`I`**); **no UI control**:
+Provenance of the labeler; set once via `--who` at launch (default **`C`** = Chuck); **no UI control**:
 
 | code | labeler |
 |---|---|
@@ -200,7 +224,7 @@ Columns (structured; not a packed string):
 | `who` | `A` / `C` / `R` / `X` (`C` = Chuck, default; `R` = Rob) |
 | `filter_key` | `None` / `savgol` / `adaptive_savgol_std` / `adaptive_savgol_mad` |
 | `filter_p1`, `filter_p2` | structured filter slider settings (e.g. window, polyorder); empty when `None` |
-| `no_mld_recorded` | flag/marker for an explicit Mode-2 skip (no depth chosen) |
+| `no_mld_recorded` | `True` for an explicit "no MLD here" record (no depth); `mld_depth`/values empty |
 | `reviewed_at` | UTC timestamp of the decision |
 
 - **Both** raw and filtered values are stored (per decision), so a label is interpretable

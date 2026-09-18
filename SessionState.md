@@ -26,10 +26,33 @@ further down.
 - **Chuck setup instructions relayed** to the user (git pull → `conda env create -f
   environment-mld.yml` → `sudo apt install python3-tk` → `python MLD.py --site sb --who C`).
 
+## MLD.py refinements this session (2026-09-18, later) — road-tested, committed
+Interaction model reworked + bugs fixed in `MLD.py` (all verified: py_compile + headless logic
+tests against real sb pp06; user road-tested the GUI "flying colors"):
+- **Click now COMMITS a real MLD in both modes** (was: Stay mode only staged a pending pick,
+  committed on Advance). Picks persist across Active-sensor switches → cross-sensor comparison
+  with no extra clicks. `_record` overwrites the (gpi,sensor,who) row (no accumulation).
+- **Modes renamed**: "Advance on click" (commit+advance) vs "Stay on click" (commit+remain).
+  **Default = Stay on click** (`auto_advance=False`). Checkbox label "Advance on click".
+- **Advance no longer tampers with a committed pick** (the serious bug): it keyed on the
+  transient `self.pending` marker, which sensor-switches/nav clear while the row survives → it
+  wrote no-MLD over a real MLD. FIX: added `_has_real_mld(gpi,sensor)`; `_on_advance` leaves a
+  committed real MLD untouched, only writes no-MLD when there is none. Also scoped `_has_label`
+  by `who`.
+- **Clear pick** deletes the committed row for (gpi,sensor,who) → untouched (Fwd/Rev-to-Null find
+  it again). no-MLD gesture = never-click→Advance, or click→Clear pick→Advance.
+- **Per-sensor colors** (trace + marker): T=red, S=green, density=gold, DO=blue. **Raw overlay =
+  gray** (default on) to avoid the red-temperature-marker collision. Click marker same size (7) +
+  black edge as the committed marker.
+- **Sliders**: window 3→**101**; adaptivity max 1→**3** (headroom; weight still clips to 1/pt).
+- Docs synced: `MLDAnnotationPlan.md` (display states, slider bounds, the whole advance/commit
+  model, no-MLD schema row, who default `I`→`C`); header docstring in `MLD.py`.
+
 ## Next action (2026-09-18)
-- **Standing by for Chuck's result** running `MLD.py` (user is relaying instructions). Likely
-  follow-ups: X-display/TkAgg issues on his WSL, or env-solve issues → tune `environment-mld.yml`.
-- Then (deferred, user-driven): the env-sprawl refactor (see the new Open Topic) when there's appetite.
+- **Committed + pushed** the refined `MLD.py` + plan/README/manifest/session updates for Chuck to
+  `git pull`. **Standing by for Chuck's result** running it (she/her). Likely follow-ups:
+  X-display/TkAgg or env-solve issues → tune `environment-mld.yml`; feedback on the interaction.
+- Then (deferred, user-driven): the env-sprawl refactor (see the Open Topic) when there's appetite.
 
 ---
 
