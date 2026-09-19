@@ -193,9 +193,13 @@ a **human-in-the-loop click-review** workflow.
 
 - **Standalone GUI apps preferred over notebook-embedded** (Python assumed). Established pattern:
   `iw/VisQCInspector.py` (TkAgg, per-(gpi,sensor) decision rows → visitation CSV under
-  `metadata/annotations/`). `TMLD/tmld_selector.py` is an earlier stalled try (currently empty).
+  `metadata/annotations/`). The MLD annotator `MLD.py` follows this lineage. (An earlier
+  single-sensor "TMLD" picker experiment has been retired and removed.)
 - **Start with ONE parameter — MLD — to build a human-labeled training dataset.** Sample rather
   than exhaust: e.g. **one profile per day, chosen at random from the nine**, rather than all nine.
+  This is now implemented as the **MLD annotation suite** — `PreSelectProfiles.py` (candidate
+  sampling → `mld_candidates/`) + `MLD.py` (interactive annotator → `mld_labels_*` CSVs); see
+  `MLDAnnotationPlan.md` (design), `MLDObservations.md` (experience notes), and `Analysis.md` (ML).
 - The human-labeled set becomes the **training dataset for subsequent ML** (learn the human MLD call).
 
 ### Open problem: on-the-fly de-noising for gradient-based cline/MLD picking

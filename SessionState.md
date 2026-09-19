@@ -26,6 +26,25 @@ further down.
 - **Chuck setup instructions relayed** to the user (git pull → `conda env create -f
   environment-mld.yml` → `sudo apt install python3-tk` → `python MLD.py --site sb --who C`).
 
+## MLD suite doc harmonization + TMLD removal (2026-09-18, later still)
+- **Created `MLDObservations.md`** — human experience log for hand-marking MLD; opens with a
+  table indexing the whole MLD suite (plan, PreSelect, candidates, MLD.py, env, labels, ML) so
+  new content is findable. Not in the Book.
+- **Harmonized MLD references**: `ArgosyOverview.md` (Pointers entry rewritten to name the full
+  suite incl. MLDObservations; doc index gained MLDAnnotationPlan + MLDObservations),
+  `CodeManifest.md` doc table (both MLD docs added), `Analysis.md` MLD section header (dropped the
+  stale "Since you already looked at TMLD" → references the suite).
+- **Removed the retired TMLD experiment entirely**: deleted `TMLD/` (`tmld_selector.py` empty +
+  `tmld_estimates.csv`); rewrote the `Sharding.md` `## TMLD` section → `## Mixed layer depth
+  annotation` (points to the suite, notes TMLD retired); removed the DevelopmentLog TMLD todo;
+  removed the CodeManifest `## TMLD directory` table; updated the steering `argosy-conventions.md`
+  example (TMLD/tmld_selector.py → MLD.py lineage, notes TMLD retired); repointed `Visualization.md`
+  animation-marker option from the TMLD CSV to the MLD label dataset.
+- **Deleted `vis/bundle_animation.py`** (already flagged superseded by `bundle_animate.py`; it also
+  read the now-deleted TMLD CSV). Manifest updated: removed its row, added `bundle_animate.py`.
+- Remaining "TMLD" strings are intentional retirement notes (Sharding, steering, this file) +
+  notebook/checkpoint churn (StubWork.ipynb, *-checkpoint.md) left as-is.
+
 ## MLD.py refinements this session (2026-09-18, later) — road-tested, committed
 Interaction model reworked + bugs fixed in `MLD.py` (all verified: py_compile + headless logic
 tests against real sb pp06; user road-tested the GUI "flying colors"):
@@ -376,7 +395,8 @@ thing that made oo silently produce `attempted=0`. Steps, all from WSL:
 
 ## Reverted / needs redo
 - Nothing currently reverted.
-- Old `vis/bundle_animation.py` can be deleted (superseded by `vis/bundle_animate.py`).
+- Old `vis/bundle_animation.py` DELETED (superseded by `vis/bundle_animate.py`; it also depended
+  on the removed TMLD CSV).
 
 ## Blocked / waiting on user
 - **S3 re-key + bucket policy** (Step 4 Phase C, local side done): user will run when internet is

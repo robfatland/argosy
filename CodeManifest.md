@@ -70,8 +70,8 @@ Last refreshed: 2026-06-26
 | File | Description |
 |------|-------------|
 | `bundle_chart.py` | Standalone interactive bundle chart. Global-index navigation, dynamic data source (redux/pp01–pp06), persistent range memory, display names, nav buttons. |
+| `bundle_animate.py` | Bundle animation (headless, Agg): sliding-window temperature profile time-lapse, mean±std or overlay. Output: `~/ooi/<site>/visualizations/`. Supersedes the removed `bundle_animation.py`. |
 | `curtain_plot.py` | Interactive curtain plot for HSD sensors. Source selector, sensor exclusions, contour overlays. Outputs PNG + contour CSV to `~/ooi/<site>/`. |
-| `bundle_animation.py` | Bundle animation: sliding-window temperature profile time-lapse. Mean±std or overlay mode. Output: `~/ooi/<site>/visualizations/bundle_animation.mp4`. |
 
 
 ## Chapters directory (`~/argosy/chapters`)
@@ -85,14 +85,6 @@ Last refreshed: 2026-06-26
 | `SpectralGraphAnalysis.ipynb` | Spectral graph analysis of profile data (runs the sga/ modules). |
 | `TidalSignal.ipynb` | Tidal signal analysis: profile start-depth variation over time, correlation with tidal prediction. |
 | `StubWork.ipynb` | Stub/scratch notebook. |
-
-
-## TMLD directory (`~/argosy/TMLD`)
-
-| File | Description |
-|------|-------------|
-| `tmld_selector.py` | Interactive tool for manually selecting Temperature Mixed Layer Depth. |
-| `tmld_estimates.csv` | Human-generated TMLD estimates from the interactive selector. |
 
 
 ## LegacyCode directory (`~/argosy/LegacyCode`)
@@ -132,6 +124,8 @@ of these same files.
 | `OOIUsability.md` | Usability notes on OOI data-access tools (OOINET parameter selection, provenance, annotations); friction points as DSC feedback. Working doc, not in the book. |
 | `Testing.md` | Test definitions: SGA synthetic validation, internal wave incompressibility check. |
 | `VisQC.md` | Visual QC workflow design (cline review; Inspector + planned Corrector). |
+| `MLDAnnotationPlan.md` | MLD annotation suite design/spec: `PreSelectProfiles.py` + `MLD.py` workflow, interaction model, label schema, decisions. |
+| `MLDObservations.md` | MLD annotation suite: human experience notes from hand-marking mixed-layer depth. Indexes the whole MLD suite. |
 | `Publishing.md` | Open-science / DOI archiving plan (Zenodo, Figshare, OSF; postproc subset). |
 | `SessionState.md` | Machine-readable session state for AI continuity (last updated, in-progress, blocked). |
 | `pp06ErraticFilterPrompt.md` | Design notes/prompt for pp06 erratic filter system. |

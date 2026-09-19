@@ -411,7 +411,6 @@ This is at much lower task resolution.
 - Regenerate pp01/pp02 (`postprocess_special_profiles.py noon` and `midnight`)
 - Check the `argosy` environment installed libraries against `environment.yml`
 - LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)
-- TMLD/ directory: Decide whether to keep `tmld_estimates.csv` as historical data; delete the empty `tmld_selector.py`
 - Order VELPT data for 2018–present (lower priority; deferred for SGA feature vector)
 - Update `CodeManifest.md` to reflect the documentation refactor
 - Copy updated `pre_shard_data_availability.png` to `~/argosy/images/` after each regeneration

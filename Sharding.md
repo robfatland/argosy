@@ -1,8 +1,9 @@
 # Profile Metadata and Sharding
 
 This document covers profile metadata from the OOI profileIndices repository,
-reference metadata design, the sharding process that translates raw data into
-per-profile per-sensor files, and the TMLD (Temperature Mixed Layer Depth) tool.
+reference metadata design, and the sharding process that translates raw data into
+per-profile per-sensor files. (Mixed-layer-depth annotation is a separate effort — see
+the MLD annotation suite: `MLDAnnotationPlan.md`, `PreSelectProfiles.py`, `MLD.py`.)
 
 
 ## profile metadata
@@ -274,45 +275,14 @@ The lists of midnight and noon profiles are kept in these two CSV files:
 The code also produces histograms of ascent, descent and total profile durations.
 
 
-## TMLD
+## Mixed layer depth annotation
 
-
-### Estimated Temperature Mixed Layer Depth
-    
-
-This part of the project is on hold; no action. 
-
-
-A human-driven TMLD picker program was written in Python. This is not Jupyter cell code because 
-the Jupyter configuration does not support interactive chart location selection.
-    
-
-- Generate a CSV file with three columns, resides in `~/argosy/TMLD`.
-    - First column = global profile index as recorded in the profile filename in ~/ooi/sb/redux/2018
-    - Second column is `Estimated TMLD`
-        - 'Estimated Temperature Mixed Layer Depth' (meters, positive downward)
-    - Third column = temperature at that depth for that profile
-- Estimated TMLD value `N`
-    - The upper `N` meters of the water column is well-mixed due to wave action etcetera
-    - At the bottom of this layer temperature begins to steadily decrease with depth (pycnocline)
-    - With increasing depth the temperature gradient decreases
-    - The mixed layer / pycnocline boundary often appears as a pronounced kink in the temperature curve
-    - Equivalent boundaries exist: Salinity, density, other sensible attributes of the water column
-- The TMLD data can be included in bundle plots as distinct markers (see `VisualizationNotes.md`)
-    - 1:1 correspondence to individual profile curves
-    - Marker should be larger, different color
-
-
-### TMLD generator program
-
-    
-- Establish a range of profiles to annotate
-- Display each in sequence
-- Left mouse click identifies the TMLD depth 
-- standalone Python program as noted (not Jupyter cell) 
-- confirm a choice by hitting Enter
-- program should also support a "no data" choice if the User wants to skip
-- cursor location is printed in/near the chart so User can see both depth and temperature.
+Mixed-layer-depth (MLD) annotation is handled by a dedicated, rigorous suite of tools rather
+than described here. An earlier throwaway experiment (a single-sensor "TMLD" picker) has been
+retired and removed. The current workflow — reproducible candidate sampling plus an interactive
+multi-sensor annotator producing a human-labeled training dataset — is documented in
+`MLDAnnotationPlan.md` (design/spec), implemented in `PreSelectProfiles.py` and `MLD.py`, and
+accompanied by experience notes in `MLDObservations.md`.
 
 
 ## Process the full timespan

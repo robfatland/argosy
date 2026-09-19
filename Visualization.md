@@ -85,7 +85,7 @@ sensor 2 has range 32 to 34; chart second x-axis has range 30 to 34 to right-jus
 - Write a version of the bundle plot visualization that creates an animation: As an output .mp4 file.
 - This code will run in a Jupyter cell
 - The input questions take on the default value if the User just hits Enter.
-    - Start by asking "Include TMLD estimate in the visualization? Default is no. [y/n]" 
+    - Start by asking "Include MLD markers in the visualization? Default is no. [y/n]" (MLD values come from the human-labeled MLD dataset — see the MLD annotation suite, `MLDAnnotationPlan.md`)
     - Then ask "How many profiles in the bundle? Default is 18 (two days)" refer to this as N
     - Then ask "How many seconds delay between frames? (0.1 sec):" refer to this as d
     - Then ask "Start date (default 01-JAN-2018):" refer to this as T0
@@ -96,7 +96,7 @@ sensor 2 has range 32 to 34; chart second x-axis has range 30 to 34 to right-jus
     - The horizontal axis is fixed at 7 deg C to 19 deg C, does not change from one frame to another
     - The vertical axis is fixed as before from 200 meters to 0 meters
     - Show N profiles per frame of the animation
-    - For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.
+    - For a given profile: If the MLD option is selected but there is no MLD label for that profile: Omit adding that marker.
     - If possible: Add in a 'hold time' per frame of d seconds
     - If a time gap > 48 hours exists between any two consecutive profiles in a given bundle/frame: 
         - This chart frame includes in large black letters at the lower right 'Time Gap'

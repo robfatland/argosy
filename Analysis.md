@@ -247,7 +247,9 @@ mixture models) to identify distinct "water column states".
 ### Mixed Layer Depth (MLD) Dynamics with Multi-Sensor Validation
 
 
-Since you already looked at TMLD (Temperature Mixed Layer Depth), extend this:
+The human-labeled MLD dataset (see the MLD annotation suite: `MLDAnnotationPlan.md`,
+`PreSelectProfiles.py`, `MLD.py`, and the experience log `MLDObservations.md`) supports
+extending the analysis:
 
 
 - Calculate MLD using multiple criteria: temperature, density, salinity, dissolved oxygen, fluorescence
@@ -306,6 +308,8 @@ We can build the inspector application with choosable filter options. The choice
 
 
 Convolutional Neural Nets (CNNs) were developed around pattern recognition in images, corresponding to one view of the annotation task. The MLD is a "best choice" of a point or local shape on a depth-ordered sensor trace. We have a region of near-uniform value followed by the onset of a gradient.
+
+**Sampling density & the "no-MLD" challenge (design note).** The `PreSelectProfiles.py` scheme samples one profile per N-day block; **N=5 is fine**. The apparent ~2% sampling (1 of ~45 profiles/block) is misleading — profiles within a block are near-duplicates (same water mass/season), so denser sampling (N=3/4) mostly adds redundant labels, not new information, at a large cost in human clicks. N=5 yields ~73 labels/site/year (~2–2.4k/sensor over 3 sites × ~11 yr): modest but ample for a small 1D CNN, especially with self-supervised pretraining on the ~1M unlabeled profiles plus augmentation. The **hard part is teaching the model to say "no MLD" rather than always emitting a depth** — many profiles have no discernible mixed layer. This is an output-encoding and label-consistency problem, not a volume one: use the heatmap-over-depth head (abstain = flat heatmap, no confident peak) and verify Chuck/Rob **agree on the no-MLD criterion** (the `no_mld_recorded` rows), since a noisy abstain class no extra labeling can fix. If ever label-starved, prefer active-learning top-ups (sample where the model is uncertain) over uniformly shrinking N.
 
 Why a 1D CNN fits well
 That's exactly the kind of translation-tolerant local pattern convolutions are built to detect. Treat each profile as a 1D sequence over a fixed depth grid (say 0–200 m resampled to N points), with channels for T, S, ρ, DO — a 4-channel 1D signal, directly analogous to how a CNN sees RGB. The network learns gradient/curvature detectors in early layers and composes them into "this is where the mixed layer ends" in deeper layers. It's efficient, needs less data than heavier architectures, and trains fast enough to iterate against your human labels overnight.

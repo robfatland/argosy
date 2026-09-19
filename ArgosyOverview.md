@@ -54,7 +54,7 @@ kept in the `operational-recipes` steering file, not here.
 - **Localhost disk management**: WSL vhdx compaction, free space checks — see `DataOps.md` → "Localhost Data Management"
 - **Running curtain plots**: `chapters/Visualizations.ipynb` curtain plot cell — see `Visualization.md`
 - **Switching the SP site (sb/oo/ab) in the vis notebook**: each plot cell calls `op.select_site()` — press Enter to keep the `ARGOSY_SITE` default or type a 2-letter code to switch (no kernel restart needed). See the intro cell of `chapters/Visualizations.ipynb`.
-- **Building the MLD training dataset (human labels)**: two-program workflow — `PreSelectProfiles.py` (reproducible candidate sampling) then `MLD.py` (interactive TkAgg annotator). Full spec in `MLDAnnotationPlan.md`.
+- **MLD annotation suite (human-labeled mixed-layer-depth dataset)**: two-program workflow — `PreSelectProfiles.py` (reproducible candidate sampling → `mld_candidates/`) then `MLD.py` (interactive TkAgg annotator → per-labeler `mld_labels_*` CSVs). Design/spec in `MLDAnnotationPlan.md`; hands-on experience notes in `MLDObservations.md`; collaborator env in `environment-mld.yml`; downstream ML in `Analysis.md` → "Mixed Layer Depth".
 
 \newpage
 
@@ -105,6 +105,8 @@ and Working docs (repo-only, not in the published book).
 - `DeveloperGuide.md` recipes live in the `operational-recipes` steering file
 - `Publishing.md` — Open-science / DOI archiving plan (Zenodo, Figshare, OSF)
 - `VisQC.md` — Visual QC workflow (cline review) design
+- `MLDAnnotationPlan.md` — MLD annotation suite: design/spec for `PreSelectProfiles.py` + `MLD.py`, label schema, decisions (see also `mld_candidates/`, `environment-mld.yml`)
+- `MLDObservations.md` — MLD annotation suite: human experience notes from hand-marking mixed-layer depth
 - `Testing.md` — Test definitions (SGA synthetic validation, IW incompressibility)
 - `CoincidencePlans.md` — Anomaly detection: auto/hetero coincidence plans
 - `pp06ErraticFilterPrompt.md` — Design notes for the pp06 erratic filter
