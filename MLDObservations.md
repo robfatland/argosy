@@ -12,14 +12,15 @@ profiles using the `MLD.py` annotation tool: Talk about patterns, edge cases, am
 
 The MLD effort is a small suite of files.
 
+
 | Piece | File | Role |
 |---|---|---|
-| Design / spec | `MLDAnnotationPlan.md` | The two-program workflow, interaction model, label schema, decisions. **Read this first.** |
-| Candidate selection | `PreSelectProfiles.py` | Reproducible seeded sampling of one profile per N-day block per site (from pp06). `--bless` promotes the chosen set to the repo. |
+| Design / spec | `MLDAnnotationPlan.md` | Two-program workflow, interaction model, label schema, decisions. **Read first.** |
+| Candidate profiles | `PreSelectProfiles.py` | Reproducible seeded sampling: one profile per N-day block per site from pp06. `--bless` promotes chosen set to the repo. |
 | Blessed candidate lists | `mld_candidates/` | The committed, shared candidate CSVs (`mld_candidates_<site>_block<NN>.csv`) that all annotators label against. See `mld_candidates/README.md`. |
-| Annotator | `MLD.py` | Standalone TkAgg GUI to hand-label MLD on the blessed candidates. |
+| Annotator | `MLD.py` | Standalone TkAgg GUI to hand-label MLD on blessed candidates. |
 | Collaborator env | `environment-mld.yml` | Portable minimal conda spec for running `MLD.py` on another machine. |
-| Human labels (output) | `~/ooi/<site>/metadata/annotations/mld_labels_<site>_block<NN>_<who>.csv` | Per-labeler label tables in the data tree (NOT in git). One row per (gpi, sensor, who). |
+| Human labels (output) | `~/ooi/<site>/metadata/annotations/mld_labels_<site>_block<NN>_<who>.csv` | Label tables living in the data folder: One row per (gpi, sensor, who). |
 | Observations (this file) | `MLDObservations.md` | Qualitative experience notes from doing the labeling. |
 | ML / downstream | `Analysis.md` → "Mixed Layer Depth" / 1-D CNN section | Where the labels become training data (1-D CNN, heatmap head, sampling-density note). |
 
@@ -28,31 +29,40 @@ See also the "annotation problem" framing in the `argosy-conventions` steering f
 `ArgosyOverview.md` → "Pointers to Key Actions" entry for building the training dataset.
 
 
-## How to read/interpret the label records
+## On the *click* label records
+
 
 - **Key = (gpi, sensor, who).** A profile can carry independent MLD calls for temperature,
   salinity, density, and DO, by each labeler.
-- **`no_mld_recorded = True`** is a deliberate call: "there is no discernible MLD here," distinct
+- **`no_mld_recorded = True`** is a deliberate label: "there is no discernible MLD here," distinct
   from "not yet visited." Teaching the model to make this call is a central goal (see
-  `Analysis.md`), so be consistent about *when* you declare no-MLD.
+  `Analysis.md`). We need to agree on what constitutes `no-MLD`.
 - Both `value_raw` and `value_filtered` are stored, plus the filter key + slider settings, so a
   label stays interpretable regardless of which filter was active when it was made.
 
 
 ## Observations
 
-*(Chronological or by-theme — add dated entries as labeling proceeds. Suggested tags:
-`[no-MLD]`, `[double-ML]`, `[filter]`, `[sensor-disagreement]`, `[seasonal]`, `[artifact]`.)*
 
-- _(placeholder — first observations to be added by the labeler(s). Example prompts to answer:_
-  - _How often is there genuinely no MLD, and does it cluster by season?_
-  - _When temperature and density disagree on the MLD, which do you trust, and why?_
-  - _Which filter/adaptivity settings make the pick clean vs. which mislead?_
-  - _Recurring artifacts (spikes, near-surface excursions, sensor fouling) that complicate the call.)_
+Entries should include who, date, context and any amount of speculation. Can also include a a `[tag]`.
 
 
-## Open questions raised by the labeling
+Rob, 19-Sep-2026. The implicit *view* of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.
 
-- _(collect the "we should decide this" items that surface while labeling — criteria for no-MLD,
-  handling double mixed layers, whether to label all four sensors or lead with temperature, etc.
-  Promote resolved decisions into `MLDAnnotationPlan.md`.)_
+
+Rob, 19-Sep-2026. We can flag ranges of bad profiles for embargo. See sb 1711 (2016-05-07): erratic in T and DO. Look at adjacent profiles: Is this an embargo range?
+
+
+## Open questions
+
+
+These can be resolved and relocated to the "plan" document `MLDAnnotationPlan.md`
+
+
+- Re-do the candidate selection process using more stringent criterion on how shallow the data goes?
+- Criteria for no-MLD...
+- Handling double (or more) mixed layers with some delineator
+- Reconcile four sensors? 
+- Suppose working on DO MLDs: Make an option to ghost-present other sensor MLDs as reference?
+    - The plus is this would help resolve ambiguous choices by harmonizing across sensors
+    - The minus is this will bias the decision on the MLD 
