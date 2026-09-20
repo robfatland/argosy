@@ -45,6 +45,11 @@ DEFAULT_SITE = os.environ.get("ARGOSY_SITE", "sb")
 if DEFAULT_SITE not in SITES:
     raise ValueError(f"ARGOSY_SITE={DEFAULT_SITE!r} not in {SITES}")
 
+# Default profile direction for scripts that build module-level paths at import
+# (pp05/pp06). Overridable via ARGOSY_DIRECTION so the whole pp chain can target the
+# descent tree (e.g. `ARGOSY_DIRECTION=descent python postprocess_pp05.py`) without
+# code edits — parallel to ARGOSY_SITE. Validated after DIRECTIONS is defined below.
+
 # site code -> (human name, OOI designator, shallow-profiler node, array)
 SITE_INFO = {
     "sb": ("Oregon Slope Base", "RS01SBPS", "SF01A", "RCA"),
@@ -88,14 +93,45 @@ def ooinet_dir(site=DEFAULT_SITE, channel=None):
     return base / channel
 
 
-def redux_base(site=DEFAULT_SITE):
-    """Base holding per-year redux shard folders."""
-    return site_root(site) / "redux"
+# ── Ascent / descent direction ───────────────────────────────────────────────
+# The primary dataset is ASCENT (start→peak; sensors in pristine water). DESCENT
+# (peak→end) is a second-class companion, recovered for the 8 HSD scalar sensors
+# and kept in a PARALLEL tree so the ascent set stays pristine. See DescentData.md.
+#   ascent  : redux/<yyyy>,          postproc/<pp>/<yyyy>,          shard version V1/V2
+#   descent : redux_descent/<yyyy>,  postproc/<pp>_descent/<yyyy>,  shard version V1D
+DIRECTIONS = ("ascent", "descent")
+
+# Default direction (see the ARGOSY_DIRECTION note near DEFAULT_SITE).
+DEFAULT_DIRECTION = os.environ.get("ARGOSY_DIRECTION", "ascent")
+if DEFAULT_DIRECTION not in DIRECTIONS:
+    raise ValueError(f"ARGOSY_DIRECTION={DEFAULT_DIRECTION!r} not in {DIRECTIONS}")
+
+# Shard filename version token by direction (redux level).
+REDUX_VERSION = {"ascent": "V1", "descent": "V1D"}
 
 
-def redux_dir(year, site=DEFAULT_SITE):
-    """Redux shards for one year: ~/ooi/<site>/redux/<yyyy>."""
-    return redux_base(site) / str(year)
+def _check_direction(direction):
+    if direction not in DIRECTIONS:
+        raise ValueError(f"direction must be one of {DIRECTIONS}, got {direction!r}")
+    return direction
+
+
+def redux_version(direction="ascent"):
+    """Redux shard filename version token for a direction: 'V1' / 'V1D'."""
+    return REDUX_VERSION[_check_direction(direction)]
+
+
+def redux_base(site=DEFAULT_SITE, direction="ascent"):
+    """Base holding per-year redux shard folders.
+    ascent -> ~/ooi/<site>/redux ; descent -> ~/ooi/<site>/redux_descent."""
+    _check_direction(direction)
+    name = "redux" if direction == "ascent" else "redux_descent"
+    return site_root(site) / name
+
+
+def redux_dir(year, site=DEFAULT_SITE, direction="ascent"):
+    """Redux shards for one year: ~/ooi/<site>/redux[_descent]/<yyyy>."""
+    return redux_base(site, direction) / str(year)
 
 
 def postproc_base(site=DEFAULT_SITE):
@@ -103,10 +139,14 @@ def postproc_base(site=DEFAULT_SITE):
     return site_root(site) / "postproc"
 
 
-def postproc_dir(pp, year, site=DEFAULT_SITE):
+def postproc_dir(pp, year, site=DEFAULT_SITE, direction="ascent"):
     """Postprocessing shards for one pp result and year:
-    ~/ooi/<site>/postproc/<pp>/<yyyy>  (unified across all pp results)."""
-    return postproc_base(site) / pp / str(year)
+    ascent  -> ~/ooi/<site>/postproc/<pp>/<yyyy>
+    descent -> ~/ooi/<site>/postproc/<pp>_descent/<yyyy>
+    (descent postproc lives in a parallel <pp>_descent folder; see DescentData.md)."""
+    _check_direction(direction)
+    pp_name = pp if direction == "ascent" else f"{pp}_descent"
+    return postproc_base(site) / pp_name / str(year)
 
 
 # Metadata is organized into subfolders by origin/purpose (each holds a README.md):
@@ -158,12 +198,18 @@ def exclusions_csv():
     return ARGOSY_ROOT / "sensor_exclusions.csv"
 
 
-def pp05_manifest(site=DEFAULT_SITE):
-    return metadata_dir(site, "qc") / "pp05_manifest.csv"
+def pp05_manifest(site=DEFAULT_SITE, direction="ascent"):
+    """pp05 QC manifest. Descent gets its own manifest so the two never collide."""
+    _check_direction(direction)
+    name = "pp05_manifest.csv" if direction == "ascent" else "pp05_descent_manifest.csv"
+    return metadata_dir(site, "qc") / name
 
 
-def pp05_exclusion_summary(site=DEFAULT_SITE):
-    return metadata_dir(site, "qc") / "pp05_exclusion_summary.csv"
+def pp05_exclusion_summary(site=DEFAULT_SITE, direction="ascent"):
+    _check_direction(direction)
+    name = ("pp05_exclusion_summary.csv" if direction == "ascent"
+            else "pp05_descent_exclusion_summary.csv")
+    return metadata_dir(site, "qc") / name
 
 
 def special_profile_list(kind, site=DEFAULT_SITE):
@@ -178,9 +224,17 @@ def special_profile_list(kind, site=DEFAULT_SITE):
 # ── Shard filename helpers ───────────────────────────────────────────────────
 # Shard names look like: RCA_<site>_sp_<sensor>_<yyyy>_<ddd>_<gpi>_<daily>_<V>.nc
 # where the site token is the 2-letter code and 'sp' is shallow-profiler.
-def shard_glob(sensor, site=DEFAULT_SITE, version="V1"):
-    """Glob pattern matching one sensor's shards for a site/version."""
+def shard_glob(sensor, site=DEFAULT_SITE, version=None, direction=None):
+    """Glob pattern matching one sensor's shards for a site.
+
+    Pass `direction` ('ascent'/'descent') to select the version token automatically
+    (V1 / V1D), or pass `version` explicitly. `direction` takes precedence; if neither
+    is given, defaults to the ascent 'V1'."""
     _check_site(site)
+    if direction is not None:
+        version = redux_version(direction)
+    elif version is None:
+        version = "V1"
     return f"RCA_{site}_sp_{sensor}_*_{version}.nc"
 
 
@@ -225,7 +279,9 @@ if __name__ == "__main__":
         name, desig, node, array = SITE_INFO[s]
         print(f"  {s}: {name} ({desig}/{node}, {array})")
     print("redux_dir(2022):", redux_dir(2022))
+    print("redux descent  :", redux_dir(2022, direction="descent"))
     print("postproc pp06  :", postproc_dir("pp06", 2022))
+    print("pp06 descent   :", postproc_dir("pp06", 2022, direction="descent"))
     print("postproc pp01  :", postproc_dir("pp01", 2022))
     print("metadata_dir   :", metadata_dir())
     print("profile_index  :", profile_index_dir())

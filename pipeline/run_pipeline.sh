@@ -10,7 +10,10 @@
 #
 # Usage:  bash run_pipeline.sh <site> [stage] [url_list]
 #   <site>    : sb | oo | ab
-#   [stage]   : all (default) | download | shard | pp | sync
+#   [stage]   : all (default) | download | shard | pp | sync | descent
+#               ('descent' = recover the 8 HSD sensors on the descent window: shard ->
+#                redux_descent, pp05/pp06 -> pp06_descent, then sync. Run AFTER 'all'
+#                for a site; needs the same source files + profileIndices. See DescentData.md.)
 #   [url_list]: optional path to the OOINET URL list; defaults to
 #               pipeline/<site>_url_list.txt if present, else download_link_list.txt
 #
@@ -112,11 +115,37 @@ run_sync() {
     # Note: raw ooinet/ is large; back it up separately/deliberately (see DataOps.md), not here.
 }
 
+run_descent() {
+    # Descent recovery for the 8 HSD sensors (see DescentData.md). Reuses the SAME source
+    # files (must already be downloaded — run this AFTER 'all' for the site) and the SAME
+    # profileIndices. ARGOSY_DIRECTION=descent points shard.py -> redux_descent (V1D) and
+    # the pp chain -> pp05_descent_manifest + postproc/pp06_descent, with identical filters.
+    echo "--- descent: shard (peak->end) -> redux_descent (site=$SITE) ---" | tee -a "$LOG"
+    idx_count=$(find "$HOME/ooi/$SITE/profileIndices" -name '*_profiles_*.csv' 2>/dev/null | wc -l)
+    if [ "$idx_count" -eq 0 ]; then
+        echo "WARNING: no profileIndices — descent shard will produce attempted=0. Pull first:" | tee -a "$LOG"
+        echo "         aws s3 sync s3://s3ooi/$SITE/profileIndices/ ~/ooi/$SITE/profileIndices/" | tee -a "$LOG"
+    fi
+    python pipeline/shard.py --site "$SITE" --direction descent 2>&1 | tee -a "$LOG"
+
+    echo "--- descent: pp05 -> pp06 (pp06_descent, same filters) (site=$SITE) ---" | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp05.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp06.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp06_filter2.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp06_filter3.py 2>&1 | tee -a "$LOG"
+
+    echo "--- descent: sync redux_descent + pp06_descent to S3 (site=$SITE) ---" | tee -a "$LOG"
+    aws s3 sync "$HOME/ooi/$SITE/redux_descent/"        "s3://s3ooi/$SITE/redux_descent/"        2>&1 | tee -a "$LOG"
+    aws s3 sync "$HOME/ooi/$SITE/postproc/pp06_descent/" "s3://s3ooi/$SITE/postproc/pp06_descent/" 2>&1 | tee -a "$LOG"
+    aws s3 sync "$HOME/ooi/$SITE/metadata/"             "s3://s3ooi/$SITE/metadata/"             2>&1 | tee -a "$LOG"
+}
+
 case "$STAGE" in
     download) run_download ;;
     shard)    run_shard ;;
     pp)       run_pp ;;
     sync)     run_sync ;;
+    descent)  run_descent ;;
     all)      run_download && run_shard && run_pp && run_sync ;;
     *) echo "unknown stage: $STAGE"; exit 1 ;;
 esac

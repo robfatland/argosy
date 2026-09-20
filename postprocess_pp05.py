@@ -32,7 +32,11 @@ import ooipaths as op
 
 # Site for this run. Path layout comes from ooipaths (single source of truth).
 SITE = op.DEFAULT_SITE
-REDUX_BASE = op.redux_base(SITE)
+# Direction: 'ascent' (default) reads redux/ and writes pp05_manifest.csv; 'descent'
+# (ARGOSY_DIRECTION=descent) reads redux_descent/ and writes pp05_descent_manifest.csv.
+# See DescentData.md.
+DIRECTION = op.DEFAULT_DIRECTION
+REDUX_BASE = op.redux_base(SITE, DIRECTION)
 METADATA_DIR = op.metadata_dir(SITE)
 EXCLUSIONS_CSV = op.exclusions_csv()
 
@@ -166,7 +170,7 @@ def main():
              for s in ALL_SENSORS}
 
     # Resume logic: check which years are already in the manifest
-    manifest_path = op.pp05_manifest(SITE)
+    manifest_path = op.pp05_manifest(SITE, DIRECTION)
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     completed_years = set()
     if manifest_path.exists():
@@ -188,7 +192,7 @@ def main():
         if year in completed_years:
             continue
 
-        redux_dir = op.redux_dir(year, SITE)
+        redux_dir = op.redux_dir(year, SITE, DIRECTION)
         if not redux_dir.exists():
             continue
 
@@ -198,7 +202,7 @@ def main():
             # HSD sensors
             for sensor_var in HSD_SENSORS:
                 try:
-                    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE)))
+                    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE, direction=DIRECTION)))
                 except OSError:
                     continue
 
@@ -233,7 +237,7 @@ def main():
             # LSD sensors
             for sensor_var, min_pts in LSD_SENSORS.items():
                 try:
-                    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE)))
+                    files = sorted(redux_dir.glob(op.shard_glob(sensor_var, SITE, direction=DIRECTION)))
                 except OSError:
                     continue
 
@@ -288,7 +292,7 @@ def main():
 
     # Write exclusion summary (stats may be incomplete if resumed — re-read manifest for accuracy)
     manifest_df = pd.read_csv(manifest_path)
-    summary_path = op.pp05_exclusion_summary(SITE)
+    summary_path = op.pp05_exclusion_summary(SITE, DIRECTION)
     with open(summary_path, 'w') as f:
         f.write("sensor,included,excl_embargo,excl_range,excl_points,excl_par_night,n_suspect_values\n")
         for s in ALL_SENSORS:

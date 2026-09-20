@@ -10,6 +10,10 @@ profile), slices the ascent (start→peak) or descent (peak→end) window per se
 the science variable, and writes one NetCDF shard per (sensor, profile):
   RCA_<site>_sp_<sensor>_<yyyy>_<ddd>_<gpi>_<daily>_V1.nc  ->  ooipaths.redux_dir(year, site)
 
+Direction: default 'ascent' (primary dataset, start→peak, version V1). Pass direction='descent'
+(CLI --direction descent) to recover the 8 HSD sensors on the peak→end window into the parallel
+redux_descent tree with version V1D — a second-class companion dataset (see DescentData.md).
+
 Restart-tolerant: existing shard files are skipped (supports incremental top-ups —
 re-running after new source data only writes the new shards).
 """
@@ -60,6 +64,15 @@ INSTRUMENT_SENSORS = {
     "par":  {"par"},
 }
 
+# DESCENT recovery (see DescentData.md): the 8 HSD scalar sensors that normally operate on
+# ASCENT are re-sharded on the DESCENT window (peak→end) into a parallel redux_descent tree
+# with version token V1D. Excluded from descent recovery: nitrate (ascent-only) and pH/pCO2
+# (already descent as their primary mode — a descent copy would be redundant).
+DESCENT_SENSORS = frozenset({
+    "temperature", "salinity", "density", "dissolvedoxygen",
+    "cdom", "chlora", "backscatter", "par",
+})
+
 
 def load_profile_indices(year, site=op.DEFAULT_SITE):
     """Profile index CSV (start/peak/end per profile) for a year, or None."""
@@ -73,19 +86,32 @@ def _active_sensors(instrument):
     return {k: v for k, v in SENSOR_MAP.items() if v[0] in want}
 
 
-def process_instrument(instrument, site=op.DEFAULT_SITE, sensors=None, years=None):
+def process_instrument(instrument, site=op.DEFAULT_SITE, sensors=None, years=None,
+                       direction="ascent"):
     """Shard source files for one instrument at one site into redux.
-    `sensors`: optional set of output sensor names to restrict to (e.g. {'dissolvedoxygen'}).
-    `years`:   optional set of ints to restrict source folders + profile-index years."""
+    `sensors`:   optional set of output sensor names to restrict to (e.g. {'dissolvedoxygen'}).
+    `years`:     optional set of ints to restrict source folders + profile-index years.
+    `direction`: 'ascent' (default) writes the primary redux tree (start→peak, version V1);
+                 'descent' re-shards the 8 HSD sensors on peak→end into the parallel
+                 redux_descent tree (version V1D). See DescentData.md."""
     if xr is None:
         print("xarray/pandas not available; cannot shard.")
         return
     if instrument not in INSTRUMENTS:
         print(f"Unknown instrument: {instrument}")
         return
+    op._check_direction(direction)
+    version = op.redux_version(direction)
 
     token = INSTRUMENTS[instrument]
     active = _active_sensors(instrument)
+    # In descent mode, restrict to the HSD sensors that get a descent copy (skip
+    # nitrate + the already-descent pH/pCO2), and FORCE the slice window to descent.
+    if direction == "descent":
+        active = {k: v for k, v in active.items() if v[0] in DESCENT_SENSORS}
+        if not active:
+            print(f"  ({instrument} has no descent-recovery sensors; skipping)")
+            return
     if sensors:
         sensors = set(sensors)
         active = {k: v for k, v in active.items() if v[0] in sensors}
@@ -95,7 +121,7 @@ def process_instrument(instrument, site=op.DEFAULT_SITE, sensors=None, years=Non
     year_filter = set(years) if years else None
     base = op.ooinet_dir(site, channel="scalar")
 
-    print(f"Scanning {instrument} source folders (site={site})"
+    print(f"Scanning {instrument} source folders (site={site}, direction={direction})"
           + (f" sensors={sorted(v[0] for v in active.values())}" if sensors else "")
           + (f" years={sorted(year_filter)}" if year_filter else "") + "...")
     src_years = []
@@ -112,7 +138,7 @@ def process_instrument(instrument, site=op.DEFAULT_SITE, sensors=None, years=Non
         return
 
     for year in range(2014, 2027):
-        op.redux_dir(year, site).mkdir(parents=True, exist_ok=True)
+        op.redux_dir(year, site, direction).mkdir(parents=True, exist_ok=True)
 
     stats = {v[0]: {"attempted": 0, "written": 0, "skipped": 0} for v in active.values()}
 
@@ -145,19 +171,24 @@ def process_instrument(instrument, site=op.DEFAULT_SITE, sensors=None, years=Non
                     daily[dk] = daily.get(dk, 0) + 1
                     daily_seq = daily[dk]
 
-                    for in_var, (out_var, direction) in active.items():
+                    for in_var, (out_var, native_dir) in active.items():
                         stats[out_var]["attempted"] += 1
-                        s0, s1 = ((p_start, p_peak) if direction == "ascent"
+                        # The requested `direction` sets the window. In ascent mode the
+                        # per-sensor native direction still governs (so pH/pCO2 slice
+                        # peak→end); in descent mode every active (HSD) sensor slices
+                        # peak→end. See DescentData.md.
+                        slice_dir = native_dir if direction == "ascent" else "descent"
+                        s0, s1 = ((p_start, p_peak) if slice_dir == "ascent"
                                   else (p_peak, p_end))
                         try:
                             pdata = ds.sel(time=slice(s0, s1))
                             if len(pdata.time) == 0 or in_var not in pdata.data_vars:
                                 continue
                             p_year = p_start.year
-                            out_dir = op.redux_dir(p_year, site)
+                            out_dir = op.redux_dir(p_year, site, direction)
                             jday = p_start.timetuple().tm_yday
                             fname = (f"RCA_{site}_sp_{out_var}_{p_year}_{jday:03d}_"
-                                     f"{gpi}_{daily_seq}_V1.nc")
+                                     f"{gpi}_{daily_seq}_{version}.nc")
                             out_path = out_dir / fname
                             if out_path.exists():
                                 stats[out_var]["skipped"] += 1
@@ -181,11 +212,16 @@ def process_instrument(instrument, site=op.DEFAULT_SITE, sensors=None, years=Non
               f"written={c['written']:6d} skipped={c['skipped']:6d}")
 
 
-def shard_all(site=op.DEFAULT_SITE, instruments=None, sensors=None, years=None):
+def shard_all(site=op.DEFAULT_SITE, instruments=None, sensors=None, years=None,
+              direction="ascent"):
     """Shard every (or the given) instrument for a site, optionally limited to
-    specific output sensors and/or years."""
+    specific output sensors and/or years. `direction`='descent' recovers the 8 HSD
+    sensors on the descent window into redux_descent (see DescentData.md); in that
+    mode ph/pco2/nitr instruments are skipped automatically."""
+    op._check_direction(direction)
     for inst in (instruments or list(INSTRUMENTS)):
-        process_instrument(inst, site=site, sensors=sensors, years=years)
+        process_instrument(inst, site=site, sensors=sensors, years=years,
+                           direction=direction)
 
 
 if __name__ == "__main__":
@@ -198,6 +234,9 @@ if __name__ == "__main__":
                     help="restrict to these output sensors, e.g. --sensors dissolvedoxygen")
     ap.add_argument("--years", nargs="*", type=int, default=None,
                     help="restrict to these years, e.g. --years 2016")
+    ap.add_argument("--direction", choices=("ascent", "descent"), default="ascent",
+                    help="'descent' recovers the 8 HSD sensors on peak→end into "
+                         "redux_descent (V1D); default ascent")
     args = ap.parse_args()
     shard_all(site=args.site, instruments=args.instruments,
-              sensors=args.sensors, years=args.years)
+              sensors=args.sensors, years=args.years, direction=args.direction)

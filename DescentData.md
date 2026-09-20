@@ -1,7 +1,15 @@
 # Descent Data
 
 Design note for recovering **descent** profile data as a second-class companion to the primary
-**ascent** dataset. Status: **design agreed, not yet implemented.**
+**ascent** dataset. Status: **create machinery implemented (Sep 2026); EC2 run + MLD button pending.**
+
+Implemented: `ooipaths` direction support (`redux_dir`/`postproc_dir`/`pp05_manifest`/`shard_glob`
+take `direction=`, plus `ARGOSY_DIRECTION` env + `redux_version`); `pipeline/shard.py --direction
+descent` (8 HSD sensors, peak→end, `redux_descent`, `V1D`); pp05/pp06/filter2/filter3 honor
+`ARGOSY_DIRECTION=descent` (→ `pp05_descent_manifest.csv`, `postproc/pp06_descent/`);
+`run_pipeline.sh <site> descent` stage (shard → pp chain → sync). Ascent paths unchanged
+(verified). **Not yet run** on EC2; the MLD Descent button is not yet wired (deliberate — a
+test-app conversation comes first).
 
 ## Motivation
 

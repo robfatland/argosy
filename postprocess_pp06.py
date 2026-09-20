@@ -39,8 +39,13 @@ import ooipaths as op
 
 # Site for this run. Path layout comes from ooipaths (single source of truth).
 SITE = op.DEFAULT_SITE
-MANIFEST_PATH = op.pp05_manifest(SITE)
-OUTPUT_BASE = op.postproc_base(SITE) / "pp06"
+# Direction: 'ascent' (default) uses pp05_manifest.csv -> postproc/pp06/; 'descent'
+# (ARGOSY_DIRECTION=descent) uses pp05_descent_manifest.csv -> postproc/pp06_descent/.
+# The manifest already carries redux_descent source paths (pp05 wrote them). Same filter
+# settings are applied to descent for an apples-to-apples baseline. See DescentData.md.
+DIRECTION = op.DEFAULT_DIRECTION
+MANIFEST_PATH = op.pp05_manifest(SITE, DIRECTION)
+OUTPUT_BASE = op.postproc_base(SITE) / ("pp06" if DIRECTION == "ascent" else "pp06_descent")
 
 HSD_SENSORS = [
     'temperature', 'salinity', 'density', 'dissolvedoxygen',
@@ -209,7 +214,7 @@ def main():
 
     for year in years:
         year_df = hsd_manifest[hsd_manifest['year'] == year]
-        out_dir = op.postproc_dir("pp06", year, SITE)
+        out_dir = op.postproc_dir("pp06", year, SITE, DIRECTION)
 
         if not args.dry_run:
             out_dir.mkdir(parents=True, exist_ok=True)

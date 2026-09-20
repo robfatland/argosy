@@ -59,7 +59,10 @@ import ooipaths as op
 
 # Site for this run. Path layout comes from ooipaths (single source of truth).
 SITE = op.DEFAULT_SITE
-PP06_BASE = op.postproc_base(SITE) / "pp06"
+# Direction: ascent -> postproc/pp06/; descent (ARGOSY_DIRECTION=descent) ->
+# postproc/pp06_descent/. Same filter settings either way (see DescentData.md).
+DIRECTION = op.DEFAULT_DIRECTION
+PP06_BASE = op.postproc_base(SITE) / ("pp06" if DIRECTION == "ascent" else "pp06_descent")
 
 # Rolling minimum window size (number of samples)
 WINDOW_SIZE = 11
