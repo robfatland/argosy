@@ -115,6 +115,7 @@ of these same files.
 | `CoincidencePlans.md` | Anomaly detection: auto-coincidence and hetero-coincidence plans. |
 | `InternalWaves.md` | Internal wave analysis: terminology, file inventory, stream function physics, plan. |
 | `VectorData.md` | Vector sensor integration (velocity, spectral irradiance, spectrophotometer). |
+| `DescentData.md` | Descent-shard recovery design: parallel `redux_descent`/`pp06_descent` tree + `V1D` naming, `ooipaths` direction support, EC2 pipeline, MLD Descent overlay button. |
 | `Analysis.md` | Derived oceanographic parameters, data exploration ideas, SGA methodology. |
 | `Umbrella.md` | Expansion beyond shallow profiler: other data resources. |
 | `ColumbiaPlumePlan.md` | Columbia River plume detection plan; satellite (PO.DAAC) cross-comparison. |

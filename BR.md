@@ -101,7 +101,15 @@ Where to run it (the "is this a cloud task?" question — YES, the raw is in S3)
 4. **AWS Batch / Fargate** for the bulk case without a persistent box.
 
 Underlying decision = **on-demand vs bulk**. Bulk-standard → Option 3 (simplest, cheapest, cloud-
-side). Genuinely ad-hoc → Option 1/2 (Lambda + S3 byte-range). PARKED for decision.
+side). Genuinely ad-hoc → Option 1/2 (Lambda + S3 byte-range).
+
+**RESOLVED (2026-09-19): Option 3 (bulk pass on ephemeral EC2), NOT Lambda.** Rationale: descent
+is a standard Phase-1 product; per-request Lambda would re-read whole ~500 MB source files per
+click, whereas a one-time bulk pass reads each source once. Naming decided: parallel
+`redux_descent/<yyyy>` tree + `V1D` version token (double delineation; ascent tree untouched);
+`ooipaths` gains a `direction` concept. Scope: the 8 HSD sensors only (no nitrate; pCO2/pH already
+descent). redux_descent → pp06_descent with the same filter settings (apples-to-apples baseline).
+Pause-interval (indices 4 & 9) precision deferred to post-pp06. Full spec: **`DescentData.md`**.
 
 
 ## Central question raised this session: where does VisQC / cline work live?
@@ -221,8 +229,9 @@ in parallel and should not block (or be blocked by) the AB run.
 5. [DECIDED] Folder is **`visqc/`** and it DOES house cline_extract + cline_plot ("part and
    parcel"), not only the visual inspector. There is NO separate `qc/`.
 6. [OPEN] How much of this is reversible/low-risk vs. needs care (git-tracked moves, import updates).
-7. [OPEN] Descent-data recovery: on-demand (Lambda + S3 byte-range) vs bulk (shard.py descent pass
-   on the ephemeral box). Plus the shard-name direction-token decision. See "Descent-data recovery".
+7. [RESOLVED 2026-09-19] Descent-data recovery: **bulk shard.py descent pass on the ephemeral box**
+   (not Lambda). Naming = parallel `redux_descent/<yyyy>` tree + `V1D` token. Full spec in
+   **`DescentData.md`**. See "Descent-data recovery" above.
 8. [OPEN] **Which data products should be free to download from S3, and how bundled?** Currently
    ONLY pp06 is public (all 3 sites, `<site>/postproc/pp06/*`, ~46 GB total). Candidates for future
    public release: pp07 (once defined), the per-profile cline/N²/MLD metadata, noon/midnight subsets

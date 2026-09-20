@@ -46,11 +46,21 @@ See also the "annotation problem" framing in the `argosy-conventions` steering f
 
 Entries should include who, date, context and any amount of speculation. Can also include a a `[tag]`.
 
+> **Descent overlay note (when the Descent button lands):** daily indices 4 (midnight) and 9
+> (post-noon) have built-in descent pauses, so their descent traces may look "lumpy" (clustered
+> depths, longer dwell) versus smooth-descent profiles — expected, not an artifact. Descent is
+> second-class/noisier by design (see `DescentData.md`): use it as a qualitative read on
+> water-column stability, not for placing MLD.
 
-Rob, 19-Sep-2026. The implicit *view* of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.
+
+- Rob, 19-Sep-2026. The implicit *view* of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.
+    - Rob, 19-Sep-2026. Another really clean one: sb T 13271. Not corroborated... suggests looking at the descent
+    - Rob, 19-Sep-2026. Another really clean one: sb T 13994. Corroborated by DO!
 
 
-Rob, 19-Sep-2026. We can flag ranges of bad profiles for embargo. See sb 1711 (2016-05-07): erratic in T and DO. Look at adjacent profiles: Is this an embargo range?
+- Rob, 19-Sep-2026. We can flag ranges of bad profiles for embargo. See sb 1711 (2016-05-07): erratic in T and DO. Look at adjacent profiles: Is this an embargo range?
+
+
 
 
 ## Open questions
@@ -59,10 +69,11 @@ Rob, 19-Sep-2026. We can flag ranges of bad profiles for embargo. See sb 1711 (2
 These can be resolved and relocated to the "plan" document `MLDAnnotationPlan.md`
 
 
+- Area between successive curves: Illusion but still suggests scanning for big jumps, another type of anomaly
 - Re-do the candidate selection process using more stringent criterion on how shallow the data goes?
 - Criteria for no-MLD...
 - Handling double (or more) mixed layers with some delineator
 - Reconcile four sensors? 
 - Suppose working on DO MLDs: Make an option to ghost-present other sensor MLDs as reference?
     - The plus is this would help resolve ambiguous choices by harmonizing across sensors
-    - The minus is this will bias the decision on the MLD 
+    - The minus is this will bias the decision on the MLD

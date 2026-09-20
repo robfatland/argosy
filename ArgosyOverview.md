@@ -55,6 +55,7 @@ kept in the `operational-recipes` steering file, not here.
 - **Running curtain plots**: `chapters/Visualizations.ipynb` curtain plot cell — see `Visualization.md`
 - **Switching the SP site (sb/oo/ab) in the vis notebook**: each plot cell calls `op.select_site()` — press Enter to keep the `ARGOSY_SITE` default or type a 2-letter code to switch (no kernel restart needed). See the intro cell of `chapters/Visualizations.ipynb`.
 - **MLD annotation suite (human-labeled mixed-layer-depth dataset)**: two-program workflow — `PreSelectProfiles.py` (reproducible candidate sampling → `mld_candidates/`) then `MLD.py` (interactive TkAgg annotator → per-labeler `mld_labels_*` CSVs). Design/spec in `MLDAnnotationPlan.md`; hands-on experience notes in `MLDObservations.md`; collaborator env in `environment-mld.yml`; downstream ML in `Analysis.md` → "Mixed Layer Depth".
+- **Descent-data recovery (second-class companion to ascent)**: pre-shard descent for the 8 HSD sensors into a parallel `redux_descent`/`pp06_descent` tree (`V1D` version token), via the disposable-EC2 pipeline; surfaced by a non-pickable "Descent" overlay button in `MLD.py`. Full spec in `DescentData.md`.
 
 \newpage
 
@@ -84,6 +85,7 @@ and Working docs (repo-only, not in the published book).
 - `PostProcessing.md` — redux → ppNN pipeline: pp01/pp02, pp05/pp06 filters, exclusions, QC
 - `PP05_QCAnalysis.md` — pp05 methodology: three-tier exclusion, suspect ranges, manifest design
 - `VectorData.md` — Vector sensor integration (velocity, spectral irradiance, spectrophotometer)
+- `DescentData.md` — Descent-shard recovery (second-class companion to ascent): parallel `redux_descent` tree + `V1D` naming, EC2 pipeline, MLD Descent overlay button
 - `DataOps.md` — S3 layout/backup/sync/restore, localhost WSL vhdx disk management
 
 **Phase 2 — Analysis**

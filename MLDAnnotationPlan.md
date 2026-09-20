@@ -153,6 +153,10 @@ unlabeled (Fwd/Rev-to-Null will find it again).
 **Recording no-MLD** (a necessary annotation — many profiles have no clear mixed layer): in Stay
 mode, either never click then `<Advance>`, or click then `<Clear pick>` then `<Advance>`.
 
+**Descent overlay (planned):** a "Descent" button will overlay the descent trace for the current
+(sensor, gpi) as visual context for water-column stability/distortion. Context only — not pickable.
+Requires pre-sharded descent data; full design in `DescentData.md`.
+
 - A **UI toggle** ("Advance on click") switches the two modes; default is **Stay on click**
   (toggle off).
 
