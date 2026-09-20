@@ -30,8 +30,11 @@ Key behaviors
     pick and DELETES any committed label for (gpi, sensor, who), so it re-registers as
     unlabeled (marker/line removed; Fwd/Rev-to-Null will find it again).
   - Marker/trace color is per sensor: temperature=red, salinity=green, density=gold, DO=blue.
-  - Navigation: prev/next, plus Forward-to-Null / Reverse-to-Null (jump to the next/previous
-    candidate with no label for the ACTIVE sensor by the CURRENT who).
+  - A **right-click** anywhere in the chart is a shortcut for the <Advance> button (commit the
+    current sensor's state — real MLD if one exists, else no-MLD — and advance).
+  - Navigation: prev/next, <◀ Start> (jump to the very first candidate), plus Forward-to-Null /
+    Reverse-to-Null (jump to the next/previous candidate with no label for the ACTIVE sensor by
+    the CURRENT who).
   - Session settings (active sensor, filter, sliders, display states, advance mode) persist
     across advances. who is fixed at launch by --who (no UI control).
 
@@ -386,6 +389,7 @@ class MLDAnnotator:
         self.btn_fnull = _btn(0.31, 0.11, "Fwd-to-Null ▶")
         self.btn_advance = _btn(0.44, 0.10, "Advance")
         self.btn_clear = _btn(0.55, 0.09, "Clear pick")
+        self.btn_start = _btn(0.65, 0.08, "◀ Start")
 
         self.btn_prev.on_clicked(lambda e: self._goto(self.idx - 1))
         self.btn_next.on_clicked(lambda e: self._goto(self.idx + 1))
@@ -393,6 +397,7 @@ class MLDAnnotator:
         self.btn_fnull.on_clicked(lambda e: self._to_null(+1))
         self.btn_advance.on_clicked(self._on_advance)
         self.btn_clear.on_clicked(self._on_clear)
+        self.btn_start.on_clicked(lambda e: self._jump_to_start())
 
         self.status = self.fig.text(0.02, 0.01, "", fontsize=8, color="#333")
 
@@ -520,6 +525,13 @@ class MLDAnnotator:
     def _on_click(self, event):
         if event.inaxes is not self.ax:
             return
+        # Right-click (button 3) is a shortcut for the <Advance> button: commit the
+        # current sensor's state (real MLD if one exists, else no-MLD) and advance.
+        if event.button == 3:
+            self._on_advance(event)
+            return
+        if event.button != 1:
+            return
         if event.ydata is None:
             return
         click_depth = float(event.ydata)
@@ -638,6 +650,11 @@ class MLDAnnotator:
         self.pending = None
         self.idx = max(0, min(new_idx, len(self.candidates) - 1))
         self.draw()
+
+    def _jump_to_start(self):
+        """Jump back to the very first candidate profile."""
+        self._goto(0)
+        self._set_status("jumped to first candidate (idx 1)")
 
     def _to_null(self, direction):
         """Jump to the next/previous candidate with no label for the active sensor+who."""
