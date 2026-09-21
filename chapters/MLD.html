@@ -428,6 +428,15 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="mixed-layer-depth">
 <h1>Mixed Layer Depth<a class="headerlink" href="#mixed-layer-depth" title="Link to this heading">#</a></h1>
 <p>From both RCA shallow profilers and deep profilers we can infer the mixed layer depth (MLD) from sensor profiles. Done manually this requires some heuristics. MLD can also be calculated automatically from the data as in <span id="id1">Holte and Talley [<a class="reference internal" href="../reference/bibliography.html#id3" title="James Holte and Lynne Talley. A new algorithm for finding mixed layer depths with applications to argo data and subantarctic mode water formation. Journal of Atmospheric and Oceanic Technology, 26(9):1920–1939, 2009. doi:10.1175/2009JTECHO543.1.">1</a>]</span>. We generate a human-selected MLD dataset, train a machine learning model, apply that to the full shallow profiler time series (through 2005), and compare the results to an automated calculation that combines threshold and gradient approaches.</p>
+<figure class="align-default" id="fig-mld">
+<a class="reference internal image-reference" href="../_images/MLD_sp_ab_GPI5919_2018_02_13_R.png"><img alt="../_images/MLD_sp_ab_GPI5919_2018_02_13_R.png" src="../_images/MLD_sp_ab_GPI5919_2018_02_13_R.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Human-selected MLD from a temperature profile. The data are shown filtered (black trace) and raw (grey trace). This is part of a February 2018 profile at Axial Base.</span><a class="headerlink" href="#fig-mld" title="Link to this image">#</a></p>
+<div class="legend">
+<p>Here is some furtherance of a further sixpencee.</p>
+</div>
+</figcaption>
+</figure>
 </section>
 
     <script type="text/x-thebe-config">
