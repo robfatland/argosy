@@ -6,7 +6,9 @@ date: ""
 
 \newpage
 
+
 # Argosy Overview
+
 
 **Argosy** is an ocean science research narrative in book form; and at the same time it is a working environment for analysis of data. The starting point of this analysis focuses on data from the OOI Regional Cabled Array shallow profilers and expands to other data sources. The main idea is that raw ocean observation data is transformed and subjected to comparative analysis. 
 
@@ -18,27 +20,28 @@ date: ""
 - **Phase 2**: Interpretive data analysis: Concerning both *what the ocean is like* in an average sense; and *what anomalies* might be detected and interpreted.
 
 
-This is an example reference: {cite}`nash2005`.
+Example references: {cite}`nash2005`, {cite}`holte2009`.
 
 
 The Argosy repository is published as a **Jupyter Book** (readable narrative) and a
 **working research repository** (scripts + planning notes). The GitHub landing page is
 `README.md`; the book's ordered narrative is defined by `_toc.yml`.
 
-## Who are you? (routing)
 
-- **Arthur — science reader:** read on below, then follow the Jupyter Book chapters. You want
-  the *why* and the *what*, not the machinery.
-- **Chuck — collaborator (machinery):** go to **`DeveloperGuide.md`** (technical map:
-  filesystem, workflow tasks, how to run each stage) and `CodeManifest.md` (file inventory).
-- **Angus — external researcher reusing the work:** start at **`SETUP.md`** (environment +
+## Who are you, the reader?
+
+
+- **Arthur — science reader:** read on below, then follow the Jupyter Book chapters. Science narrative, not computing machinery.
+- **Chuck — collaborator:** finish this, then head to **`DeveloperGuide.md`** (technical: filesystem layout, workflow tasks) and also `CodeManifest.md` (the file inventory).
+- **Angus — an external researcher using the work:** Begin at **`SETUP.md`** (environment +
   public data access), then `DeveloperGuide.md`, then `Publishing.md` for citation/DOIs.
-- **Maggie — OOI FB / DSC:** this overview plus the Jupyter Book give the purpose-and-scope picture.
+- **Maggie — OOI FB / DSC:** this overview plus the Jupyter Book give the purpose-and-scope picture; and you can follow the above user trajectories of course. For usability feedback on OOI data-access tools (concrete friction points for the DSC), see **`OOIUsability.md`** (a working doc in the repo, not part of the published book).
 
-Operational commands (build/publish the book, per-file PDF export, standalone widgets) are
+>Note: Operational commands (build/publish the book, per-file PDF export, standalone widgets) are
 kept in the `operational-recipes` steering file, not here.
 
 \newpage
+
 
 ## Quick Reference: Pointers to Key Actions
 
@@ -49,14 +52,16 @@ kept in the `operational-recipes` steering file, not here.
 - **Generating pp05 manifest**: `python postprocess_pp05.py` — see `PP05_QCAnalysis.md`
 - **Adding sensor exclusions**: Edit `~/argosy/sensor_exclusions.csv` — see `PostProcessing.md` → "Sensor exclusions"
 - **Localhost disk management**: WSL vhdx compaction, free space checks — see `DataOps.md` → "Localhost Data Management"
-- **Running curtain plots**: Vis.ipynb curtain plot cell — see `Visualization.md`
+- **Running curtain plots**: `chapters/Visualizations.ipynb` curtain plot cell — see `Visualization.md`
+- **Switching the SP site (sb/oo/ab) in the vis notebook**: each plot cell calls `op.select_site()` — press Enter to keep the `ARGOSY_SITE` default or type a 2-letter code to switch (no kernel restart needed). See the intro cell of `chapters/Visualizations.ipynb`.
+- **MLD annotation suite (human-labeled mixed-layer-depth dataset)**: two-program workflow — `PreSelectProfiles.py` (reproducible candidate sampling → `mld_candidates/`) then `MLD.py` (interactive TkAgg annotator → per-labeler `mld_labels_*` CSVs). Design/spec in `MLDAnnotationPlan.md`; hands-on experience notes in `MLDObservations.md`; collaborator env in `environment-mld.yml`; downstream ML in `Analysis.md` → "Mixed Layer Depth".
+- **Descent-data recovery (second-class companion to ascent)**: pre-shard descent for the 8 HSD sensors into a parallel `redux_descent`/`pp06_descent` tree (`V1D` version token), via the disposable-EC2 pipeline; surfaced by a non-pickable "Descent" overlay button in `MLD.py`. Full spec in `DescentData.md`.
 
 \newpage
 
 # Argosy Project Overview
 
-This document is the primary entry point for the `argosy` project documentation.
-It describes the project, its purpose, and references the companion documentation files.
+This document is the primary entry point for `argosy` documentation. It describes the project, its purpose, and references the companion documentation files.
 
 
 ## Documentation Files
@@ -79,7 +84,9 @@ and Working docs (repo-only, not in the published book).
 - `Sharding.md` — Sharding details, shard filenames, profile metadata, midnight/noon
 - `PostProcessing.md` — redux → ppNN pipeline: pp01/pp02, pp05/pp06 filters, exclusions, QC
 - `PP05_QCAnalysis.md` — pp05 methodology: three-tier exclusion, suspect ranges, manifest design
+- `PP06_Filters.md` — pp06 filtered dataset: the Filter 0–3 reference (baseline, conductivity erratics, Sav-Gol, backscatter despike)
 - `VectorData.md` — Vector sensor integration (velocity, spectral irradiance, spectrophotometer)
+- `DescentData.md` — Descent-shard recovery (second-class companion to ascent): parallel `redux_descent` tree + `V1D` naming, EC2 pipeline, MLD Descent overlay button
 - `DataOps.md` — S3 layout/backup/sync/restore, localhost WSL vhdx disk management
 
 **Phase 2 — Analysis**
@@ -101,9 +108,11 @@ and Working docs (repo-only, not in the published book).
 - `DeveloperGuide.md` recipes live in the `operational-recipes` steering file
 - `Publishing.md` — Open-science / DOI archiving plan (Zenodo, Figshare, OSF)
 - `VisQC.md` — Visual QC workflow (cline review) design
+- `MLDAnnotationPlan.md` — MLD annotation suite: design/spec for `PreSelectProfiles.py` + `MLD.py`, label schema, decisions (see also `mld_candidates/`, `environment-mld.yml`)
+- `MLDObservations.md` — MLD annotation suite: human experience notes from hand-marking mixed-layer depth
 - `Testing.md` — Test definitions (SGA synthetic validation, IW incompressibility)
 - `CoincidencePlans.md` — Anomaly detection: auto/hetero coincidence plans
-- `pp06ErraticFilterPrompt.md` — Design notes for the pp06 erratic filter
+- `OOIUsability.md` — Usability notes on OOI data-access tools (OOINET etc.); DSC feedback
 - `poster/AGUPoster.html` — AGU poster (standalone artifact)
 - `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, open topics, pending ideas, Next prompt section
 
@@ -220,6 +229,7 @@ pandoc \
   PostProcessing.md \
   DataOps.md \
   PP05_QCAnalysis.md \
+  PP06_Filters.md \
   SpectralGraphAnalysis.md \
   TidalAnalysis.md \
   InternalWaves.md \

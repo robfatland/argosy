@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bibliography &#8212; Argosy</title>
+    <title>&lt;no title&gt; &#8212; Argosy</title>
   
   
   
@@ -57,11 +57,9 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/bibliography';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'mld_candidates/README';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Download" href="../chapters/DataDownload.html" />
-    <link rel="prev" title="OOINET Slope Base Scalar Data Status" href="../OOINETSlopeBaseDataStatus.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,6 +121,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -214,10 +214,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../Umbrella.html">Umbrella</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../CodeManifest.html">Code Manifest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
 <ul class="nav bd-sidenav">
@@ -299,7 +299,7 @@
       
       
       
-      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2Freference/bibliography.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2Fmld_candidates/README.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +329,7 @@
       
       
       
-      <li><a href="../_sources/reference/bibliography.md" target="_blank"
+      <li><a href="../_sources/mld_candidates/README.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -400,7 +400,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -411,11 +413,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Bibliography</h1>
+    <h1><no title></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -425,21 +435,28 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="bibliography">
-<h1>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading">#</a></h1>
-<div class="docutils container" id="id1">
-<div role="list" class="citation-list">
-<div class="citation" id="id3" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<p>James Holte and Lynne Talley. A new algorithm for finding mixed layer depths with applications to argo data and subantarctic mode water formation. <em>Journal of Atmospheric and Oceanic Technology</em>, 26(9):1920–1939, 2009. <a class="reference external" href="https://doi.org/10.1175/2009JTECHO543.1">doi:10.1175/2009JTECHO543.1</a>.</p>
-</div>
-<div class="citation" id="id2" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
-<p>Jonathan D. Nash and James N. Moum. River plumes as a source of large-amplitude internal waves in the coastal ocean. <em>Nature</em>, 437:400–403, 2005. <a class="reference external" href="https://doi.org/10.1038/nature03936">doi:10.1038/nature03936</a>.</p>
-</div>
-</div>
-</div>
-</section>
+  <p>This folder <code class="docutils literal notranslate"><span class="pre">~/argosy/mld_candidates/</span></code> contains the <strong>blessed, canonical candidate-profile
+lists</strong> for the MLD annotation workflow — the shared source of truth that both annotators
+(Chuck, Rob) label against so they sample the <em>same</em> profiles.</p>
+<p>These are small, diff-friendly CSV manifests kept under version control (a deliberate exception
+to the “no data in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>” rule, like <code class="docutils literal notranslate"><span class="pre">sensor_exclusions.csv</span></code>). Full design in
+<code class="docutils literal notranslate"><span class="pre">../MLDAnnotationPlan.md</span></code>.</p>
+<p>Files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mld_candidates_&lt;site&gt;_block&lt;NN&gt;.csv</span></code> — one candidate profile per <code class="docutils literal notranslate"><span class="pre">&lt;NN&gt;</span></code>-day time block for a
+site (<code class="docutils literal notranslate"><span class="pre">sb</span></code>/<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>), produced by <code class="docutils literal notranslate"><span class="pre">../PreSelectProfiles.py</span></code> and promoted here via its
+<code class="docutils literal notranslate"><span class="pre">--bless</span></code> step. Columns: block bounds, <code class="docutils literal notranslate"><span class="pre">N</span></code> (profiles in block), selection tier
+(<code class="docutils literal notranslate"><span class="pre">all4</span></code>/<code class="docutils literal notranslate"><span class="pre">T_only</span></code>), chosen <code class="docutils literal notranslate"><span class="pre">gpi</span></code>/<code class="docutils literal notranslate"><span class="pre">timestamp</span></code>/<code class="docutils literal notranslate"><span class="pre">daily_index</span></code>, per-sensor presence flags, seed,
+block width.</p></li>
+</ul>
+<p>Producers / consumers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">../PreSelectProfiles.py</span></code> — generates the working copies in <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/</span></code>
+and, with <code class="docutils literal notranslate"><span class="pre">--bless</span></code>, copies the chosen set here.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">../MLD.py</span></code> — the interactive TkAgg annotator; reads these blessed lists to drive labeling.</p></li>
+</ul>
+<p>Regeneration is NOT guaranteed identical across machines (selection depends on the local pp06
+set). Treat these blessed copies as authoritative; do not overwrite from an unverified re-run.</p>
 
     <script type="text/x-thebe-config">
     {
@@ -454,7 +471,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./reference"
+            path: "./mld_candidates"
         },
         predefinedOutput: true
     }
@@ -471,30 +488,27 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../OOINETSlopeBaseDataStatus.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">OOINET Slope Base Scalar Data Status</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../chapters/DataDownload.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Download</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

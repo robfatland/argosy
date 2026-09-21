@@ -112,6 +112,21 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- **Miniconda environment sprawl — refactor away the one-giant-env situation.** The single
+  `argosy` conda env now carries hundreds of installed packages, many unrelated to argosy
+  (e.g. torch/CUDA, qiskit + amazon-braket, pymatgen, transformers, icepyx/earthaccess) — see
+  the pip section of `environment.yml`. This bloats the pinned snapshot, slows solves, and makes
+  the env hard to reproduce on a collaborator's machine (which is exactly why a separate minimal
+  `environment-mld.yml` was created for Chuck). Refactor direction to evaluate: (a) define what
+  argosy *actually* needs (Phase-1 pipeline vs Phase-2 analysis vs book-build vs the standalone
+  GUIs) and carve out purpose-scoped envs (e.g. `argosy` core + optional extras), pruning the
+  unrelated science/ML stacks into their own separate envs; (b) maintain a hand-curated,
+  minimally-pinned `environment.yml` as the portable source of truth and keep the full
+  `conda env export` only as a lock/snapshot artifact (e.g. `environment.lock.yml`); (c) audit
+  which top-level packages are directly imported by argosy code vs pulled in ad hoc, and remove
+  the latter. Ties into the steering "environment stability" rule (snapshot after every
+  install) and the portability lesson from the Chuck/MLD setup. Decide the target env
+  topology before doing any destructive `conda remove`.
 - **pCO2 on Oregon Offshore — check with Wendi/Joe: does it exist?** When ordering `oo` data
   (Sep 2026) there was no clear pCO2 (PCO2W) link in the OOINET order interface after a careful
   look. `oo` currently has 5 instrument orders (PHSEN, CTDPF, FLORT, NUTNR, PARAD) covering 10 of
@@ -396,7 +411,6 @@ This is at much lower task resolution.
 - Regenerate pp01/pp02 (`postprocess_special_profiles.py noon` and `midnight`)
 - Check the `argosy` environment installed libraries against `environment.yml`
 - LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)
-- TMLD/ directory: Decide whether to keep `tmld_estimates.csv` as historical data; delete the empty `tmld_selector.py`
 - Order VELPT data for 2018–present (lower priority; deferred for SGA feature vector)
 - Update `CodeManifest.md` to reflect the documentation refactor
 - Copy updated `pre_shard_data_availability.png` to `~/argosy/images/` after each regeneration
@@ -543,7 +557,6 @@ This is at much lower task resolution.
   If 3 of 27 positions have no data, you see 24 traces. Options: rename the slider (e.g.
   `nPositions` or `window`), add a display showing actual traces drawn, or change the docs.
   Resolve before sharing with collaborators.
-- Finish writing `pp06ErraticFilterPrompt.md`
 - Apply Vis notebook rebuild (see `VisNotebookRebuild.md`)
 
 

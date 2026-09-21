@@ -24,6 +24,8 @@ Last refreshed: 2026-06-26
 | `postprocess_special_profiles.py` | Generates pp01 (noon) and pp02 (midnight) subsets. HSD via noon/midnight metadata; LSD via daily_index 4/9 with min-points filter. |
 | `profile_duration_histograms.py` | Computes profile duration histograms from profileIndices. Classifies noon/midnight profiles. Writes to `~/ooi/<site>/metadata/` and `~/ooi/<site>/visualizations/`. |
 | `TimeSeriesProfileCorrelation.py` | Cross-correlation between adjacent profiles on a regular depth grid. Produces vertical offset time series (tidal/current displacement). |
+| `PreSelectProfiles.py` | MLD workflow step 1: reproducible seeded sampling of one candidate profile per N-day block per site from pp06. Writes working CSVs to `~/ooi/<site>/metadata/annotations/`; `--bless` promotes them to `mld_candidates/`. See `MLDAnnotationPlan.md`. |
+| `MLD.py` | MLD workflow step 2: standalone TkAgg GUI to hand-label mixed-layer depth on blessed candidates. Per-`who` label CSV in `~/ooi/<site>/metadata/annotations/`. Needs a display + `python3-tk`. See `MLDAnnotationPlan.md`. |
 
 
 ### Data files
@@ -33,10 +35,9 @@ Last refreshed: 2026-06-26
 | `sensortable.csv` | Sensor table: sensor name, instrument, key, data variable, shard name, side, extreme low/high. |
 | `sensor_exclusions.csv` | Manual QC embargo list: sensor, start date, end date, reason. Consumed by curtain plot and postprocess scripts. |
 | `tidal_constituents.json` | Extracted tidal harmonic constituents (amplitude, phase, frequency) for 3 sites, 14 constituents. |
-| `vcurrent.csv` | Vector sensor channels for velocity (3: east, north, up). |
-| `vspectralirr.csv` | Vector sensor channels for spectral irradiance (7 wavelengths). |
-| `vopticalabsorb.csv` | Vector sensor channels for optical absorption (73 channels). |
-| `vbeamatten.csv` | Vector sensor channels for beam attenuation (73 channels). |
+| `environment.yml` | Full `conda env export` snapshot of the `argosy` env (pinned build hashes; not portable). |
+| `environment-mld.yml` | Portable minimal conda spec for running the MLD workflow (`PreSelectProfiles.py` + `MLD.py`) on a collaborator's machine. |
+| `mld_candidates/` | Blessed, committed candidate-profile lists (shared MLD labeling targets); see `mld_candidates/README.md`. |
 
 
 ## SGA directory (`~/argosy/sga`)
@@ -69,8 +70,8 @@ Last refreshed: 2026-06-26
 | File | Description |
 |------|-------------|
 | `bundle_chart.py` | Standalone interactive bundle chart. Global-index navigation, dynamic data source (redux/pp01–pp06), persistent range memory, display names, nav buttons. |
+| `bundle_animate.py` | Bundle animation (headless, Agg): sliding-window temperature profile time-lapse, mean±std or overlay. Output: `~/ooi/<site>/visualizations/`. Supersedes the removed `bundle_animation.py`. |
 | `curtain_plot.py` | Interactive curtain plot for HSD sensors. Source selector, sensor exclusions, contour overlays. Outputs PNG + contour CSV to `~/ooi/<site>/`. |
-| `bundle_animation.py` | Bundle animation: sliding-window temperature profile time-lapse. Mean±std or overlay mode. Output: `~/ooi/<site>/visualizations/bundle_animation.mp4`. |
 
 
 ## Chapters directory (`~/argosy/chapters`)
@@ -84,14 +85,6 @@ Last refreshed: 2026-06-26
 | `SpectralGraphAnalysis.ipynb` | Spectral graph analysis of profile data (runs the sga/ modules). |
 | `TidalSignal.ipynb` | Tidal signal analysis: profile start-depth variation over time, correlation with tidal prediction. |
 | `StubWork.ipynb` | Stub/scratch notebook. |
-
-
-## TMLD directory (`~/argosy/TMLD`)
-
-| File | Description |
-|------|-------------|
-| `tmld_selector.py` | Interactive tool for manually selecting Temperature Mixed Layer Depth. |
-| `tmld_estimates.csv` | Human-generated TMLD estimates from the interactive selector. |
 
 
 ## LegacyCode directory (`~/argosy/LegacyCode`)
@@ -122,17 +115,21 @@ of these same files.
 | `CoincidencePlans.md` | Anomaly detection: auto-coincidence and hetero-coincidence plans. |
 | `InternalWaves.md` | Internal wave analysis: terminology, file inventory, stream function physics, plan. |
 | `VectorData.md` | Vector sensor integration (velocity, spectral irradiance, spectrophotometer). |
+| `DescentData.md` | Descent-shard recovery design: parallel `redux_descent`/`pp06_descent` tree + `V1D` naming, `ooipaths` direction support, EC2 pipeline, MLD Descent overlay button. |
 | `Analysis.md` | Derived oceanographic parameters, data exploration ideas, SGA methodology. |
 | `Umbrella.md` | Expansion beyond shallow profiler: other data resources. |
 | `ColumbiaPlumePlan.md` | Columbia River plume detection plan; satellite (PO.DAAC) cross-comparison. |
 | `RCAWritLarge.md` | Broader Regional Cabled Array context. |
 | `OOIFAQandGeneralInfoSummary.md` | OOI FAQ / general information summary. |
 | `OOINETSlopeBaseDataStatus.md` | OOINET data availability status for Slope Base. |
+| `OOIUsability.md` | Usability notes on OOI data-access tools (OOINET parameter selection, provenance, annotations); friction points as DSC feedback. Working doc, not in the book. |
 | `Testing.md` | Test definitions: SGA synthetic validation, internal wave incompressibility check. |
 | `VisQC.md` | Visual QC workflow design (cline review; Inspector + planned Corrector). |
+| `MLDAnnotationPlan.md` | MLD annotation suite design/spec: `PreSelectProfiles.py` + `MLD.py` workflow, interaction model, label schema, decisions. |
+| `MLDObservations.md` | MLD annotation suite: human experience notes from hand-marking mixed-layer depth. Indexes the whole MLD suite. |
 | `Publishing.md` | Open-science / DOI archiving plan (Zenodo, Figshare, OSF; postproc subset). |
 | `SessionState.md` | Machine-readable session state for AI continuity (last updated, in-progress, blocked). |
-| `pp06ErraticFilterPrompt.md` | Design notes/prompt for pp06 erratic filter system. |
+| `PP06_Filters.md` | pp06 filtered dataset: the Filter 0–3 reference (baseline copy, conductivity-erratic MRA walk, Sav-Gol smoothing, backscatter despike). |
 | `DevelopmentLog.md` | Development narrative, open topics, pending items, Next prompt section. |
 | `CodeManifest.md` | This file. |
 | `SETUP.md` | Collaboration setup: environment installation, S3 data access, getting started. |

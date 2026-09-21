@@ -24,6 +24,9 @@
 - The `## Next` section at the end of `DevelopmentLog.md` is where complex prompts are staged.
 - PDF build: `pandoc` with `_header.tex`, command documented in `ArgosyOverview.md`.
 - Slide deck: `slides.md` (Marp format). Render with `marp slides.md -o slides.html`. Marp CLI is installed.
+  - When a Marp deck uses math syntax, recommend declaring the math typesetting library in the
+    document via the `math` global directive in the front matter (e.g. `math: katex` or
+    `math: mathjax`). Flag this whenever adding/using math in a Marp slide.
 
 ## Coding conventions
 
@@ -48,7 +51,7 @@
 
 - Authoritative source: `~/argosy/sensortable.csv`
 - Folder naming in `~/ooi/<site>/ooinet/scalar/` uses the `key` column: `<year>_<key>` (e.g. `2018_ctd`, `2022_nitr`, `2015_par`). For Slope Base: `~/ooi/sb/ooinet/scalar/`.
-- Vector channel files: `vcurrent.csv`, `vspectralirr.csv`, `vopticalabsorb.csv`, `vbeamatten.csv`.
+- Vector channel definitions (velocity, spectral irradiance, optical absorption, beam attenuation) are deferred until vector-data download is implemented (placeholder `v*.csv` files removed Sep 2026; regenerate when needed). See `VectorData.md`.
 - When the sensor table changes, update both `sensortable.csv` and `SensorTable.md`.
 
 ## Data pipeline
@@ -160,3 +163,51 @@ to make data folders (especially `metadata/` and its subfolders) somewhat self-d
 - Operational procedures are indexed in `ArgosyOverview.md` → "Pointers to Key Actions". When adding a new procedure to any doc, also add a one-line pointer there.
 - **Cross-document references**: When an item in one document is addressed or elaborated in another, add a pointer (e.g. "See `Testing.md` for details"). This applies to Open Topics referencing Testing.md, DevelopmentLog referencing Analysis.md, etc. Keeps navigation efficient across the doc set.
 - Before running any long-running process that writes significant data (pp05, sharding, etc.), check Windows C: drive free space with `Get-PSDrive C`. If free space is 2GB or less, STOP and notify the user that the Windows drive is critically low — WSL will fail if the vhdx cannot grow.
+- **Public data sharing (S3):** the `s3ooi` bucket makes ONLY `pp06` publicly readable (unauthenticated `s3:GetObject`/`ListBucket` on `<site>/postproc/pp06/*` for sb/oo/ab; policy in `~/argosy/s3_public_read_policy.json`, applied via `aws s3api put-bucket-policy`). redux and other pp levels are intentionally private (redux is more flawed than pp06). As NEW datasets are created (pp07, other future sp-data versions/products), ASK the human whether they should be publicly available like pp06 before extending the bucket policy — do not expose new prefixes automatically. Note egress is billed to the bucket owner, so public exposure is a deliberate cost/security decision (see `DataOps.md` and BR.md).
+
+## Annotation problem (HIGH-PRIORITY thinking — Phase 1)
+
+Filed as a concept to develop, not yet implemented. This captures the user's framing so it
+survives session restarts.
+
+### The scale
+
+Roughly one million sensor~profiles across the archive: ~11 scalar sensors × 3 sites × up to
+9 profiles/day × 365 days × ~12 years (order-of-magnitude, not exact). For each profile — at
+minimum for T, S, rho (density), and DO — we want annotations:
+- a **MLD** (mixed-layer depth), and
+- a **cline** described as **top / max-gradient / bottom** (thermocline, halocline, pycnocline,
+  oxycline via the existing `CLINE_COLS` mapping in `VisQCInspector.py`).
+
+Annotations accumulate toward a **climatological view**, including a **time-of-day climatology
+crossed with time-of-year** (ties into the daily-index 4=midnight / 9=post-noon structure).
+On top of the climatology we want to **flag anomalies**.
+
+### The stance
+
+An expert system could produce all of these in minutes, but the point is to first *learn to be
+human experts* so we can judge any automated method against our own labels. That means building
+a **human-in-the-loop click-review** workflow.
+
+### Direction (current thinking, subject to change)
+
+- **Standalone GUI apps preferred over notebook-embedded** (Python assumed). Established pattern:
+  `iw/VisQCInspector.py` (TkAgg, per-(gpi,sensor) decision rows → visitation CSV under
+  `metadata/annotations/`). The MLD annotator `MLD.py` follows this lineage. (An earlier
+  single-sensor "TMLD" picker experiment has been retired and removed.)
+- **Start with ONE parameter — MLD — to build a human-labeled training dataset.** Sample rather
+  than exhaust: e.g. **one profile per day, chosen at random from the nine**, rather than all nine.
+  This is now implemented as the **MLD annotation suite** — `PreSelectProfiles.py` (candidate
+  sampling → `mld_candidates/`) + `MLD.py` (interactive annotator → `mld_labels_*` CSVs); see
+  `MLDAnnotationPlan.md` (design), `MLDObservations.md` (experience notes), and `Analysis.md` (ML).
+- The human-labeled set becomes the **training dataset for subsequent ML** (learn the human MLD call).
+
+### Open problem: on-the-fly de-noising for gradient-based cline/MLD picking
+
+Gradient-based auto-derivation of the thermocline is easily fooled by signal noise/"scratchiness."
+Open question: what filter to apply, ideally **locally adaptive** — moderated along the profile by
+local standard deviation, like sidechaining/compressor behavior: where the profile is smooth, do
+little; where it is scratchy, replace with a smooth "through-the-center" trace. Candidate to
+evaluate: **LTTB** (Largest-Triangle-Three-Buckets). Goal is a filter built into the MLD
+inspection/marking tool that yields clean gradients for picking. See a fuller discussion of filter
+options in `MLDAnnotationPlan.md` (create when this work starts).

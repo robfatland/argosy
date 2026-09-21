@@ -200,8 +200,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -424,7 +426,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Argosy Overview</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-are-you-routing">Who are you? (routing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-are-you-the-reader">Who are you, the reader?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-pointers-to-key-actions">Quick Reference: Pointers to Key Actions</a></li>
 </ul>
 </li>
@@ -460,23 +462,23 @@ document.write(`
 <li><p><strong>Phase 1</strong>: A pipeline from raw to ‘analysis ready’ data.</p></li>
 <li><p><strong>Phase 2</strong>: Interpretive data analysis: Concerning both <em>what the ocean is like</em> in an average sense; and <em>what anomalies</em> might be detected and interpreted.</p></li>
 </ul>
-<p>This is an example reference: <span id="id1">[<a class="reference internal" href="reference/bibliography.html#id2" title="Jonathan D. Nash and James N. Moum. River plumes as a source of large-amplitude internal waves in the coastal ocean. Nature, 437:400–403, 2005. doi:10.1038/nature03936.">1</a>]</span>.</p>
+<p>Example references: <span id="id1">[<a class="reference internal" href="reference/bibliography.html#id2" title="Jonathan D. Nash and James N. Moum. River plumes as a source of large-amplitude internal waves in the coastal ocean. Nature, 437:400–403, 2005. doi:10.1038/nature03936.">2</a>]</span>, <span id="id2">[<a class="reference internal" href="reference/bibliography.html#id3" title="James Holte and Lynne Talley. A new algorithm for finding mixed layer depths with applications to argo data and subantarctic mode water formation. Journal of Atmospheric and Oceanic Technology, 26(9):1920–1939, 2009. doi:10.1175/2009JTECHO543.1.">1</a>]</span>.</p>
 <p>The Argosy repository is published as a <strong>Jupyter Book</strong> (readable narrative) and a
 <strong>working research repository</strong> (scripts + planning notes). The GitHub landing page is
 <code class="docutils literal notranslate"><span class="pre">README.md</span></code>; the book’s ordered narrative is defined by <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>.</p>
-<section id="who-are-you-routing">
-<h2>Who are you? (routing)<a class="headerlink" href="#who-are-you-routing" title="Link to this heading">#</a></h2>
+<section id="who-are-you-the-reader">
+<h2>Who are you, the reader?<a class="headerlink" href="#who-are-you-the-reader" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Arthur — science reader:</strong> read on below, then follow the Jupyter Book chapters. You want
-the <em>why</em> and the <em>what</em>, not the machinery.</p></li>
-<li><p><strong>Chuck — collaborator (machinery):</strong> go to <strong><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code></strong> (technical map:
-filesystem, workflow tasks, how to run each stage) and <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> (file inventory).</p></li>
-<li><p><strong>Angus — external researcher reusing the work:</strong> start at <strong><code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code></strong> (environment +
+<li><p><strong>Arthur — science reader:</strong> read on below, then follow the Jupyter Book chapters. Science narrative, not computing machinery.</p></li>
+<li><p><strong>Chuck — collaborator:</strong> finish this, then head to <strong><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code></strong> (technical: filesystem layout, workflow tasks) and also <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> (the file inventory).</p></li>
+<li><p><strong>Angus — an external researcher using the work:</strong> Begin at <strong><code class="docutils literal notranslate"><span class="pre">SETUP.md</span></code></strong> (environment +
 public data access), then <code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code>, then <code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code> for citation/DOIs.</p></li>
-<li><p><strong>Maggie — OOI FB / DSC:</strong> this overview plus the Jupyter Book give the purpose-and-scope picture.</p></li>
+<li><p><strong>Maggie — OOI FB / DSC:</strong> this overview plus the Jupyter Book give the purpose-and-scope picture; and you can follow the above user trajectories of course. For usability feedback on OOI data-access tools (concrete friction points for the DSC), see <strong><code class="docutils literal notranslate"><span class="pre">OOIUsability.md</span></code></strong> (a working doc in the repo, not part of the published book).</p></li>
 </ul>
-<p>Operational commands (build/publish the book, per-file PDF export, standalone widgets) are
+<blockquote>
+<div><p>Note: Operational commands (build/publish the book, per-file PDF export, standalone widgets) are
 kept in the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file, not here.</p>
+</div></blockquote>
 <p>\newpage</p>
 </section>
 <section id="quick-reference-pointers-to-key-actions">
@@ -488,15 +490,17 @@ kept in the <code class="docutils literal notranslate"><span class="pre">operati
 <li><p><strong>Generating pp05 manifest</strong>: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">postprocess_pp05.py</span></code> — see <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code></p></li>
 <li><p><strong>Adding sensor exclusions</strong>: Edit <code class="docutils literal notranslate"><span class="pre">~/argosy/sensor_exclusions.csv</span></code> — see <code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> → “Sensor exclusions”</p></li>
 <li><p><strong>Localhost disk management</strong>: WSL vhdx compaction, free space checks — see <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> → “Localhost Data Management”</p></li>
-<li><p><strong>Running curtain plots</strong>: Vis.ipynb curtain plot cell — see <code class="docutils literal notranslate"><span class="pre">Visualization.md</span></code></p></li>
+<li><p><strong>Running curtain plots</strong>: <code class="docutils literal notranslate"><span class="pre">chapters/Visualizations.ipynb</span></code> curtain plot cell — see <code class="docutils literal notranslate"><span class="pre">Visualization.md</span></code></p></li>
+<li><p><strong>Switching the SP site (sb/oo/ab) in the vis notebook</strong>: each plot cell calls <code class="docutils literal notranslate"><span class="pre">op.select_site()</span></code> — press Enter to keep the <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code> default or type a 2-letter code to switch (no kernel restart needed). See the intro cell of <code class="docutils literal notranslate"><span class="pre">chapters/Visualizations.ipynb</span></code>.</p></li>
+<li><p><strong>MLD annotation suite (human-labeled mixed-layer-depth dataset)</strong>: two-program workflow — <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> (reproducible candidate sampling → <code class="docutils literal notranslate"><span class="pre">mld_candidates/</span></code>) then <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> (interactive TkAgg annotator → per-labeler <code class="docutils literal notranslate"><span class="pre">mld_labels_*</span></code> CSVs). Design/spec in <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code>; hands-on experience notes in <code class="docutils literal notranslate"><span class="pre">MLDObservations.md</span></code>; collaborator env in <code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code>; downstream ML in <code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> → “Mixed Layer Depth”.</p></li>
+<li><p><strong>Descent-data recovery (second-class companion to ascent)</strong>: pre-shard descent for the 8 HSD sensors into a parallel <code class="docutils literal notranslate"><span class="pre">redux_descent</span></code>/<code class="docutils literal notranslate"><span class="pre">pp06_descent</span></code> tree (<code class="docutils literal notranslate"><span class="pre">V1D</span></code> version token), via the disposable-EC2 pipeline; surfaced by a non-pickable “Descent” overlay button in <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>. Full spec in <code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code>.</p></li>
 </ul>
 <p>\newpage</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="argosy-project-overview">
 <h1>Argosy Project Overview<a class="headerlink" href="#argosy-project-overview" title="Link to this heading">#</a></h1>
-<p>This document is the primary entry point for the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> project documentation.
-It describes the project, its purpose, and references the companion documentation files.</p>
+<p>This document is the primary entry point for <code class="docutils literal notranslate"><span class="pre">argosy</span></code> documentation. It describes the project, its purpose, and references the companion documentation files.</p>
 <section id="documentation-files">
 <h2>Documentation Files<a class="headerlink" href="#documentation-files" title="Link to this heading">#</a></h2>
 <p>Documentation is split across focused markdown files. The book’s reading order is defined by
@@ -518,7 +522,9 @@ and Working docs (repo-only, not in the published book).</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Sharding.md</span></code> — Sharding details, shard filenames, profile metadata, midnight/noon</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> — redux → ppNN pipeline: pp01/pp02, pp05/pp06 filters, exclusions, QC</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code> — pp05 methodology: three-tier exclusion, suspect ranges, manifest design</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PP06_Filters.md</span></code> — pp06 filtered dataset: the Filter 0–3 reference (baseline, conductivity erratics, Sav-Gol, backscatter despike)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">VectorData.md</span></code> — Vector sensor integration (velocity, spectral irradiance, spectrophotometer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code> — Descent-shard recovery (second-class companion to ascent): parallel <code class="docutils literal notranslate"><span class="pre">redux_descent</span></code> tree + <code class="docutils literal notranslate"><span class="pre">V1D</span></code> naming, EC2 pipeline, MLD Descent overlay button</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> — S3 layout/backup/sync/restore, localhost WSL vhdx disk management</p></li>
 </ul>
 <p><strong>Phase 2 — Analysis</strong></p>
@@ -543,9 +549,11 @@ and Working docs (repo-only, not in the published book).</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">DeveloperGuide.md</span></code> recipes live in the <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering file</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code> — Open-science / DOI archiving plan (Zenodo, Figshare, OSF)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">VisQC.md</span></code> — Visual QC workflow (cline review) design</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code> — MLD annotation suite: design/spec for <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> + <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>, label schema, decisions (see also <code class="docutils literal notranslate"><span class="pre">mld_candidates/</span></code>, <code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MLDObservations.md</span></code> — MLD annotation suite: human experience notes from hand-marking mixed-layer depth</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Testing.md</span></code> — Test definitions (SGA synthetic validation, IW incompressibility)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CoincidencePlans.md</span></code> — Anomaly detection: auto/hetero coincidence plans</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pp06ErraticFilterPrompt.md</span></code> — Design notes for the pp06 erratic filter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OOIUsability.md</span></code> — Usability notes on OOI data-access tools (OOINET etc.); DSC feedback</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">poster/AGUPoster.html</span></code> — AGU poster (standalone artifact)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> — Red zone goals, umbrella goals, development narrative, open topics, pending ideas, Next prompt section</p></li>
 </ul>
@@ -640,6 +648,7 @@ pandoc<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>PostProcessing.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>DataOps.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>PP05_QCAnalysis.md<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>PP06_Filters.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>SpectralGraphAnalysis.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>TidalAnalysis.md<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>InternalWaves.md<span class="w"> </span><span class="se">\</span>
@@ -734,7 +743,7 @@ pandoc<span class="w"> </span>X.md<span class="w"> </span>-o<span class="w"> </s
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Argosy Overview</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-are-you-routing">Who are you? (routing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-are-you-the-reader">Who are you, the reader?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-pointers-to-key-actions">Quick Reference: Pointers to Key Actions</a></li>
 </ul>
 </li>

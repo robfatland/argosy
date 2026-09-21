@@ -179,7 +179,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
@@ -198,8 +198,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -430,6 +432,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plan-of-record">Plan of record</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-the-s3-public-bucket-sep-2026">Relationship to the S3 public bucket (Sep 2026)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-when-ready-to-be-verified-recorded-here-on-first-run">Steps when ready (to be verified &amp; recorded here on first run)</a></li>
 </ul>
             </nav>
@@ -502,12 +505,23 @@ SWHIDs. Free complement to Zenodo for long-term code provenance.</p></li>
 <li><p><strong>Code:</strong> Zenodo by-reference via GitHub releases (concept + versioned DOIs).</p></li>
 <li><p><strong>Poster:</strong> deposit the AGU poster PDF to Zenodo (by upload) so its QR code / citation
 resolves to a durable DOI landing page; optionally mirror to Figshare for visibility.</p></li>
-<li><p><strong>Data:</strong> publish the <strong>postproc subset</strong>, not raw. Rationale: raw <code class="docutils literal notranslate"><span class="pre">ooinet</span></code> is ~204 GB
-(S3 archive, legacy keys); postproc is compact — sb is ~15 GB now, with Oregon Offshore
-(<code class="docutils literal notranslate"><span class="pre">oo</span></code>) and Axial Base (<code class="docutils literal notranslate"><span class="pre">ab</span></code>) still to come (so plan for ~3× that). Deposit/reference the
-postproc tier as the analysis-ready, citable dataset.</p></li>
+<li><p><strong>Data:</strong> publish the <strong>pp06 tier</strong> (the analysis-ready postproc product), not raw and not
+redux. Rationale: raw <code class="docutils literal notranslate"><span class="pre">ooinet</span></code> is ~204 GB (S3 archive, legacy keys) and redux is intentionally
+NOT published (more flawed than pp06). pp06 is compact — <strong>all three sites are now complete and
+in S3</strong> (sb, oo, ab; ~46 GB total). Deposit/reference pp06 as the citable dataset.</p></li>
 <li><p><strong>OSF:</strong> deferred (Open Topic).</p></li>
 </ul>
+</section>
+<section id="relationship-to-the-s3-public-bucket-sep-2026">
+<h2>Relationship to the S3 public bucket (Sep 2026)<a class="headerlink" href="#relationship-to-the-s3-public-bucket-sep-2026" title="Link to this heading">#</a></h2>
+<p>pp06 is ALREADY publicly downloadable from S3 (<code class="docutils literal notranslate"><span class="pre">{sb,oo,ab}/postproc/pp06/*</span></code>, unauthenticated
+read; see <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> and the “Public data sharing (S3)” steering rule). But <strong>S3 public-read is
+not durable citability</strong> — it lasts only as long as the bills are paid, and egress is owner-billed
+(a cost/abuse exposure, guarded by a budget alarm + kill switch). Zenodo is the persistence + DOI
+hedge and the likely long-term home for the durable public pp06 release, offloading hosting and
+egress to an open-data service. So the two are complementary: <strong>S3 = live/working access; Zenodo =
+durable, citable, cost-offloaded release.</strong> This is <code class="docutils literal notranslate"><span class="pre">BR.md</span></code> open-question 8 (“which data products
+should be free, and how bundled?”) — reconcile the final bundling decision there.</p>
 </section>
 <section id="steps-when-ready-to-be-verified-recorded-here-on-first-run">
 <h2>Steps when ready (to be verified &amp; recorded here on first run)<a class="headerlink" href="#steps-when-ready-to-be-verified-recorded-here-on-first-run" title="Link to this heading">#</a></h2>
@@ -515,8 +529,12 @@ postproc tier as the analysis-ready, citable dataset.</p></li>
 <li><p>Tag a GitHub release of <code class="docutils literal notranslate"><span class="pre">argosy</span></code>.</p></li>
 <li><p>Enable Zenodo GitHub integration for the repo → confirm the release DOI is minted.</p></li>
 <li><p>Upload the poster PDF to Zenodo → get its DOI → encode that DOI URL in the poster QR.</p></li>
-<li><p>Prepare the postproc data subset for deposit (decide sb-only first vs. all sites).</p></li>
+<li><p>Prepare the pp06 dataset for deposit. All three sites (sb/oo/ab) now exist in S3 (~46 GB total,
+within Zenodo’s ~50 GB record limit) — decide whether to deposit one bundled 3-site record or
+per-site records. Source is <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/postproc/pp06/</span></code>.</p></li>
 <li><p>(Optional) Mirror poster to Figshare; (optional) enable Software Heritage.</p></li>
+<li><p>Once a durable Zenodo pp06 release exists, revisit whether to keep the live S3 public-read
+policy or point reusers at the Zenodo DOI instead (reduces owner-billed egress). See BR open-Q 8.</p></li>
 </ol>
 </section>
 </section>
@@ -576,6 +594,7 @@ postproc tier as the analysis-ready, citable dataset.</p></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plan-of-record">Plan of record</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-the-s3-public-bucket-sep-2026">Relationship to the S3 public bucket (Sep 2026)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-when-ready-to-be-verified-recorded-here-on-first-run">Steps when ready (to be verified &amp; recorded here on first run)</a></li>
 </ul>
   </nav></div>

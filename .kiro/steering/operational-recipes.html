@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '.kiro/steering/operational-recipes';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -179,7 +181,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../ArgosyOverview.html">START HERE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ArgosyOverview.html">Argosy Overview</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../../OOIObservatory.html">OOI Observatory Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../RCAWritLarge.html">RCA Writ Large</a></li>
@@ -198,8 +200,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -428,6 +432,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-pipeline-create-run-destroy-a-disposable-ec2-runner">4. Cloud pipeline: create / run / destroy a disposable EC2 runner</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-reconnect-to-monitor-a-running-pipeline-after-ssm-timeout">4b. Reconnect to &amp; monitor a running pipeline (after SSM timeout)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poster-pdf-export-agu">5. Poster PDF export (AGU)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-public-access-kill-switch-run-when-the-budget-alarm-email-fires">6. S3 public-access KILL SWITCH (run when the budget alarm email fires)</a></li>
 </ul>
             </nav>
         </div>
@@ -598,6 +603,28 @@ then <code class="docutils literal notranslate"><span class="pre">cd</span> <spa
 size-exact PDF via headless Chromium — see <code class="docutils literal notranslate"><span class="pre">poster/README.md</span></code> for the command and the
 QR-code generation step.</p>
 </section>
+<section id="s3-public-access-kill-switch-run-when-the-budget-alarm-email-fires">
+<h2>6. S3 public-access KILL SWITCH (run when the budget alarm email fires)<a class="headerlink" href="#s3-public-access-kill-switch-run-when-the-budget-alarm-email-fires" title="Link to this heading">#</a></h2>
+<p>Trigger scenario: the AWS Budgets “smoke detector” (monthly $100 account budget) emails that
+spend crossed a threshold — likely runaway egress from the public <code class="docutils literal notranslate"><span class="pre">pp06</span></code> data. To STOP all public
+access to the <code class="docutils literal notranslate"><span class="pre">s3ooi</span></code> bucket immediately, run from WSL (AWS creds active):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>~/argosy/cloud/s3_public_off.sh<span class="w">      </span><span class="c1"># KILL: deletes the bucket policy → no public access</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Your own IAM/root access is unaffected (that’s IAM, not the bucket policy).</p></li>
+<li><p>To RE-OPEN the intended public pp06 access later:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>~/argosy/cloud/s3_public_on.sh<span class="w">       </span><span class="c1"># re-applies s3_public_read_policy.json (pp06, 3 sites)</span>
+</pre></div>
+</div>
+<p>Context / what’s public: only <code class="docutils literal notranslate"><span class="pre">{sb,oo,ab}/postproc/pp06/*</span></code> (~46 GB total; ~<span class="math notranslate nohighlight">\(4.14/full download at
+\)</span>0.09/GB egress, owner-billed). redux + other pp levels + metadata + ooinet are private. See
+<code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> (S3 layout) and <code class="docutils literal notranslate"><span class="pre">BR.md</span></code> open-question 8 (safety assessment; Zenodo as durable home).</p>
+<p>Budget: <code class="docutils literal notranslate"><span class="pre">argosy-monthly-100</span></code> ($100/mo account cost, ACTUAL 50%+100% and FORECASTED 100% email
+alerts). Not real-time (updates a few times/day). Recreate via <code class="docutils literal notranslate"><span class="pre">cloud/budget.json</span></code> +
+<code class="docutils literal notranslate"><span class="pre">cloud/budget_notifications.json</span></code> and <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">budgets</span> <span class="pre">create-budget</span></code> (see cloud/ + SessionState).</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -653,6 +680,7 @@ QR-code generation step.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-pipeline-create-run-destroy-a-disposable-ec2-runner">4. Cloud pipeline: create / run / destroy a disposable EC2 runner</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-reconnect-to-monitor-a-running-pipeline-after-ssm-timeout">4b. Reconnect to &amp; monitor a running pipeline (after SSM timeout)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poster-pdf-export-agu">5. Poster PDF export (AGU)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-public-access-kill-switch-run-when-the-budget-alarm-email-fires">6. S3 public-access KILL SWITCH (run when the budget alarm email fires)</a></li>
 </ul>
   </nav></div>
 

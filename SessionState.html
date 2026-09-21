@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'SessionState';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -198,8 +200,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -422,10 +426,29 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#last-updated">Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-2026-09-18">Completed this session (2026-09-18)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-suite-doc-harmonization-tmld-removal-2026-09-18-later-still">MLD suite doc harmonization + TMLD removal (2026-09-18, later still)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-py-refinements-this-session-2026-09-18-later-road-tested-committed">MLD.py refinements this session (2026-09-18, later) — road-tested, committed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action-2026-09-18">Next action (2026-09-18)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#earlier-last-updated">(Earlier) Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-2026-09-15">Completed this session (2026-09-15)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action-2026-09-15">Next action (2026-09-15)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">(Earlier) Last updated</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ab-run-complete-verified-in-s3-box-being-destroyed-2026-09-07">AB run — COMPLETE + verified in S3; box being destroyed (2026-09-07)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ab-run-historical-now-complete-launch-notes">AB run — (historical, now complete) launch notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-3-earlier-oo-phase-1-complete-and-verified-in-s3-that-ec2-box-destroyed">Session 3 earlier — oo Phase 1 COMPLETE and verified in S3; that EC2 box DESTROYED.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-2-2026-09-06">Session 2 (2026-09-06)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-session-1">Previous session (1)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#live-ec2-state-read-this-first-next-session">LIVE EC2 STATE (read this first next session)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ec2-reference-the-oo-box-was-destroyed-a-new-ab-box-is-now-live-see-ab-run-above">EC2 REFERENCE (the oo box was destroyed; a NEW ab box is now LIVE — see “AB run” above)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-site-ab-axial-base-front-loaded-bring-up-checklist-do-in-order-before-cdk-deploy">NEXT SITE = ab (Axial Base) — FRONT-LOADED bring-up checklist (do IN ORDER, before <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answered-this-session-design-note">Answered this session (design note)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-2">Completed this session (session 2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-3-continued-visqc-tools-built">Completed this session (session 3, continued — visqc tools built)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-3-continued-s3-access-safety-budget">Completed this session (session 3, continued — S3 access safety + budget)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-3-continued-ab-br">Completed this session (session 3, continued — AB + BR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-earlier-this-session-session-3">Completed earlier this session (session 3)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-session-2-2026-09-06">Completed session 2 (2026-09-06)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-previous-session-session-1">Completed previous session (session 1)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-progress-partially-done">In progress / partially done</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverted-needs-redo">Reverted / needs redo</a></li>
@@ -447,7 +470,195 @@ document.write(`
 <h1>Session State<a class="headerlink" href="#session-state" title="Link to this heading">#</a></h1>
 <section id="last-updated">
 <h2>Last updated<a class="headerlink" href="#last-updated" title="Link to this heading">#</a></h2>
-<p>2026-09-06 (session 2) — Resumed the live oo EC2 run. Diagnosed why the first full pipeline pass
+<p>2026-09-18 — <strong>Collaborator (Chuck) MLD setup + env-sprawl topic filed.</strong> Added a portable minimal
+conda spec so Chuck can run <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>, committed the (previously untracked) <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>, reconciled the
+MLD docs to “implemented”, and filed the env-sprawl refactor as an Open Topic. <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> are both built. Details below; earlier 2026-09-15 vis/slide narrative retained
+further down.</p>
+</section>
+<section id="completed-this-session-2026-09-18">
+<h2>Completed this session (2026-09-18)<a class="headerlink" href="#completed-this-session-2026-09-18" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code></strong> created — portable minimal conda spec (<code class="docutils literal notranslate"><span class="pre">numpy,</span> <span class="pre">pandas,</span> <span class="pre">scipy,</span> <span class="pre">xarray,</span> <span class="pre">netcdf4,</span> <span class="pre">matplotlib,</span> <span class="pre">tk</span></code> on <code class="docutils literal notranslate"><span class="pre">python=3.11</span></code>, <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>) for running the MLD workflow on a
+collaborator’s machine. Deliberately NOT the full <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> snapshot (exact build hashes,
+<code class="docutils literal notranslate"><span class="pre">prefix:</span></code>, hundreds of unrelated packages — torch/CUDA, qiskit, pymatgen, etc.). YAML validated.</p></li>
+<li><p><strong>Committed <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code></strong> — it was untracked; the whole point is Chuck running it. Committed with
+<code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code> as <code class="docutils literal notranslate"><span class="pre">5e388d5</span></code> (“MLD: add <a class="reference external" href="http://MLD.py">MLD.py</a> annotator + portable environment-mld.yml …”).</p></li>
+<li><p><strong>Docs reconciled to reality</strong>: <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code> status flipped spec→implemented, who-code
+table fixed (<code class="docutils literal notranslate"><span class="pre">I</span></code>→<code class="docutils literal notranslate"><span class="pre">C</span></code>), added “Implementation status” + “Collaborator setup” (env + <code class="docutils literal notranslate"><span class="pre">python3-tk</span></code> +
+TkAgg-needs-display caveat). <code class="docutils literal notranslate"><span class="pre">mld_candidates/README.md</span></code> “<a class="reference external" href="http://MLD.py">MLD.py</a> (planned)”→built. <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code>
+root table gained <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code>, <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mld_candidates/</span></code>.</p></li>
+<li><p><strong>Open Topic filed</strong> in <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code>: <strong>miniconda environment sprawl</strong> — one <code class="docutils literal notranslate"><span class="pre">argosy</span></code> env
+carrying hundreds of unrelated packages; refactor directions (purpose-scoped envs; curated
+portable yml + separate lock snapshot; import audit). Deliberate design first, no destructive
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">remove</span></code> yet.</p></li>
+<li><p><strong>Chuck setup instructions relayed</strong> to the user (git pull → <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">environment-mld.yml</span></code> → <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">python3-tk</span></code> → <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">MLD.py</span> <span class="pre">--site</span> <span class="pre">sb</span> <span class="pre">--who</span> <span class="pre">C</span></code>).</p></li>
+</ul>
+</section>
+<section id="mld-suite-doc-harmonization-tmld-removal-2026-09-18-later-still">
+<h2>MLD suite doc harmonization + TMLD removal (2026-09-18, later still)<a class="headerlink" href="#mld-suite-doc-harmonization-tmld-removal-2026-09-18-later-still" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Created <code class="docutils literal notranslate"><span class="pre">MLDObservations.md</span></code></strong> — human experience log for hand-marking MLD; opens with a
+table indexing the whole MLD suite (plan, PreSelect, candidates, <a class="reference external" href="http://MLD.py">MLD.py</a>, env, labels, ML) so
+new content is findable. Not in the Book.</p></li>
+<li><p><strong>Harmonized MLD references</strong>: <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> (Pointers entry rewritten to name the full
+suite incl. MLDObservations; doc index gained MLDAnnotationPlan + MLDObservations),
+<code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> doc table (both MLD docs added), <code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> MLD section header (dropped the
+stale “Since you already looked at TMLD” → references the suite).</p></li>
+<li><p><strong>Removed the retired TMLD experiment entirely</strong>: deleted <code class="docutils literal notranslate"><span class="pre">TMLD/</span></code> (<code class="docutils literal notranslate"><span class="pre">tmld_selector.py</span></code> empty +
+<code class="docutils literal notranslate"><span class="pre">tmld_estimates.csv</span></code>); rewrote the <code class="docutils literal notranslate"><span class="pre">Sharding.md</span></code> <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">TMLD</span></code> section → <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">Mixed</span> <span class="pre">layer</span> <span class="pre">depth</span> <span class="pre">annotation</span></code> (points to the suite, notes TMLD retired); removed the DevelopmentLog TMLD todo;
+removed the CodeManifest <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">TMLD</span> <span class="pre">directory</span></code> table; updated the steering <code class="docutils literal notranslate"><span class="pre">argosy-conventions.md</span></code>
+example (TMLD/tmld_selector.py → <a class="reference external" href="http://MLD.py">MLD.py</a> lineage, notes TMLD retired); repointed <code class="docutils literal notranslate"><span class="pre">Visualization.md</span></code>
+animation-marker option from the TMLD CSV to the MLD label dataset.</p></li>
+<li><p><strong>Deleted <code class="docutils literal notranslate"><span class="pre">vis/bundle_animation.py</span></code></strong> (already flagged superseded by <code class="docutils literal notranslate"><span class="pre">bundle_animate.py</span></code>; it also
+read the now-deleted TMLD CSV). Manifest updated: removed its row, added <code class="docutils literal notranslate"><span class="pre">bundle_animate.py</span></code>.</p></li>
+<li><p>Remaining “TMLD” strings are intentional retirement notes (Sharding, steering, this file) +
+notebook/checkpoint churn (StubWork.ipynb, *-checkpoint.md) left as-is.</p></li>
+</ul>
+</section>
+<section id="mld-py-refinements-this-session-2026-09-18-later-road-tested-committed">
+<h2><a class="reference external" href="http://MLD.py">MLD.py</a> refinements this session (2026-09-18, later) — road-tested, committed<a class="headerlink" href="#mld-py-refinements-this-session-2026-09-18-later-road-tested-committed" title="Link to this heading">#</a></h2>
+<p>Interaction model reworked + bugs fixed in <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> (all verified: py_compile + headless logic
+tests against real sb pp06; user road-tested the GUI “flying colors”):</p>
+<ul class="simple">
+<li><p><strong>Click now COMMITS a real MLD in both modes</strong> (was: Stay mode only staged a pending pick,
+committed on Advance). Picks persist across Active-sensor switches → cross-sensor comparison
+with no extra clicks. <code class="docutils literal notranslate"><span class="pre">_record</span></code> overwrites the (gpi,sensor,who) row (no accumulation).</p></li>
+<li><p><strong>Modes renamed</strong>: “Advance on click” (commit+advance) vs “Stay on click” (commit+remain).
+<strong>Default = Stay on click</strong> (<code class="docutils literal notranslate"><span class="pre">auto_advance=False</span></code>). Checkbox label “Advance on click”.</p></li>
+<li><p><strong>Advance no longer tampers with a committed pick</strong> (the serious bug): it keyed on the
+transient <code class="docutils literal notranslate"><span class="pre">self.pending</span></code> marker, which sensor-switches/nav clear while the row survives → it
+wrote no-MLD over a real MLD. FIX: added <code class="docutils literal notranslate"><span class="pre">_has_real_mld(gpi,sensor)</span></code>; <code class="docutils literal notranslate"><span class="pre">_on_advance</span></code> leaves a
+committed real MLD untouched, only writes no-MLD when there is none. Also scoped <code class="docutils literal notranslate"><span class="pre">_has_label</span></code>
+by <code class="docutils literal notranslate"><span class="pre">who</span></code>.</p></li>
+<li><p><strong>Clear pick</strong> deletes the committed row for (gpi,sensor,who) → untouched (Fwd/Rev-to-Null find
+it again). no-MLD gesture = never-click→Advance, or click→Clear pick→Advance.</p></li>
+<li><p><strong>Per-sensor colors</strong> (trace + marker): T=red, S=green, density=gold, DO=blue. <strong>Raw overlay =
+gray</strong> (default on) to avoid the red-temperature-marker collision. Click marker same size (7) +
+black edge as the committed marker.</p></li>
+<li><p><strong>Sliders</strong>: window 3→<strong>101</strong>; adaptivity max 1→<strong>3</strong> (headroom; weight still clips to 1/pt).</p></li>
+<li><p>Docs synced: <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code> (display states, slider bounds, the whole advance/commit
+model, no-MLD schema row, who default <code class="docutils literal notranslate"><span class="pre">I</span></code>→<code class="docutils literal notranslate"><span class="pre">C</span></code>); header docstring in <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>.</p></li>
+</ul>
+</section>
+<section id="next-action-2026-09-18">
+<h2>Next action (2026-09-18)<a class="headerlink" href="#next-action-2026-09-18" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Committed + pushed</strong> the refined <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> + plan/README/manifest/session updates for Chuck to
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code>. <strong>Standing by for Chuck’s result</strong> running it (she/her). Likely follow-ups:
+X-display/TkAgg or env-solve issues → tune <code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code>; feedback on the interaction.</p></li>
+<li><p>Then (deferred, user-driven): the env-sprawl refactor (see the Open Topic) when there’s appetite.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="earlier-last-updated">
+<h2>(Earlier) Last updated<a class="headerlink" href="#earlier-last-updated" title="Link to this heading">#</a></h2>
+<p>2026-09-15 — <strong>Vis-notebook site switching + slide/deck fixups.</strong> Made the three <code class="docutils literal notranslate"><span class="pre">vis/</span></code> tools
+site-switchable via a shared <code class="docutils literal notranslate"><span class="pre">op.select_site()</span></code> prompt; fixed the Marp deck image + math directive;
+documented the pp06 public-download path and the ARGOSY_SITE-at-launch gotcha. Details below;
+the older AB/oo Phase 1 EC2 narrative is retained further down.</p>
+</section>
+<section id="completed-this-session-2026-09-15">
+<h2>Completed this session (2026-09-15)<a class="headerlink" href="#completed-this-session-2026-09-15" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ooipaths.select_site(default=None,</span> <span class="pre">announce=None)</span></code></strong> added (after <code class="docutils literal notranslate"><span class="pre">shard_glob</span></code>): starts from
+<code class="docutils literal notranslate"><span class="pre">DEFAULT_SITE</span></code> (reads <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>, else <code class="docutils literal notranslate"><span class="pre">sb</span></code>), prompts Enter=keep / 2-letter code to switch
+(case-insensitive), silent fallback to default on no-stdin (cloud JupyterHub) or bad entry,
+prints a confirmation line when <code class="docutils literal notranslate"><span class="pre">announce</span></code> is given.</p></li>
+<li><p><strong>All three <code class="docutils literal notranslate"><span class="pre">vis/</span></code> scripts now call it</strong>: <code class="docutils literal notranslate"><span class="pre">bundle_chart.py</span></code> (<code class="docutils literal notranslate"><span class="pre">announce=&quot;Bundle</span> <span class="pre">chart&quot;</span></code>),
+<code class="docutils literal notranslate"><span class="pre">curtain_plot.py</span></code> (<code class="docutils literal notranslate"><span class="pre">&quot;Curtain</span> <span class="pre">plot&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">bundle_animate.py</span></code> (<code class="docutils literal notranslate"><span class="pre">&quot;Bundle</span> <span class="pre">animation&quot;</span></code>), each replacing
+the old <code class="docutils literal notranslate"><span class="pre">SITE</span> <span class="pre">=</span> <span class="pre">op.DEFAULT_SITE</span></code>. Lets Chuck switch sites by re-running a cell — no kernel restart
+or <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code> export. Verified: py_compile + monkeypatched-input tests for sb and oo.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Visualizations.ipynb</span></code></strong> intro cell: added a “Switching sites (sb/oo/ab)” note. JSON validated.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code></strong> Pointers: added a select_site pointer; fixed the stale curtain-plot pointer
+(<code class="docutils literal notranslate"><span class="pre">Vis.ipynb</span></code> → <code class="docutils literal notranslate"><span class="pre">chapters/Visualizations.ipynb</span></code>).</p></li>
+<li><p><strong>Marp deck (<code class="docutils literal notranslate"><span class="pre">slides.md</span></code>)</strong>: added <code class="docutils literal notranslate"><span class="pre">math:</span> <span class="pre">katex</span></code> directive; fixed the broken title image
+(<code class="docutils literal notranslate"><span class="pre">tidal_height_may2026.png</span></code> did not exist) → copied <code class="docutils literal notranslate"><span class="pre">~/ooi/sb/visualizations/TidalSignal.png</span></code> to
+<code class="docutils literal notranslate"><span class="pre">images/TidalSignal.png</span></code> and pointed the slide at <code class="docutils literal notranslate"><span class="pre">images/TidalSignal.png</span></code>. Rendered clean via
+<code class="docutils literal notranslate"><span class="pre">marp</span> <span class="pre">slides.md</span> <span class="pre">-o</span> <span class="pre">slides.html</span></code> (marp only on PATH under an interactive login shell — nvm).</p></li>
+<li><p><strong>Steering</strong>: filed the MLD “annotation problem” concept (high-priority Phase 1 thinking) and a
+Marp <code class="docutils literal notranslate"><span class="pre">math</span></code>-directive recommendation in <code class="docutils literal notranslate"><span class="pre">argosy-conventions.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="next-action-2026-09-15">
+<h2>Next action (2026-09-15)<a class="headerlink" href="#next-action-2026-09-15" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>MLD annotation workflow spec is COMPLETE in <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code></strong> (two programs:
+<code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> candidate sampling → <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> interactive TkAgg annotator). Key decisions:
+5-day blocks from each site’s first GPI, all4→T-only fallback, seeded pick, empty blocks kept
+(N=0); label key = (gpi, sensor, who), per-who output files <code class="docutils literal notranslate"><span class="pre">mld_labels_&lt;site&gt;_&lt;who&gt;.csv</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--site/--year/--who</span></code> switches (who default <code class="docutils literal notranslate"><span class="pre">C</span></code>=Chuck, no UI chooser), four filters (None, savgol,
+adaptive_savgol_std, adaptive_savgol_mad), continuous click depth + both raw/filtered values.</p></li>
+<li><p><strong>Now building <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code></strong> (candidate lists feed the tool). Then <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id1">
+<h2>(Earlier) Last updated<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>2026-09-07 (session 3, continued) — <strong>AB Phase 1 pipeline LAUNCHED on a fresh EC2 box; DOWNLOAD
+stage running.</strong> Also: started the <strong>Bicameral Redesign (BR)</strong> deliberation phase (see <code class="docutils literal notranslate"><span class="pre">BR.md</span></code>),
+did a full git commit-sweep (working tree now clean + pushed), reconciled orphan cleanup, and
+enhanced the VisQC Inspector. Details in “LIVE EC2 STATE” and “Completed this session” below.</p>
+<section id="ab-run-complete-verified-in-s3-box-being-destroyed-2026-09-07">
+<h3>AB run — COMPLETE + verified in S3; box being destroyed (2026-09-07)<a class="headerlink" href="#ab-run-complete-verified-in-s3-box-being-destroyed-2026-09-07" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>AB Phase 1 DONE end-to-end with ZERO mid-run intervention</strong> (contrast oo’s 4 fixes) — validates
+the whole disposable-box automation on a fresh clone. Shard <code class="docutils literal notranslate"><span class="pre">written&gt;0</span></code> for ALL 11 sensors
+INCLUDING <strong>pco2 (5842)</strong> — the oo gap is closed for AB. pp05 saw Redux years 2014-2026, pp06/
+filters clean, sync to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/ab/</span></code>. Verified S3==local: <strong>pp06 152738</strong>, <strong>redux 186043</strong>.</p></li>
+<li><p>Box destroyed via <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code> (argosy-cdk env). Residual-EBS check (WSL, no console needed):
+<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ec2</span> <span class="pre">describe-volumes</span> <span class="pre">--region</span> <span class="pre">us-west-2</span> <span class="pre">--filters</span> <span class="pre">Name=status,Values=available</span> <span class="pre">--query</span> <span class="pre">&quot;Volumes[].[VolumeId,Size,CreateTime]&quot;</span> <span class="pre">--output</span> <span class="pre">table</span></code> (anything listed = unattached/orphan →
+<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ec2</span> <span class="pre">delete-volume</span> <span class="pre">--region</span> <span class="pre">us-west-2</span> <span class="pre">--volume-id</span> <span class="pre">&lt;id&gt;</span></code>). Instance-gone check:
+<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ec2</span> <span class="pre">describe-instances</span> <span class="pre">--region</span> <span class="pre">us-west-2</span> <span class="pre">--filters</span> <span class="pre">Name=instance-state-name,Values=running,stopped</span> <span class="pre">...</span></code>.</p></li>
+<li><p><strong>All three sites (sb, oo, ab) are now through Phase 1 and mirrored to S3.</strong></p></li>
+<li><p>NOTE: SessionState previously carried the STALE oo instance id <code class="docutils literal notranslate"><span class="pre">i-0a018916cfb9a8e46</span></code> as a “connect”
+example — that box is destroyed; do NOT reuse it. Find a live box via describe-instances.</p></li>
+</ul>
+</section>
+<section id="ab-run-historical-now-complete-launch-notes">
+<h3>AB run — (historical, now complete) launch notes<a class="headerlink" href="#ab-run-historical-now-complete-launch-notes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fresh box deployed via <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code> (new instance, us-west-2). git commit-sweep done FIRST this
+time (untracked <code class="docutils literal notranslate"><span class="pre">_build/</span></code>+<code class="docutils literal notranslate"><span class="pre">__pycache__</span></code>+<code class="docutils literal notranslate"><span class="pre">.ipynb_checkpoints</span></code>; committed all BR work) so the clone
+is complete. profileIndices verified in <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/ab/profileIndices/</span></code> (13 RS03AXPS files) AND
+locally before launch.</p></li>
+<li><p><strong>Fresh-box gotcha hit + FIXED:</strong> <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code> did not exist on the new box, so the caller’s log
+redirect failed and the first launch exited immediately. Confirmed the CDK root-volume fix HELD
+(single 1 TB <code class="docutils literal notranslate"><span class="pre">/dev/nvme0n1p1</span></code> root, 989 GB free — NOT the second-disk trap). Fix: <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">~/ooi</span></code>
+then relaunched. PERMANENT FIX applied (uncommitted, laptop): added <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">/home/ec2-user/ooi</span></code>
+to <code class="docutils literal notranslate"><span class="pre">cloud/app.py</span></code> user-data AND <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">&quot;$HOME/ooi&quot;</span> <span class="pre">&quot;$HOME/ooi/$SITE&quot;</span></code> early in
+<code class="docutils literal notranslate"><span class="pre">pipeline/run_pipeline.sh</span></code>. Commit these before the NEXT box.</p></li>
+<li><p>Launched: <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PYTHONUNBUFFERED=1</span> <span class="pre">ARGOSY_SITE=ab;</span> <span class="pre">cd</span> <span class="pre">~/argosy;</span> <span class="pre">nohup</span> <span class="pre">bash</span> <span class="pre">pipeline/run_pipeline.sh</span> <span class="pre">ab</span> <span class="pre">all</span> <span class="pre">&gt;</span> <span class="pre">~/ooi/ab_pipeline_&lt;ts&gt;.log</span> <span class="pre">2&gt;&amp;1</span> <span class="pre">&amp;</span></code>. Confirmed DOWNLOAD running
+(RS03AXPS-SF03A files routing to <code class="docutils literal notranslate"><span class="pre">&lt;year&gt;_par/</span></code> etc., ~file 44/166 on PAR at last check).</p></li>
+<li><p><strong>Resume:</strong> reconnect SSM → <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">ec2-user</span></code> → snapshot with
+<code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-30</span> <span class="pre">&quot;$(ls</span> <span class="pre">-t</span> <span class="pre">~/ooi/ab_pipeline_*.log</span> <span class="pre">|</span> <span class="pre">head</span> <span class="pre">-1)&quot;</span></code> (NOT tail -f). Watch: shard <code class="docutils literal notranslate"><span class="pre">written&gt;0</span></code>
+for ALL sensors INCLUDING <strong>pco2</strong> this time (pco2 was zero for oo — AB order included PCO2W);
+pp05 “Redux years: 2014-2026”; run ONE job only (double-run caused the oo permission error).
+Then verify <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/ab/</span></code>, then <strong><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code></strong> (meter running) + confirm no orphaned EBS.</p></li>
+</ul>
+</section>
+</section>
+<section id="session-3-earlier-oo-phase-1-complete-and-verified-in-s3-that-ec2-box-destroyed">
+<h2>Session 3 earlier — oo Phase 1 COMPLETE and verified in S3; that EC2 box DESTROYED.<a class="headerlink" href="#session-3-earlier-oo-phase-1-complete-and-verified-in-s3-that-ec2-box-destroyed" title="Link to this heading">#</a></h2>
+<p>Drove the oo run from shard through pp through sync on the disposable box, fixing FOUR more latent
+bugs along the way (all pre-restructure leftovers, now committed + pushed so <code class="docutils literal notranslate"><span class="pre">ab</span></code> won’t hit them):
+(1) pp05 + special_profiles globbed <code class="docutils literal notranslate"><span class="pre">redux&lt;yyyy&gt;</span></code> year dirs but the per-site layout uses <code class="docutils literal notranslate"><span class="pre">&lt;yyyy&gt;</span></code> →
+<code class="docutils literal notranslate"><span class="pre">years[0]</span></code> IndexError / zero years — fixed to glob <code class="docutils literal notranslate"><span class="pre">[0-9][0-9][0-9][0-9]</span></code>. (2) pp06_filter2/filter3
+same stale <code class="docutils literal notranslate"><span class="pre">redux*</span></code> glob on postproc/pp06 → fixed. (3) pp06 had a HARDCODED pre-restructure manifest
+path <code class="docutils literal notranslate"><span class="pre">~/ooi/metadata/pp05_manifest.csv</span></code> (committed HEAD was the OLD file; local ooipaths fix was
+never committed) → now <code class="docutils literal notranslate"><span class="pre">op.pp05_manifest(SITE)</span></code>. (4) pp06 Filter 1 applied the salinity keep-mask via
+<code class="docutils literal notranslate"><span class="pre">isel(obs=...)</span></code>, assuming obs len == salinity len → <code class="docutils literal notranslate"><span class="pre">Boolean</span> <span class="pre">index</span> <span class="pre">has</span> <span class="pre">wrong</span> <span class="pre">length</span></code> on many oo
+shards; fixed to index the variable’s OWN dim + guard salinity/density length mismatch. Also hit a
+<code class="docutils literal notranslate"><span class="pre">[Errno</span> <span class="pre">13]</span> <span class="pre">Permission</span> <span class="pre">denied</span></code> on pp06/2019 caused by running TWO pp jobs at once (one created dirs
+the other couldn’t write) — killed both, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chown</span> <span class="pre">-R</span> <span class="pre">ec2-user:ec2-user</span> <span class="pre">~/ooi/oo/postproc</span></code>, reran
+single job. Final verified counts: pp06 132056 .nc (S3 == local), redux 157854 .nc (S3 == local).
+<strong>Flag: pco2 produced ZERO shards/manifest entries for oo</strong> — source not downloaded/recognized;
+revisit when ordering the next site’s data. EC2 auth = IAM instance role (no keys); keyless SSM.</p>
+</section>
+<section id="session-2-2026-09-06">
+<h2>Session 2 (2026-09-06)<a class="headerlink" href="#session-2-2026-09-06" title="Link to this heading">#</a></h2>
+<p>Resumed the live oo EC2 run. Diagnosed why the first full pipeline pass
 produced NOTHING despite a “pipeline done” banner: sharding reported <code class="docutils literal notranslate"><span class="pre">attempted=0</span></code> because
 <code class="docutils literal notranslate"><span class="pre">~/ooi/oo/profileIndices/</span></code> was EMPTY on the box (the CE04OSPS_profiles_<em>.csv are hand-maintained,
 live outside the download AND outside git’s data tree, so the fresh clone lacked them → pp05 then
@@ -468,37 +679,54 @@ blocker: (1) CDK attached the 1 TB EBS as a SECOND disk instead of root — work
 (device_name /dev/sda1 -&gt; /dev/xvda); (2) <a class="reference external" href="http://ooipaths.py">ooipaths.py</a> + pipeline/* + the 5 oo download URLs were
 UNTRACKED in git so the EC2 clone lacked them — committed + pushed (added .gitattributes pinning LF).</p>
 </section>
-<section id="live-ec2-state-read-this-first-next-session">
-<h2>LIVE EC2 STATE (read this first next session)<a class="headerlink" href="#live-ec2-state-read-this-first-next-session" title="Link to this heading">#</a></h2>
+<section id="ec2-reference-the-oo-box-was-destroyed-a-new-ab-box-is-now-live-see-ab-run-above">
+<h2>EC2 REFERENCE (the oo box was destroyed; a NEW ab box is now LIVE — see “AB run” above)<a class="headerlink" href="#ec2-reference-the-oo-box-was-destroyed-a-new-ab-box-is-now-live-see-ab-run-above" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Instance <code class="docutils literal notranslate"><span class="pre">i-0a018916cfb9a8e46</span></code> (us-west-2, acct 879605964811). Connect:
-<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ssm</span> <span class="pre">start-session</span> <span class="pre">--target</span> <span class="pre">i-0a018916cfb9a8e46</span></code> (keyless SSM; plugin installed on localhost).</p></li>
-<li><p><strong>BILLING METER IS RUNNING.</strong> c6i.xlarge on-demand. Must <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code> when the run + S3 verify
-are done (from <code class="docutils literal notranslate"><span class="pre">~/argosy/cloud</span></code>, <code class="docutils literal notranslate"><span class="pre">argosy-cdk</span></code> conda env). Confirm no orphaned EBS after destroy.</p></li>
-<li><p>Box layout: 8 GB AMI root (nvme0n1, was the trap) + 1 TB <code class="docutils literal notranslate"><span class="pre">/dev/nvme1n1</span></code> xfs mounted at <code class="docutils literal notranslate"><span class="pre">/data</span></code>;
-<code class="docutils literal notranslate"><span class="pre">~/ooi</span> <span class="pre">-&gt;</span> <span class="pre">/data/ooi</span></code> symlink so all pipeline output lands on the 1 TB. Minimal conda env <code class="docutils literal notranslate"><span class="pre">argosy</span></code>
-(python 3.11 xarray netcdf4 pandas numpy scipy requests beautifulsoup4 boto3 awscli) — NOT the
-full environment.yml (won’t fit / not needed). conda ToS accepted for pkgs/main + pkgs/r.</p></li>
-<li><p><strong>Download stage: DONE</strong> (raw OOINET NetCDF landed under <code class="docutils literal notranslate"><span class="pre">~/ooi/oo/ooinet/scalar/&lt;yyyy&gt;_&lt;inst&gt;/</span></code>
-on the 1 TB volume — the expensive-to-reproduce asset; do NOT destroy the box until shard+pp+sync
-succeed). <strong>Shard stage: RUNNING</strong> as of session end (launched
-<code class="docutils literal notranslate"><span class="pre">nohup</span> <span class="pre">bash</span> <span class="pre">pipeline/run_pipeline.sh</span> <span class="pre">oo</span> <span class="pre">shard</span> <span class="pre">&gt;</span> <span class="pre">~/ooi/oo_shard_&lt;ts&gt;.log</span> <span class="pre">2&gt;&amp;1</span> <span class="pre">&amp;</span></code>), writing shards
-correctly after the profileIndices fix.</p></li>
-<li><p><strong>Reconnect procedure (now also in steering recipe 4b):</strong> <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ssm</span> <span class="pre">start-session</span> <span class="pre">--target</span> <span class="pre">i-0a018916cfb9a8e46</span></code> lands you as <code class="docutils literal notranslate"><span class="pre">ssm-user</span></code>; you MUST <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">ec2-user</span></code> (repo/logs/~/ooi are
-ec2-user’s). Non-invasive status = read the redux tree, NOT the log (log is block-buffered through
-tee → looks frozen). Use the shard-status snippet in recipe 4b, or:
-<code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">~/ooi/oo/redux</span> <span class="pre">-name</span> <span class="pre">'*.nc'</span> <span class="pre">|</span> <span class="pre">wc</span> <span class="pre">-l</span></code> (should climb). For live logs on the NEXT stages set
-<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PYTHONUNBUFFERED=1</span></code> before launching.</p></li>
-<li><p><strong>Resume check next session:</strong> re-attach, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">ec2-user</span></code>, confirm shard finished (proc gone +
-final <code class="docutils literal notranslate"><span class="pre">attempted=/written=/skipped=</span></code> block has NONZERO written). Then run <code class="docutils literal notranslate"><span class="pre">pp</span></code> then <code class="docutils literal notranslate"><span class="pre">sync</span></code>:
-<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PYTHONUNBUFFERED=1</span> <span class="pre">ARGOSY_SITE=oo;</span> <span class="pre">cd</span> <span class="pre">~/argosy;</span></code>
-<code class="docutils literal notranslate"><span class="pre">nohup</span> <span class="pre">bash</span> <span class="pre">pipeline/run_pipeline.sh</span> <span class="pre">oo</span> <span class="pre">pp</span>&#160;&#160; <span class="pre">&gt;</span> <span class="pre">~/ooi/oo_pp_$(date</span> <span class="pre">+%Y%m%dT%H%M%S).log</span> <span class="pre">2&gt;&amp;1</span> <span class="pre">&amp;</span></code>
-then <code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">oo</span> <span class="pre">sync</span> <span class="pre">...</span></code>. Watch the DOFST-vs-CTDPF question (expectation: DO rides inside CTDPF as
-<code class="docutils literal notranslate"><span class="pre">corrected_dissolved_oxygen</span></code>, no separate DOFST download). Verify <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/oo/</span></code>, THEN <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>.</p></li>
-<li><p>The 5 oo async URLs (in download_link_list.txt, now on GitHub) are OOINET async-result links
-dated 20260905 tied to <a class="reference external" href="mailto:kilroy1618&#37;&#52;&#48;gmail&#46;com">kilroy1618<span>&#64;</span>gmail<span>&#46;</span>com</a> — they EXPIRE in ~2 weeks. Re-order if the run
-needs a rerun after that.</p></li>
+<li><p>The oo box <code class="docutils literal notranslate"><span class="pre">i-0a018916cfb9a8e46</span></code> + its 1 TB volume were destroyed earlier. (Confirm no orphaned
+EBS in the console.) The CURRENT live box is the ab one from the later <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>.</p></li>
+<li><p>The facts below (deploy/connect/env, EBS note) apply to any box, including the live ab one.</p></li>
+<li><p>Reusable box facts for the next deploy: c6i.xlarge, us-west-2, acct 879605964811, keyless SSM
+(<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">ssm</span> <span class="pre">start-session</span> <span class="pre">--target</span> <span class="pre">&lt;id&gt;</span></code> → lands as ssm-user → <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">ec2-user</span></code>). EC2 auth is
+the IAM instance role (S3 access to s3ooi; no keys on disk). Minimal conda env <code class="docutils literal notranslate"><span class="pre">argosy</span></code> via
+user-data. Full create/run/destroy in steering recipe 4; reconnect/monitor in recipe 4b.</p></li>
+<li><p>CDK EBS gotcha from session 1 (verify it’s actually fixed before trusting a fresh box): the stack
+was fixed to attach the big volume as ROOT (<code class="docutils literal notranslate"><span class="pre">device_name</span> <span class="pre">/dev/xvda</span></code>), replacing the session-1 live
+workaround (format nvme1n1 → /data, symlink ~/ooi). If a fresh box again shows ~/ooi tiny, re-apply
+the workaround and re-check the stack.</p></li>
 </ul>
+</section>
+<section id="next-site-ab-axial-base-front-loaded-bring-up-checklist-do-in-order-before-cdk-deploy">
+<h2>NEXT SITE = ab (Axial Base) — FRONT-LOADED bring-up checklist (do IN ORDER, before <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>)<a class="headerlink" href="#next-site-ab-axial-base-front-loaded-bring-up-checklist-do-in-order-before-cdk-deploy" title="Link to this heading">#</a></h2>
+<p>ab designator = <strong>RS03AXPS</strong> (profile-index files are <code class="docutils literal notranslate"><span class="pre">RS03AXPS_profiles_&lt;yyyy&gt;.csv</span></code>). ab is NOT set
+up locally yet (<code class="docutils literal notranslate"><span class="pre">~/ooi/ab/</span></code> does not exist). The profileIndices step MUST come first — it’s the exact
+thing that made oo silently produce <code class="docutils literal notranslate"><span class="pre">attempted=0</span></code>. Steps, all from WSL:</p>
+<ol class="arabic simple">
+<li><p>[DONE] <strong>profileIndices</strong> — the 13 <code class="docutils literal notranslate"><span class="pre">RS03AXPS_profiles_2014..2026.csv</span></code> already existed in
+<code class="docutils literal notranslate"><span class="pre">~/ooi/sb/profileIndices/</span></code> (GitHub clone dropped all sites there); copied to
+<code class="docutils literal notranslate"><span class="pre">~/ooi/ab/profileIndices/</span></code> and pushed to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/ab/profileIndices/</span></code>. <strong>AB start of
+operations = 03-DEC-2014</strong> (first profile 2014-12-03 23:11:00; 2014 has 47 profiles, real
+volume from 2015). Use OOINET order start <code class="docutils literal notranslate"><span class="pre">2014-12-01</span> <span class="pre">00:00:00.0</span></code>.</p></li>
+<li><p>[DONE] <code class="docutils literal notranslate"><span class="pre">~/ooi/ab/</span></code> skeleton created (mirrors oo: ooinet/{scalar,vector}, redux, postproc,
+analysis, visualizations, metadata/{qc,profiles,features,annotations,external,cache,scans},
+profileIndices). ooipaths verified resolving all ab paths (designator RS03AXPS).</p></li>
+<li><p>[IN PROGRESS — user ordering now] Order ab scalar data from OOINET: node <strong>SF03A</strong>, designator
+<strong>RS03AXPS</strong>, Stream type=Science, Include Provenance + Annotations, start <code class="docutils literal notranslate"><span class="pre">2014-12-01</span> <span class="pre">00:00:00.0</span></code>.
+INCLUDE <strong>PCO2W</strong> (pco2 is listed for ab; it was MISSING for oo — verify it yields shards after
+the run). Put the async “order ready” URLs (one per line) into the ab URL list
+(<code class="docutils literal notranslate"><span class="pre">pipeline/ab_url_list.txt</span></code> OR <code class="docutils literal notranslate"><span class="pre">~/argosy/download_link_list.txt</span></code>); URLs expire ~2 weeks.
+<strong>When URLs are in place, the NEXT action is step 4 (git commit-sweep) — user asked to be
+reminded.</strong> Commit-sweep detail: <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> was updated (added <code class="docutils literal notranslate"><span class="pre">cloud/cdk.out/</span></code>); still need
+to <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rm</span> <span class="pre">-r</span> <span class="pre">--cached</span> <span class="pre">__pycache__</span> <span class="pre">chapters/.ipynb_checkpoints</span></code>, then <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">-A</span></code>, verify no
+_build//cdk.out//.pyc staged, commit + push, confirm <code class="docutils literal notranslate"><span class="pre">working</span> <span class="pre">tree</span> <span class="pre">clean</span></code>. Judgment calls:
+stray root PNGs (ctd_coverage.png, ctd_minimum_cover.png) and cloud/cdk.context.json.</p></li>
+<li><p><strong>git commit-sweep FIRST</strong> (see Blocked): the working tree has a big pile of uncommitted changes
+(ooipaths conversion across many scripts, cloud/, poster/, <a class="reference external" href="http://DeveloperGuide.md">DeveloperGuide.md</a>, steering, the 4 pp
+fixes were pushed individually but verify <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> is clean) — a fresh box clones HEAD, so
+anything uncommitted is invisible to it. This is what bit us repeatedly with oo.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">argosy-cdk;</span> <span class="pre">cd</span> <span class="pre">~/argosy/cloud;</span> <span class="pre">cdk</span> <span class="pre">deploy</span></code> → connect → <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">ec2-user</span></code> →
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PYTHONUNBUFFERED=1</span> <span class="pre">ARGOSY_SITE=ab;</span> <span class="pre">nohup</span> <span class="pre">bash</span> <span class="pre">pipeline/run_pipeline.sh</span> <span class="pre">ab</span> <span class="pre">all</span> <span class="pre">&gt;</span> <span class="pre">...log</span> <span class="pre">2&gt;&amp;1</span> <span class="pre">&amp;</span></code>
+Monitor per recipe 4b. shard success = <code class="docutils literal notranslate"><span class="pre">written&gt;0</span></code> all sensors; verify S3; <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>.</p></li>
+</ol>
 </section>
 <section id="answered-this-session-design-note">
 <h2>Answered this session (design note)<a class="headerlink" href="#answered-this-session-design-note" title="Link to this heading">#</a></h2>
@@ -510,8 +738,92 @@ coverage/curtain PNG is a separate future viz step (proposed <code class="docuti
 backend -&gt; ~/ooi/oo/visualizations/); NOT yet built. User expressed interest.</p></li>
 </ul>
 </section>
-<section id="completed-this-session-session-2">
-<h2>Completed this session (session 2)<a class="headerlink" href="#completed-this-session-session-2" title="Link to this heading">#</a></h2>
+<section id="completed-this-session-session-3-continued-visqc-tools-built">
+<h2>Completed this session (session 3, continued — visqc tools built)<a class="headerlink" href="#completed-this-session-session-3-continued-visqc-tools-built" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">visqc/SignoffQC.py</span></code></strong> — standalone scalar-data sign-off GUI (Phase 1, TkAgg). 4 charts (T/S/den;
+DO/CDOM/ChlorA; backscatter/nitrate/PAR; pH/pCO2), multi-axis auto-scaled. 11 tri-state sensor
+buttons Ok/Discard (None does nothing); LSD absence shown None(expected) off noon/midnight vs
+None(missing) on. Display toggles per trace. Advance/Back + Julian-day GoTo. GMT-&gt;local title with
+noon/midnight tag. Reads <strong>pp06</strong>. Output = ONE ROW PER GPI at
+<code class="docutils literal notranslate"><span class="pre">metadata/annotations/scalar_signoff_&lt;site&gt;_&lt;year&gt;.csv</span></code> (cols: gpi, visits, 11 sensor states);
+resume/merge (preserves prior Discards, increments visits). Feeds future pp07. Compiles clean.
+Run: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">~/argosy/visqc/SignoffQC.py</span> <span class="pre">--site</span> <span class="pre">&lt;sb|oo|ab&gt;</span> <span class="pre">--year</span> <span class="pre">&lt;yyyy&gt;</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">visqc/shard_source.py</span></code></strong> — Local/S3 <code class="docutils literal notranslate"><span class="pre">ShardSource</span></code> abstraction for the notebook bundle explorer
+(discovery: glob local vs s3fs list; open: local path vs s3fs). anon s3fs for public pp06; other
+sources over S3 need creds. Index cached per year. Compiles clean. NOT yet wired into
+bundle_chart / Visualizations.ipynb.</p></li>
+<li><p>Both recorded as design topics in <code class="docutils literal notranslate"><span class="pre">BR.md</span></code>. Decisions there: visqc/ folder, pp06 source, per-GPI
+row CSV, None(expected/missing), SignoffQC output is a pp07 input.</p></li>
+</ul>
+</section>
+<section id="completed-this-session-session-3-continued-s3-access-safety-budget">
+<h2>Completed this session (session 3, continued — S3 access safety + budget)<a class="headerlink" href="#completed-this-session-session-3-continued-s3-access-safety-budget" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>S3 public policy reconciled + tightened</strong>: live bucket policy was sb-only with redux + ALL pp
+levels public (and the repo JSON was stale <code class="docutils literal notranslate"><span class="pre">pp06/*</span></code>). Now: public read (GetObject+ListBucket) on
+<strong>pp06 ONLY, all 3 sites</strong> (<code class="docutils literal notranslate"><span class="pre">{sb,oo,ab}/postproc/pp06/*</span></code>). Applied + verified via put/get-bucket-
+policy. redux (more flawed than pp06), pp01/02/05, metadata, ooinet all PRIVATE now.
+<code class="docutils literal notranslate"><span class="pre">s3_public_read_policy.json</span></code> rewritten; <code class="docutils literal notranslate"><span class="pre">DataOps.md</span></code> fixed; steering rule “Public data sharing
+(S3)” added (ASK before exposing new datasets). Safety assessment recorded in BR open-Q 8:
+security surface demonstrably safe (read-only, scoped, non-sensitive); cost surface NOT bounded
+(public egress unbounded in principle; ~$4.14/full 3-site pull of ~46 GB).</p></li>
+<li><p><strong>Budget + kill switch</strong> (cost guardrail): <code class="docutils literal notranslate"><span class="pre">cloud/budget.json</span></code> (<span class="math notranslate nohighlight">\(100/mo ACCOUNT cost budget) +
+`cloud/budget_notifications.json` (email at ACTUAL 50%/100% + FORECASTED 100%). \)</span>100 chosen to not
+false-trip on routine EC2 runs. <strong>USER TODO to activate</strong>: put email in budget_notifications.json,
+get acct id (<code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">sts</span> <span class="pre">get-caller-identity</span> <span class="pre">--query</span> <span class="pre">Account</span> <span class="pre">--output</span> <span class="pre">text</span></code>), run <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">budgets</span> <span class="pre">create-budget</span> <span class="pre">--account-id</span> <span class="pre">&lt;id&gt;</span> <span class="pre">--budget</span> <span class="pre">file://cloud/budget.json</span> <span class="pre">--notifications-with-subscribers</span> <span class="pre">file://cloud/budget_notifications.json</span></code>, then CONFIRM the SNS email subscription. Subject line is
+AWS-generated (not customizable without a Lambda relay). Not real-time (updates a few times/day).
+Kill switch built + syntax-checked: <code class="docutils literal notranslate"><span class="pre">cloud/s3_public_off.sh</span></code> (delete bucket policy → all public
+access OFF) and <code class="docutils literal notranslate"><span class="pre">cloud/s3_public_on.sh</span></code> (re-apply pp06 policy). Documented in steering recipe 6.
+Expected flow: alarm email → user asks kiro → run <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">~/argosy/cloud/s3_public_off.sh</span></code>.</p></li>
+</ul>
+</section>
+<section id="completed-this-session-session-3-continued-ab-br">
+<h2>Completed this session (session 3, continued — AB + BR)<a class="headerlink" href="#completed-this-session-session-3-continued-ab-br" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>AB Phase 1 launched</strong> on a fresh box (download running); see “AB run — LIVE” up top.</p></li>
+<li><p><strong>git commit-sweep DONE</strong>: working tree clean + pushed. Untracked <code class="docutils literal notranslate"><span class="pre">_build/</span></code>, <code class="docutils literal notranslate"><span class="pre">__pycache__</span></code>,
+<code class="docutils literal notranslate"><span class="pre">chapters/.ipynb_checkpoints</span></code> via <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rm</span> <span class="pre">--cached</span></code> (they were tracked pre-.gitignore); committed
+all BR-session work (pp06 fix, visqc changes, cline fixes, doc reconciliation, cloud/poster/BR/
+OOIUsability, orphan deletions). .gitignore also gained <code class="docutils literal notranslate"><span class="pre">cloud/cdk.out/</span></code>.</p></li>
+<li><p><strong>~/ooi fresh-box fix</strong> (uncommitted, laptop — commit before next box): <code class="docutils literal notranslate"><span class="pre">cloud/app.py</span></code> user-data</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pipeline/run_pipeline.sh</span></code> both now <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">~/ooi</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Bicameral Redesign (BR) started</strong> — <code class="docutils literal notranslate"><span class="pre">BR.md</span></code> created (deliberation doc, no premature file moves).
+Decisions: (1) Phase-1 cline/QC code → dedicated <code class="docutils literal notranslate"><span class="pre">~/argosy/visqc/</span></code> (NOT pipeline/); (4) Book
+notebooks: MidnightNoon OUT, Visualizations STAYS, DataDownload+DataSharding OUT; (5) visqc/ holds
+cline_extract+cline_plot too (no separate qc/). PARKED: (2) define pp07 (needs Vis-notebook data
+review), (3) Phase-2 internal-wave file home. <code class="docutils literal notranslate"><span class="pre">iw/</span></code> inventory recorded (3 Phase-1 QC files vs 3
+Phase-2 IW files). Orphan scan → deleted ctd_coverage/ctd_minimum_cover.png + 4 vector v*.csv +
+3 stray <code class="docutils literal notranslate"><span class="pre">_check_*.py</span></code>; reconciled the v*.csv references in <a class="reference external" href="http://SensorTable.md/CodeManifest.md/steering">SensorTable.md/CodeManifest.md/steering</a>.</p></li>
+<li><p><strong>VisQC Inspector enhanced</strong>: added the right-hand potential-density (σ₀, TEOS-10/gsw) panel;
+Accept/Correct/Discard buttons writing <code class="docutils literal notranslate"><span class="pre">metadata/annotations/visqc_visitation_&lt;site&gt;.csv</span></code>
+(schema: timestamp,gpi,sensor,decision,upper_depth,lower_depth,cline_depth,cline_thickness,
+reviewed_at); fixed SITE_NAME ‘slopebase’→2-letter code (renamed the existing sb CSV too),
+START_DATE now env-configurable; widened window (22in) + deepened + lowered charts + bigger title
+so controls/labels/title don’t collide. <code class="docutils literal notranslate"><span class="pre">cline_plot.py</span></code> adapted: dual-mode (notebook sliders /
+standalone Agg+PNG), site-code filename, full-data-span default (dropped hardcoded 2024).
+<code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code> now keys on 2-letter site + per-site lat/lon. Added <code class="docutils literal notranslate"><span class="pre">OOIUsability.md</span></code> (OOINET
+parameter/provenance/annotation friction as DSC feedback) + wired into ArgosyOverview/CodeManifest.</p></li>
+</ul>
+</section>
+<section id="completed-earlier-this-session-session-3">
+<h2>Completed earlier this session (session 3)<a class="headerlink" href="#completed-earlier-this-session-session-3" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>oo Phase 1 COMPLETE</strong>: shard (all sensors written&gt;0 except pco2=0) → pp05 (243905-entry manifest)
+→ pp06 (132056 shards, Errors:0) → filter2 (Sav-Gol cdom/chlora) → filter3 (backscatter despike,
+16942 files) → <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">sync</span></code> to s3://s3ooi/oo/. Verified S3==local: pp06 132056, redux 157854.</p></li>
+<li><p><strong>Four pp bugs fixed + pushed</strong> (all pre-restructure leftovers; see header for detail):
+pp05/special_profiles year glob, filter2/filter3 year glob, pp06 hardcoded manifest path, pp06
+Filter 1 wrong-dim boolean mask. Each committed individually and pulled onto the box.</p></li>
+<li><p><strong>EC2 destroyed</strong> (meter off). oo async URLs now spent; re-order if oo ever needs a rerun.</p></li>
+<li><p><strong>AB bring-up staged</strong> (see the FRONT-LOADED checklist above) with profileIndices as step 1.</p></li>
+</ul>
+</section>
+<section id="completed-session-2-2026-09-06">
+<h2>Completed session 2 (2026-09-06)<a class="headerlink" href="#completed-session-2-2026-09-06" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Diagnosed + fixed the oo <code class="docutils literal notranslate"><span class="pre">attempted=0</span></code> shard failure</strong> (empty profileIndices on the box, see
 header). One-time-per-site fix: push profileIndices to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/profileIndices/</span></code>.</p></li>
@@ -612,7 +924,8 @@ profileIndices already multi-site by OOI designator.</p></li>
 <h2>Reverted / needs redo<a class="headerlink" href="#reverted-needs-redo" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Nothing currently reverted.</p></li>
-<li><p>Old <code class="docutils literal notranslate"><span class="pre">vis/bundle_animation.py</span></code> can be deleted (superseded by <code class="docutils literal notranslate"><span class="pre">vis/bundle_animate.py</span></code>).</p></li>
+<li><p>Old <code class="docutils literal notranslate"><span class="pre">vis/bundle_animation.py</span></code> DELETED (superseded by <code class="docutils literal notranslate"><span class="pre">vis/bundle_animate.py</span></code>; it also depended
+on the removed TMLD CSV).</p></li>
 </ul>
 </section>
 <section id="blocked-waiting-on-user">
@@ -635,16 +948,37 @@ oxygen) from others (T/S/depth), honest train/test split by profile or time.</p>
 <section id="next-action">
 <h2>Next action<a class="headerlink" href="#next-action" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>#1 (time/cost sensitive): finish the live EC2 oo run.</strong> Re-attach SSM to
-<code class="docutils literal notranslate"><span class="pre">i-0a018916cfb9a8e46</span></code>, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">ec2-user</span></code>, confirm the SHARD stage finished (proc gone + final
-<code class="docutils literal notranslate"><span class="pre">written&gt;0</span></code>), then run <code class="docutils literal notranslate"><span class="pre">pp</span></code> then <code class="docutils literal notranslate"><span class="pre">sync</span></code> (commands in LIVE EC2 STATE above), verify <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/oo/</span></code>,
-then <strong><code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code></strong> (billing meter running) and confirm no orphaned EBS. Download is already
-DONE; do not re-run it.</p></li>
-<li><p><strong>#2: commit/push the WSL-side edits from session 2</strong> (so <code class="docutils literal notranslate"><span class="pre">ab</span></code> + the book benefit): <code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span></code>
-(profileIndices pull/guard), <code class="docutils literal notranslate"><span class="pre">.kiro/steering/operational-recipes.md</span></code> (recipe 4b), <code class="docutils literal notranslate"><span class="pre">references.bib</span></code>,
-<code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code> (bibliography page), <code class="docutils literal notranslate"><span class="pre">ColumbiaPlumePlan.md</span></code>, <code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code>. Commit from WSL side.
-Then publish the book (<code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code> ; <code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code>) to surface the
-new Bibliography page.</p></li>
+<li><p><strong>AB Phase 1 DONE</strong> (verified in S3, box destroyed). Post-destroy: confirm no orphaned EBS with the
+describe-volumes CLI in the “AB run — COMPLETE” section above (avoids the console).</p></li>
+<li><p><strong>#1: commit the two ~/ooi fresh-box fixes</strong> (<code class="docutils literal notranslate"><span class="pre">cloud/app.py</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline/run_pipeline.sh</span></code>) from the
+laptop — still uncommitted; needed before any future box. Then optionally publish the book
+(<code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code> ; <code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code>) for the new Bibliography page.</p></li>
+<li><p><strong>#2: BR (Bicameral Redesign) — now the main focus.</strong> Resolve parked decisions in <code class="docutils literal notranslate"><span class="pre">BR.md</span></code>:
+(2) define pp07 (needs Vis-notebook data review); (3) Phase-2 internal-wave file home. Then plan</p>
+<ul>
+<li><p>execute the <code class="docutils literal notranslate"><span class="pre">visqc/</span></code> move (cline_extract/cline_plot/VisQCInspector) and moving MidnightNoon/
+DataDownload/DataSharding OUT of the Book (decided). BR also holds: the “where do components go?”
+tenet, the descent-data-recovery topic (on-demand Lambda vs bulk <a class="reference external" href="http://shard.py">shard.py</a> pass), and the orphan
+cleanup (done). Guideline: deliberate design first, then implement.</p></li>
+</ul>
+</li>
+<li><p><strong>TEST the two new visqc tools</strong> (built, compile-clean, NOT yet run against real data):</p>
+<ul>
+<li><p><strong><a class="reference external" href="http://SignoffQC.py">SignoffQC.py</a></strong>: needs a display (TkAgg + python3-tk). Run
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">~/argosy/visqc/SignoffQC.py</span> <span class="pre">--site</span> <span class="pre">sb</span> <span class="pre">--year</span> <span class="pre">2022</span></code> (sb pp06 is local after the earlier
+sync; or pick a year present locally). Check: 4 charts render with multi-axis traces; noon/
+midnight tag correct; tri-state buttons flip Ok&lt;-&gt;Discard and None does nothing; LSD shows
+None(expected) off-index vs None(missing) on noon/midnight; Advance/Back + Julian GoTo navigate;
+the CSV <code class="docutils literal notranslate"><span class="pre">metadata/annotations/scalar_signoff_sb_2022.csv</span></code> is written one-row-per-GPI and RESUMES
+(visits increment, Discards persist) on relaunch. Watch layout collisions (title vs stacked top
+x-axis labels) like VisQCInspector needed.</p></li>
+<li><p><strong>shard_source.py</strong>: needs <code class="docutils literal notranslate"><span class="pre">s3fs</span></code> (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">s3fs</span></code> in argosy env if absent). Quick test:
+<code class="docutils literal notranslate"><span class="pre">ShardSource(site='sb',</span> <span class="pre">source='pp06',</span> <span class="pre">location='s3').build_index(2022)</span></code> returns non-empty per
+sensor, and <code class="docutils literal notranslate"><span class="pre">.open(ref)</span></code> yields a Dataset — proving public-pp06 anon S3 read works. Then wire the
+Local/S3 switch into bundle_chart / Visualizations.ipynb (separate task).</p></li>
+</ul>
+</li>
+<li><p><strong>Commit the new visqc/ files + BR + SessionState</strong> (laptop) when ready.</p></li>
 <li><p>Then (lower priority) open threads:
 (a) <strong>AGU poster</strong> — fill the scaffold (four theme figures, final title/authors/abstract, QR).
 (b) complete the <strong>VisQC</strong> workflow (output writer + Corrector + thickness reconciliation).
@@ -715,10 +1049,29 @@ git commits from the WSL side where identity is configured.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#last-updated">Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-2026-09-18">Completed this session (2026-09-18)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-suite-doc-harmonization-tmld-removal-2026-09-18-later-still">MLD suite doc harmonization + TMLD removal (2026-09-18, later still)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-py-refinements-this-session-2026-09-18-later-road-tested-committed">MLD.py refinements this session (2026-09-18, later) — road-tested, committed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action-2026-09-18">Next action (2026-09-18)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#earlier-last-updated">(Earlier) Last updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-2026-09-15">Completed this session (2026-09-15)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-action-2026-09-15">Next action (2026-09-15)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">(Earlier) Last updated</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ab-run-complete-verified-in-s3-box-being-destroyed-2026-09-07">AB run — COMPLETE + verified in S3; box being destroyed (2026-09-07)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ab-run-historical-now-complete-launch-notes">AB run — (historical, now complete) launch notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-3-earlier-oo-phase-1-complete-and-verified-in-s3-that-ec2-box-destroyed">Session 3 earlier — oo Phase 1 COMPLETE and verified in S3; that EC2 box DESTROYED.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-2-2026-09-06">Session 2 (2026-09-06)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-session-1">Previous session (1)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#live-ec2-state-read-this-first-next-session">LIVE EC2 STATE (read this first next session)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ec2-reference-the-oo-box-was-destroyed-a-new-ab-box-is-now-live-see-ab-run-above">EC2 REFERENCE (the oo box was destroyed; a NEW ab box is now LIVE — see “AB run” above)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-site-ab-axial-base-front-loaded-bring-up-checklist-do-in-order-before-cdk-deploy">NEXT SITE = ab (Axial Base) — FRONT-LOADED bring-up checklist (do IN ORDER, before <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answered-this-session-design-note">Answered this session (design note)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-2">Completed this session (session 2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-3-continued-visqc-tools-built">Completed this session (session 3, continued — visqc tools built)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-3-continued-s3-access-safety-budget">Completed this session (session 3, continued — S3 access safety + budget)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-this-session-session-3-continued-ab-br">Completed this session (session 3, continued — AB + BR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-earlier-this-session-session-3">Completed earlier this session (session 3)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-session-2-2026-09-06">Completed session 2 (2026-09-06)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completed-previous-session-session-1">Completed previous session (session 1)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-progress-partially-done">In progress / partially done</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reverted-needs-redo">Reverted / needs redo</a></li>

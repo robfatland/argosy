@@ -179,7 +179,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
@@ -198,8 +198,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -492,7 +494,10 @@ See also <code class="docutils literal notranslate"><span class="pre">sensortabl
 <h3>Sensor table columns<a class="headerlink" href="#sensor-table-columns" title="Link to this heading">#</a></h3>
 <p>The <strong>sensor table</strong> is a comprehensive list of sensor types for the shallow profiler.
 This is written to a standalone reference CSV file: <code class="docutils literal notranslate"><span class="pre">~/argosy/sensortable.csv</span></code>.
-Vector sensor details are in companion files: <code class="docutils literal notranslate"><span class="pre">vcurrent.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vspectralirr.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vspectrophot.csv</span></code>.</p>
+Vector sensor channel definitions (velocity, spectral irradiance, optical absorption, beam
+attenuation) are deferred until vector-data download is implemented; see <code class="docutils literal notranslate"><span class="pre">VectorData.md</span></code>. (The
+earlier placeholder CSVs <code class="docutils literal notranslate"><span class="pre">vcurrent.csv</span></code> / <code class="docutils literal notranslate"><span class="pre">vspectralirr.csv</span></code> / <code class="docutils literal notranslate"><span class="pre">vopticalabsorb.csv</span></code> /
+<code class="docutils literal notranslate"><span class="pre">vbeamatten.csv</span></code> were removed in the Sep 2026 cleanup and will be regenerated when needed.)</p>
 <p>Premise: Jupyter cell code in the <code class="docutils literal notranslate"><span class="pre">DataSharding.ipynb</span></code> notebook shards multiple types of
 source ‘instrument’ NetCDF datafiles to produce single-sensor shard files, one file
 per profile. Shards are written into folders spanning single years; with folder names

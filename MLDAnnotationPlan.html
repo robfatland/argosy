@@ -1,0 +1,1006 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MLD Annotation Plan &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'MLDAnnotationPlan';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FMLDAnnotationPlan.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/MLDAnnotationPlan.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>MLD Annotation Plan</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preselectprofiles-py-candidate-selection">1. PreSelectProfiles.py — candidate selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method">Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-working-copy-blessed-shared-copy">Output (working copy + blessed shared copy)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-py-interactive-annotation-tool">2. MLD.py — interactive annotation tool</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invocation">Invocation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display">Display</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#two-binary-display-states">Two binary display states</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filters">Filters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advance-commit-model-as-built">Advance / commit model (as built)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation">Navigation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-settings-persistence">Session settings persistence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#re-labeling">Re-labeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-who-code">The “who” code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-output-schema">3. Label output schema</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-agreement">Combining &amp; agreement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions-honored">Conventions honored</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolved-decisions-for-the-record">Resolved decisions (for the record)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-deferred-items">Open / deferred items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-status">Implementation status</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collaborator-setup-running-mld-py-on-another-machine">Collaborator setup (running MLD.py on another machine)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mld-annotation-plan">
+<h1>MLD Annotation Plan<a class="headerlink" href="#mld-annotation-plan" title="Link to this heading">#</a></h1>
+<p>Design spec for a two-program workflow that builds a <strong>human-labeled MLD (mixed-layer
+depth) training dataset</strong> from the pp06 shallow-profiler data. The labels are the ground
+truth for a later ML model that will estimate MLD across the entire shard dataset (see
+<code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> and the “annotation problem” note in <code class="docutils literal notranslate"><span class="pre">argosy-conventions.md</span></code>).</p>
+<p>Status: <strong>implemented (Sep 2026).</strong> Two programs, both in the repo root:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> — selects candidate profiles (reproducible sampling).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> — interactive standalone GUI to hand-label MLD on those candidates.</p></li>
+</ol>
+<p>Modeled on the existing standalone annotator <code class="docutils literal notranslate"><span class="pre">iw/VisQCInspector.py</span></code> (TkAgg, per-decision
+rows written to a CSV under <code class="docutils literal notranslate"><span class="pre">metadata/annotations/</span></code>). All paths via <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> (<code class="docutils literal notranslate"><span class="pre">op</span></code>).</p>
+<section id="preselectprofiles-py-candidate-selection">
+<h2>1. <a class="reference external" href="http://PreSelectProfiles.py">PreSelectProfiles.py</a> — candidate selection<a class="headerlink" href="#preselectprofiles-py-candidate-selection" title="Link to this heading">#</a></h2>
+<section id="purpose">
+<h3>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h3>
+<p>Produce an even, reproducible sample of profiles across the full pp06 time span for each
+site, so the training set spans seasons / conditions / mission epochs rather than clustering
+where casts are dense.</p>
+</section>
+<section id="method">
+<h3>Method<a class="headerlink" href="#method" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Runs for <strong>all three sites</strong> (sb, oo, ab), reading pp06 shards.</p></li>
+<li><p><strong>Blocks:</strong> fixed-width time windows, width = <strong>parameter in days (default 5)</strong>. For each
+site, block 0 starts on the <strong>date of that site’s first GPI</strong> (no shared calendar anchor);
+blocks tile forward to the last available profile. A 5-day block spans at most 45 profiles
+(5 days × 9 daily profiles).</p></li>
+<li><p><strong>Per block:</strong></p>
+<ol class="arabic simple">
+<li><p>Count profiles present in the block by global profile index (a profile “exists” if its
+<strong>T shard file exists</strong> — presence = file exists, not valid-data check). Call this <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p></li>
+<li><p>Build the eligible pool: profiles with <strong>all four</strong> of T/S/ρ/DO shard files present
+(<code class="docutils literal notranslate"><span class="pre">all4</span></code>). If that pool is empty, fall back to the <strong>T-only</strong> pool (<code class="docutils literal notranslate"><span class="pre">T_only</span></code>).</p></li>
+<li><p>If the chosen pool is non-empty, select <strong>one profile at random</strong> (seeded RNG) from it.
+If the block has no profiles at all, select nothing.</p></li>
+</ol>
+</li>
+<li><p><strong>LSD sensors (nitrate/pCO2/pH) are not involved.</strong> Daily indices 4 and 9 are ordinary,
+equally-likely candidates like any other index.</p></li>
+<li><p><strong>Determinism:</strong> fixed <strong>random seed</strong> (parameter) so re-runs reproduce the candidate list.</p></li>
+</ul>
+</section>
+<section id="output-working-copy-blessed-shared-copy">
+<h3>Output (working copy + blessed shared copy)<a class="headerlink" href="#output-working-copy-blessed-shared-copy" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Working copy</strong> (regenerable): one CSV per site at
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/mld_candidates_&lt;site&gt;_block&lt;NN&gt;.csv</span></code> — block width baked
+into the name (zero-padded), so different block sizes coexist. <strong>Create the folder if absent.</strong></p></li>
+<li><p><strong>Blessed shared copy</strong> (canonical): <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span> <span class="pre">--bless</span></code> copies the working CSVs
+into the repo folder <strong><code class="docutils literal notranslate"><span class="pre">~/argosy/mld_candidates/</span></code></strong> (small, committable manifests — a deliberate
+exception to “no data in <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>”, like <code class="docutils literal notranslate"><span class="pre">sensor_exclusions.csv</span></code>). <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> reads the
+<strong>blessed</strong> copies, and both files are committed to git.</p></li>
+<li><p><strong>Why bless instead of re-run:</strong> selection draws at random from the profiles present in each
+block, so it is only reproducible if the local pp06 set is identical across machines — which is
+NOT guaranteed (partial syncs, newer data). Blessing one person’s run and sharing it via git
+guarantees Chuck and Rob label the SAME profiles (the whole point of inter-annotator agreement).</p></li>
+</ul>
+<p>Columns:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>column</p></th>
+<th class="head"><p>meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">site</span></code></p></td>
+<td><p>2-letter site code</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">block_id</span></code></p></td>
+<td><p>0-based block index from the site’s first-GPI day</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">block_start</span></code>, <code class="docutils literal notranslate"><span class="pre">block_end</span></code></p></td>
+<td><p>block boundary dates</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p>count of profiles found in the block (pre-selection)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">selection_tier</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all4</span></code>, <code class="docutils literal notranslate"><span class="pre">T_only</span></code>, or empty (for N=0 blocks)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpi</span></code></p></td>
+<td><p>global profile index of the selected profile (empty for N=0 blocks)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span></code></p></td>
+<td><p>selected profile timestamp</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">daily_index</span></code></p></td>
+<td><p>1–9</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">has_temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">has_salinity</span></code>, <code class="docutils literal notranslate"><span class="pre">has_density</span></code>, <code class="docutils literal notranslate"><span class="pre">has_dissolvedoxygen</span></code></p></td>
+<td><p>per-sensor presence flags</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>, <code class="docutils literal notranslate"><span class="pre">block_width_days</span></code></p></td>
+<td><p>provenance</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Empty blocks are kept</strong> as rows with <code class="docutils literal notranslate"><span class="pre">N=0</span></code> and no <code class="docutils literal notranslate"><span class="pre">gpi</span></code> (complete coverage/diagnostic
+record).</p></li>
+</ul>
+</section>
+</section>
+<section id="mld-py-interactive-annotation-tool">
+<h2>2. <a class="reference external" href="http://MLD.py">MLD.py</a> — interactive annotation tool<a class="headerlink" href="#mld-py-interactive-annotation-tool" title="Link to this heading">#</a></h2>
+<p>Standalone TkAgg GUI (matplotlib), following the <code class="docutils literal notranslate"><span class="pre">VisQCInspector.py</span></code> lineage. Reads a site’s
+candidate list, lets a human place an MLD on a profile, writes one label row per
+(gpi, sensor).</p>
+<section id="invocation">
+<h3>Invocation<a class="headerlink" href="#invocation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--site</span> <span class="pre">&lt;sb|oo|ab&gt;</span></code> — default <code class="docutils literal notranslate"><span class="pre">sb</span></code> (overrides the default; analogous to <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--year</span> <span class="pre">&lt;yyyy&gt;</span></code> — start point, <strong>not</strong> a hard filter: the tool begins at the first candidate
+whose timestamp falls in that year and continues <strong>past</strong> it into later profiles. Default
+start = first profile in the candidate list for the site.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--who</span> <span class="pre">&lt;A|C|R|X&gt;</span></code> — labeler identity for the whole session; <strong>default <code class="docutils literal notranslate"><span class="pre">C</span></code></strong> (Chuck). Fixed at
+launch — there is <strong>no who-chooser in the UI</strong> (avoids mid-session mislabeling and keeps the
+per-who output file consistent). Determines both the <code class="docutils literal notranslate"><span class="pre">who</span></code> value written to every row and the
+output filename.</p></li>
+</ul>
+</section>
+<section id="display">
+<h3>Display<a class="headerlink" href="#display" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Single-sensor view:</strong> show only the <strong>active sensor’s</strong> trace for the current profile
+(T selected → temperature only). Switching the active sensor swaps the displayed trace.</p></li>
+<li><p><strong>Active sensor:</strong> one of T / S / ρ / DO. <strong>T is the default operational sensor;</strong> a UI
+control selects which of the four is active. <strong>Only one MLD is recorded per interaction.</strong>
+The ρ trace is the pp06 <code class="docutils literal notranslate"><span class="pre">density</span></code> shard (potential density σ₀ is deferred).</p></li>
+<li><p><strong>Depth axis:</strong> 0 m at top to 100 m at bottom.</p></li>
+<li><p><strong>Per-sensor color:</strong> trace and MLD marker share one color per sensor — <strong>temperature = red,
+salinity = green, density = gold, DO = blue</strong> — so a sensor reads the same everywhere.</p></li>
+<li><p><strong>Labeled-profile cue:</strong> returning to an already-labeled (gpi, sensor) shows the committed
+MLD as a dashed line plus a dot on the trace <strong>in the sensor’s color</strong> (with a black edge),
+so the User can see it is labeled, for which sensor, and where. A no-MLD record draws no
+marker (there is no depth). The just-clicked pick is the same color/size marker.</p></li>
+</ul>
+<section id="two-binary-display-states">
+<h4>Two binary display states<a class="headerlink" href="#two-binary-display-states" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>State 1 — filter application:</strong> <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">data</span></code> (default) OR <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">data</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">active</span> <span class="pre">filter</span> <span class="pre">applied</span></code>.</p></li>
+<li><p><strong>State 2 — raw overlay</strong> (only meaningful when State 1 = “filter applied”): the unfiltered
+file data is <em>also</em> drawn in <strong>gray</strong> behind the filtered trace, or not shown. Filtered data
+always renders in <strong>black</strong>. (Gray avoids colliding with the per-sensor marker colors, e.g.
+the red temperature marker.) Default <strong>on</strong>.</p></li>
+</ul>
+</section>
+</section>
+<section id="filters">
+<h3>Filters<a class="headerlink" href="#filters" title="Link to this heading">#</a></h3>
+<p>A small, extensible registry. Initial set of <strong>four</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>filter key</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>sliders</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>raw pp06 file data, no smoothing (default)</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">savgol</span></code></p></td>
+<td><p>Savitzky-Golay smoothing (<code class="docutils literal notranslate"><span class="pre">scipy.signal.savgol_filter</span></code>), fixed window</p></td>
+<td><p>window length (odd, ≥3), polyorder (&lt; window)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">adaptive_savgol_std</span></code></p></td>
+<td><p>σ-modulated Savitzky-Golay: window widened locally where the profile is rough, using local <strong>standard deviation</strong> as the roughness metric; minimal smoothing where smooth</p></td>
+<td><p>base window, adaptivity/σ-sensitivity</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adaptive_savgol_mad</span></code></p></td>
+<td><p>same adaptive scheme but roughness measured by local <strong>median absolute deviation (MAD)</strong> instead of σ — more robust to isolated spikes</p></td>
+<td><p>base window, adaptivity/MAD-sensitivity</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The two adaptive filters are <strong>identical except for the roughness metric</strong> (σ vs. MAD). Keeping
+them as separate selectable keys makes the metric an explicit, recorded experimental variable —
+later analysis can test whether MAD’s spike-robustness yields better human picks than σ.</p></li>
+<li><p>Filter key + slider values are recorded per label (structured columns, see schema).</p></li>
+<li><p><strong>Minor open item:</strong> exact adaptive formulation (how the local roughness metric maps to window
+width) — start with a reasonable default shared by both adaptive filters, expose one adaptivity
+slider, treat as tunable.</p></li>
+<li><p><strong>Slider bounds (as built):</strong> savgol window 3–101 odd; polyorder 1–5 and always &lt; window
+(enforced in code). Adaptive filters: base window 3–101 odd; adaptivity 0–3 (headroom past 1,
+where 1 tracks normalized local roughness and &gt;1 pushes more of the profile toward the heavy
+trace, per-point weight clipped to 1).</p></li>
+</ul>
+</section>
+<section id="advance-commit-model-as-built">
+<h3>Advance / commit model (as built)<a class="headerlink" href="#advance-commit-model-as-built" title="Link to this heading">#</a></h3>
+<p>A <strong>click always COMMITS a real MLD</strong> for the current (gpi, sensor, who), overwriting any prior
+value — in <strong>both</strong> modes. So a pick (marker + line + table row) <strong>persists when the User
+switches Active sensor and returns</strong>, which is the point: cross-sensor comparison with no extra
+clicks. The click marker uses the sensor color at the same size as the committed marker. The two
+modes differ only in what happens <em>after</em> the commit:</p>
+<ul class="simple">
+<li><p><strong>Stay on click (default):</strong> commit, then remain on the profile (click again to reposition —
+each reposition overwrites the same row).</p></li>
+<li><p><strong>Advance on click:</strong> commit, then advance to the next candidate.</p></li>
+</ul>
+<p><strong><code class="docutils literal notranslate"><span class="pre">&lt;Advance&gt;</span></code> button</strong> keys on the <strong>committed table state, not the transient marker</strong> (the
+marker is cleared by sensor switches / navigation while the committed row survives — the earlier
+bug was Advance overwriting a real pick with no-MLD because it consulted the marker). Behavior:</p>
+<ul class="simple">
+<li><p>a <strong>real MLD already committed</strong> for (gpi, sensor, who) → <strong>left untouched</strong>, just advance;</p></li>
+<li><p><strong>no real MLD</strong> (never clicked, or clicked then <code class="docutils literal notranslate"><span class="pre">&lt;Clear</span> <span class="pre">pick&gt;</span></code>) → record an explicit
+<strong>“no MLD recorded”</strong> and advance.</p></li>
+</ul>
+<p><strong><code class="docutils literal notranslate"><span class="pre">&lt;Clear</span> <span class="pre">pick&gt;</span></code></strong> resets the current profile’s active sensor to <strong>untouched</strong>: clears any
+pending marker and <strong>deletes the committed row</strong> for (gpi, sensor, who), so it re-registers as
+unlabeled (Fwd/Rev-to-Null will find it again).</p>
+<p><strong>Recording no-MLD</strong> (a necessary annotation — many profiles have no clear mixed layer): in Stay
+mode, either never click then <code class="docutils literal notranslate"><span class="pre">&lt;Advance&gt;</span></code>, or click then <code class="docutils literal notranslate"><span class="pre">&lt;Clear</span> <span class="pre">pick&gt;</span></code> then <code class="docutils literal notranslate"><span class="pre">&lt;Advance&gt;</span></code>.</p>
+<p><strong>Descent overlay (planned):</strong> a “Descent” button will overlay the descent trace for the current
+(sensor, gpi) as visual context for water-column stability/distortion. Context only — not pickable.
+Requires pre-sharded descent data; full design in <code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code>.</p>
+<ul class="simple">
+<li><p>A <strong>UI toggle</strong> (“Advance on click”) switches the two modes; default is <strong>Stay on click</strong>
+(toggle off).</p></li>
+</ul>
+</section>
+<section id="navigation">
+<h3>Navigation<a class="headerlink" href="#navigation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Standard next/previous through the candidate list.</p></li>
+<li><p><strong>Forward to Null / Reverse to Null:</strong> two dedicated buttons that jump to the next / previous
+candidate profile that has <strong>no recorded label for the currently active sensor by the current
+<code class="docutils literal notranslate"><span class="pre">who</span></code></strong>. Since the running tool only sees its own per-who file, “null” means “unlabeled by me” —
+each labeler fills their own gaps independently (no cross-machine coupling). Surfaces gaps so
+coverage for a given sensor can be filled efficiently.</p></li>
+</ul>
+</section>
+<section id="session-settings-persistence">
+<h3>Session settings persistence<a class="headerlink" href="#session-settings-persistence" title="Link to this heading">#</a></h3>
+<p>Active sensor, who-code, filter key, filter slider values, and both display states <strong>persist
+across advances</strong> (sticky session configuration). A labeler configures once and grinds.</p>
+</section>
+<section id="re-labeling">
+<h3>Re-labeling<a class="headerlink" href="#re-labeling" title="Link to this heading">#</a></h3>
+<p>Navigating back to an already-labeled (gpi, sensor, who) and clicking <strong>overwrites</strong> that row
+(one row per (gpi, sensor, who); <code class="docutils literal notranslate"><span class="pre">who</span></code> is fixed for the session, so within one file it reduces
+to (gpi, sensor)). A different sensor can be labeled on the same profile in a later interaction,
+adding a new row.</p>
+</section>
+<section id="the-who-code">
+<h3>The “who” code<a class="headerlink" href="#the-who-code" title="Link to this heading">#</a></h3>
+<p>Provenance of the labeler; set once via <code class="docutils literal notranslate"><span class="pre">--who</span></code> at launch (default <strong><code class="docutils literal notranslate"><span class="pre">C</span></code></strong> = Chuck); <strong>no UI control</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>code</p></th>
+<th class="head"><p>labeler</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+<td><p>TBD person</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p>Chuck (collaborator) — <strong>default</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">R</span></code></p></td>
+<td><p>Rob (project lead)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
+<td><p>TBD person</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Because each running tool instance writes only its own <code class="docutils literal notranslate"><span class="pre">who</span></code>, the <code class="docutils literal notranslate"><span class="pre">who</span></code> column is constant
+within a file — the value’s real purpose is disambiguating rows once per-who files are combined.</p>
+</section>
+</section>
+<section id="label-output-schema">
+<h2>3. Label output schema<a class="headerlink" href="#label-output-schema" title="Link to this heading">#</a></h2>
+<p><strong>One CSV per site per labeler</strong> at
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/mld_labels_&lt;site&gt;_&lt;who&gt;.csv</span></code> (create folder if absent).
+The label filename should also carry the candidate block tag (e.g.
+<code class="docutils literal notranslate"><span class="pre">mld_labels_&lt;site&gt;_block05_&lt;who&gt;.csv</span></code>) so a label set is traceable to the candidate set it
+was made against.
+Baking <code class="docutils literal notranslate"><span class="pre">who</span></code> into the filename means each running tool instance writes/overwrites <strong>only its own
+labeler’s file</strong> — no collision when Chuck and Rob work on separate computers and combine later.</p>
+<p><strong>Key = (gpi, sensor, who).</strong> Sparse: a sensor gets a row only when it is labeled (e.g. GPI 6000
+gets a temperature row when T is labeled; a salinity row is added below only when S is chosen).
+Re-labeling overwrites the matching (gpi, sensor, who) row. Since <code class="docutils literal notranslate"><span class="pre">who</span></code> is constant within a
+file, in-file this behaves as one row per (gpi, sensor); the <code class="docutils literal notranslate"><span class="pre">who</span></code> column keeps the combined
+multi-labeler table well-formed.</p>
+<section id="combining-agreement">
+<h3>Combining &amp; agreement<a class="headerlink" href="#combining-agreement" title="Link to this heading">#</a></h3>
+<p>Combine the per-who files with a simple <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code>. Because the key includes <code class="docutils literal notranslate"><span class="pre">who</span></code>, the merged
+table has one row per (gpi, sensor, who) — grouping by (gpi, sensor) then yields inter-annotator
+agreement (e.g. Chuck’s vs. Rob’s temperature MLD on the same profile), the core signal for
+training against a label distribution rather than a point estimate.</p>
+<p>Columns (structured; not a packed string):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>column</p></th>
+<th class="head"><p>meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">site</span></code></p></td>
+<td><p>2-letter site code</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpi</span></code></p></td>
+<td><p>global profile index</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span></code></p></td>
+<td><p>profile timestamp</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sensor</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code> / <code class="docutils literal notranslate"><span class="pre">salinity</span></code> / <code class="docutils literal notranslate"><span class="pre">density</span></code> / <code class="docutils literal notranslate"><span class="pre">dissolvedoxygen</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mld_depth</span></code></p></td>
+<td><p><strong>continuous click depth</strong> (interpolated, not snapped to a sample)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">value_raw</span></code></p></td>
+<td><p>raw file-data sensor value interpolated at <code class="docutils literal notranslate"><span class="pre">mld_depth</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value_filtered</span></code></p></td>
+<td><p>filtered-trace sensor value interpolated at <code class="docutils literal notranslate"><span class="pre">mld_depth</span></code> (equals <code class="docutils literal notranslate"><span class="pre">value_raw</span></code> when filter = None)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">who</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">A</span></code> / <code class="docutils literal notranslate"><span class="pre">C</span></code> / <code class="docutils literal notranslate"><span class="pre">R</span></code> / <code class="docutils literal notranslate"><span class="pre">X</span></code> (<code class="docutils literal notranslate"><span class="pre">C</span></code> = Chuck, default; <code class="docutils literal notranslate"><span class="pre">R</span></code> = Rob)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">filter_key</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code> / <code class="docutils literal notranslate"><span class="pre">savgol</span></code> / <code class="docutils literal notranslate"><span class="pre">adaptive_savgol_std</span></code> / <code class="docutils literal notranslate"><span class="pre">adaptive_savgol_mad</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">filter_p1</span></code>, <code class="docutils literal notranslate"><span class="pre">filter_p2</span></code></p></td>
+<td><p>structured filter slider settings (e.g. window, polyorder); empty when <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">no_mld_recorded</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> for an explicit “no MLD here” record (no depth); <code class="docutils literal notranslate"><span class="pre">mld_depth</span></code>/values empty</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reviewed_at</span></code></p></td>
+<td><p>UTC timestamp of the decision</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Both</strong> raw and filtered values are stored (per decision), so a label is interpretable
+regardless of the filter that was active.</p></li>
+<li><p>Depth is the continuous click depth; both values are interpolated at that depth.</p></li>
+</ul>
+</section>
+</section>
+<section id="conventions-honored">
+<h2>Conventions honored<a class="headerlink" href="#conventions-honored" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Standalone GUI uses <strong>TkAgg</strong> (genuinely interactive; needs a display) — contrast the headless
+<code class="docutils literal notranslate"><span class="pre">Agg</span></code> scripts. Requires <code class="docutils literal notranslate"><span class="pre">python3-tk</span></code>. See <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> steering §3.</p></li>
+<li><p>All data/paths via <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code>; outputs under <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/</span></code> (never in
+<code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>). Folder is created if missing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input()</span></code>-free (GUI), so the cloud-stdin convention doesn’t apply here.</p></li>
+</ul>
+</section>
+<section id="resolved-decisions-for-the-record">
+<h2>Resolved decisions (for the record)<a class="headerlink" href="#resolved-decisions-for-the-record" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Density trace = pp06 <code class="docutils literal notranslate"><span class="pre">density</span></code> shard</strong> (not gsw potential density σ₀; σ₀ deferred).</p></li>
+<li><p><strong>“No MLD recorded” = <code class="docutils literal notranslate"><span class="pre">no_mld_recorded</span></code> flag column</strong> (not an empty <code class="docutils literal notranslate"><span class="pre">mld_depth</span></code>).</p></li>
+<li><p><strong>Chuck’s who-code = <code class="docutils literal notranslate"><span class="pre">C</span></code></strong> (was <code class="docutils literal notranslate"><span class="pre">I</span></code>; changed for readability); default <code class="docutils literal notranslate"><span class="pre">--who</span></code> = <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></li>
+<li><p><strong>Four filters</strong> including both σ- and MAD-based adaptive savgol (see filter table).</p></li>
+</ul>
+</section>
+<section id="open-deferred-items">
+<h2>Open / deferred items<a class="headerlink" href="#open-deferred-items" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Exact adaptive local-roughness → window mapping, shared by <code class="docutils literal notranslate"><span class="pre">adaptive_savgol_std</span></code> and
+<code class="docutils literal notranslate"><span class="pre">adaptive_savgol_mad</span></code> (default proposed; tunable).</p></li>
+<li><p>Final savgol slider ranges/defaults (proposed above; confirm at build).</p></li>
+<li><p>Whether a combined all-sites label file is ever needed (per-site is primary; easy to
+concatenate later).</p></li>
+</ul>
+</section>
+<section id="implementation-status">
+<h2>Implementation status<a class="headerlink" href="#implementation-status" title="Link to this heading">#</a></h2>
+<p>Both programs are built and committed in the repo root. <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> produces the
+per-site block candidate lists (working copies under
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/</span></code>, blessed copies committed to <code class="docutils literal notranslate"><span class="pre">~/argosy/mld_candidates/</span></code>);
+<code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> reads the blessed lists and writes labels to
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/mld_labels_&lt;site&gt;_&lt;who&gt;.csv</span></code>.</p>
+</section>
+<section id="collaborator-setup-running-mld-py-on-another-machine">
+<h2>Collaborator setup (running <a class="reference external" href="http://MLD.py">MLD.py</a> on another machine)<a class="headerlink" href="#collaborator-setup-running-mld-py-on-another-machine" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> needs a small subset of the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> env, so a portable minimal spec is provided as
+<strong><code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code></strong> (NOT the full <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> snapshot, which is pinned to exact
+Linux build hashes for Rob’s machine and carries hundreds of unrelated packages — see the
+“environment sprawl” entry in <code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code> → Open Topics). Dependencies: <code class="docutils literal notranslate"><span class="pre">numpy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, <code class="docutils literal notranslate"><span class="pre">netcdf4</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">tk</span></code> on <code class="docutils literal notranslate"><span class="pre">python=3.11</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w">                                   </span><span class="c1"># get MLD.py, environment-mld.yml, mld_candidates/</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment-mld.yml<span class="w">    </span><span class="c1"># creates a conda env named &quot;argosy&quot;</span>
+conda<span class="w"> </span>activate<span class="w"> </span>argosy
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-tk<span class="w">                </span><span class="c1"># OS Tk bindings for the TkAgg GUI (WSL/Debian/Ubuntu)</span>
+python<span class="w"> </span>MLD.py<span class="w"> </span>--site<span class="w"> </span>sb<span class="w"> </span>--who<span class="w"> </span>C<span class="w">            </span><span class="c1"># C = Chuck (default); see MLD.py header for switches</span>
+</pre></div>
+</div>
+<p>Caveats: TkAgg needs a working display (an X server under WSL2) — headless will not work
+(see <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> §3). The tool reads the <strong>blessed</strong> candidate lists in
+<code class="docutils literal notranslate"><span class="pre">~/argosy/mld_candidates/</span></code>, which is what guarantees Chuck and Rob label the same profiles.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preselectprofiles-py-candidate-selection">1. PreSelectProfiles.py — candidate selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method">Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-working-copy-blessed-shared-copy">Output (working copy + blessed shared copy)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-py-interactive-annotation-tool">2. MLD.py — interactive annotation tool</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invocation">Invocation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display">Display</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#two-binary-display-states">Two binary display states</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filters">Filters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advance-commit-model-as-built">Advance / commit model (as built)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation">Navigation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-settings-persistence">Session settings persistence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#re-labeling">Re-labeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-who-code">The “who” code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-output-schema">3. Label output schema</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-agreement">Combining &amp; agreement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions-honored">Conventions honored</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolved-decisions-for-the-record">Resolved decisions (for the record)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-deferred-items">Open / deferred items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-status">Implementation status</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collaborator-setup-running-mld-py-on-another-machine">Collaborator setup (running MLD.py on another machine)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

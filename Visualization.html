@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Analysis" href="Analysis.html" />
-    <link rel="prev" title="DataOps" href="DataOps.html" />
+    <link rel="prev" title="Mixed Layer Depth" href="chapters/MLD.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,7 +179,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
@@ -198,8 +198,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="current nav bd-sidenav">
@@ -531,7 +533,7 @@ sensor 2 has range 32 to 34; chart second x-axis has range 30 to 34 to right-jus
 <li><p>This code will run in a Jupyter cell</p></li>
 <li><p>The input questions take on the default value if the User just hits Enter.</p>
 <ul>
-<li><p>Start by asking “Include TMLD estimate in the visualization? Default is no. [y/n]”</p></li>
+<li><p>Start by asking “Include MLD markers in the visualization? Default is no. [y/n]” (MLD values come from the human-labeled MLD dataset — see the MLD annotation suite, <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code>)</p></li>
 <li><p>Then ask “How many profiles in the bundle? Default is 18 (two days)” refer to this as N</p></li>
 <li><p>Then ask “How many seconds delay between frames? (0.1 sec):” refer to this as d</p></li>
 <li><p>Then ask “Start date (default 01-JAN-2018):” refer to this as T0</p></li>
@@ -545,7 +547,7 @@ sensor 2 has range 32 to 34; chart second x-axis has range 30 to 34 to right-jus
 <li><p>The horizontal axis is fixed at 7 deg C to 19 deg C, does not change from one frame to another</p></li>
 <li><p>The vertical axis is fixed as before from 200 meters to 0 meters</p></li>
 <li><p>Show N profiles per frame of the animation</p></li>
-<li><p>For a given profile: If the TMLD option is selected but there is no value for the TMLD in the CSV file: Omit adding that marker.</p></li>
+<li><p>For a given profile: If the MLD option is selected but there is no MLD label for that profile: Omit adding that marker.</p></li>
 <li><p>If possible: Add in a ‘hold time’ per frame of d seconds</p></li>
 <li><p>If a time gap &gt; 48 hours exists between any two consecutive profiles in a given bundle/frame:</p>
 <ul>
@@ -681,12 +683,12 @@ during standard time and -7 hours during daylight savings.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="DataOps.html"
+       href="chapters/MLD.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">DataOps</p>
+        <p class="prev-next-title">Mixed Layer Depth</p>
       </div>
     </a>
     <a class="right-next"

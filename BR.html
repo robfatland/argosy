@@ -1,0 +1,1005 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BR — Bicameral Redesign (September 2026) &#8212; Argosy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'BR';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Argosy - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Argosy - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Argosy: Ocean Data Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOIFAQandGeneralInfoSummary.html"><strong>OOIFB- DSC Summary</strong> (What are the roles of the OOIFB and DSC? How do these groups inform NSF OOI practices?)</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="SensorTable.html">Sensor Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SETUP.html">Argosy Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Visualization.html">Visualization Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpectralGraphAnalysis.html">Spectral Graph Analysis (SGA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalWaves.html">Internal Waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TidalAnalysis.html">Tidal Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ColumbiaPlumePlan.html">Columbia River Plume Detection Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Umbrella.html">Umbrella</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CodeManifest.html">Code Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OOINETSlopeBaseDataStatus.html">OOINET Slope Base Scalar Data Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bibliography.html">Bibliography</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters (executable notebooks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataDownload.html">Data Download</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chapters/DataSharding.html">Shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MidnightNoon.html">Midnight and Noon Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Visualizations.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/SpectralGraphAnalysis.html">Spectral Graph Analysis SGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/StubWork.html">Stub Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FBR.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/BR.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>BR — Bicameral Redesign (September 2026)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-br-is">What BR is</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-the-done-criteria-for-br">Goals (the “done” criteria for BR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-goals-constraints">Non-goals / constraints</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bicameral-model-the-two-chambers">Bicameral model (the two chambers)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-tenet-where-do-the-components-go-laptop-vs-cloud-vs-web">Design tenet: where do the components go? (laptop vs cloud vs web)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descent-data-recovery-design-topic-applies-the-cloud-vs-laptop-tenet">Descent-data recovery (design topic — applies the cloud-vs-laptop tenet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-question-raised-this-session-where-does-visqc-cline-work-live">Central question raised this session: where does VisQC / cline work live?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-iw-inventory-classified">Current <code class="docutils literal notranslate"><span class="pre">iw/</span></code> inventory (classified)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-set-for-the-phase-1-qc-code-location-not-yet-decided">Option set for the Phase-1 QC code location (NOT YET DECIDED)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pp07-question-needs-a-definition-before-building">The pp07 question (needs a definition before building)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-the-phase-2-internal-wave-files-go">Where do the Phase-2 internal-wave files go?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-1-code-that-grew-inside-the-jupyter-book-audit-pending">Phase-1 code that grew inside the Jupyter Book (audit pending)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-time-range-hardening-cross-cutting">Default time-range hardening (cross-cutting)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-track-does-not-wait-on-br">Parallel track (does NOT wait on BR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-questions-to-resolve-running-list">Open questions to resolve (running list)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-orphans-repo-scan-2026-09-07">Possible orphans (repo scan, 2026-09-07)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-log-br-deliberation">Change log (BR deliberation)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-topic-signoffqc-standalone-scalar-sign-off-tool-decided-building">Design topic: SignoffQC — standalone scalar sign-off tool (DECIDED, building)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-topic-notebook-bundle-explorer-local-s3-source-switch-design">Design topic: notebook bundle explorer — Local/S3 source switch (DESIGN)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="br-bicameral-redesign-september-2026">
+<h1>BR — Bicameral Redesign (September 2026)<a class="headerlink" href="#br-bicameral-redesign-september-2026" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Status: DESIGN / DELIBERATION. No file moves, renames, new folders, or rewrites yet.</strong>
+This document thinks through options and tradeoffs first, then converges on a plan.
+Implementation happens only after the plan below is settled and explicitly approved.</p>
+</div></blockquote>
+<section id="what-br-is">
+<h2>What BR is<a class="headerlink" href="#what-br-is" title="Link to this heading">#</a></h2>
+<p>BR is the <strong>Bicameral Redesign</strong>, a September 2026 fix-up of Argosy. “Bicameral” alludes to
+Argosy’s two-chamber nature: the <strong>Jupyter Book</strong> (the science narrative, reader-facing) and
+the <strong>working data-analysis environment</strong> (code + data that produce results). The redesign
+aims to make that dichotomy clean and legible instead of tangled by organic growth.</p>
+<p>It serves two personae in particular:</p>
+<ul class="simple">
+<li><p><strong>Arthur</strong> (science reader) — sees the Book. Should encounter Phase 2 analysis, not pipeline plumbing.</p></li>
+<li><p><strong>Chuck</strong> (collaborator) — works the machinery. Needs the pipeline and analysis code cleanly separated and discoverable.</p></li>
+</ul>
+</section>
+<section id="goals-the-done-criteria-for-br">
+<h2>Goals (the “done” criteria for BR)<a class="headerlink" href="#goals-the-done-criteria-for-br" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Phase separation is physical, not just conceptual.</strong> Phase 1 (pipeline) code and Phase 2
+(analysis) code live in clearly distinct, self-describing locations.</p></li>
+<li><p><strong>The Book contains Phase 2, and (almost) no Phase 1.</strong> Phase-1 code that grew inside Book
+notebooks is identified and moved out (or demoted to repo-only working notebooks).</p></li>
+<li><p><strong>Default time range is 2014–2026 (soon 2027) and runs without hanging.</strong> No hardcoded
+narrow windows (e.g. the leftover 2024 defaults); year ranges derive from data or config.</p></li>
+<li><p><strong>Everything conforms to the per-site data restructure</strong> (<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/...</span></code>, all paths via
+<code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code>, 2-letter site codes, no <code class="docutils literal notranslate"><span class="pre">slopebase</span></code>-style legacy tokens).</p></li>
+<li><p>Redesign supports Arthur (Book) and Chuck (machinery) reading paths without friction.</p></li>
+</ol>
+</section>
+<section id="non-goals-constraints">
+<h2>Non-goals / constraints<a class="headerlink" href="#non-goals-constraints" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Not a science-methods change: the physics/QC logic stays; this is about <strong>organization</strong>.</p></li>
+<li><p>Must not break the AB run happening in parallel (see “Parallel track” below).</p></li>
+<li><p>Follow the project rule: don’t move data into <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>; generated data → <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code>.</p></li>
+</ul>
+</section>
+<section id="bicameral-model-the-two-chambers">
+<h2>Bicameral model (the two chambers)<a class="headerlink" href="#bicameral-model-the-two-chambers" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Chamber A: Jupyter Book</p></th>
+<th class="head"><p>Chamber B: Working environment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Audience</p></td>
+<td><p>Arthur (reader), Maggie (oversight)</p></td>
+<td><p>Chuck (collaborator), the pipeline itself</p></td>
+</tr>
+<tr class="row-odd"><td><p>Content</p></td>
+<td><p>Phase 2 analysis, narrative, figures</p></td>
+<td><p>Phase 1 pipeline, QC, data production</p></td>
+</tr>
+<tr class="row-even"><td><p>In <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>?</p></td>
+<td><p>Yes</p></td>
+<td><p>No (repo-only)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Examples</p></td>
+<td><p>internal-wave analysis, SGA, tidal, plume</p></td>
+<td><p>download/shard/pp/VisQC, ooipaths</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Phase 1</strong> = the data pipeline that produces analysis-ready datasets <strong>and metadata</strong>
+(download → shard → pp05 → pp06 → <strong>pp07/VisQC</strong>). Tends NOT to appear in the Book.
+<strong>Phase 2</strong> = analysis on those datasets (internal wave amplitude/speed, SGA, tidal, plume).
+SHOULD appear in the Book.</p>
+</section>
+<section id="design-tenet-where-do-the-components-go-laptop-vs-cloud-vs-web">
+<h2>Design tenet: where do the components go? (laptop vs cloud vs web)<a class="headerlink" href="#design-tenet-where-do-the-components-go-laptop-vs-cloud-vs-web" title="Link to this heading">#</a></h2>
+<p>Argosy is a reasonably complex project with many moving parts, so the recurring question is
+“where does each component go?” The guiding placement map:</p>
+<ul class="simple">
+<li><p><strong>The Argosy repo</strong> holds the Jupyter Book AND the computational code (sorted within it).</p></li>
+<li><p><strong>The data</strong> lives in the <code class="docutils literal notranslate"><span class="pre">ooi/</span></code> directory, kept SEPARATE from <code class="docutils literal notranslate"><span class="pre">argosy/</span></code>.</p></li>
+<li><p><strong>The data is backed up on S3 object storage.</strong> Once backed up:</p>
+<ul>
+<li><p>high-volume, low-touch data is DELETED from localhost as superfluous (reclaim disk);</p></li>
+<li><p>some S3 content is kept in a collaborative/shared state — no cost to download.</p></li>
+</ul>
+</li>
+<li><p><strong>The localhost machine (laptop etc.) is for EDITING and ORCHESTRATION</strong> — of both the Book
+and the computation. It is NOT where heavy data-touching computation should happen.</p></li>
+<li><p><strong>Actual computation should be relegated to the cloud when doing so makes sense.</strong> For any new
+data task the question to ask FIRST is: <em>“Is this a cloud task?”</em> (Compute goes to the data,
+which lives in S3 — not the other way around. Getting AWAY from “pull the data to the laptop
+and work on it locally” is an explicit goal.)</p></li>
+<li><p><strong>Other components live elsewhere on the web:</strong></p>
+<ul>
+<li><p><strong>GitHub</strong> — the safe master copy of the repo (localhost + EC2 are clones).</p></li>
+<li><p><strong>Zenodo / similar</strong> — archival + open-science / DOI use.</p></li>
+<li><p><strong>Published Jupyter Book</strong> — the reader-facing site (GitHub Pages).</p></li>
+<li><p><strong>Published AGU26 poster</strong> — reached via QR code.</p></li>
+</ul>
+</li>
+</ul>
+<p>Consequence for design decisions (e.g. descent-data recovery, VisQC pp07 production): prefer
+cloud-side compute against the S3-resident raw/redux/pp data over pulling large files to the
+laptop. See “Descent-data recovery” below for a worked example of applying this tenet.</p>
+</section>
+<section id="descent-data-recovery-design-topic-applies-the-cloud-vs-laptop-tenet">
+<h2>Descent-data recovery (design topic — applies the cloud-vs-laptop tenet)<a class="headerlink" href="#descent-data-recovery-design-topic-applies-the-cloud-vs-laptop-tenet" title="Link to this heading">#</a></h2>
+<p>Motivation: temperature (and other ascent-only sensors) on DESCENT is useful as a comparison
+with ascent. Mechanism (confirmed correct against <code class="docutils literal notranslate"><span class="pre">shard.py</span></code>): descent is just the OTHER
+time-window slice of the SAME source file — <code class="docutils literal notranslate"><span class="pre">peak</span> <span class="pre">→</span> <span class="pre">end</span></code> instead of <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">→</span> <span class="pre">peak</span></code>, using the
+profileIndices <code class="docutils literal notranslate"><span class="pre">peak</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code> timestamps for a GPI. The sharder ALREADY does this for pH/pCO2
+(direction=”descent” in SENSOR_MAP), so producing descent temperature is a naming/where-to-run
+decision, not new physics.</p>
+<p>Naming problem: current shard name <code class="docutils literal notranslate"><span class="pre">RCA_&lt;site&gt;_sp_&lt;sensor&gt;_&lt;yyyy&gt;_&lt;ddd&gt;_&lt;gpi&gt;_&lt;daily&gt;_V1.nc</span></code> has
+no direction token, so ascent + descent temperature would collide. Options: sensor-name token
+(<code class="docutils literal notranslate"><span class="pre">temperature_desc</span></code>), a direction field in the filename, or a separate redux subtree.</p>
+<p>Where to run it (the “is this a cloud task?” question — YES, the raw is in S3):</p>
+<ol class="arabic simple">
+<li><p><strong>Lambda, per-request descent shard</strong> — serverless, on-demand. CAVEAT: CTD source files are
+~500 MB each; Lambda /tmp up to 10 GB fits one, but memory + 15-min limit make multi-file /
+many-GPI requests marginal. Best for occasional/interactive “give me descent for GPI X”.</p></li>
+<li><p><strong>Lambda + prebuilt index</strong> (GPI → source file + byte range) so it does a cheap S3 byte-range
+read instead of scanning 500 MB. More setup, much faster/cheaper per call.</p></li>
+<li><p><strong>Bulk pass on the ephemeral EC2 box</strong> — add a <code class="docutils literal notranslate"><span class="pre">descent</span></code> direction to <code class="docutils literal notranslate"><span class="pre">shard.py</span></code>’s SENSOR_MAP,
+run as one more pipeline stage while the box is up, sync descent shards to S3. Best if descent
+is a STANDARD Phase-1 product rather than ad-hoc. No new service; reuses existing machinery.</p></li>
+<li><p><strong>AWS Batch / Fargate</strong> for the bulk case without a persistent box.</p></li>
+</ol>
+<p>Underlying decision = <strong>on-demand vs bulk</strong>. Bulk-standard → Option 3 (simplest, cheapest, cloud-
+side). Genuinely ad-hoc → Option 1/2 (Lambda + S3 byte-range).</p>
+<p><strong>RESOLVED (2026-09-19): Option 3 (bulk pass on ephemeral EC2), NOT Lambda.</strong> Rationale: descent
+is a standard Phase-1 product; per-request Lambda would re-read whole ~500 MB source files per
+click, whereas a one-time bulk pass reads each source once. Naming decided: parallel
+<code class="docutils literal notranslate"><span class="pre">redux_descent/&lt;yyyy&gt;</span></code> tree + <code class="docutils literal notranslate"><span class="pre">V1D</span></code> version token (double delineation; ascent tree untouched);
+<code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> gains a <code class="docutils literal notranslate"><span class="pre">direction</span></code> concept. Scope: the 8 HSD sensors only (no nitrate; pCO2/pH already
+descent). redux_descent → pp06_descent with the same filter settings (apples-to-apples baseline).
+Pause-interval (indices 4 &amp; 9) precision deferred to post-pp06. Full spec: <strong><code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code></strong>.</p>
+</section>
+<section id="central-question-raised-this-session-where-does-visqc-cline-work-live">
+<h2>Central question raised this session: where does VisQC / cline work live?<a class="headerlink" href="#central-question-raised-this-session-where-does-visqc-cline-work-live" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">iw/</span></code> folder currently MIXES both phases (inventory below). The user proposes:</p>
+<ul class="simple">
+<li><p><strong>VisQC is a good Phase-1 process name</strong>, with two outputs:</p>
+<ol class="arabic simple">
+<li><p>a <strong>pp07</strong> version of the shard data (by site and year) — human-QC-corrected shards;</p></li>
+<li><p>a <strong>metadata file, one line per profile</strong>, describing clines + N² + MLD.</p></li>
+</ol>
+</li>
+<li><p>Open question: should this Phase-1 QC work get its <strong>own dedicated directory</strong>, or go into
+<strong><code class="docutils literal notranslate"><span class="pre">~/argosy/pipeline/</span></code></strong> (alongside <a class="reference external" href="http://download.py">download.py</a> / <a class="reference external" href="http://shard.py">shard.py</a> / run_pipeline.sh)?</p></li>
+</ul>
+<section id="current-iw-inventory-classified">
+<h3>Current <code class="docutils literal notranslate"><span class="pre">iw/</span></code> inventory (classified)<a class="headerlink" href="#current-iw-inventory-classified" title="Link to this heading">#</a></h3>
+<p>Phase 1 (pipeline/QC — operate on pp06 to produce metadata / planned pp07):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code> — batch: pp06 → per-profile cline depths/strengths/thickness, N²(max/depth),
+MLD, σ₀; writes <code class="docutils literal notranslate"><span class="pre">metadata/features/cline_extract_&lt;site&gt;.csv</span></code>. (This IS the “one line per
+profile” metadata the user describes for VisQC output #2.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cline_plot.py</span></code> — time-series viewer of the cline_extract CSV (dual-mode after this session).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VisQCInspector.py</span></code> — interactive human QC over pp06 (two-panel GUI + Accept/Correct/Discard
+→ <code class="docutils literal notranslate"><span class="pre">metadata/annotations/visqc_visitation_&lt;site&gt;.csv</span></code>).</p></li>
+</ul>
+<p>Phase 2 (analysis/theory — Book-facing):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">internal_wave.py</span></code> — idealized westward internal-wave animation (→ mp4).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">internal_wave_physics.py</span></code> — stream-function physics (incompressible displacement field).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TestInternalWaveIncompressibility.py</span></code> — area-conservation test of that physics.</p></li>
+</ul>
+<p>So <code class="docutils literal notranslate"><span class="pre">iw/</span></code> = “internal waves” but has accreted the Phase-1 cline/QC toolchain that merely
+<em>feeds</em> internal-wave analysis. That is the mess to untangle.</p>
+</section>
+<section id="option-set-for-the-phase-1-qc-code-location-not-yet-decided">
+<h3>Option set for the Phase-1 QC code location (NOT YET DECIDED)<a class="headerlink" href="#option-set-for-the-phase-1-qc-code-location-not-yet-decided" title="Link to this heading">#</a></h3>
+<p><strong>Option 1 — Fold into <code class="docutils literal notranslate"><span class="pre">~/argosy/pipeline/</span></code>.</strong></p>
+<ul class="simple">
+<li><p>Pro: one home for all Phase-1 code; matches the mental model “pipeline = Phase 1”; run_pipeline
+could eventually call cline_extract as a pp-adjacent step.</p></li>
+<li><p>Con: <code class="docutils literal notranslate"><span class="pre">pipeline/</span></code> so far is batch/headless/cloud-run (download/shard/pp). VisQCInspector is an
+interactive local GUI — a different beast. Mixing batch and GUI in one folder may re-blur things.</p></li>
+</ul>
+<p><strong>Option 2 — A dedicated Phase-1 QC folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/argosy/visqc/</span></code> or <code class="docutils literal notranslate"><span class="pre">~/argosy/qc/</span></code>).</strong></p>
+<ul class="simple">
+<li><p>Pro: names the process the user likes (“VisQC”); keeps interactive QC distinct from the
+headless pipeline; clear home for Inspector + Corrector + cline_extract + cline_plot.</p></li>
+<li><p>Con: a third code folder to know about; need to decide what counts as “QC” vs “pipeline.”</p></li>
+</ul>
+<p><strong>Option 3 — Split by execution mode, not just phase:</strong> batch pp-producers (cline_extract) into
+<code class="docutils literal notranslate"><span class="pre">pipeline/</span></code>; interactive tools (VisQCInspector, cline_plot) into a <code class="docutils literal notranslate"><span class="pre">visqc/</span></code> or <code class="docutils literal notranslate"><span class="pre">tools/</span></code> folder.</p>
+<ul class="simple">
+<li><p>Pro: respects the batch-vs-interactive distinction that Option 1’s con exposes.</p></li>
+<li><p>Con: cline_extract and its viewer/inspector get separated, though they’re a tight family.</p></li>
+</ul>
+<p><strong>DECIDED (2026-09-07): Option 2 — a dedicated <code class="docutils literal notranslate"><span class="pre">~/argosy/visqc/</span></code> directory</strong> for the 0607 task.
+Rationale from the user: do NOT muddy <code class="docutils literal notranslate"><span class="pre">~/argosy/pipeline/</span></code> (which is headless/batch/cloud) with
+the interactive VisQC work. The <code class="docutils literal notranslate"><span class="pre">visqc/</span></code> folder holds the cline/QC family (cline_extract,
+cline_plot, VisQCInspector, future VisQCCorrector). The three Phase-2 internal-wave files move to
+a Phase-2 analysis home (see below). Keeps “VisQC = Phase-1 process producing pp07 + per-profile
+metadata” intact and unmixed. (Still open: whether the folder should be named <code class="docutils literal notranslate"><span class="pre">visqc/</span></code> given
+cline_extract isn’t strictly “visual” — see open question 5; but <code class="docutils literal notranslate"><span class="pre">visqc/</span></code> is the working choice.)</p>
+</section>
+<section id="the-pp07-question-needs-a-definition-before-building">
+<h3>The pp07 question (needs a definition before building)<a class="headerlink" href="#the-pp07-question-needs-a-definition-before-building" title="Link to this heading">#</a></h3>
+<p>pp07 is referenced as the deferred “human-corrected shards” output (<a class="reference external" href="http://VisQC.md">VisQC.md</a>, <a class="reference external" href="http://Analysis.md">Analysis.md</a>’s
+<code class="docutils literal notranslate"><span class="pre">pp05</span> <span class="pre">&gt;</span> <span class="pre">pp06</span> <span class="pre">&gt;</span> <span class="pre">pp07</span></code>). BR should NAIL DOWN:</p>
+<ul class="simple">
+<li><p>Is pp07 a full re-shard, or a filtered/annotated copy of pp06 (like filter2/filter3)? (Prior
+finding: filters read pp06, not redux — pp07 likely follows.)</p></li>
+<li><p>Layout: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/postproc/pp07/&lt;yyyy&gt;/</span></code> (consistent with pp06). Confirm.</p></li>
+<li><p>Who writes it: the planned <code class="docutils literal notranslate"><span class="pre">VisQCCorrector.py</span></code> (Stage 2), consuming the visitation CSV +
+cline_extract + pp06.</p></li>
+</ul>
+</section>
+</section>
+<section id="where-do-the-phase-2-internal-wave-files-go">
+<h2>Where do the Phase-2 internal-wave files go?<a class="headerlink" href="#where-do-the-phase-2-internal-wave-files-go" title="Link to this heading">#</a></h2>
+<p>Candidates: a <code class="docutils literal notranslate"><span class="pre">~/argosy/analysis/</span></code> or <code class="docutils literal notranslate"><span class="pre">~/argosy/iw/</span></code> (kept, but Phase-2-only after the cline/QC
+family moves out). The Book chapter <code class="docutils literal notranslate"><span class="pre">InternalWaves.ipynb</span></code> is the Phase-2 narrative that should
+consume these. Decide alongside the SGA/tidal/plume folders (are those already organized by
+phase? — audit pending).</p>
+</section>
+<section id="phase-1-code-that-grew-inside-the-jupyter-book-audit-pending">
+<h2>Phase-1 code that grew inside the Jupyter Book (audit pending)<a class="headerlink" href="#phase-1-code-that-grew-inside-the-jupyter-book-audit-pending" title="Link to this heading">#</a></h2>
+<p>Book notebooks (<code class="docutils literal notranslate"><span class="pre">chapters/</span></code>) currently include: DataDownload, DataSharding, MidnightNoon,
+Visualizations, SpectralGraphAnalysis, StubWork. Of these, <strong>DataDownload</strong> and <strong>DataSharding</strong>
+are Phase-1 pipeline steps living in Book space. BR should decide:</p>
+<ul class="simple">
+<li><p>Move them out of the Book (repo-only notebooks, or supersede by <code class="docutils literal notranslate"><span class="pre">pipeline/download.py</span></code> +
+<code class="docutils literal notranslate"><span class="pre">pipeline/shard.py</span></code> which already exist)?</p></li>
+<li><p>The SessionState already flags “thin DataDownload/DataSharding to call pipeline/ modules” —
+BR is the natural place to resolve that.</p></li>
+<li><p>MidnightNoon / Visualizations: Phase-1 or Phase-2? (Visualization feeds analysis; midnight/noon
+is profile classification metadata = arguably Phase 1.) Audit + classify each chapter.</p></li>
+</ul>
+</section>
+<section id="default-time-range-hardening-cross-cutting">
+<h2>Default time-range hardening (cross-cutting)<a class="headerlink" href="#default-time-range-hardening-cross-cutting" title="Link to this heading">#</a></h2>
+<p>Leftover narrow defaults to purge (found so far):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VisQCInspector.py</span></code>: default start 2024-01-01 (now env-overridable, but 2024 is the default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cline_plot.py</span></code>: FIXED this session (now full data span).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code>: START_YEAR/END_YEAR = 2015/2025 — should be 2014–2026 (→2027).
+BR guideline: year ranges come from the data present or explicit config, spanning 2014–2026+,
+and long runs must not hang.</p></li>
+</ul>
+</section>
+<section id="parallel-track-does-not-wait-on-br">
+<h2>Parallel track (does NOT wait on BR)<a class="headerlink" href="#parallel-track-does-not-wait-on-br" title="Link to this heading">#</a></h2>
+<p>AB data is on order from OOINET (node SF03A, RS03AXPS, start 2014-12-01, <strong>includes pCO2</strong>).
+When the staging URLs arrive: git commit-sweep → <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code> → <code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span> <span class="pre">ab</span> <span class="pre">all</span></code> →
+verify S3 → <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>. See SessionState “NEXT SITE = ab” checklist. BR design work proceeds
+in parallel and should not block (or be blocked by) the AB run.</p>
+</section>
+<section id="open-questions-to-resolve-running-list">
+<h2>Open questions to resolve (running list)<a class="headerlink" href="#open-questions-to-resolve-running-list" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>[DECIDED] VisQC/cline code location: <strong><code class="docutils literal notranslate"><span class="pre">~/argosy/visqc/</span></code></strong> (Option 2). Don’t muddy <code class="docutils literal notranslate"><span class="pre">pipeline/</span></code>.</p></li>
+<li><p>[PARKED — needs data review in the Vis notebook] Define pp07 precisely (re-shard vs filtered
+copy of pp06; who writes it; layout <code class="docutils literal notranslate"><span class="pre">postproc/pp07/&lt;yyyy&gt;/</span></code>?).</p></li>
+<li><p>[PARKED — undecided; remind user] Phase-2 internal-wave file home; reconcile with SGA/tidal/
+plume folder organization.</p></li>
+<li><p>[DECIDED] <code class="docutils literal notranslate"><span class="pre">chapters/</span></code> classification: <strong>MidnightNoon OUT</strong> of Book (Phase-1 profile class.);
+<strong>Visualizations STAYS</strong> in Book (Phase-2); <strong>DataDownload OUT</strong>, <strong>DataSharding OUT</strong> (Phase-1,
+superseded by pipeline/download.py + pipeline/shard.py). SpectralGraphAnalysis stays (Phase-2);
+StubWork = scratch (TBD).</p></li>
+<li><p>[DECIDED] Folder is <strong><code class="docutils literal notranslate"><span class="pre">visqc/</span></code></strong> and it DOES house cline_extract + cline_plot (“part and
+parcel”), not only the visual inspector. There is NO separate <code class="docutils literal notranslate"><span class="pre">qc/</span></code>.</p></li>
+<li><p>[OPEN] How much of this is reversible/low-risk vs. needs care (git-tracked moves, import updates).</p></li>
+<li><p>[RESOLVED 2026-09-19] Descent-data recovery: <strong>bulk <a class="reference external" href="http://shard.py">shard.py</a> descent pass on the ephemeral box</strong>
+(not Lambda). Naming = parallel <code class="docutils literal notranslate"><span class="pre">redux_descent/&lt;yyyy&gt;</span></code> tree + <code class="docutils literal notranslate"><span class="pre">V1D</span></code> token. Full spec in
+<strong><code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code></strong>. See “Descent-data recovery” above.</p></li>
+<li><p>[OPEN] <strong>Which data products should be free to download from S3, and how bundled?</strong> Currently
+ONLY pp06 is public (all 3 sites, <code class="docutils literal notranslate"><span class="pre">&lt;site&gt;/postproc/pp06/*</span></code>, ~46 GB total). Candidates for future
+public release: pp07 (once defined), the per-profile cline/N²/MLD metadata, noon/midnight subsets
+(pp01/pp02), tidal_constituents.json, etc. Open: what belongs in the public set, and should
+related products be BUNDLED (e.g. a single downloadable release / Zenodo archive) rather than
+loose prefixes? Egress is owner-billed, so scope deliberately. Steering rule now requires ASKING
+the human before making any new dataset public. See <code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code> → “Relationship to the S3
+public bucket” for the S3-live-vs-Zenodo-durable framing and the deposit plan (all 3 sites,
+~46 GB, within Zenodo’s ~50 GB limit).</p>
+<p><strong>Safety assessment of the public pp06 policy (2026-09-07):</strong></p>
+<ul class="simple">
+<li><p>DEMONSTRABLY SAFE on the SECURITY surface: grants only GetObject + ListBucket on the pp06
+prefixes — no Put/Delete/config, so no tamper/ransom/upload-cost path. Scope is prefix-limited
+(redux, pp01/02/05, metadata, 204 GB ooinet all private — verified). Data is non-sensitive
+derived measurements (no PII/creds). “Use outside intent” = unintended VOLUME, not unintended
+access; open scientific reuse is fine.</p></li>
+<li><p>NOT demonstrably safe on the COST surface: public GetObject egress is UNBOUNDED in principle.
+~<span class="math notranslate nohighlight">\(4.14 per full 3-site pull (46 GB × \)</span>0.09/GB), but no rate limit, no cap, no requester auth —
+a bot/scraper/loop could run the bill arbitrarily high. ListBucket makes contents enumerable,
+easing both legit reuse and abuse. So: bounded surface + low expected cost, but unbounded
+worst-case bill. NOT “demonstrably safe” in the cost sense.</p></li>
+<li><p>Mitigations (in increasing effort): AWS Budgets alarm (smoke detector — alerts, doesn’t
+prevent; DOING NOW at $25 ≈ ~5 downloads) → CloudFront+WAF rate-limit → Requester Pays (needs
+downloader AWS acct, kills frictionless access) → publish the fixed pp06 set via ZENODO instead
+of live public S3 (offloads hosting+egress to an open-data service; likely the right long-term
+home per the “where do components go?” tenet). LEANING: keep S3 public-read for now WITH a
+budget alarm + a manual kill switch, migrate to Zenodo for the durable public release.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="possible-orphans-repo-scan-2026-09-07">
+<h2>Possible orphans (repo scan, 2026-09-07)<a class="headerlink" href="#possible-orphans-repo-scan-2026-09-07" title="Link to this heading">#</a></h2>
+<p>Scan scope: <code class="docutils literal notranslate"><span class="pre">~/argosy</span></code> code + docs only (not the <code class="docutils literal notranslate"><span class="pre">~/ooi</span></code> data tree). “Orphan” = no textual
+reference in .py/.md/.ipynb/.yml/.sh.</p>
+<p><strong>Deleted this session (user-approved):</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ctd_coverage.png</span></code>, <code class="docutils literal notranslate"><span class="pre">ctd_minimum_cover.png</span></code> — raw-OOINET-overlap visuals produced by
+DataDownload/DataSharding; stray at repo root (generated images belong in
+<code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/visualizations/</span></code>). Notebook code that made them is not a concern.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vbeamatten.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vcurrent.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vopticalabsorb.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">vspectralirr.csv</span></code> — vector-sensor
+channel CSVs anticipating a future vector-data download; not needed now. NOTE: three of these
+(vcurrent, vspectralirr, vopticalabsorb) are still referenced by <code class="docutils literal notranslate"><span class="pre">SensorTable.md</span></code> and
+<code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> → those docs need reconciliation (BR follow-up). <code class="docutils literal notranslate"><span class="pre">vbeamatten.csv</span></code> was
+already unreferenced. <code class="docutils literal notranslate"><span class="pre">SensorTable.md</span></code> also references a <code class="docutils literal notranslate"><span class="pre">vspectrophot.csv</span></code> that never existed.</p></li>
+</ul>
+<p><strong>Also noticed (not deleted — clutter, gitignored <code class="docutils literal notranslate"><span class="pre">_*.py</span></code>):</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_check_ranges.py</span></code>, <code class="docutils literal notranslate"><span class="pre">_check_smap.py</span></code>, <code class="docutils literal notranslate"><span class="pre">_check_sst.py</span></code> — leftover temp scripts (convention says
+delete after use). Untracked; safe to remove anytime.</p></li>
+</ul>
+<p><strong>BR follow-up: DONE (2026-09-07).</strong> Reconciled the vector-CSV references after the vXXXX.csv
+deletions: <code class="docutils literal notranslate"><span class="pre">SensorTable.md</span></code> (companion-files line reworded to “deferred until vector download”;
+phantom <code class="docutils literal notranslate"><span class="pre">vspectrophot.csv</span></code> mention dropped), <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> (four v*.csv rows removed), and
+the <code class="docutils literal notranslate"><span class="pre">argosy-conventions.md</span></code> steering (vector-channel line reworded). No dangling references remain.</p>
+</section>
+<section id="change-log-br-deliberation">
+<h2>Change log (BR deliberation)<a class="headerlink" href="#change-log-br-deliberation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>2026-09-07: <a class="reference external" href="http://BR.md">BR.md</a> created. Inventoried <code class="docutils literal notranslate"><span class="pre">iw/</span></code> (3 Phase-1 QC files + 3 Phase-2 IW files).
+Framed the bicameral model, the VisQC-location option set (leaning Option 2, not decided),
+the pp07-definition gap, the Book-notebook audit, and the time-range hardening. No files moved.</p></li>
+<li><p>2026-09-07 (later): Decisions recorded. #1 visqc/ (Option 2). #4 notebook classification:
+MidnightNoon out, Visualizations stays, DataDownload+DataSharding out. #5 visqc/ houses the
+cline family too (no separate qc/). #2 (pp07) parked pending Vis-notebook data review. #3 (IW
+Phase-2 home) parked, remind user. Also clarified the environment model: GitHub is master;
+laptop = working master (edit+commit+push); EC2 only pulls (ephemeral, dies on cdk destroy) —
+so download_link_list.txt lives on the laptop and travels laptop→GitHub→EC2.</p></li>
+<li><p>2026-09-07 (later still): Added the “where do the components go?” design tenet (localhost =
+edit/orchestrate; compute → cloud when it makes sense; data in ooi/ + S3, high-volume low-touch
+deleted from localhost after backup; web components = GitHub master, Zenodo archival, published
+Book, AGU26 poster via QR). Added the “Descent-data recovery” design topic (open-demand-vs-bulk;
+Lambda big-file caveat; <a class="reference external" href="http://shard.py">shard.py</a> already does descent for pH/pCO2). Open questions 7 added.</p></li>
+<li><p>2026-09-07 (S3 public-access reconciliation): Found a THREE-WAY mismatch — repo
+<code class="docutils literal notranslate"><span class="pre">s3_public_read_policy.json</span></code> said <code class="docutils literal notranslate"><span class="pre">pp06/*</span></code> (flat, pre-restructure/stale), <a class="reference external" href="http://DataOps.md">DataOps.md</a> said
+<code class="docutils literal notranslate"><span class="pre">sb/redux/*</span></code>+<code class="docutils literal notranslate"><span class="pre">sb/postproc/*</span></code>, and the LIVE bucket policy said <code class="docutils literal notranslate"><span class="pre">sb/redux/*</span></code>+<code class="docutils literal notranslate"><span class="pre">sb/postproc/*</span></code>
+(sb-only, redux public, all pp levels public). DECISION: only pp06 public, all 3 sites.
+Rewrote <code class="docutils literal notranslate"><span class="pre">s3_public_read_policy.json</span></code> → GetObject+ListBucket on <code class="docutils literal notranslate"><span class="pre">{sb,oo,ab}/postproc/pp06/*</span></code>;
+APPLIED via put-bucket-policy and verified the live policy matches. redux + pp01/02/05 +
+metadata + ooinet now private. Reasons: redux is more flawed than pp06; narrower public surface;
+egress is owner-billed. Added steering rule “Public data sharing (S3)” (ASK before exposing new
+datasets). Fixed <a class="reference external" href="http://DataOps.md">DataOps.md</a> to describe reality. New BR open question 8 (what else to share / how
+to bundle). Cost/security note: public GET egress bills the bucket OWNER (~$0.09/GB out); risk is
+bulk/bot download of a discoverable public prefix — bounded but unbounded-in-principle; mitigations
+= Requester Pays (needs downloader AWS acct), CloudFront caching, or accept bounded open-science cost.</p></li>
+</ul>
+</section>
+<section id="design-topic-signoffqc-standalone-scalar-sign-off-tool-decided-building">
+<h2>Design topic: SignoffQC — standalone scalar sign-off tool (DECIDED, building)<a class="headerlink" href="#design-topic-signoffqc-standalone-scalar-sign-off-tool-decided-building" title="Link to this heading">#</a></h2>
+<p>A Phase-1 QC/annotation tool, sibling to VisQCInspector, in the decided <code class="docutils literal notranslate"><span class="pre">visqc/</span></code> folder. Purpose:
+a human “first pass” to SIGN OFF on scalar data (mark suspect sensors), NOT cline estimation.</p>
+<ul class="simple">
+<li><p><strong>Launch:</strong> <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">visqc/SignoffQC.py</span> <span class="pre">--site</span> <span class="pre">&lt;sb|oo|ab&gt;</span> <span class="pre">--year</span> <span class="pre">&lt;yyyy&gt;</span></code> (TkAgg GUI; needs display).</p></li>
+<li><p><strong>Layout:</strong> one window, four charts on a horizontal row, each with multiple auto-scaled x-axes
+(may later switch to SensorTable low/high ranges):</p>
+<ul>
+<li><p>Chart 1: temperature, salinity, density</p></li>
+<li><p>Chart 2: dissolvedoxygen, cdom, chlora</p></li>
+<li><p>Chart 3: backscatter, nitrate, par</p></li>
+<li><p>Chart 4: ph, pco2</p></li>
+</ul>
+</li>
+<li><p><strong>Title:</strong> GMT→local (America/Los_Angeles) time-of-day, with parenthetical “midnight”/”noon” for
+those extended profiles (reuse bundle_chart.check_noon_midnight logic).</p></li>
+<li><p><strong>Navigation:</strong> Advance / Back (a profile qualifies if ≥1 of the 11 sensors is present); plus a
+Julian-day text field + Go To button for time navigation within the year.</p></li>
+<li><p><strong>Per-sensor state buttons (11):</strong> tri-state Ok / None / Discard. If data present → Ok; clicking
+toggles Ok↔Discard. If absent → None and clicking does nothing.</p></li>
+<li><p><strong>LSD nuance:</strong> ph/pco2/nitrate run only on daily-index 4 &amp; 9. So mark absence as
+<strong>None (expected)</strong> for non-noon/midnight profiles, <strong>None (missing)</strong> for noon/midnight profiles.</p></li>
+<li><p><strong>Display toggles:</strong> one per trace, initially on, to declutter.</p></li>
+<li><p><strong>Data source:</strong> <strong>pp06</strong> (less data to page through than redux).</p></li>
+<li><p><strong>Output = state table, ONE ROW PER GPI</strong> (transposed from the original 13-row sketch):
+<code class="docutils literal notranslate"><span class="pre">metadata/annotations/scalar_signoff_&lt;site&gt;_&lt;year&gt;.csv</span></code>. Columns: gpi, visits, then 11 sensor
+state columns (temperature…pco2) each Ok/None-expected/None-missing/Discard. <code class="docutils literal notranslate"><span class="pre">visits</span></code> starts 0,
+increments each time the tool lands on that GPI (“has the user seen this profile?”).</p></li>
+<li><p><strong>Resume/merge:</strong> relaunching a year LOADS the existing table and continues (increment visits,
+preserve prior Discards) — idempotent, no overwrite. Same pattern as pp scripts / VisQC.</p></li>
+<li><p><strong>Role in the pipeline:</strong> pp07 will be built in a TBD way, and the SignoffQC output table will be
+PART of its input (the discard decisions feed pp07 construction). This resolves BR open-Q 6’s
+“how does Discard connect” for the scalar sign-off case: it’s a pp07 input, distinct from
+<code class="docutils literal notranslate"><span class="pre">sensor_exclusions.csv</span></code> (the time-window embargo list).</p></li>
+</ul>
+</section>
+<section id="design-topic-notebook-bundle-explorer-local-s3-source-switch-design">
+<h2>Design topic: notebook bundle explorer — Local/S3 source switch (DESIGN)<a class="headerlink" href="#design-topic-notebook-bundle-explorer-local-s3-source-switch-design" title="Link to this heading">#</a></h2>
+<p>Goal: let the Jupyter Book enable data exploration WITHOUT the reader downloading ~15 GB of shards
+— a source switch (Local vs S3) so shards can be pulled per-profile from S3 on demand (slower, but
+no bulk download). Fits the “compute-to-data / don’t pull to laptop” tenet.</p>
+<ul class="simple">
+<li><p>Implemented via a shared <strong>source-access module</strong> (<code class="docutils literal notranslate"><span class="pre">visqc/shard_source.py</span></code> or similar) that
+abstracts (a) file DISCOVERY — glob local FS vs <code class="docutils literal notranslate"><span class="pre">list-objects</span></code> on S3 — and (b) file OPEN — local
+path vs <code class="docutils literal notranslate"><span class="pre">xr.open_dataset</span></code> over <code class="docutils literal notranslate"><span class="pre">s3fs</span></code>/<code class="docutils literal notranslate"><span class="pre">fsspec</span></code>. Notebook bundle_chart consumes it via a Local/S3
+dropdown.</p></li>
+<li><p><strong>Public-access constraint:</strong> only <strong>pp06</strong> is public on S3 (redux/pp01/pp02/pp05 private). So the
+S3 source can serve ONLY pp06 to an unauthenticated Book reader; the UI must reflect that (other
+sources are Local-only). Per-profile shards are small (KB) so latency is modest; cache the S3
+index (listing) since it’s the slow part.</p></li>
+<li><p>Shared plotting core: factor <code class="docutils literal notranslate"><span class="pre">plot_bundle</span></code> so the notebook (interactive ipywidgets) and any
+standalone variant share one implementation (parallels the cline_plot dual-mode / pipeline module
+pattern).</p></li>
+<li><p>2026-09-20: Doc legibility — evaluated folding PP05_QCAnalysis.md + PP06_Filters.md into
+<a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a>. DECIDED: do NOT merge (would push <a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a> ~362→~590 lines, over the
+&lt;400 steering guideline, and collapse a deliberate overview-vs-deep-dive split). Instead THINNED
+<a class="reference external" href="http://PostProcessing.md">PostProcessing.md</a>: replaced the duplicated redux→pp05→pp06 + pp06-Filters detail with a summary +
+pointers to PP05_QCAnalysis.md / PP06_Filters.md (362→313 lines). The old “Data operations”
+overlap with <a class="reference external" href="http://DataOps.md">DataOps.md</a> was already reduced to a pointer (no action needed). Also added the
+publish commands to the _toc.yml header comment.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-br-is">What BR is</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-the-done-criteria-for-br">Goals (the “done” criteria for BR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-goals-constraints">Non-goals / constraints</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bicameral-model-the-two-chambers">Bicameral model (the two chambers)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-tenet-where-do-the-components-go-laptop-vs-cloud-vs-web">Design tenet: where do the components go? (laptop vs cloud vs web)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descent-data-recovery-design-topic-applies-the-cloud-vs-laptop-tenet">Descent-data recovery (design topic — applies the cloud-vs-laptop tenet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-question-raised-this-session-where-does-visqc-cline-work-live">Central question raised this session: where does VisQC / cline work live?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-iw-inventory-classified">Current <code class="docutils literal notranslate"><span class="pre">iw/</span></code> inventory (classified)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-set-for-the-phase-1-qc-code-location-not-yet-decided">Option set for the Phase-1 QC code location (NOT YET DECIDED)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pp07-question-needs-a-definition-before-building">The pp07 question (needs a definition before building)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-the-phase-2-internal-wave-files-go">Where do the Phase-2 internal-wave files go?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-1-code-that-grew-inside-the-jupyter-book-audit-pending">Phase-1 code that grew inside the Jupyter Book (audit pending)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-time-range-hardening-cross-cutting">Default time-range hardening (cross-cutting)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-track-does-not-wait-on-br">Parallel track (does NOT wait on BR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-questions-to-resolve-running-list">Open questions to resolve (running list)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-orphans-repo-scan-2026-09-07">Possible orphans (repo scan, 2026-09-07)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-log-br-deliberation">Change log (BR deliberation)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-topic-signoffqc-standalone-scalar-sign-off-tool-decided-building">Design topic: SignoffQC — standalone scalar sign-off tool (DECIDED, building)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-topic-notebook-bundle-explorer-local-s3-source-switch-design">Design topic: notebook bundle explorer — Local/S3 source switch (DESIGN)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rob Fatland
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

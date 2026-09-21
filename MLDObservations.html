@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>VisQC: Visual Quality Control for Profile Metadata &#8212; Argosy</title>
+    <title>MLD Observations &#8212; Argosy</title>
   
   
   
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'VisQC';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'MLDObservations';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -299,7 +299,7 @@
       
       
       
-      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FVisQC.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FMLDObservations.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +329,7 @@
       
       
       
-      <li><a href="_sources/VisQC.md" target="_blank"
+      <li><a href="_sources/MLDObservations.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -413,7 +413,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>VisQC: Visual Quality Control for Profile Metadata</h1>
+    <h1>MLD Observations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -423,11 +423,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-visqcinspector-py">Step 1: VisQCInspector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-visqccorrector-py">Stage 2: VisQCCorrector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-metadata-columns-from-cline-extract">Current metadata columns (from cline_extract)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cline-thickness-estimation">Cline thickness estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-suite">MLD suite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-the-click-label-records">On the <em>click</em> label records</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observations">Observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-questions">Open questions</a></li>
 </ul>
             </nav>
         </div>
@@ -439,75 +438,112 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="visqc-visual-quality-control-for-profile-metadata">
-<h1>VisQC: Visual Quality Control for Profile Metadata<a class="headerlink" href="#visqc-visual-quality-control-for-profile-metadata" title="Link to this heading">#</a></h1>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
-<p>This <code class="docutils literal notranslate"><span class="pre">VisQC</span></code> work is related to internal wave (abbreviated <code class="docutils literal notranslate"><span class="pre">iw</span></code>) detection. It is a quality control and annotation process. The QC: From postproc level 06 data we move to level 07. The annotation: VisQC is a two-stage workflow for validating and correcting the derived cline metadata: Pycno, thermo, halo and oxy. Estimates of these clines are first produced by <code class="docutils literal notranslate"><span class="pre">~/argosy/iw/cline_extract.py</span></code>; then corrected manually.</p>
-<p>Automatic cline identification often fails due to noise and signal ambiguity. Actual ocean water does not conform to a simple description. VisQC provides for human-in-the-loop correction.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="mld-observations">
+<h1>MLD Observations<a class="headerlink" href="#mld-observations" title="Link to this heading">#</a></h1>
+<p>Experience and thoughts from hand-marking mixed-layer depth (MLD) on hundreds of shallow-profiler
+profiles using the <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> annotation tool: Talk about patterns, edge cases, ambiguity, heuristics.</p>
+<blockquote>
+<div><p>This file is <strong>not</strong> part of the Jupyter Book; it is a working doc in the repo.</p>
+</div></blockquote>
+<section id="mld-suite">
+<h2>MLD suite<a class="headerlink" href="#mld-suite" title="Link to this heading">#</a></h2>
+<p>The MLD effort is a small suite of files.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Piece</p></th>
+<th class="head"><p>File</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Design / spec</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code></p></td>
+<td><p>Two-program workflow, interaction model, label schema, decisions. <strong>Read first.</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Candidate profiles</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code></p></td>
+<td><p>Reproducible seeded sampling: one profile per N-day block per site from pp06. <code class="docutils literal notranslate"><span class="pre">--bless</span></code> promotes chosen set to the repo.</p></td>
+</tr>
+<tr class="row-even"><td><p>Blessed candidate lists</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mld_candidates/</span></code></p></td>
+<td><p>The committed, shared candidate CSVs (<code class="docutils literal notranslate"><span class="pre">mld_candidates_&lt;site&gt;_block&lt;NN&gt;.csv</span></code>) that all annotators label against. See <code class="docutils literal notranslate"><span class="pre">mld_candidates/README.md</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Annotator</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MLD.py</span></code></p></td>
+<td><p>Standalone TkAgg GUI to hand-label MLD on blessed candidates.</p></td>
+</tr>
+<tr class="row-even"><td><p>Collaborator env</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code></p></td>
+<td><p>Portable minimal conda spec for running <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> on another machine.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Human labels (output)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/mld_labels_&lt;site&gt;_block&lt;NN&gt;_&lt;who&gt;.csv</span></code></p></td>
+<td><p>Label tables living in the data folder: One row per (gpi, sensor, who).</p></td>
+</tr>
+<tr class="row-even"><td><p>Observations (this file)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MLDObservations.md</span></code></p></td>
+<td><p>Qualitative experience notes from doing the labeling.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ML / downstream</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code> → “Mixed Layer Depth” / 1-D CNN section</p></td>
+<td><p>Where the labels become training data (1-D CNN, heatmap head, sampling-density note).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>See also the “annotation problem” framing in the <code class="docutils literal notranslate"><span class="pre">argosy-conventions</span></code> steering file, and the
+<code class="docutils literal notranslate"><span class="pre">ArgosyOverview.md</span></code> → “Pointers to Key Actions” entry for building the training dataset.</p>
 </section>
-<section id="step-1-visqcinspector-py">
-<h2>Step 1: <a class="reference external" href="http://VisQCInspector.py">VisQCInspector.py</a><a class="headerlink" href="#step-1-visqcinspector-py" title="Link to this heading">#</a></h2>
-<p>Run this interactive tool to step through profiles one at a time for a selected year.</p>
+<section id="on-the-click-label-records">
+<h2>On the <em>click</em> label records<a class="headerlink" href="#on-the-click-label-records" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Left panel</strong>: T, S, DO, density traces vs depth (surface at top), independent
-auto-scaled x-axes; two adjustable cline boundary lines (upper/lower) for the selected
-sensor’s cline (nudge buttons or click-to-set).</p></li>
-<li><p><strong>Right panel</strong>: potential density σ₀ (TEOS-10 via <code class="docutils literal notranslate"><span class="pre">gsw</span></code>) vs depth for the same profile,
-derived from the salinity + temperature shards. Shows a note if <code class="docutils literal notranslate"><span class="pre">gsw</span></code> isn’t installed.</p></li>
-<li><p>Widget buttons: <strong>Accept</strong>, <strong>Correct</strong> (save adjusted boundaries), <strong>Discard</strong>.</p></li>
-<li><p>Writes one row per (gpi, sensor) to the visitation CSV at
-<code class="docutils literal notranslate"><span class="pre">metadata/annotations/visqc_visitation_&lt;site&gt;.csv</span></code> (re-deciding overwrites that pair’s
-row). Columns: <code class="docutils literal notranslate"><span class="pre">timestamp,</span> <span class="pre">gpi,</span> <span class="pre">sensor,</span> <span class="pre">decision,</span> <span class="pre">upper_depth,</span> <span class="pre">lower_depth,</span> <span class="pre">cline_depth,</span> <span class="pre">cline_thickness,</span> <span class="pre">reviewed_at</span></code>. Accept/Discard auto-advance to the next profile.</p></li>
-<li><p>Site via <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>; start date via <code class="docutils literal notranslate"><span class="pre">VISQC_START_DATE</span></code> (default 2024-01-01).</p></li>
+<li><p><strong>Key = (gpi, sensor, who).</strong> A profile can carry independent MLD calls for temperature,
+salinity, density, and DO, by each labeler.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">no_mld_recorded</span> <span class="pre">=</span> <span class="pre">True</span></code></strong> is a deliberate label: “there is no discernible MLD here,” distinct
+from “not yet visited.” Teaching the model to make this call is a central goal (see
+<code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code>). We need to agree on what constitutes <code class="docutils literal notranslate"><span class="pre">no-MLD</span></code>.</p></li>
+<li><p>Both <code class="docutils literal notranslate"><span class="pre">value_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">value_filtered</span></code> are stored, plus the filter key + slider settings, so a
+label stays interpretable regardless of which filter was active when it was made.</p></li>
 </ul>
 </section>
-<section id="stage-2-visqccorrector-py">
-<h2>Stage 2: <a class="reference external" href="http://VisQCCorrector.py">VisQCCorrector.py</a><a class="headerlink" href="#stage-2-visqccorrector-py" title="Link to this heading">#</a></h2>
-<p>Reads the visitation CSV and produces a corrected version of <code class="docutils literal notranslate"><span class="pre">cline_extract_site.csv</span></code>
-incorporating the human-verified adjustments.</p>
-<p>Open question: Should this also produce a corrected post-processing redux (pp07)?
-Deferred for now.</p>
-</section>
-<section id="current-metadata-columns-from-cline-extract">
-<h2>Current metadata columns (from cline_extract)<a class="headerlink" href="#current-metadata-columns-from-cline-extract" title="Link to this heading">#</a></h2>
-<p>Per profile we have:</p>
+<section id="observations">
+<h2>Observations<a class="headerlink" href="#observations" title="Link to this heading">#</a></h2>
+<p>Entries should include who, date, context and any amount of speculation. Can also include a a <code class="docutils literal notranslate"><span class="pre">[tag]</span></code>.</p>
+<blockquote>
+<div><p><strong>Descent overlay note (when the Descent button lands):</strong> daily indices 4 (midnight) and 9
+(post-noon) have built-in descent pauses, so their descent traces may look “lumpy” (clustered
+depths, longer dwell) versus smooth-descent profiles — expected, not an artifact. Descent is
+second-class/noisier by design (see <code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code>): use it as a qualitative read on
+water-column stability, not for placing MLD.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p><strong>Cline depth</strong> (meters): pycnocline, thermocline, halocline, oxycline, secondary pycnocline</p></li>
-<li><p><strong>Cline strength</strong> (gradient magnitude at the peak): all four primary + secondary</p></li>
+<li><p>Rob, 19-Sep-2026. The implicit <em>view</em> of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.</p>
+<ul>
+<li><p>Rob, 19-Sep-2026. Another really clean one: sb T 13271. Not corroborated… suggests looking at the descent</p></li>
+<li><p>Rob, 19-Sep-2026. Another really clean one: sb T 13994. Corroborated by DO!</p></li>
 </ul>
-<p>We do NOT currently have:</p>
-<ul class="simple">
-<li><p><strong>Cline thickness</strong> (vertical extent of the transition zone)</p></li>
+</li>
+<li><p>Rob, 20-Sep-2026. Flagging sb salinity anomaly starting Jan 2017: A deep lens or double lens down below 50 meters of higher salinity but <strong>warning</strong> this could be primarily a chart autoscale artifact. Worth a look though. First appears in GPI 5042. Variants in 5088, 5125, 5173, 5213, 5237, 5262, etc… 5469 has an interesting complement-corroboration from DO. Last of the sequence might be 5611 (10-MAR-2018). Suggest check each DESCENT corroboration.</p></li>
+<li><p>Rob, 19-Sep-2026. We can flag ranges of bad profiles for embargo. See sb 1711 (2016-05-07): erratic in T and DO. Look at adjacent profiles: Is this an embargo range?</p></li>
+<li><p>Rob, 20-Sep-2026. sb GPI 2457 and subsequent have an oxygen-rich lens below the MLD. Through perhaps 2915; so the date range is 19-AUG-2016 through 12-OCT-2016 and even beyond then.</p></li>
 </ul>
 </section>
-<section id="cline-thickness-estimation">
-<h2>Cline thickness estimation<a class="headerlink" href="#cline-thickness-estimation" title="Link to this heading">#</a></h2>
-<p>Standard approaches:</p>
-<ol class="arabic simple">
-<li><p><strong>Gradient threshold method</strong>: Define the cline as the depth range where |dρ/dz|
-exceeds some fraction of the peak gradient (e.g. 50% of max). The top and bottom
-of that zone give the cline thickness. Uses linear interpolation at the threshold
-crossings for sub-grid-cell resolution (avoids quantization artifacts from the
-discrete depth grid). Simple, reproducible, but threshold-dependent.</p></li>
-<li><p><strong>Tangent-line method</strong> (Chu &amp; Fan, 2011): Fit a tangent line at the point of maximum
-gradient. Where it intersects the upper and lower “shelf” values (above and below the
-cline) defines the thickness. More geometrically motivated but sensitive to noise in
-the shelf values.</p></li>
-<li><p><strong>Sigmoid fit</strong>: Fit an error function (erf) or hyperbolic tangent to the density
-profile through the cline region. The width parameter of the sigmoid IS the cline
-thickness. Most robust for clean data; fails if the cline isn’t well-approximated
-by a monotonic transition.</p></li>
-<li><p><strong>N² half-width</strong>: The depth range over which N² exceeds half its maximum value
-(full width at half maximum of the buoyancy frequency peak). Analogous to spectral
-linewidth. Physically meaningful — directly relates to internal wave trapping.</p></li>
-</ol>
-<p>Recommendation: Start with method 1 (gradient threshold at 50% of peak). It’s fast,
-works on all four cline types identically, and produces a single “thickness” number per
-cline per profile. If that proves too noisy, upgrade to method 4 (N² FWHM) for the
-pycnocline specifically.</p>
-<p>Adding thickness to <code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code> output: a future enhancement. For VisQC purposes,
-the depth + strength are sufficient for visual validation.</p>
+<section id="open-questions">
+<h2>Open questions<a class="headerlink" href="#open-questions" title="Link to this heading">#</a></h2>
+<p>These can be resolved and relocated to the “plan” document <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code></p>
+<ul class="simple">
+<li><p>Area between successive curves: Illusion but still suggests scanning for big jumps, another type of anomaly</p></li>
+<li><p>Re-do the candidate selection process using more stringent criterion on how shallow the data goes?</p></li>
+<li><p>Criteria for no-MLD…</p></li>
+<li><p>Handling double (or more) mixed layers with some delineator</p></li>
+<li><p>Reconcile four sensors?</p></li>
+<li><p>Suppose working on DO MLDs: Make an option to ghost-present other sensor MLDs as reference?</p>
+<ul>
+<li><p>The plus is this would help resolve ambiguous choices by harmonizing across sensors</p></li>
+<li><p>The minus is this will bias the decision on the MLD</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 
@@ -557,11 +593,10 @@ the depth + strength are sufficient for visual validation.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-visqcinspector-py">Step 1: VisQCInspector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-visqccorrector-py">Stage 2: VisQCCorrector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-metadata-columns-from-cline-extract">Current metadata columns (from cline_extract)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cline-thickness-estimation">Cline thickness estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-suite">MLD suite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-the-click-label-records">On the <em>click</em> label records</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observations">Observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-questions">Open questions</a></li>
 </ul>
   </nav></div>
 

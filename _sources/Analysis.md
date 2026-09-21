@@ -11,12 +11,14 @@ preparation pipeline and then describes analysis methods and objectives.
 ## Analysis data preparation overview
 
 
-For shallow profiler data (15 sensors) we have an ingest pipeline as follows 
-from an *informal* level nomenclature:
+The Argosy ingest pipeline is Phase 1 of a 2-phase process. It is about getting the data to a state where it can be analyzed and interpreted; and it is also about generating metadata annotations such as the thermocline depth or the presence of a CDOM anomaly for a particular profile. 
+
+
+For shallow profiler data (15 sensors = 11 scalar + 4 vector) we have an ingest pipeline as follows using an *informal* level numbering nomenclature:
 
 
 ```
-Data center > Level 1 data > Level 2 profiles > postprocessing > Level 3+
+Data center > Level 1 raw data > Level 2 profile shards > postprocessing > Level 3+
 ```
 
 Both Level 1 and Level 2 datasets are moved to cloud object storage (AWS S3) 
@@ -245,7 +247,9 @@ mixture models) to identify distinct "water column states".
 ### Mixed Layer Depth (MLD) Dynamics with Multi-Sensor Validation
 
 
-Since you already looked at TMLD (Temperature Mixed Layer Depth), extend this:
+The human-labeled MLD dataset (see the MLD annotation suite: `MLDAnnotationPlan.md`,
+`PreSelectProfiles.py`, `MLD.py`, and the experience log `MLDObservations.md`) supports
+extending the analysis:
 
 
 - Calculate MLD using multiple criteria: temperature, density, salinity, dissolved oxygen, fluorescence
@@ -253,6 +257,85 @@ Since you already looked at TMLD (Temperature Mixed Layer Depth), extend this:
 - Correlate MLD variations with vector data (current shear, spectral irradiance attenuation)
 - Build predictive models for MLD evolution using lagged correlations with meteorological forcing
 - Novel aspect: The vector sensors (especially spectral data) could reveal bio-optical signatures of mixing events.
+
+
+
+
+
+
+
+## Intermezzo on MLD: Profile filtering and ML methods to automate annotation
+
+
+A "Phase 1 annotation generator" idea: Choose a type of annotation (say MLD apparent on most profiles) > set up a human inspection scheme (standalone Python) > run this against some subset of the data (e.g. 1 randomly selected profile for every N days) subjected to some filtering > produce a training dataset > use some ML method to generate this annotation across the entire dataset > validate that result. Repeat for x-cline, etcetera. This scheme requires a filter and an ML method. The following is an edit of the AI suggestions on both: Filters and ML.
+
+
+
+### On-the-fly filters for gradient-based MLD/cline picking
+
+
+LTTB (Largest-Triangle-Three-Buckets) is a downsampling algorithm; useful for charting but not noise reduction. Instead: Opt for a filter that provides a differentiable version of the input signal; ideally adaptively: Minimal filtering where none is needed; signal emerging from clutter where the profile has clutter.
+
+
+1. Savitzky–Golay (savgol) fits a low-order polynomial (degree 2–3) in a sliding window and reports the fit value the derivative. (`scipy.signal.savgol_filter(..., deriv=1)`). Produces a smoothed gradient directly, not via multiple passes. Smooth signal is nearly untouched by a quadratic; noise gets averaged. Down sid: The window size is fixed, so it is missing that element of local adaptivity. Note: `savgol` is already in use in Phase 1: Applied to CDOM and Chlor-A to arrive at `pp06`.
+
+
+2. Locally adaptive smoothing. Compute a rolling local standard deviation or  alternatively the Median Absolute Deviation (MAD). MAD is more robust to spiky noise. SD/MAD will modulate the smoothing strength point-by-point: low implies near-zero smoothing; high implies widen the window / increase regularization. 
+One idea for implementation is use a variable-window savgol or a variable-bandwidth kernel smoother driven by localized SD/MAD. Another idea: Look at LOWESS/LOESS (statsmodels) that uses local regression; and set bandwidth as a function of local roughness.
+
+
+3. Suppose the above `savgol` business proves unsatisfactory. 3, 4 and 5 are some "what else is there?" ideas, beginning with Total-Variation denoising (TVD): Minimize noise while allowing sharp steps (e.g. a thermocline).
+
+
+4. Robust pre-pass + smooth. A Hampel filter (rolling-median + MAD outlier replacement) to address isolated spikes first; prior to a light savgol/LOWESS pass.
+
+
+5. "PCHIP / smoothing splines through a robust knot set." A smoothing spline (scipy.interpolate.UnivariateSpline with a tuned smoothing factor s, or make_smoothing_spline) gives an analytic, differentiable curve; or more accurately a series of curves nailed together end to end at "knots". Since the spline is a little polynomial it is easy to differentiate to get a gradient. PCHIP is monotonicity-preserving between knots, which avoids the overshoot that fools gradient pickers near steps.
+
+
+We can build the inspector application with choosable filter options. The choice used (with slider settings) is recorded as part of the metadata for each profile. This can inform the approach to the ML model training.
+
+
+**Summary**
+
+- `savgol-with-deriv=1` is a good baseline starting point
+- Adaptive SD/MAD is recommended for adaptation to different noise figures
+- Suggested: `MLDAnnotationPlan.md` 
+
+
+
+### Machine Learning methods for automating SP profile annotation
+
+
+Convolutional Neural Nets (CNNs) were developed around pattern recognition in images, corresponding to one view of the annotation task. The MLD is a "best choice" of a point or local shape on a depth-ordered sensor trace. We have a region of near-uniform value followed by the onset of a gradient.
+
+**Sampling density & the "no-MLD" challenge (design note).** The `PreSelectProfiles.py` scheme samples one profile per N-day block; **N=5 is fine**. The apparent ~2% sampling (1 of ~45 profiles/block) is misleading — profiles within a block are near-duplicates (same water mass/season), so denser sampling (N=3/4) mostly adds redundant labels, not new information, at a large cost in human clicks. N=5 yields ~73 labels/site/year (~2–2.4k/sensor over 3 sites × ~11 yr): modest but ample for a small 1D CNN, especially with self-supervised pretraining on the ~1M unlabeled profiles plus augmentation. The **hard part is teaching the model to say "no MLD" rather than always emitting a depth** — many profiles have no discernible mixed layer. This is an output-encoding and label-consistency problem, not a volume one: use the heatmap-over-depth head (abstain = flat heatmap, no confident peak) and verify Chuck/Rob **agree on the no-MLD criterion** (the `no_mld_recorded` rows), since a noisy abstain class no extra labeling can fix. If ever label-starved, prefer active-learning top-ups (sample where the model is uncertain) over uniformly shrinking N.
+
+Why a 1D CNN fits well
+That's exactly the kind of translation-tolerant local pattern convolutions are built to detect. Treat each profile as a 1D sequence over a fixed depth grid (say 0–200 m resampled to N points), with channels for T, S, ρ, DO — a 4-channel 1D signal, directly analogous to how a CNN sees RGB. The network learns gradient/curvature detectors in early layers and composes them into "this is where the mixed layer ends" in deeper layers. It's efficient, needs less data than heavier architectures, and trains fast enough to iterate against your human labels overnight.
+
+The key design decision is how you frame the output, and this matters more than the architecture:
+
+Regression — output a single scalar MLD depth. Simplest, but a bare depth gives you no confidence and struggles with genuinely ambiguous or double-mixed-layer profiles.
+Segmentation / per-depth classification — label every depth bin "mixed" vs "not," essentially a 1D U-Net. Naturally handles ambiguity, gives you a boundary with a transition width (which maps beautifully onto your top/max/bottom cline framing), and degrades gracefully on weird profiles.
+Heatmap regression — predict a probability distribution over depth for "MLD is here" (a soft Gaussian around the label). This is the trick pose-estimation uses to localize keypoints, and it's my pick: it gives sub-bin precision and a calibrated uncertainty, and the peak sharpness tells you when the model is unsure — exactly the anomaly signal you mentioned wanting.
+So: 1D CNN backbone, heatmap-over-depth head. That's where I'd start.
+
+Where I'd push back on stopping at a CNN
+Two considerations that may pull you elsewhere:
+
+Physics-awareness. A pure CNN doesn't know that ρ is (nonlinearly) determined by T and S, or that MLD from a density threshold and MLD from a temperature threshold should agree except when they physically shouldn't (barrier layers, compensated layers). Feeding all four channels lets the model learn those relationships, but you could also bake them in. That doesn't change the architecture, just the inputs and maybe an auxiliary loss.
+
+The de-noising problem you raised. This is the real argument against betting everything on a CNN. If you train on your human labels after adaptive filtering, the CNN learns "human MLD given a clean trace." But scratchiness is where auto-methods fail, so the interesting model would ingest the raw trace and learn to be robust to noise itself — which a CNN can do given enough varied training data, but it's data-hungry there. An attention/Transformer sequence model, or a hybrid CNN-front-end + small Transformer, tends to be better at "ignore the local jitter, attend to the global structure." I wouldn't start there — too much data and tuning for a first pass — but it's the natural upgrade if the CNN plateaus on noisy profiles.
+
+Two things that will dominate model choice more than the architecture
+Label volume and consistency. Your one-profile-per-day sampling yields maybe a few thousand human-labeled MLDs per site per year — enough for a modest 1D CNN, likely not enough for a data-hungry Transformer from scratch. If labeling is the bottleneck, lean into it: pretrain self-supervised on the ~million unlabeled profiles (mask-and-reconstruct, or contrastive), then fine-tune the small labeled set. That self-supervised pretraining is where the million-profile scale actually becomes an asset rather than just a labeling burden.
+Label uncertainty. Humans won't place MLD identically twice. If you capture multiple human passes on the same profiles (or the accept/correct/discard signal your VisQCInspector already records), train against a distribution rather than a point — which again favors the heatmap formulation over scalar regression.
+Net: yes, a 1D multi-channel CNN with a heatmap-over-depth head is the right first bet — cheap, fast, and well-matched to the problem. Keep two moves in your back pocket: self-supervised pretraining on the unlabeled million to stretch a small label set, and a CNN+attention hybrid if noisy profiles turn out to be the hard cases. This is speculation, not a recommendation to build yet — it's parked with the rest until tomorrow.
+
+
+
+
 
 
 ### Depth-Resolved Anomaly Detection and Event Characterization

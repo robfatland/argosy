@@ -50,7 +50,10 @@ attributes
     
 The **sensor table** is a comprehensive list of sensor types for the shallow profiler. 
 This is written to a standalone reference CSV file: `~/argosy/sensortable.csv`.
-Vector sensor details are in companion files: `vcurrent.csv`, `vspectralirr.csv`, `vspectrophot.csv`.
+Vector sensor channel definitions (velocity, spectral irradiance, optical absorption, beam
+attenuation) are deferred until vector-data download is implemented; see `VectorData.md`. (The
+earlier placeholder CSVs `vcurrent.csv` / `vspectralirr.csv` / `vopticalabsorb.csv` /
+`vbeamatten.csv` were removed in the Sep 2026 cleanup and will be regenerated when needed.)
     
     
 Premise: Jupyter cell code in the `DataSharding.ipynb` notebook shards multiple types of 

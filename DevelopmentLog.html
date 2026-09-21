@@ -179,7 +179,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
@@ -198,8 +198,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -586,6 +588,21 @@ Analysis of start-depth vs tidal prediction documented in <code class="docutils 
 <section id="open-topics">
 <h2>Open Topics<a class="headerlink" href="#open-topics" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>Miniconda environment sprawl — refactor away the one-giant-env situation.</strong> The single
+<code class="docutils literal notranslate"><span class="pre">argosy</span></code> conda env now carries hundreds of installed packages, many unrelated to argosy
+(e.g. torch/CUDA, qiskit + amazon-braket, pymatgen, transformers, icepyx/earthaccess) — see
+the pip section of <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>. This bloats the pinned snapshot, slows solves, and makes
+the env hard to reproduce on a collaborator’s machine (which is exactly why a separate minimal
+<code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code> was created for Chuck). Refactor direction to evaluate: (a) define what
+argosy <em>actually</em> needs (Phase-1 pipeline vs Phase-2 analysis vs book-build vs the standalone
+GUIs) and carve out purpose-scoped envs (e.g. <code class="docutils literal notranslate"><span class="pre">argosy</span></code> core + optional extras), pruning the
+unrelated science/ML stacks into their own separate envs; (b) maintain a hand-curated,
+minimally-pinned <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> as the portable source of truth and keep the full
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span></code> only as a lock/snapshot artifact (e.g. <code class="docutils literal notranslate"><span class="pre">environment.lock.yml</span></code>); (c) audit
+which top-level packages are directly imported by argosy code vs pulled in ad hoc, and remove
+the latter. Ties into the steering “environment stability” rule (snapshot after every
+install) and the portability lesson from the Chuck/MLD setup. Decide the target env
+topology before doing any destructive <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">remove</span></code>.</p></li>
 <li><p><strong>pCO2 on Oregon Offshore — check with Wendi/Joe: does it exist?</strong> When ordering <code class="docutils literal notranslate"><span class="pre">oo</span></code> data
 (Sep 2026) there was no clear pCO2 (PCO2W) link in the OOINET order interface after a careful
 look. <code class="docutils literal notranslate"><span class="pre">oo</span></code> currently has 5 instrument orders (PHSEN, CTDPF, FLORT, NUTNR, PARAD) covering 10 of
@@ -908,7 +925,6 @@ animation data source selector).</p></li>
 <li><p>Regenerate pp01/pp02 (<code class="docutils literal notranslate"><span class="pre">postprocess_special_profiles.py</span> <span class="pre">noon</span></code> and <code class="docutils literal notranslate"><span class="pre">midnight</span></code>)</p></li>
 <li><p>Check the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> environment installed libraries against <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></p></li>
 <li><p>LegacyCode/ directory: Review for archival or deletion (entirely superseded by current code)</p></li>
-<li><p>TMLD/ directory: Decide whether to keep <code class="docutils literal notranslate"><span class="pre">tmld_estimates.csv</span></code> as historical data; delete the empty <code class="docutils literal notranslate"><span class="pre">tmld_selector.py</span></code></p></li>
 <li><p>Order VELPT data for 2018–present (lower priority; deferred for SGA feature vector)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">CodeManifest.md</span></code> to reflect the documentation refactor</p></li>
 <li><p>Copy updated <code class="docutils literal notranslate"><span class="pre">pre_shard_data_availability.png</span></code> to <code class="docutils literal notranslate"><span class="pre">~/argosy/images/</span></code> after each regeneration</p></li>
@@ -1091,7 +1107,6 @@ against S3 paths).</p>
 If 3 of 27 positions have no data, you see 24 traces. Options: rename the slider (e.g.
 <code class="docutils literal notranslate"><span class="pre">nPositions</span></code> or <code class="docutils literal notranslate"><span class="pre">window</span></code>), add a display showing actual traces drawn, or change the docs.
 Resolve before sharing with collaborators.</p></li>
-<li><p>Finish writing <code class="docutils literal notranslate"><span class="pre">pp06ErraticFilterPrompt.md</span></code></p></li>
 <li><p>Apply Vis notebook rebuild (see <code class="docutils literal notranslate"><span class="pre">VisNotebookRebuild.md</span></code>)</p></li>
 </ul>
 </section>

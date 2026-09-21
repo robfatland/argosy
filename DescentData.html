@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>VisQC: Visual Quality Control for Profile Metadata &#8212; Argosy</title>
+    <title>Descent Data &#8212; Argosy</title>
   
   
   
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'VisQC';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'DescentData';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -299,7 +299,7 @@
       
       
       
-      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FVisQC.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FDescentData.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +329,7 @@
       
       
       
-      <li><a href="_sources/VisQC.md" target="_blank"
+      <li><a href="_sources/DescentData.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -413,7 +413,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>VisQC: Visual Quality Control for Profile Metadata</h1>
+    <h1>Descent Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -423,11 +423,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-visqcinspector-py">Step 1: VisQCInspector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-visqccorrector-py">Stage 2: VisQCCorrector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-metadata-columns-from-cline-extract">Current metadata columns (from cline_extract)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cline-thickness-estimation">Cline thickness estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scope">Scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-descent-fits-in-the-data-scheme">Where descent fits in the data scheme</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ooipaths-support">ooipaths support</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing">Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deferred-pause-interval-precision-post-pp06">Deferred: pause-interval precision (post-pp06)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-py-descent-button">MLD.py “Descent” button</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-deferred-items">Open / deferred items</a></li>
 </ul>
             </nav>
         </div>
@@ -439,75 +446,124 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="visqc-visual-quality-control-for-profile-metadata">
-<h1>VisQC: Visual Quality Control for Profile Metadata<a class="headerlink" href="#visqc-visual-quality-control-for-profile-metadata" title="Link to this heading">#</a></h1>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
-<p>This <code class="docutils literal notranslate"><span class="pre">VisQC</span></code> work is related to internal wave (abbreviated <code class="docutils literal notranslate"><span class="pre">iw</span></code>) detection. It is a quality control and annotation process. The QC: From postproc level 06 data we move to level 07. The annotation: VisQC is a two-stage workflow for validating and correcting the derived cline metadata: Pycno, thermo, halo and oxy. Estimates of these clines are first produced by <code class="docutils literal notranslate"><span class="pre">~/argosy/iw/cline_extract.py</span></code>; then corrected manually.</p>
-<p>Automatic cline identification often fails due to noise and signal ambiguity. Actual ocean water does not conform to a simple description. VisQC provides for human-in-the-loop correction.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="descent-data">
+<h1>Descent Data<a class="headerlink" href="#descent-data" title="Link to this heading">#</a></h1>
+<p>Design note for recovering <strong>descent</strong> profile data as a second-class companion to the primary
+<strong>ascent</strong> dataset. Status: <strong>create machinery implemented (Sep 2026); EC2 run + MLD button pending.</strong></p>
+<p>Implemented: <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> direction support (<code class="docutils literal notranslate"><span class="pre">redux_dir</span></code>/<code class="docutils literal notranslate"><span class="pre">postproc_dir</span></code>/<code class="docutils literal notranslate"><span class="pre">pp05_manifest</span></code>/<code class="docutils literal notranslate"><span class="pre">shard_glob</span></code>
+take <code class="docutils literal notranslate"><span class="pre">direction=</span></code>, plus <code class="docutils literal notranslate"><span class="pre">ARGOSY_DIRECTION</span></code> env + <code class="docutils literal notranslate"><span class="pre">redux_version</span></code>); <code class="docutils literal notranslate"><span class="pre">pipeline/shard.py</span> <span class="pre">--direction</span> <span class="pre">descent</span></code> (8 HSD sensors, peak→end, <code class="docutils literal notranslate"><span class="pre">redux_descent</span></code>, <code class="docutils literal notranslate"><span class="pre">V1D</span></code>); pp05/pp06/filter2/filter3 honor
+<code class="docutils literal notranslate"><span class="pre">ARGOSY_DIRECTION=descent</span></code> (→ <code class="docutils literal notranslate"><span class="pre">pp05_descent_manifest.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">postproc/pp06_descent/</span></code>);
+<code class="docutils literal notranslate"><span class="pre">run_pipeline.sh</span> <span class="pre">&lt;site&gt;</span> <span class="pre">descent</span></code> stage (shard → pp chain → sync). Ascent paths unchanged
+(verified). <strong>Not yet run</strong> on EC2; the MLD Descent button is not yet wired (deliberate — a
+test-app conversation comes first).</p>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h2>
+<p>The shallow profiler ascends (mooring → near-surface) and then descends back. The scalar sensors
+sit at the top of the science pod, so on <strong>ascent</strong> they enter relatively undisturbed (“pristine”)
+water — this is why ascent is the primary, higher-precision dataset. <strong>Descent</strong> data is noisier
+(the pod has stirred the water it now falls through) and is therefore treated as <strong>second-class</strong>.</p>
+<p>It is still useful: descent gives at least a <em>qualitative</em> sense of water-column <strong>stability</strong> and
+the <strong>rate of distortion</strong> of structure between the ascent and the return. Because ascent and
+descent of one profile are separated in time (minutes to tens of minutes — see the descent-duration
+histogram in <code class="docutils literal notranslate"><span class="pre">profile_duration_histograms.py</span></code>), overlaying them shows two <em>different times</em>, and
+the difference between them is exactly the stability/distortion signal of interest.</p>
+<p>Primary consumer: a <strong>“Descent” overlay button</strong> in the MLD annotator (<code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>) that plots the
+descent trace behind the ascent trace for the current (site, sensor, gpi) as visual context.</p>
 </section>
-<section id="step-1-visqcinspector-py">
-<h2>Step 1: <a class="reference external" href="http://VisQCInspector.py">VisQCInspector.py</a><a class="headerlink" href="#step-1-visqcinspector-py" title="Link to this heading">#</a></h2>
-<p>Run this interactive tool to step through profiles one at a time for a selected year.</p>
+<section id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Left panel</strong>: T, S, DO, density traces vs depth (surface at top), independent
-auto-scaled x-axes; two adjustable cline boundary lines (upper/lower) for the selected
-sensor’s cline (nudge buttons or click-to-set).</p></li>
-<li><p><strong>Right panel</strong>: potential density σ₀ (TEOS-10 via <code class="docutils literal notranslate"><span class="pre">gsw</span></code>) vs depth for the same profile,
-derived from the salinity + temperature shards. Shows a note if <code class="docutils literal notranslate"><span class="pre">gsw</span></code> isn’t installed.</p></li>
-<li><p>Widget buttons: <strong>Accept</strong>, <strong>Correct</strong> (save adjusted boundaries), <strong>Discard</strong>.</p></li>
-<li><p>Writes one row per (gpi, sensor) to the visitation CSV at
-<code class="docutils literal notranslate"><span class="pre">metadata/annotations/visqc_visitation_&lt;site&gt;.csv</span></code> (re-deciding overwrites that pair’s
-row). Columns: <code class="docutils literal notranslate"><span class="pre">timestamp,</span> <span class="pre">gpi,</span> <span class="pre">sensor,</span> <span class="pre">decision,</span> <span class="pre">upper_depth,</span> <span class="pre">lower_depth,</span> <span class="pre">cline_depth,</span> <span class="pre">cline_thickness,</span> <span class="pre">reviewed_at</span></code>. Accept/Discard auto-advance to the next profile.</p></li>
-<li><p>Site via <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>; start date via <code class="docutils literal notranslate"><span class="pre">VISQC_START_DATE</span></code> (default 2024-01-01).</p></li>
+<li><p><strong>Descent scalar sensors (8, the HSD set that currently operates on ascent):</strong> temperature,
+salinity, density, dissolvedoxygen, chlora, cdom, backscatter, par.</p></li>
+<li><p><strong>Excluded — no descent shards:</strong></p>
+<ul>
+<li><p><strong>nitrate (NUTNR):</strong> ascent-only sensor.</p></li>
+<li><p><strong>pCO2 (PCO2W), pH (PHSEN):</strong> these already operate on <strong>descent</strong> as their primary mode, so a
+separate “descent” version would be redundant — their normal shards are already the descent.</p></li>
+</ul>
+</li>
+<li><p><strong>Sites:</strong> same per-site scheme as ascent (<code class="docutils literal notranslate"><span class="pre">sb</span></code>/<code class="docutils literal notranslate"><span class="pre">oo</span></code>/<code class="docutils literal notranslate"><span class="pre">ab</span></code>); begin with <code class="docutils literal notranslate"><span class="pre">sb</span></code>.</p></li>
 </ul>
 </section>
-<section id="stage-2-visqccorrector-py">
-<h2>Stage 2: <a class="reference external" href="http://VisQCCorrector.py">VisQCCorrector.py</a><a class="headerlink" href="#stage-2-visqccorrector-py" title="Link to this heading">#</a></h2>
-<p>Reads the visitation CSV and produces a corrected version of <code class="docutils literal notranslate"><span class="pre">cline_extract_site.csv</span></code>
-incorporating the human-verified adjustments.</p>
-<p>Open question: Should this also produce a corrected post-processing redux (pp07)?
-Deferred for now.</p>
-</section>
-<section id="current-metadata-columns-from-cline-extract">
-<h2>Current metadata columns (from cline_extract)<a class="headerlink" href="#current-metadata-columns-from-cline-extract" title="Link to this heading">#</a></h2>
-<p>Per profile we have:</p>
-<ul class="simple">
-<li><p><strong>Cline depth</strong> (meters): pycnocline, thermocline, halocline, oxycline, secondary pycnocline</p></li>
-<li><p><strong>Cline strength</strong> (gradient magnitude at the peak): all four primary + secondary</p></li>
-</ul>
-<p>We do NOT currently have:</p>
-<ul class="simple">
-<li><p><strong>Cline thickness</strong> (vertical extent of the transition zone)</p></li>
-</ul>
-</section>
-<section id="cline-thickness-estimation">
-<h2>Cline thickness estimation<a class="headerlink" href="#cline-thickness-estimation" title="Link to this heading">#</a></h2>
-<p>Standard approaches:</p>
+<section id="where-descent-fits-in-the-data-scheme">
+<h2>Where descent fits in the data scheme<a class="headerlink" href="#where-descent-fits-in-the-data-scheme" title="Link to this heading">#</a></h2>
+<p>Direction was previously <em>implicit by sensor</em> (the 8 HSD scalars = ascent; pCO2/pH = descent), so
+the shard filename grammar has <strong>no direction field</strong>. Recovering descent for the 8 HSD sensors
+means the <em>same</em> sensor now exists in both directions, so direction must become explicit. The
+agreed design carries it <strong>two ways</strong> (belt-and-suspenders), leaving the ascent dataset untouched:</p>
 <ol class="arabic simple">
-<li><p><strong>Gradient threshold method</strong>: Define the cline as the depth range where |dρ/dz|
-exceeds some fraction of the peak gradient (e.g. 50% of max). The top and bottom
-of that zone give the cline thickness. Uses linear interpolation at the threshold
-crossings for sub-grid-cell resolution (avoids quantization artifacts from the
-discrete depth grid). Simple, reproducible, but threshold-dependent.</p></li>
-<li><p><strong>Tangent-line method</strong> (Chu &amp; Fan, 2011): Fit a tangent line at the point of maximum
-gradient. Where it intersects the upper and lower “shelf” values (above and below the
-cline) defines the thickness. More geometrically motivated but sensitive to noise in
-the shelf values.</p></li>
-<li><p><strong>Sigmoid fit</strong>: Fit an error function (erf) or hyperbolic tangent to the density
-profile through the cline region. The width parameter of the sigmoid IS the cline
-thickness. Most robust for clean data; fails if the cline isn’t well-approximated
-by a monotonic transition.</p></li>
-<li><p><strong>N² half-width</strong>: The depth range over which N² exceeds half its maximum value
-(full width at half maximum of the buoyancy frequency peak). Analogous to spectral
-linewidth. Physically meaningful — directly relates to internal wave trapping.</p></li>
+<li><p><strong>Parallel directory tree</strong> — descent shards live in <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/redux_descent/&lt;yyyy&gt;/</span></code>,
+mirroring the ascent <code class="docutils literal notranslate"><span class="pre">redux/&lt;yyyy&gt;/</span></code> tree with identical year subdirs. The pp06 equivalent
+mirrors under a descent postproc tree (e.g. <code class="docutils literal notranslate"><span class="pre">postproc/pp06_descent/&lt;yyyy&gt;/</span></code>). The ascent
+<code class="docutils literal notranslate"><span class="pre">redux/</span></code> and <code class="docutils literal notranslate"><span class="pre">postproc/pp06/</span></code> sets are left <strong>byte-for-byte pristine</strong>. Direction carried by
+<em>location</em> keeps the filename grammar clean and makes descent’s second-class status structural
+(easy to exclude, not-publish, delete, or regenerate independently).</p></li>
+<li><p><strong>Version token in the filename</strong> — descent shards use version <strong><code class="docutils literal notranslate"><span class="pre">V1D</span></code></strong> where ascent redux uses
+<code class="docutils literal notranslate"><span class="pre">V1</span></code>. The positional filename grammar is unchanged (still
+<code class="docutils literal notranslate"><span class="pre">RCA_&lt;site&gt;_sp_&lt;sensor&gt;_&lt;yyyy&gt;_&lt;ddd&gt;_&lt;gpi&gt;_&lt;daily&gt;_&lt;version&gt;.nc</span></code>; parsers still read <code class="docutils literal notranslate"><span class="pre">gpi</span></code> at the
+same position) — only the <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> field’s value differs. So a descent shard <strong>self-identifies</strong>
+even if copied out of its tree.</p></li>
 </ol>
-<p>Recommendation: Start with method 1 (gradient threshold at 50% of peak). It’s fast,
-works on all four cline types identically, and produces a single “thickness” number per
-cline per profile. If that proves too noisy, upgrade to method 4 (N² FWHM) for the
-pycnocline specifically.</p>
-<p>Adding thickness to <code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code> output: a future enhancement. For VisQC purposes,
-the depth + strength are sufficient for visual validation.</p>
+<p>Example: ascent <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_temperature_2022_043_13614_1_V1.nc</span></code> →
+descent <code class="docutils literal notranslate"><span class="pre">RCA_sb_sp_temperature_2022_043_13614_1_V1D.nc</span></code> under <code class="docutils literal notranslate"><span class="pre">redux_descent/2022/</span></code>.</p>
+<section id="ooipaths-support">
+<h3>ooipaths support<a class="headerlink" href="#ooipaths-support" title="Link to this heading">#</a></h3>
+<p>Path/token knowledge stays centralized in <code class="docutils literal notranslate"><span class="pre">ooipaths.py</span></code> (no hardcoding). Add a <strong><code class="docutils literal notranslate"><span class="pre">direction</span></code></strong>
+concept (default <code class="docutils literal notranslate"><span class="pre">&quot;ascent&quot;</span></code>) to the relevant accessors — e.g. <code class="docutils literal notranslate"><span class="pre">redux_dir(year,</span> <span class="pre">site,</span> <span class="pre">direction=&quot;descent&quot;)</span></code> returning <code class="docutils literal notranslate"><span class="pre">redux_descent/&lt;yyyy&gt;</span></code>, and the analogous postproc accessor — or
+dedicated <code class="docutils literal notranslate"><span class="pre">redux_descent_dir</span></code> / descent postproc accessors. Ascent callers are unchanged.</p>
+</section>
+</section>
+<section id="processing">
+<h2>Processing<a class="headerlink" href="#processing" title="Link to this heading">#</a></h2>
+<p>Descent extraction is <strong>not new machinery</strong>. <code class="docutils literal notranslate"><span class="pre">pipeline/shard.py</span></code> already models direction:
+<code class="docutils literal notranslate"><span class="pre">SENSOR_MAP</span></code> maps each science variable to <code class="docutils literal notranslate"><span class="pre">(shard_name,</span> <span class="pre">direction)</span></code> and slices <code class="docutils literal notranslate"><span class="pre">start→peak</span></code>
+(ascent) or <code class="docutils literal notranslate"><span class="pre">peak→end</span></code> (descent) using the profileIndices <code class="docutils literal notranslate"><span class="pre">start</span></code>/<code class="docutils literal notranslate"><span class="pre">peak</span></code>/<code class="docutils literal notranslate"><span class="pre">end</span></code> columns. Descent
+recovery is running the existing pass with the direction flipped for the 8 HSD sensors, writing to
+the <code class="docutils literal notranslate"><span class="pre">redux_descent</span></code> tree with the <code class="docutils literal notranslate"><span class="pre">V1D</span></code> token.</p>
+<p><strong>Execution model — Build-Config-Execute-Destroy on a disposable EC2 box</strong> (the existing CDK flow;
+see <code class="docutils literal notranslate"><span class="pre">operational-recipes</span></code> §4 / §4b): <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">deploy</span></code> → run the descent pass (<code class="docutils literal notranslate"><span class="pre">redux_descent</span></code> shards →
+pp06_descent) → <code class="docutils literal notranslate"><span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">sync</span></code> up to <code class="docutils literal notranslate"><span class="pre">s3://s3ooi/&lt;site&gt;/...</span></code> → <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">destroy</span></code>. One-time per site.
+Local-then-sync, same as the ascent pipeline. Volume roughly adds the 8-sensor shard count again
+for each processed site (bounded, known from ascent counts).</p>
+<p><strong>redux_descent → pp06_descent:</strong> carried through with the <strong>same filter settings as ascent</strong>
+(Filter 0/1 in pp06, plus filter2/filter3) for an apples-to-apples baseline. Caveat: those filters
+(Sav-Gol windows, salinity/density MRA) were tuned to ascent characteristics; applying them to
+noisier descent data is accepted as a <em>baseline</em> choice, not a claim of optimality. Revisit if
+descent pp06 proves poorly behaved.</p>
+<section id="deferred-pause-interval-precision-post-pp06">
+<h3>Deferred: pause-interval precision (post-pp06)<a class="headerlink" href="#deferred-pause-interval-precision-post-pp06" title="Link to this heading">#</a></h3>
+<p>On daily indices <strong>4 (midnight)</strong> and <strong>9 (post-noon)</strong> — 2 of every 9 profiles — the descent has
+<strong>built-in pauses</strong> that let the chemical sensors equilibrate. For the 8 HSD sensors those pauses
+mean <strong>repeated measurement at nearly the same depth</strong>, an opportunity for <em>better</em> precision via
+averaging. This is <strong>deferred to a post-pp06 step</strong>, deliberately parallel to how MLD filtering
+sits downstream of pp06. For now, indices 4 &amp; 9 descent shards contain the raw paused samples passed
+through the same filters — so those two profiles may look “lumpy” (clustered depths, longer dwell)
+compared with the smooth-descent profiles. That is expected, not an artifact.</p>
+</section>
+</section>
+<section id="mld-py-descent-button">
+<h2><a class="reference external" href="http://MLD.py">MLD.py</a> “Descent” button<a class="headerlink" href="#mld-py-descent-button" title="Link to this heading">#</a></h2>
+<p>With descent pre-sharded, the button is a cheap <strong>S3 GET of a small per-profile shard</strong> — no
+per-click compute, no whole-file read. Behavior:</p>
+<ul class="simple">
+<li><p>Look up the descent shard for the current (site, sensor, gpi) using the same filename logic as
+the ascent index, pointed at the <code class="docutils literal notranslate"><span class="pre">redux_descent</span></code> (or pp06_descent) tree / <code class="docutils literal notranslate"><span class="pre">V1D</span></code> version.</p></li>
+<li><p>If found, <strong>overlay</strong> it on the current chart behind the ascent trace (distinct linestyle, e.g.
+dashed, in the sensor color); if absent, a “no descent data” status message.</p></li>
+<li><p>The descent trace is <strong>context only — not pickable.</strong> MLD is labeled on ascent; descent informs
+the human’s judgment about stability but is never itself annotated.</p></li>
+</ul>
+</section>
+<section id="open-deferred-items">
+<h2>Open / deferred items<a class="headerlink" href="#open-deferred-items" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Processing level exposed to the button: pp06_descent (comparable to the ascent pp06 the tool
+reads) is the default intent; redux_descent remains available.</p></li>
+<li><p>Pause-interval averaging for indices 4 &amp; 9 (post-pp06 precision step) — deferred.</p></li>
+<li><p>Whether to make descent data public on S3 (like pp06) — a separate deliberate decision per the
+“Public data sharing” steering rule; <strong>not</strong> exposed automatically.</p></li>
+<li><p>Filter appropriateness for descent (see caveat above) — revisit after inspecting descent pp06.</p></li>
+</ul>
 </section>
 </section>
 
@@ -557,11 +613,18 @@ the depth + strength are sufficient for visual validation.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-visqcinspector-py">Step 1: VisQCInspector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-visqccorrector-py">Stage 2: VisQCCorrector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-metadata-columns-from-cline-extract">Current metadata columns (from cline_extract)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cline-thickness-estimation">Cline thickness estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scope">Scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-descent-fits-in-the-data-scheme">Where descent fits in the data scheme</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ooipaths-support">ooipaths support</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing">Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deferred-pause-interval-precision-post-pp06">Deferred: pause-interval precision (post-pp06)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mld-py-descent-button">MLD.py “Descent” button</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-deferred-items">Open / deferred items</a></li>
 </ul>
   </nav></div>
 

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>VisQC: Visual Quality Control for Profile Metadata &#8212; Argosy</title>
+    <title>PP06: Filtered Physical Dataset &#8212; Argosy</title>
   
   
   
@@ -57,9 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'VisQC';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PP06_Filters';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Vector Data" href="VectorData.html" />
+    <link rel="prev" title="PP05: Quality-Controlled Analysis Dataset" href="PP05_QCAnalysis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -121,8 +123,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -194,11 +194,11 @@
 <li class="toctree-l1"><a class="reference internal" href="DeveloperGuide.html">Developer Guide</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 1 — Pipeline (raw to pp06)</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
@@ -299,7 +299,7 @@
       
       
       
-      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FVisQC.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://robfatland.github.io/argosy/intro.html/issues/new?title=Issue%20on%20page%20%2FPP06_Filters.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +329,7 @@
       
       
       
-      <li><a href="_sources/VisQC.md" target="_blank"
+      <li><a href="_sources/PP06_Filters.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -413,7 +413,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>VisQC: Visual Quality Control for Profile Metadata</h1>
+    <h1>PP06: Filtered Physical Dataset</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -423,11 +423,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-visqcinspector-py">Step 1: VisQCInspector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-visqccorrector-py">Stage 2: VisQCCorrector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-metadata-columns-from-cline-extract">Current metadata columns (from cline_extract)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cline-thickness-estimation">Cline thickness estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-0-baseline-manifest-pp06">Filter 0: Baseline (manifest → pp06)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-1-suppress-conductivity-erratics-salinity-density">Filter 1: Suppress conductivity erratics (salinity + density)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-2-savitzky-golay-smoothing-cdom-chlora">Filter 2: Savitzky-Golay smoothing (CDOM, chlorA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-3-backscatter-despike-rolling-minimum-baseline">Filter 3: Backscatter despike (rolling-minimum baseline)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-1-erratic-examples">Filter 1 erratic examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See also</a></li>
 </ul>
             </nav>
         </div>
@@ -439,75 +440,105 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="visqc-visual-quality-control-for-profile-metadata">
-<h1>VisQC: Visual Quality Control for Profile Metadata<a class="headerlink" href="#visqc-visual-quality-control-for-profile-metadata" title="Link to this heading">#</a></h1>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
-<p>This <code class="docutils literal notranslate"><span class="pre">VisQC</span></code> work is related to internal wave (abbreviated <code class="docutils literal notranslate"><span class="pre">iw</span></code>) detection. It is a quality control and annotation process. The QC: From postproc level 06 data we move to level 07. The annotation: VisQC is a two-stage workflow for validating and correcting the derived cline metadata: Pycno, thermo, halo and oxy. Estimates of these clines are first produced by <code class="docutils literal notranslate"><span class="pre">~/argosy/iw/cline_extract.py</span></code>; then corrected manually.</p>
-<p>Automatic cline identification often fails due to noise and signal ambiguity. Actual ocean water does not conform to a simple description. VisQC provides for human-in-the-loop correction.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="pp06-filtered-physical-dataset">
+<h1>PP06: Filtered Physical Dataset<a class="headerlink" href="#pp06-filtered-physical-dataset" title="Link to this heading">#</a></h1>
+<p>pp06 is the <strong>physical, filtered</strong> shard dataset built from the pp05-qualified redux shards
+(contrast pp05, which is a QC <em>manifest</em> only — see <code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code>). It exists because the
+shallow-profiler data are at times erratic: sensor artifacts appear as large, physically
+implausible excursions that must be removed before analysis.</p>
+<p>pp06 is produced by a numbered sequence of filters. <strong>Filter 0 builds pp06 from redux</strong> (a copy
+of the qualifying shards); <strong>Filters 1–3 then refine those pp06 shards in place</strong>. All output
+lives under <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/postproc/pp06/&lt;yyyy&gt;/</span></code> (per-site layout via <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code>).</p>
+<p>Restricted to the 8 HSD scalar sensors: temperature, salinity, density, DO, CDOM, chlorA,
+backscatter, PAR.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Filter</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Sensors</p></th>
+<th class="head"><p>Script</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Baseline copy from the pp05 manifest</p></td>
+<td><p>all 8 HSD</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">postprocess_pp06.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Suppress conductivity erratics (MRA walk)</p></td>
+<td><p>salinity, density</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">postprocess_pp06.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Savitzky-Golay smoothing (quantization noise)</p></td>
+<td><p>cdom, chlorA</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">postprocess_pp06_filter2.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Rolling-minimum despike (Briggs et al. 2011)</p></td>
+<td><p>backscatter</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">postprocess_pp06_filter3.py</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="filter-0-baseline-manifest-pp06">
+<h2>Filter 0: Baseline (manifest → pp06)<a class="headerlink" href="#filter-0-baseline-manifest-pp06" title="Link to this heading">#</a></h2>
+<p>Copy each redux shard listed in the pp05 manifest into <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/postproc/pp06/&lt;yyyy&gt;/</span></code>,
+same format as redux. This is the starting dataset the later filters refine.</p>
 </section>
-<section id="step-1-visqcinspector-py">
-<h2>Step 1: <a class="reference external" href="http://VisQCInspector.py">VisQCInspector.py</a><a class="headerlink" href="#step-1-visqcinspector-py" title="Link to this heading">#</a></h2>
-<p>Run this interactive tool to step through profiles one at a time for a selected year.</p>
+<section id="filter-1-suppress-conductivity-erratics-salinity-density">
+<h2>Filter 1: Suppress conductivity erratics (salinity + density)<a class="headerlink" href="#filter-1-suppress-conductivity-erratics-salinity-density" title="Link to this heading">#</a></h2>
+<p>The conductivity sensor produces salinity and (with temperature) density. This filter drops
+salinity/density samples that fail either of two criteria. Because density depends on salinity,
+<strong>every discarded salinity sample discards the matching density sample too.</strong> Discards are logged
+to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/postproc/pp06/pp06_filter1.csv</span></code> (sensor, global profile index, sample index,
+value, depth).</p>
+<p>Criteria (applied in an ascending walk through the profile):</p>
 <ul class="simple">
-<li><p><strong>Left panel</strong>: T, S, DO, density traces vs depth (surface at top), independent
-auto-scaled x-axes; two adjustable cline boundary lines (upper/lower) for the selected
-sensor’s cline (nudge buttons or click-to-set).</p></li>
-<li><p><strong>Right panel</strong>: potential density σ₀ (TEOS-10 via <code class="docutils literal notranslate"><span class="pre">gsw</span></code>) vs depth for the same profile,
-derived from the salinity + temperature shards. Shows a note if <code class="docutils literal notranslate"><span class="pre">gsw</span></code> isn’t installed.</p></li>
-<li><p>Widget buttons: <strong>Accept</strong>, <strong>Correct</strong> (save adjusted boundaries), <strong>Discard</strong>.</p></li>
-<li><p>Writes one row per (gpi, sensor) to the visitation CSV at
-<code class="docutils literal notranslate"><span class="pre">metadata/annotations/visqc_visitation_&lt;site&gt;.csv</span></code> (re-deciding overwrites that pair’s
-row). Columns: <code class="docutils literal notranslate"><span class="pre">timestamp,</span> <span class="pre">gpi,</span> <span class="pre">sensor,</span> <span class="pre">decision,</span> <span class="pre">upper_depth,</span> <span class="pre">lower_depth,</span> <span class="pre">cline_depth,</span> <span class="pre">cline_thickness,</span> <span class="pre">reviewed_at</span></code>. Accept/Discard auto-advance to the next profile.</p></li>
-<li><p>Site via <code class="docutils literal notranslate"><span class="pre">ARGOSY_SITE</span></code>; start date via <code class="docutils literal notranslate"><span class="pre">VISQC_START_DATE</span></code> (default 2024-01-01).</p></li>
+<li><p><strong>PPC — physically-possible criterion:</strong> value must lie in <code class="docutils literal notranslate"><span class="pre">[sp_lo,</span> <span class="pre">sp_hi]</span></code>.</p></li>
+<li><p><strong>SSC — sample-to-sample criterion</strong> (e.g. 0.5 PSU): let <code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">=</span> <span class="pre">|value</span> <span class="pre">−</span> <span class="pre">MRA|</span></code>; if <code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">&gt;</span> <span class="pre">SSC</span></code> the
+value is discarded, else it becomes the new MRA.</p></li>
 </ul>
+<p><strong>MRA (Most Recent Acceptable)</strong> is the most recent good sample in the walk. The first sample
+inside the PPC range starts the profile and seeds the MRA; everything before it is discarded.
+Each accepted sample updates the MRA. (More elaborate Markov-style filters are possible; deferred.)</p>
 </section>
-<section id="stage-2-visqccorrector-py">
-<h2>Stage 2: <a class="reference external" href="http://VisQCCorrector.py">VisQCCorrector.py</a><a class="headerlink" href="#stage-2-visqccorrector-py" title="Link to this heading">#</a></h2>
-<p>Reads the visitation CSV and produces a corrected version of <code class="docutils literal notranslate"><span class="pre">cline_extract_site.csv</span></code>
-incorporating the human-verified adjustments.</p>
-<p>Open question: Should this also produce a corrected post-processing redux (pp07)?
-Deferred for now.</p>
+<section id="filter-2-savitzky-golay-smoothing-cdom-chlora">
+<h2>Filter 2: Savitzky-Golay smoothing (CDOM, chlorA)<a class="headerlink" href="#filter-2-savitzky-golay-smoothing-cdom-chlora" title="Link to this heading">#</a></h2>
+<p>The ECO fluorometer channels show quantization-step noise. A Savitzky-Golay filter
+(<code class="docutils literal notranslate"><span class="pre">window=11</span></code>, <code class="docutils literal notranslate"><span class="pre">polyorder=2</span></code>) smooths the steps while preserving real features: at ~0.3 m/s ascent
+and ~1 Hz sampling, 11 points span ~3–4 m, wider than the 1–3-point quantization steps but
+narrower than genuine CDOM/chlorophyll layers (&gt;10 points). Operates in place on pp06 shards.</p>
 </section>
-<section id="current-metadata-columns-from-cline-extract">
-<h2>Current metadata columns (from cline_extract)<a class="headerlink" href="#current-metadata-columns-from-cline-extract" title="Link to this heading">#</a></h2>
-<p>Per profile we have:</p>
+<section id="filter-3-backscatter-despike-rolling-minimum-baseline">
+<h2>Filter 3: Backscatter despike (rolling-minimum baseline)<a class="headerlink" href="#filter-3-backscatter-despike-rolling-minimum-baseline" title="Link to this heading">#</a></h2>
+<p>Optical backscatter carries transient spikes from individual large particles crossing the beam.
+Following Briggs et al. (2011), a rolling minimum over an 11-sample depth window extracts the
+spike-free baseline (the window minimum is unlikely to be spike-contaminated) and replaces the
+signal with it. Same ~3–4 m span as Filter 2. Operates in place on pp06 backscatter shards.</p>
+</section>
+<section id="filter-1-erratic-examples">
+<h2>Filter 1 erratic examples<a class="headerlink" href="#filter-1-erratic-examples" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Cline depth</strong> (meters): pycnocline, thermocline, halocline, oxycline, secondary pycnocline</p></li>
-<li><p><strong>Cline strength</strong> (gradient magnitude at the peak): all four primary + secondary</p></li>
+<li><p><strong>2016-328-2, GI 3278, ~37 m:</strong> negative salinity excursion. Note a second candidate near ~57 m
+in the same profile is <em>real</em> data (the same signal appears in the +1 profile) — an argument for
+not setting SSC too tight.</p></li>
+<li><p><strong>GI 2075, ~81 m:</strong> salinity erratic.</p></li>
+<li><p><strong>GI 9043, ~124 m → 61 m:</strong> a large salinity excursion. Ideally removed whole by holding the MRA,
+but that also cuts the upper profile even though the sensor appears to recover.</p></li>
 </ul>
-<p>We do NOT currently have:</p>
-<ul class="simple">
-<li><p><strong>Cline thickness</strong> (vertical extent of the transition zone)</p></li>
-</ul>
+<p>Term note: <strong>GI/GPI</strong> = global profile index (integer P). The prior/subsequent profiles P−1 / P+1
+are used for corroboration; if a neighbor index is missing, the nearest earlier/later profile in
+time serves. Quoted depths are approximate.</p>
 </section>
-<section id="cline-thickness-estimation">
-<h2>Cline thickness estimation<a class="headerlink" href="#cline-thickness-estimation" title="Link to this heading">#</a></h2>
-<p>Standard approaches:</p>
-<ol class="arabic simple">
-<li><p><strong>Gradient threshold method</strong>: Define the cline as the depth range where |dρ/dz|
-exceeds some fraction of the peak gradient (e.g. 50% of max). The top and bottom
-of that zone give the cline thickness. Uses linear interpolation at the threshold
-crossings for sub-grid-cell resolution (avoids quantization artifacts from the
-discrete depth grid). Simple, reproducible, but threshold-dependent.</p></li>
-<li><p><strong>Tangent-line method</strong> (Chu &amp; Fan, 2011): Fit a tangent line at the point of maximum
-gradient. Where it intersects the upper and lower “shelf” values (above and below the
-cline) defines the thickness. More geometrically motivated but sensitive to noise in
-the shelf values.</p></li>
-<li><p><strong>Sigmoid fit</strong>: Fit an error function (erf) or hyperbolic tangent to the density
-profile through the cline region. The width parameter of the sigmoid IS the cline
-thickness. Most robust for clean data; fails if the cline isn’t well-approximated
-by a monotonic transition.</p></li>
-<li><p><strong>N² half-width</strong>: The depth range over which N² exceeds half its maximum value
-(full width at half maximum of the buoyancy frequency peak). Analogous to spectral
-linewidth. Physically meaningful — directly relates to internal wave trapping.</p></li>
-</ol>
-<p>Recommendation: Start with method 1 (gradient threshold at 50% of peak). It’s fast,
-works on all four cline types identically, and produces a single “thickness” number per
-cline per profile. If that proves too noisy, upgrade to method 4 (N² FWHM) for the
-pycnocline specifically.</p>
-<p>Adding thickness to <code class="docutils literal notranslate"><span class="pre">cline_extract.py</span></code> output: a future enhancement. For VisQC purposes,
-the depth + strength are sufficient for visual validation.</p>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PP05_QCAnalysis.md</span></code> — the upstream pp05 QC manifest (tiered exclusions, suspect/fail ranges).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PostProcessing.md</span></code> — the full redux → ppNN pipeline overview.</p></li>
+</ul>
 </section>
 </section>
 
@@ -541,6 +572,24 @@ the depth + strength are sufficient for visual validation.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="PP05_QCAnalysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PP05: Quality-Controlled Analysis Dataset</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="VectorData.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Vector Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -557,11 +606,12 @@ the depth + strength are sufficient for visual validation.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-visqcinspector-py">Step 1: VisQCInspector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-visqccorrector-py">Stage 2: VisQCCorrector.py</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-metadata-columns-from-cline-extract">Current metadata columns (from cline_extract)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cline-thickness-estimation">Cline thickness estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-0-baseline-manifest-pp06">Filter 0: Baseline (manifest → pp06)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-1-suppress-conductivity-erratics-salinity-density">Filter 1: Suppress conductivity erratics (salinity + density)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-2-savitzky-golay-smoothing-cdom-chlora">Filter 2: Savitzky-Golay smoothing (CDOM, chlorA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-3-backscatter-despike-rolling-minimum-baseline">Filter 3: Backscatter despike (rolling-minimum baseline)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-1-erratic-examples">Filter 1 erratic examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See also</a></li>
 </ul>
   </nav></div>
 

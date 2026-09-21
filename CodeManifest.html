@@ -179,7 +179,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Orientation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">START HERE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArgosyOverview.html">Argosy Overview</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="OOIObservatory.html">OOI Observatory Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RCAWritLarge.html">RCA Writ Large</a></li>
@@ -198,8 +198,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Sharding.html">Profile Metadata and Sharding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PostProcessing.html">PostProcessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PP05_QCAnalysis.html">PP05: Quality-Controlled Analysis Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PP06_Filters.html">PP06: Filtered Physical Dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VectorData.html">Vector Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataOps.html">DataOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/MLD.html">Mixed Layer Depth</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phase 2 — Analysis</span></p>
 <ul class="nav bd-sidenav">
@@ -430,7 +432,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iw-directory-argosy-iw">IW directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/iw</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vis-directory-argosy-vis">Vis directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/vis</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapters-directory-argosy-chapters">Chapters directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/chapters</span></code>)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld-directory-argosy-tmld">TMLD directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/TMLD</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legacycode-directory-argosy-legacycode">LegacyCode directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/LegacyCode</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-files-argosy">Documentation files (<code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supporting-files">Supporting files</a></li>
@@ -496,6 +497,12 @@ document.write(`
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TimeSeriesProfileCorrelation.py</span></code></p></td>
 <td><p>Cross-correlation between adjacent profiles on a regular depth grid. Produces vertical offset time series (tidal/current displacement).</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code></p></td>
+<td><p>MLD workflow step 1: reproducible seeded sampling of one candidate profile per N-day block per site from pp06. Writes working CSVs to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/</span></code>; <code class="docutils literal notranslate"><span class="pre">--bless</span></code> promotes them to <code class="docutils literal notranslate"><span class="pre">mld_candidates/</span></code>. See <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MLD.py</span></code></p></td>
+<td><p>MLD workflow step 2: standalone TkAgg GUI to hand-label mixed-layer depth on blessed candidates. Per-<code class="docutils literal notranslate"><span class="pre">who</span></code> label CSV in <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/metadata/annotations/</span></code>. Needs a display + <code class="docutils literal notranslate"><span class="pre">python3-tk</span></code>. See <code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code>.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -518,17 +525,14 @@ document.write(`
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tidal_constituents.json</span></code></p></td>
 <td><p>Extracted tidal harmonic constituents (amplitude, phase, frequency) for 3 sites, 14 constituents.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vcurrent.csv</span></code></p></td>
-<td><p>Vector sensor channels for velocity (3: east, north, up).</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></p></td>
+<td><p>Full <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span></code> snapshot of the <code class="docutils literal notranslate"><span class="pre">argosy</span></code> env (pinned build hashes; not portable).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vspectralirr.csv</span></code></p></td>
-<td><p>Vector sensor channels for spectral irradiance (7 wavelengths).</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">environment-mld.yml</span></code></p></td>
+<td><p>Portable minimal conda spec for running the MLD workflow (<code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> + <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code>) on a collaborator’s machine.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vopticalabsorb.csv</span></code></p></td>
-<td><p>Vector sensor channels for optical absorption (73 channels).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vbeamatten.csv</span></code></p></td>
-<td><p>Vector sensor channels for beam attenuation (73 channels).</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mld_candidates/</span></code></p></td>
+<td><p>Blessed, committed candidate-profile lists (shared MLD labeling targets); see <code class="docutils literal notranslate"><span class="pre">mld_candidates/README.md</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -612,11 +616,11 @@ document.write(`
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bundle_chart.py</span></code></p></td>
 <td><p>Standalone interactive bundle chart. Global-index navigation, dynamic data source (redux/pp01–pp06), persistent range memory, display names, nav buttons.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">curtain_plot.py</span></code></p></td>
-<td><p>Interactive curtain plot for HSD sensors. Source selector, sensor exclusions, contour overlays. Outputs PNG + contour CSV to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/</span></code>.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bundle_animate.py</span></code></p></td>
+<td><p>Bundle animation (headless, Agg): sliding-window temperature profile time-lapse, mean±std or overlay. Output: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/visualizations/</span></code>. Supersedes the removed <code class="docutils literal notranslate"><span class="pre">bundle_animation.py</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bundle_animation.py</span></code></p></td>
-<td><p>Bundle animation: sliding-window temperature profile time-lapse. Mean±std or overlay mode. Output: <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/visualizations/bundle_animation.mp4</span></code>.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">curtain_plot.py</span></code></p></td>
+<td><p>Interactive curtain plot for HSD sensors. Source selector, sensor exclusions, contour overlays. Outputs PNG + contour CSV to <code class="docutils literal notranslate"><span class="pre">~/ooi/&lt;site&gt;/</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -651,25 +655,6 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StubWork.ipynb</span></code></p></td>
 <td><p>Stub/scratch notebook.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="tmld-directory-argosy-tmld">
-<h2>TMLD directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/TMLD</span></code>)<a class="headerlink" href="#tmld-directory-argosy-tmld" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>File</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tmld_selector.py</span></code></p></td>
-<td><p>Interactive tool for manually selecting Temperature Mixed Layer Depth.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tmld_estimates.csv</span></code></p></td>
-<td><p>Human-generated TMLD estimates from the interactive selector.</p></td>
 </tr>
 </tbody>
 </table>
@@ -744,23 +729,29 @@ of these same files.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VectorData.md</span></code></p></td>
 <td><p>Vector sensor integration (velocity, spectral irradiance, spectrophotometer).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DescentData.md</span></code></p></td>
+<td><p>Descent-shard recovery design: parallel <code class="docutils literal notranslate"><span class="pre">redux_descent</span></code>/<code class="docutils literal notranslate"><span class="pre">pp06_descent</span></code> tree + <code class="docutils literal notranslate"><span class="pre">V1D</span></code> naming, <code class="docutils literal notranslate"><span class="pre">ooipaths</span></code> direction support, EC2 pipeline, MLD Descent overlay button.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Analysis.md</span></code></p></td>
 <td><p>Derived oceanographic parameters, data exploration ideas, SGA methodology.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Umbrella.md</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Umbrella.md</span></code></p></td>
 <td><p>Expansion beyond shallow profiler: other data resources.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ColumbiaPlumePlan.md</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ColumbiaPlumePlan.md</span></code></p></td>
 <td><p>Columbia River plume detection plan; satellite (PO.DAAC) cross-comparison.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RCAWritLarge.md</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RCAWritLarge.md</span></code></p></td>
 <td><p>Broader Regional Cabled Array context.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OOIFAQandGeneralInfoSummary.md</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OOIFAQandGeneralInfoSummary.md</span></code></p></td>
 <td><p>OOI FAQ / general information summary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OOINETSlopeBaseDataStatus.md</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OOINETSlopeBaseDataStatus.md</span></code></p></td>
 <td><p>OOINET data availability status for Slope Base.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OOIUsability.md</span></code></p></td>
+<td><p>Usability notes on OOI data-access tools (OOINET parameter selection, provenance, annotations); friction points as DSC feedback. Working doc, not in the book.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Testing.md</span></code></p></td>
 <td><p>Test definitions: SGA synthetic validation, internal wave incompressibility check.</p></td>
@@ -768,14 +759,20 @@ of these same files.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VisQC.md</span></code></p></td>
 <td><p>Visual QC workflow design (cline review; Inspector + planned Corrector).</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MLDAnnotationPlan.md</span></code></p></td>
+<td><p>MLD annotation suite design/spec: <code class="docutils literal notranslate"><span class="pre">PreSelectProfiles.py</span></code> + <code class="docutils literal notranslate"><span class="pre">MLD.py</span></code> workflow, interaction model, label schema, decisions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MLDObservations.md</span></code></p></td>
+<td><p>MLD annotation suite: human experience notes from hand-marking mixed-layer depth. Indexes the whole MLD suite.</p></td>
+</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Publishing.md</span></code></p></td>
 <td><p>Open-science / DOI archiving plan (Zenodo, Figshare, OSF; postproc subset).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SessionState.md</span></code></p></td>
 <td><p>Machine-readable session state for AI continuity (last updated, in-progress, blocked).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pp06ErraticFilterPrompt.md</span></code></p></td>
-<td><p>Design notes/prompt for pp06 erratic filter system.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PP06_Filters.md</span></code></p></td>
+<td><p>pp06 filtered dataset: the Filter 0–3 reference (baseline copy, conductivity-erratic MRA walk, Sav-Gol smoothing, backscatter despike).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DevelopmentLog.md</span></code></p></td>
 <td><p>Development narrative, open topics, pending items, Next prompt section.</p></td>
@@ -908,7 +905,6 @@ of these same files.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iw-directory-argosy-iw">IW directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/iw</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vis-directory-argosy-vis">Vis directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/vis</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapters-directory-argosy-chapters">Chapters directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/chapters</span></code>)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tmld-directory-argosy-tmld">TMLD directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/TMLD</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legacycode-directory-argosy-legacycode">LegacyCode directory (<code class="docutils literal notranslate"><span class="pre">~/argosy/LegacyCode</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-files-argosy">Documentation files (<code class="docutils literal notranslate"><span class="pre">~/argosy</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supporting-files">Supporting files</a></li>
