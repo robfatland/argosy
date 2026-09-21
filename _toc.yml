@@ -6,6 +6,12 @@
 # Publishing) are intentionally EXCLUDED — they live in the repo
 # but are not part of the reader-facing book. Standalone artifacts (README, slides, the
 # AGU poster) are also intentionally out.
+#
+# Publish the book (run from ~/argosy in the `argosy` conda env):
+#   jupyter-book build .              # renders HTML into ./_build/html (re-runs notebooks)
+#   ghp-import -n -p -f _build/html   # push _build/html to the gh-pages branch -> GitHub Pages
+# Live site: https://robfatland.github.io/argosy/
+# (Fast prose-only rebuild: set execute_notebooks: 'off' in _config.yml first.)
 
 format: jb-book
 root: intro
@@ -29,6 +35,7 @@ parts:
     - file: PP06_Filters
     - file: VectorData
     - file: DataOps
+    - file: chapters/MLD
 
 - caption: Phase 2 — Analysis
   chapters:
