@@ -220,7 +220,7 @@ profile sequentially. Each sample must pass two gates: physically possible (28â€
 and within 0.3 PSU of the Most Recent Acceptable value. Failed samples are removed
 from both the salinity and density shards. Discards logged to `pp06_filter1.csv`.
 
-Reference: Custom implementation. See `~/argosy/pp06ErraticFilterPrompt.md` for design.
+Reference: Custom implementation. See `PP06_Filters.md` for the full Filter 0â€“3 reference.
 
 
 **Filter 2** (CDOM/ChlorA smoothing): Savitzky-Golay filter (window=11, polyorder=2)

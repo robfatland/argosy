@@ -129,7 +129,7 @@ of these same files.
 | `MLDObservations.md` | MLD annotation suite: human experience notes from hand-marking mixed-layer depth. Indexes the whole MLD suite. |
 | `Publishing.md` | Open-science / DOI archiving plan (Zenodo, Figshare, OSF; postproc subset). |
 | `SessionState.md` | Machine-readable session state for AI continuity (last updated, in-progress, blocked). |
-| `pp06ErraticFilterPrompt.md` | Design notes/prompt for pp06 erratic filter system. |
+| `PP06_Filters.md` | pp06 filtered dataset: the Filter 0–3 reference (baseline copy, conductivity-erratic MRA walk, Sav-Gol smoothing, backscatter despike). |
 | `DevelopmentLog.md` | Development narrative, open topics, pending items, Next prompt section. |
 | `CodeManifest.md` | This file. |
 | `SETUP.md` | Collaboration setup: environment installation, S3 data access, getting started. |

@@ -557,7 +557,6 @@ This is at much lower task resolution.
   If 3 of 27 positions have no data, you see 24 traces. Options: rename the slider (e.g.
   `nPositions` or `window`), add a display showing actual traces drawn, or change the docs.
   Resolve before sharing with collaborators.
-- Finish writing `pp06ErraticFilterPrompt.md`
 - Apply Vis notebook rebuild (see `VisNotebookRebuild.md`)
 
 

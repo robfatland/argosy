@@ -84,6 +84,7 @@ and Working docs (repo-only, not in the published book).
 - `Sharding.md` — Sharding details, shard filenames, profile metadata, midnight/noon
 - `PostProcessing.md` — redux → ppNN pipeline: pp01/pp02, pp05/pp06 filters, exclusions, QC
 - `PP05_QCAnalysis.md` — pp05 methodology: three-tier exclusion, suspect ranges, manifest design
+- `PP06_Filters.md` — pp06 filtered dataset: the Filter 0–3 reference (baseline, conductivity erratics, Sav-Gol, backscatter despike)
 - `VectorData.md` — Vector sensor integration (velocity, spectral irradiance, spectrophotometer)
 - `DescentData.md` — Descent-shard recovery (second-class companion to ascent): parallel `redux_descent` tree + `V1D` naming, EC2 pipeline, MLD Descent overlay button
 - `DataOps.md` — S3 layout/backup/sync/restore, localhost WSL vhdx disk management
@@ -111,7 +112,6 @@ and Working docs (repo-only, not in the published book).
 - `MLDObservations.md` — MLD annotation suite: human experience notes from hand-marking mixed-layer depth
 - `Testing.md` — Test definitions (SGA synthetic validation, IW incompressibility)
 - `CoincidencePlans.md` — Anomaly detection: auto/hetero coincidence plans
-- `pp06ErraticFilterPrompt.md` — Design notes for the pp06 erratic filter
 - `OOIUsability.md` — Usability notes on OOI data-access tools (OOINET etc.); DSC feedback
 - `poster/AGUPoster.html` — AGU poster (standalone artifact)
 - `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, open topics, pending ideas, Next prompt section
@@ -229,6 +229,7 @@ pandoc \
   PostProcessing.md \
   DataOps.md \
   PP05_QCAnalysis.md \
+  PP06_Filters.md \
   SpectralGraphAnalysis.md \
   TidalAnalysis.md \
   InternalWaves.md \

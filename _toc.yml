@@ -3,7 +3,7 @@
 #
 # Ordering authority for the published Jupyter Book. Structured by project phase.
 # Working/planning docs (DevelopmentLog, SessionState, VisQC, Testing, CoincidencePlans,
-# pp06ErraticFilterPrompt, Publishing) are intentionally EXCLUDED — they live in the repo
+# Publishing) are intentionally EXCLUDED — they live in the repo
 # but are not part of the reader-facing book. Standalone artifacts (README, slides, the
 # AGU poster) are also intentionally out.
 
@@ -26,6 +26,7 @@ parts:
     - file: Sharding
     - file: PostProcessing
     - file: PP05_QCAnalysis
+    - file: PP06_Filters
     - file: VectorData
     - file: DataOps
 
