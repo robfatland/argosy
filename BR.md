@@ -238,7 +238,9 @@ in parallel and should not block (or be blocked by) the AB run.
    (pp01/pp02), tidal_constituents.json, etc. Open: what belongs in the public set, and should
    related products be BUNDLED (e.g. a single downloadable release / Zenodo archive) rather than
    loose prefixes? Egress is owner-billed, so scope deliberately. Steering rule now requires ASKING
-   the human before making any new dataset public.
+   the human before making any new dataset public. See `Publishing.md` → "Relationship to the S3
+   public bucket" for the S3-live-vs-Zenodo-durable framing and the deposit plan (all 3 sites,
+   ~46 GB, within Zenodo's ~50 GB limit).
 
    **Safety assessment of the public pp06 policy (2026-09-07):**
    - DEMONSTRABLY SAFE on the SECURITY surface: grants only GetObject + ListBucket on the pp06

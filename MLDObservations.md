@@ -58,7 +58,13 @@ Entries should include who, date, context and any amount of speculation. Can als
     - Rob, 19-Sep-2026. Another really clean one: sb T 13994. Corroborated by DO!
 
 
+- Rob, 20-Sep-2026. Flagging sb salinity anomaly starting Jan 2017: A deep lens or double lens down below 50 meters of higher salinity but **warning** this could be primarily a chart autoscale artifact. Worth a look though. First appears in GPI 5042. Variants in 5088, 5125, 5173, 5213, 5237, 5262, etc... 5469 has an interesting complement-corroboration from DO. Last of the sequence might be 5611 (10-MAR-2018). Suggest check each DESCENT corroboration. 
+
+
 - Rob, 19-Sep-2026. We can flag ranges of bad profiles for embargo. See sb 1711 (2016-05-07): erratic in T and DO. Look at adjacent profiles: Is this an embargo range?
+
+
+- Rob, 20-Sep-2026. sb GPI 2457 and subsequent have an oxygen-rich lens below the MLD. Through perhaps 2915; so the date range is 19-AUG-2016 through 12-OCT-2016 and even beyond then.
 
 
 
