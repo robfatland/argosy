@@ -357,6 +357,22 @@ This is at much lower task resolution.
 
 ## Pending To Do
 
+- **Align argosy to the MOAR AI-ready objectives** (new agenda, Sep 2026). Close the six "where
+  argosy misses" gaps from `MakingOOIAIReady.md` so argosy is a credible AI-ready building block.
+  Full roadmap in `BR.md` → "Roadmap: align argosy to the MOAR objectives". Priority/sequence:
+  (G1) **shard → Zarr** (cloud-optimized ARCO format — HIGH priority, revisit sharding with Zarr as
+  the primary output; also fixes the notebook "pull 15 GB" problem); (G3) CF/ACDD/STAC standardized
+  metadata, done together with G1 at write time; (G2) trust layer (uncertainty + queryable
+  provenance + first-class QARTOD, → pp07); (G5) standardized human-label schema + benchmark
+  protocol (with the MLD work); (G4) RAG knowledge corpus from the docset; (G6) governance = the
+  proposal's job, not code.
+- **Plume: quantify PO.DAAC/satellite SST vs top-of-profile SP temperature** (Sep 2026). The
+  comparison is currently VISUAL ONLY (`plume/surface_plot.py` Panel 3). Add a quantitative fit
+  (correlation/RMSE/bias, seasonal) to substantiate the MOAR "SST tracks SP surface" claim; reconcile
+  the "PO.DAAC" vs actual "NOAA Coral Reef Watch" provider wording; generalize the plume fetchers off
+  the hardcoded `slopebase`/sb lat-lon to the 2-letter site code. Detail in `BR.md` → "Plume: quantify
+  ... SST vs top-of-profile".
+
 - **Harden the CDK user-data env bootstrap** (found during first `oo` deploy, Sep 2026):
   (1) `conda env create` now hits `CondaToSNonInteractiveError` — the user-data must run
   `conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main` (and `/r`)

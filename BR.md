@@ -365,3 +365,195 @@ no bulk download). Fits the "compute-to-data / don't pull to laptop" tenet.
 - Shared plotting core: factor `plot_bundle` so the notebook (interactive ipywidgets) and any
   standalone variant share one implementation (parallels the cline_plot dual-mode / pipeline module
   pattern).
+- 2026-09-20: Doc legibility — evaluated folding PP05_QCAnalysis.md + PP06_Filters.md into
+  PostProcessing.md. DECIDED: do NOT merge (would push PostProcessing.md ~362→~590 lines, over the
+  <400 steering guideline, and collapse a deliberate overview-vs-deep-dive split). Instead THINNED
+  PostProcessing.md: replaced the duplicated redux→pp05→pp06 + pp06-Filters detail with a summary +
+  pointers to PP05_QCAnalysis.md / PP06_Filters.md (362→313 lines). The old "Data operations"
+  overlap with DataOps.md was already reduced to a pointer (no action needed). Also added the
+  publish commands to the _toc.yml header comment.
+
+
+## Roadmap: align argosy to the MOAR "AI-ready building block" objectives
+
+Source: `MakingOOIAIReady.md` → "Is argosy a building block?" lists six gaps between argosy's
+current state ("excellent private practice") and an AI-ready building block. This is the near-term
+roadmap to close them, so argosy can serve as the credible Phase-0/1/2 prototype the MOAR proposal
+leans on. Ordered by leverage + dependency. (BR guideline: deliberate design, then implement.)
+
+### G1 — Cloud-optimized format: shard → Zarr  [HIGH PRIORITY]
+**Gap:** per-profile NetCDF shards are analysis-ready but not ARCO; an agent can't slice across the
+record without fetching many files. **Target:** a Zarr representation of the pp06 (and redux?) data
+that supports lazy, chunked, cross-profile/cross-time access over S3 (`xarray.open_zarr`,
+consolidated metadata), so "give me temperature at Slope Base 2018–2020, 0–50 m" is one lazy read,
+not thousands of file opens.
+- Design questions: one big Zarr store per (site, sensor) spanning all years+profiles, vs per-year?
+  Chunking strategy (by profile? by depth-bin? by time?) — this is the key perf lever, like RAG
+  chunking. How to represent the ragged per-profile depth axis in a regular Zarr array (interpolate
+  to a common depth grid? store as a 2-D [profile × depth-bin] cube?). Keep the shards too, or
+  supersede? Relationship to the existing `shard_source.py` Local/S3 layer.
+- Likely the biggest single win for AI-readiness AND for the notebook explorer (kills the "pull
+  15 GB" problem outright). Revisit sharding with Zarr as the primary output target.
+
+**Shard vs Zarr — the mental model (for the transition):**
+- A **shard** = one file per (profile × sensor): the FILE is the unit. ~150,000 files. Great for
+  "give me one profile," bad for "sweep the record" (glob + thousands of file-opens + manual stitch).
+- **Zarr** = one big N-D array (e.g. `temperature[profile, depth]`) physically diced into compressed
+  CHUNKS, each chunk a separate object, plus small JSON metadata. The ARRAY is the unit; files are
+  hidden. Query = slice the array; the library fetches only the chunks covering the slice.
+  `xr.open_zarr(...)` is near-instant (reads only metadata); data loads **lazily** on compute. This
+  is why the "pull 15 GB" problem vanishes — a reader slices and only those bytes travel.
+- Two knobs that matter: **chunking** (chunk shape = the main perf lever, like RAG chunk size — chunk
+  along the dimension most queries range over) and **lazy loading** (open ≠ load).
+- xarray writes/reads Zarr natively (`ds.to_zarr(...)`), so tooling is a small change.
+
+**The hard part = regularizing ragged profiles** (each profile has different depth samples, but a
+Zarr array is a rectangle). Options: (A) interpolate every profile onto a COMMON DEPTH GRID (clean
+regular cube, ML-friendly; COST = resamples, no longer raw values); (B) pad to longest profile
+(preserves values, wastes space, depth axis becomes a meaningless index); (C) CF ragged-array
+encoding (fidelity + standards, more complex). **DECISION (leaning, 2026-09): Option A** — a common
+depth grid — since MLD/ML/cross-record work wants gridded profiles anyway; **keep the NetCDF shards
+as the fidelity-preserving archive** and add the Zarr cube as the analysis-ready ARCO product (with
+CF/ACDD attrs written at build time, per G3). Be explicit that Option A resamples (a QC decision).
+
+**S3 object count:** Zarr yields FAR FEWER objects than shards (a knob, not fixed): count ≈ (chunks
+per array × #arrays) + a little metadata. E.g. ~22k profiles chunked in ~1000-profile blocks ≈ ~22
+chunks/array × ~11 sensors ≈ hundreds of objects vs ~150,000 shards — 2–3 orders of magnitude fewer.
+Inversely proportional to chunk size (tiny chunks → many objects; large → few but over-fetch per
+query). Consolidated metadata (xarray default on write) collapses per-array metadata into ONE object,
+so open is a single small read. Fewer/larger objects also cuts S3 per-request costs on top of egress.
+
+### G2 — Trust layer: uncertainty + queryable provenance + first-class QC
+**Gap:** pp05 encodes inclusion but not uncertainty; provenance lives in filenames/docs, not a
+queryable per-observation lineage; QARTOD flags aren't first-class in the products. **Target:**
+carry per-observation/per-profile QC state, processing lineage, and quantified uncertainty *in the
+data products* (Zarr attrs / companion tables), not just in prose. Fold QARTOD flags through the
+pipeline. SignoffQC discard decisions become part of this trust record (→ pp07).
+
+### G3 — Standardized, interoperable metadata  [SINGLE BIGGEST GAP per MOAR]
+**Gap:** metadata is coherent within argosy but not in community conventions. **Target:** express
+products with **CF conventions** (units, standard_names), **ACDD** (discovery attrs), and **STAC**
+(catalog/collection items for the S3 assets) so other tools/agents consume argosy data without
+bespoke glue. This is what turns "private practice" into "infrastructure." Pairs naturally with the
+Zarr work (set the attrs correctly at write time).
+
+### G4 — Knowledge corpus / retrieval layer (Block 4 seed)
+**Gap:** no RAG corpus yet — but the docset is unusually good, so argosy is well-positioned to
+BECOME one. **Target:** assemble the argosy/OOI docs + method descriptions + references.bib into a
+retrievable, citable corpus (ties to the children's-lit-style RAG design discussed). Low effort
+relative to leverage; a natural Phase-3 pilot.
+
+### G5 — Standardized human-label schema + benchmark protocol
+**Gap:** SignoffQC and MLD labeling are the right idea but ad hoc — no standard label schema,
+inter-annotator provenance, or benchmark protocol. **Target:** a documented label schema (who,
+when, what, confidence), versioned label sets, and a train/test/benchmark protocol. The MLD
+labeled-set + Holte&Talley benchmark is the first instance; generalize it (VisQC clines, SignoffQC
+sensor discards). This makes the Phase-2 template reusable.
+
+### G6 — Beyond single-team (governance/standards)  [PROPOSAL-SCOPE, not code]
+**Gap:** AI-readiness is partly a standards/governance problem a one-team repo can't confer.
+**Target:** this is the MOAR proposal's job — not an argosy code task, but noted so the roadmap is
+honest about what argosy CAN'T fix alone. argosy's job is to be the demonstrated pattern (G1–G5);
+the proposal turns the pattern into facility-scale standards.
+
+### Sequencing (leverage × dependency)
+1. **G1 (Zarr)** first — unblocks the explorer AND is the ARCO foundation; G2/G3 attrs ride on it.
+2. **G3 (CF/ACDD/STAC)** with G1 — set standard metadata at Zarr write time (do together).
+3. **G2 (trust layer)** next — uncertainty/provenance/QARTOD into the Zarr products + pp07.
+4. **G5 (label schema/benchmark)** alongside the MLD Phase-2 work (already in motion).
+5. **G4 (RAG corpus)** as a Phase-3 pilot once products stabilize.
+6. **G6** is the proposal, ongoing.
+
+
+## Plume: quantify PO.DAAC/satellite SST vs top-of-profile SP temperature
+
+**Current state (verified Sep 2026):** the SST↔SP-surface comparison exists but is VISUAL ONLY —
+`plume/surface_plot.py` Panel 3 overlays profiler `temp_mean` (shallowest-10-point mean from
+`surface_extract.py`, on pp06) against satellite SST (from `fetch_sst.py`). No quantitative fit.
+**Also:** the "SST" is actually **NOAA Coral Reef Watch** (`noaacrwsstDaily` via CoastWatch
+ERDDAP), NOT literally PO.DAAC — reconcile the "NASA PO.DAAC SST" wording in DeveloperGuide/MOAR.
+And the plume fetchers hardcode `slopebase` + sb lat/lon (same stale-naming pattern fixed elsewhere).
+
+**To do:**
+- Add a QUANTITATIVE SST-vs-SP-surface analysis: time-align satellite SST with per-profile surface
+  temp, compute correlation / RMSE / bias (and seasonal breakdown), to substantiate the MOAR claim
+  "SST tracks SP surface well" (currently flagged as an unverified project observation).
+- Reconcile provider wording (NOAA CRW vs PO.DAAC) across code + docs.
+- Generalize plume fetchers to the 2-letter site code + per-site lat/lon (retire `slopebase`).
+- (Ties to G3: this cross-comparison is exactly what standardized metadata + a satellite "external"
+  product should make routine rather than bespoke.)
+
+
+## Design topic: potential density (σ₀) as a derived data value
+
+Add **potential density** (σθ / σ₀) as a first-class derived product, analogous to how `density`
+(in-situ) is already a derived variable. Physics note: in-situ `density` is derived from
+temperature + salinity + **pressure/depth** (includes compression by overlying pressure);
+**potential density removes the pressure effect** (density a parcel would have if moved adiabatically
+to a reference pressure, usually the surface). σ₀ is the better variable for stratification, water
+masses, and MLD because it compares parcels on equal footing — directly relevant to the MLD work,
+the cline/VisQC work, and the water-mass-intrusion science hook.
+
+Already PROVEN in-project: `VisQCInspector.py` → `compute_potential_density()` computes σ₀ via
+TEOS-10 (`gsw.sigma0` from S + in-situ T + pressure, with nominal site lat/lon). So this is
+PRODUCTIZING an existing calculation, not new science.
+
+**Two implementation modes to evaluate (the decision):**
+- **Static (precomputed):** compute σ₀ once during post-processing and store it as its own product
+  (a `potentialdensity` shard, or — better under G1 — a variable in the Zarr cube). Pro: computed
+  once, consistent, directly queryable/plottable, no per-read cost, feeds ML as a ready feature.
+  Con: another product to build/version; must be recomputed if S/T QC changes.
+- **On-the-fly:** compute σ₀ at read time from the S + T (+ depth→pressure) shards/arrays. Pro: no
+  storage, always consistent with current S/T. Con: recomputed on every read; requires S and T to be
+  co-located and depth-aligned at query time (the interpolation SignoffQC already does).
+
+**Leaning:** since G1 moves toward a regular Zarr cube on a common depth grid (where S, T, depth are
+already aligned), σ₀ becomes cheap to add as a **precomputed variable in the cube** — the static
+option, essentially free once the cube exists, and the cleanest for ML + agents. On-the-fly remains
+the right choice for the interactive tools (VisQCInspector already does it). So likely BOTH: static
+in the ARCO product, on-the-fly in interactive GUIs. Requires `gsw` (already in the argosy env).
+Ties to G1 (Zarr cube), G2 (record its provenance/derivation), G3 (CF standard_name
+`sea_water_potential_density`).
+
+
+## Analysis topic: harmonizing data to scale water-mass emplacement anomalies
+
+Emerging motivation: the SP appears to be observing water-mass EMPLACEMENT (e.g. a high-salinity
+signal persisting ~2 months at ab). Goal: harmonize available data to give these anomalies a
+spatial/dynamical scale and a fuller narrative, not just a time signature. Two sub-topics.
+
+### A. PO.DAAC/satellite SST 2D heatmap time-series movie (eddy structure)
+Extend the current POINT SST fetch (`plume/fetch_sst.py`, single lat/lon) to a REGIONAL BOX fetch
+(`SST[time, lat, lon]`) — the ERDDAP griddap box-query form already appears in `ColumbiaPlumePlan.md`
+(`[(42):(49)][(-130):(-122)]`). Animate frames over time (reuse `vis/bundle_animate.py` machinery)
+to SEE a mesoscale feature approach/pass a SP site, then check whether top-of-profile temperature
+registers it at the matching time — turning "2-month anomaly" into "here is the feature responsible."
+- Caveats: NOAA CRW ~5 km resolves mesoscale eddies (tens of km) but NOT submesoscale filaments;
+  IR SST has cloud gaps (analysed products gap-fill/smooth); SST is surface-only (corroborates
+  top-of-profile T, says nothing direct about the subsurface salinity lens).
+- Upgrade path if eddies become central: sea-surface-height / geostrophic velocity (AVISO/Copernicus)
+  detects eddies DIRECTLY (closed SSH contours + rotation) — a stronger eddy detector than SST.
+
+### B. Synthesize current(depth) V from SP velocity + platform ADCP; anomaly scale S = V·T
+Combine the SP science-pod point velocity (VELPT-class; current at the pod's instantaneous
+depth/time as it profiles — NOT a clean instantaneous V(depth)) with the 200 m platform ADCP
+(profiles current across depths at fixed time — the real V(depth) workhorse) into a fused
+current(depth) field. VERIFY from the sensor inventory: one ADCP or two, their range/orientation
+(upward-looking coverage of the upper column?) — determines depth coverage.
+- Fusion approach: ADCP as primary V(depth); SP point velocity as co-located check / gap-filler where
+  the profiler passes through ADCP range. Put both on a common depth grid + time base, reconcile
+  disagreement, quantify uncertainty. This is a small research task, not a one-off script.
+- **S = V·T** = advective length-scale of an anomaly (Taylor "frozen-field" hypothesis: feature
+  advected past a fixed sensor ≈ unchanged, so duration-at-point × advection-speed ≈ spatial extent).
+  Legitimate first-order estimate. Cautions: assumes advection not in-place evolution (2 months is
+  long — treat S as ORDER-OF-MAGNITUDE, not precise); use the depth-appropriate current and the
+  component ACROSS the site (advection), so V is V(depth) projected, not a scalar speed.
+- **Turbulence-layer bonus (strong, novel thread):** ADCP-derived shear (∂V/∂z) or backscatter can
+  flag depth layers of likely turbulent mixing; correlate those with profile SEGMENTS of high sensor
+  noise (salinity/DO erratics). Would give a PHYSICAL explanation for QC anomalies instead of just
+  flagging them → turbulence-flagged layers become a QC covariate. Connects directly to G2 (trust
+  layer) and the SignoffQC / erratic-filter work.
+
+These are Phase-2 analysis threads (Book-facing), feeding the water-mass-intrusion science hook in
+`MakingOOIAIReady.md`. Both give the intrusion narrative a physical scale — the "harmonize all the
+data" goal.
