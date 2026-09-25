@@ -169,73 +169,24 @@ The scalar sensors fall into two groups as described above.
 `redux` > `pp05` (virtual) > `pp06` (actual) is the starting postprocessing sequence.
 
 
-### `redux` to `pp05`
+### `redux` → `pp05` → `pp06` (summary)
 
+The core sequence, in brief (each stage has a dedicated deep-dive doc):
 
-`pp05` is a virtual dataset. It consists of a CSV manifest, a list of files that are "good to keep"
-from the redux dataset.
+- **`pp05`** is a *virtual* dataset — a CSV manifest (`~/ooi/<site>/metadata/qc/pp05_manifest.csv`)
+  listing which redux shards are "good to keep." It applies manual time-window exclusions plus a
+  per-profile gross-range filter, with distinct HSD vs LSD rules. Script: `postprocess_pp05.py`.
+  **Full methodology (three-tier exclusion strategy, suspect ranges, manifest design):
+  see `PP05_QCAnalysis.md`.**
+- **`pp06`** is an *actual* (physical) dataset — a QC-filtered copy of the pp05-qualified HSD
+  shards, with sample-level despiking/smoothing filters applied. Output:
+  `~/ooi/<site>/postproc/pp06/<yyyy>/`. Scripts: `postprocess_pp06.py` (Filter 0 + 1),
+  `postprocess_pp06_filter2.py` (Filter 2), `postprocess_pp06_filter3.py` (Filter 3).
+  **Full per-filter reference (Filter 0 baseline, Filter 1 salinity/density MRA despike,
+  Filter 2 Savitzky-Golay CDOM/ChlorA smoothing, Filter 3 backscatter rolling-min despike,
+  with references and erratic examples): see `PP06_Filters.md`.**
 
-
-- Source: `~/ooi/<site>/redux/<yyyy>` where `<yyyy>` is a year: 2015, 2016 etcetera
-- pp05 rules
-    - Exclude profiles falling within manual exclusion windows (`sensor_exclusions.csv`)
-    - Exclude profiles where >20% of values fall outside site-specific suspect ranges
-    - For HSD sensors: include all 9 daily profiles (PAR excludes nighttime indices 3/4/5)
-    - For LSD sensors: include only daily_index 4 and 9; require minimum valid points (nitrate >= 50, pH >= 5, pCO2 >= 5)
-    - Per-sensor logic: excluding one sensor's shard does not affect other sensors at the same global index
-- Output: `~/ooi/<site>/metadata/pp05_manifest.csv`
-- Note: the manifest's `filepath` column stores absolute source paths; if the data tree
-  moves, regenerate the manifest or path-patch it (see the restructure gotcha in `DevelopmentLog.md`).
-- Script: `~/argosy/postprocess_pp05.py`
-- Manifest columns: `filepath, sensor, year, doy, global_idx, daily_idx, n_valid, n_suspect`
-- Resumable: appends per-year, skips completed years. Delete the manifest to regenerate from scratch.
-- Full methodology: `~/argosy/PP05_QCAnalysis.md`
-
-
-### `pp05` to `pp06`
-
-
-`pp06` is an actual (physical) dataset. It is a QC-filtered copy of the shards referenced
-by the pp05 manifest, restricted to the 8 HSD sensors. pp06 also applies sample-level
-filtering to remove erratic data points within individual profiles.
-
-
-- Source: pp05 manifest → corresponding redux shard files
-- Sensors: temperature, salinity, density, dissolvedoxygen, cdom, chlora, backscatter, par
-- Output: `~/ooi/<site>/postproc/pp06/<yyyy>/<shard_files>.nc`
-- Script: `~/argosy/postprocess_pp06.py` (Filter 0 + Filter 1)
-- Script: `~/argosy/postprocess_pp06_filter2.py` (Filter 2)
-- Script: `~/argosy/postprocess_pp06_filter3.py` (Filter 3)
-
-
-#### pp06 Filters
-
-
-**Filter 0** (baseline): Copy pp05-qualifying HSD shards to pp06 as physical files.
-Non-salinity/density sensors are straight-copied. No data modification.
-
-
-**Filter 1** (salinity/density MRA despiking): Walk through the ascending salinity
-profile sequentially. Each sample must pass two gates: physically possible (28–36 PSU)
-and within 0.3 PSU of the Most Recent Acceptable value. Failed samples are removed
-from both the salinity and density shards. Discards logged to `pp06_filter1.csv`.
-
-Reference: Custom implementation. See `PP06_Filters.md` for the full Filter 0–3 reference.
-
-
-**Filter 2** (CDOM/ChlorA smoothing): Savitzky-Golay filter (window=11, polyorder=2)
-applied in-place to reduce quantization noise from the FLORT sensor's coarse ADC.
-
-Reference: Savitzky, A. and Golay, M.J.E. (1964). "Smoothing and Differentiation of
-Data by Simplified Least Squares Procedures." Analytical Chemistry, 36(8), 1627–1639.
-
-
-**Filter 3** (backscatter despiking): Rolling-minimum baseline extraction (window=11)
-applied in-place. Removes positive particle-encounter spikes, retaining the smooth
-background particulate backscatter field.
-
-Reference: Briggs, N. et al. (2011). "High-resolution observations of aggregate flux
-during a sub-polar North Atlantic spring bloom." Deep-Sea Research Part I, 58(12), 1169–1186.
+(`pp07` is the planned human-QC-corrected tier; see `VisQC.md` and `BR.md`.)
 
 
 ### Sensor exclusions

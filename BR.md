@@ -439,9 +439,50 @@ Zarr work (set the attrs correctly at write time).
 
 ### G4 — Knowledge corpus / retrieval layer (Block 4 seed)
 **Gap:** no RAG corpus yet — but the docset is unusually good, so argosy is well-positioned to
-BECOME one. **Target:** assemble the argosy/OOI docs + method descriptions + references.bib into a
-retrievable, citable corpus (ties to the children's-lit-style RAG design discussed). Low effort
-relative to leverage; a natural Phase-3 pilot.
+BECOME one. **Target:** a retrieval-grounded (RAG) assistant that answers questions about the
+project + OOI/RCA with CITATIONS, over a locally-built index. A natural Phase-3 pilot; low effort,
+high leverage (also a proof-of-concept for MOAR Block 4). Weekend-scale PoC.
+
+**How RAG works here (so the split below is clear):** to be searchable, each source's TEXT must be
+fetched, split into chunks, embedded (chunk → vector), and stored in a vector index with the chunk
+text + metadata (source, URL/citation, fetch date). Retrieval = embed the question, pull the
+nearest chunks, hand them to the LLM to answer WITH citations. "By reference" (URL only) is NOT
+enough — the text must be copied in to be embedded. So every source is *copied and ingested*, and
+the index physically contains source text.
+
+**The corpus = THREE constituent sources:**
+1. **argosy's own docs** (`*.md` + `references.bib`) — authored here, in the repo. Freely
+   shareable; a fresh clone already has them. This half regenerates for free.
+2. **OOI/RCA online documentation** — web pages (oceanobservatories.org, interactiveoceans /
+   UW APL, instrument-series pages, etc.), *scraped into local text snapshots*. Store the source
+   URL + fetch date as metadata so answers cite the live page. Snapshots go STALE → re-scrape
+   periodically. Mostly OOI/UW public content (likely shareable, but check each site's terms);
+   regenerable by anyone from the public URLs in the build recipe.
+3. **Scientific papers** (PDFs) — under copyright. Text is embedded into the index (so the index
+   contains copyrighted text) and the PDFs themselves cannot be redistributed. Each reuser must
+   supply their own copies. This is the ONE genuine speed bump for Angus/Chuck; copyright forces it.
+
+**Storage (cross-site → top-level, NOT under `<site>/`; per "no generated data in the repo"):**
+```
+~/ooi/corpus/
+    papers/     source PDFs (copyright — private, not redistributed)
+    webdocs/    scraped OOI/RCA web-doc text snapshots (+ URL + fetch date)
+    index/      the vector store (embeddings + chunk text + metadata)
+```
+The build RECIPE + the argosy-doc half live in the repo (public); the built `index/`, scraped
+`webdocs/`, and `papers/` stay LOCAL/PRIVATE. Do NOT publish the index (it embeds copyrighted paper
+text — same class of issue as the children's-lit RAG). If ever served, serve cite-grounded ANSWERS,
+not the raw index.
+
+**Index characteristics:** small — a few thousand chunks; each vector ~384–1536 float32 (~1.5–6 KB)
+plus chunk text; **tens of MB total**, growing linearly (still tens-to-hundreds of MB even with
+papers). Format depends on the store (Chroma/LanceDB = a local dir; FAISS = binary index + text
+sidecar). Data = float vectors + text strings + small JSON metadata.
+
+**Use scenarios:** Chuck — "how does pp06 Filter 1 work and what paper justifies it?" → cites
+PostProcessing.md + Briggs 2011. Angus (Neversee) — "how were the MLD labels made / what's the
+benchmark?" → cites VisQC.md + Holte & Talley 2009. Author — "what did I decide about Zarr
+chunking?" → cites BR.md. (Arthur the casual reader is served by the Book, not the RAG.)
 
 ### G5 — Standardized human-label schema + benchmark protocol
 **Gap:** SignoffQC and MLD labeling are the right idea but ad hoc — no standard label schema,

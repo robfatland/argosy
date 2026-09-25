@@ -66,7 +66,7 @@ Entries should include who, date, context and any amount of speculation. Can als
 
 - Rob, 20-Sep-2026. sb GPI 2457 and subsequent have an oxygen-rich lens below the MLD. Through perhaps 2915; so the date range is 19-AUG-2016 through 12-OCT-2016 and even beyond then.
 
-
+- Rob, 24-Sep-2026. ab GPI 16970 Salinity has a minor inversion/deviation at 60 meters; not a big deal by itself but this develops into a 1 psu lens in 17054, persisting to 17156 and then continuing to persist while dropping down to below 80 meters in 17196, 17197, back up to 60 m in 17203 and continuing through 17311. It seems like a coherent narrative, the full date range 01-11-2023 through 28-12-2023, almost two months. Over the same interval the temperature was textbook monotonic. Density followed salinity. DO was not in sync with salinity but rather followed its own peculiar excursions.    
 
 
 ## Open questions
