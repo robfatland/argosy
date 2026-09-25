@@ -61,7 +61,8 @@ def _build_input(site, year, gpi):
             ds.close()
         except Exception:
             continue
-        filt, lstd, _ = _bin_profile(depth, value, 51, 2)
+        # Use the SAME filter the labels were made with (adaptive_savgol_mad, p1=51, p2=2).
+        filt, lstd, _ = _bin_profile(depth, value, "adaptive_savgol_mad", 51, 2.0)
         x[si, 0] = filt
         x[si, 1] = lstd
         any_ = True

@@ -37,25 +37,52 @@ BIN_EDGES = np.linspace(DEPTH_MIN, DEPTH_MAX, N_BINS + 1)
 BIN_CENTERS = 0.5 * (BIN_EDGES[:-1] + BIN_EDGES[1:])
 
 
-def _adaptive_savgol(values, window, adaptivity):
-    """Reproduce the labeling-time filter as closely as we can. If scipy is present,
-    use a Savitzky-Golay smoother; `adaptivity` is retained for provenance but the
-    plain SG is a faithful stand-in for the smooth curve the annotator saw."""
+def _odd(x):
+    x = int(round(x))
+    return x if x % 2 == 1 else x + 1
+
+
+def adaptive_savgol(values, filter_key, p1, p2):
+    """EXACT port of MLD.py's filter (the tool that produced the human labels), so the
+    training 'filtered' channel matches what the annotator saw. Returns (filtered, rough)
+    where `rough` is the local roughness (residual-from-light; MAD*1.4826 for _mad).
+    Default filter for the R labels: adaptive_savgol_mad."""
     n = len(values)
-    if savgol_filter is None or n < 5:
-        return values.copy()
-    w = int(window) if window and window >= 5 else 51
-    if w % 2 == 0:
-        w += 1
-    w = min(w, n if n % 2 == 1 else n - 1)
-    if w < 5:
-        return values.copy()
-    return savgol_filter(values, w, polyorder=2)
+    if savgol_filter is None or filter_key in (None, "None") or n < 5:
+        return values.copy(), np.zeros(n)
+    try:
+        win = _odd(p1)
+        win = max(3, min(win, n if n % 2 == 1 else n - 1))
+        if filter_key == "savgol":
+            poly = max(1, min(int(round(p2)), win - 1))
+            f = savgol_filter(values, win, poly)
+            return f, np.abs(values - f)
+        # adaptive_savgol_std / _mad
+        heavy_win = _odd(min(win * 3, n if n % 2 == 1 else n - 1))
+        heavy_win = max(win, heavy_win)
+        light = savgol_filter(values, win, min(2, win - 1))
+        heavy = savgol_filter(values, heavy_win, min(2, heavy_win - 1))
+        resid = values - light
+        win_r = _odd(win)  # rolling window (odd, centered) — matches the per-point half-window
+        s = pd.Series(resid)
+        if filter_key == "adaptive_savgol_mad":
+            med = s.rolling(win_r, center=True, min_periods=1).median()
+            rough = (s - med).abs().rolling(win_r, center=True, min_periods=1).median().values * 1.4826
+        else:
+            rough = s.rolling(win_r, center=True, min_periods=1).std().fillna(0.0).values
+        rmax = np.max(rough) if np.max(rough) > 0 else 1.0
+        w = np.clip((rough / rmax) * float(p2), 0.0, 1.0)
+        filtered = (1.0 - w) * light + w * heavy
+        return filtered, rough
+    except Exception:
+        return values.copy(), np.zeros(n)
 
 
-def _bin_profile(depth, value, filt_window, filt_adapt):
+def _bin_profile(depth, value, filter_key="adaptive_savgol_mad", p1=51, p2=2.0):
     """Bin one sensor profile onto the depth grid. Returns (filtered[N_BINS],
-    localstd[N_BINS], mask[N_BINS])."""
+    localstd[N_BINS], mask[N_BINS]). `localstd` = local roughness from the SAME filter
+    used at labeling time (residual-from-light; MAD-based for _mad) — the jitter signal
+    the annotator saw, which marks cline onset."""
     filtered = np.full(N_BINS, np.nan)
     localstd = np.zeros(N_BINS)
     mask = np.zeros(N_BINS, dtype=np.float32)
@@ -68,8 +95,7 @@ def _bin_profile(depth, value, filt_window, filt_adapt):
     # Sort shallow->deep for a stable filter, then bin.
     order = np.argsort(depth)
     d, v = depth[order], value[order]
-    vf = _adaptive_savgol(v, filt_window, filt_adapt)
-    resid = v - vf
+    vf, rough = adaptive_savgol(v, filter_key, p1, p2)
 
     idx = np.digitize(d, BIN_EDGES) - 1
     idx = np.clip(idx, 0, N_BINS - 1)
@@ -78,7 +104,7 @@ def _bin_profile(depth, value, filt_window, filt_adapt):
         if not np.any(sel):
             continue
         filtered[b] = np.mean(vf[sel])
-        localstd[b] = np.std(resid[sel]) if np.sum(sel) > 1 else abs(resid[sel][0])
+        localstd[b] = np.mean(rough[sel])
         mask[b] = 1.0
     # Fill unobserved bins with the nearest observed filtered value (mask stays 0 so
     # the model can down-weight them); simplest is forward/back fill.
@@ -137,7 +163,9 @@ def load_examples(sites=("sb", "oo", "ab"), who="R"):
                 except Exception:
                     continue
                 filt, lstd, mask = _bin_profile(
-                    depth, value, row.get("filter_p1", 51), row.get("filter_p2", 2))
+                    depth, value,
+                    filter_key=str(row.get("filter_key", "adaptive_savgol_mad")),
+                    p1=row.get("filter_p1", 51), p2=row.get("filter_p2", 2.0))
                 ex_in[si, 0] = filt
                 ex_in[si, 1] = lstd
                 ex_mask[si] = mask
