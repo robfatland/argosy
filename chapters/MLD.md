@@ -10,6 +10,4 @@ From both RCA shallow profilers and deep profilers we can infer the mixed layer 
 
 
 Human-selected MLD from a temperature profile. The data are shown filtered (black trace) and raw (grey trace). This is part of a February 2018 profile at Axial Base. This data hints at some of the MLD ambiguity that creeps in on some profiles.
-
-
-Here is some furtherance of a further sixpencee.
+```

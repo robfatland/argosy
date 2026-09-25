@@ -334,6 +334,34 @@ Label uncertainty. Humans won't place MLD identically twice. If you capture mult
 Net: yes, a 1D multi-channel CNN with a heatmap-over-depth head is the right first bet — cheap, fast, and well-matched to the problem. Keep two moves in your back pocket: self-supervised pretraining on the unlabeled million to stretch a small label set, and a CNN+attention hybrid if noisy profiles turn out to be the hard cases. This is speculation, not a recommendation to build yet — it's parked with the rest until tomorrow.
 
 
+### Benchmark baseline: Holte & Talley (2009) reference implementation
+
+Chuck to trial the Holte & Talley algorithmic MLD as the benchmark the ML model is compared
+against. Found implementation: **`https://github.com/garrettdreyfus/python-holteandtalley`**
+(a Python port of the H&T MATLAB algorithm). Run it over the same profiles the model predicts on,
+so the comparison is like-for-like. Cite `holte2009` for the method.
+
+
+### Known risk: slanted density profiles (MLD-from-ρ)
+
+Density profiles are frequently NOT a flat-top-then-cline shape but a **steady slant** (density
+increasing ~linearly with depth, no homogeneous surface slab). This is often PHYSICALLY REAL —
+weak continuous near-surface stratification means there genuinely is no density mixed layer (the
+"no-MLD" case), and a slant is the honest signal. Concern: this could muddy training. Mitigations,
+in order:
+1. **Label-consistency audit FIRST** (not an architecture problem). Verify Rob + Chuck consistently
+   marked slanted-ρ profiles as `no_mld_recorded=True` rather than picking an arbitrary depth on the
+   slope. Inconsistent targets for the same visual pattern is what actually harms training. This is
+   the density-specific instance of the "agree on the no-MLD criterion" check.
+2. **Feed Δρ-from-reference** for the density channel (density difference from the ~10 m value, the
+   standard MLD-from-density formulation and what H&T's density criterion uses) — makes the
+   threshold-crossing structure more consistent across profiles. Preprocessing change, not
+   architecture.
+3. **Lean on the shared backbone**: the density head sees T and S features, so a slant that is really
+   a T–S-compensated layer vs. a genuine gradient can be disambiguated — an argument FOR the
+   4-heads-one-backbone design. Revisit density special-casing only if the ρ head lags after 1–2.
+
+
 
 
 

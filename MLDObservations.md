@@ -44,13 +44,14 @@ See also the "annotation problem" framing in the `argosy-conventions` steering f
 ## Observations
 
 
-Entries should include who, date, context and any amount of speculation. Can also include a a `[tag]`.
+Entries should include who, date, context and any amount of speculation. 
 
-> **Descent overlay note (when the Descent button lands):** daily indices 4 (midnight) and 9
-> (post-noon) have built-in descent pauses, so their descent traces may look "lumpy" (clustered
-> depths, longer dwell) versus smooth-descent profiles — expected, not an artifact. Descent is
-> second-class/noisier by design (see `DescentData.md`): use it as a qualitative read on
-> water-column stability, not for placing MLD.
+> **Descent overlay note:** The idea is to add a button that overlays descent data on a particular 
+> ascent profile. When this happens: Daily indices 4 (midnight) and 9
+> (post-noon) have built-in descent pauses, so their descent traces should look "lumpy" (clustered
+> depths, longer dwell) in comparison with smooth-descent profiles. This is expected, not 
+> an artifact. Descent is second-class/noisier by design (see `DescentData.md`): use it as 
+> a qualitative read on water-column stability, not for placing MLD.
 
 
 - Rob, 19-Sep-2026. The implicit *view* of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.
@@ -66,7 +67,10 @@ Entries should include who, date, context and any amount of speculation. Can als
 
 - Rob, 20-Sep-2026. sb GPI 2457 and subsequent have an oxygen-rich lens below the MLD. Through perhaps 2915; so the date range is 19-AUG-2016 through 12-OCT-2016 and even beyond then.
 
-- Rob, 24-Sep-2026. ab GPI 16970 Salinity has a minor inversion/deviation at 60 meters; not a big deal by itself but this develops into a 1 psu lens in 17054, persisting to 17156 and then continuing to persist while dropping down to below 80 meters in 17196, 17197, back up to 60 m in 17203 and continuing through 17311. It seems like a coherent narrative, the full date range 01-11-2023 through 28-12-2023, almost two months. Over the same interval the temperature was textbook monotonic. Density followed salinity. DO was not in sync with salinity but rather followed its own peculiar excursions.    
+- Rob, 24-Sep-2026. ab GPI 16970 Salinity has a minor inversion/deviation at 60 meters; not a big deal by itself but this develops into a 1 psu lens in 17054, persisting to 17156 and then continuing to persist while dropping down to below 80 meters in 17196, 17197, back up to 60 m in 17203 and continuing through 17311. It seems like a coherent narrative, the full date range 01-11-2023 through 28-12-2023, almost two months. Over the same interval the temperature was textbook monotonic. Density followed salinity. DO was not in sync with salinity but rather followed its own peculiar excursions. 
+
+
+- Rob, 25-SEP-2026. ab GPI 7130 through 8600: Oxygen inversion for like six months: June through December 2019.
 
 
 ## Open questions
