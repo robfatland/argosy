@@ -44,8 +44,9 @@ def _gpis_for_year(site, year):
     return sorted(gpis)
 
 
-def _build_input(site, year, gpi):
+def _build_input(site, year, gpi, return_mask=False):
     x = np.zeros((len(SENSORS), 2, N_BINS), np.float32)
+    pmask = np.zeros((len(SENSORS), N_BINS), np.float32)
     ts = None
     any_ = False
     for si, sensor in enumerate(SENSORS):
@@ -62,11 +63,14 @@ def _build_input(site, year, gpi):
         except Exception:
             continue
         # Use the SAME filter the labels were made with (adaptive_savgol_mad, p1=51, p2=2).
-        filt, lstd, _ = _bin_profile(depth, value, "adaptive_savgol_mad", 51, 2.0)
+        filt, lstd, m = _bin_profile(depth, value, "adaptive_savgol_mad", 51, 2.0)
         x[si, 0] = filt
         x[si, 1] = lstd
+        pmask[si] = m
         any_ = True
-    return (x if any_ else None), ts
+    if not any_:
+        return (None, None, ts) if return_mask else (None, ts)
+    return (x, pmask, ts) if return_mask else (x, ts)
 
 
 def main():
