@@ -112,6 +112,20 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- **MLD labels conflate "no-MLD" with "no-data".** In MLD.py an Advance click on an EMPTY chart
+  (no visible data) is recorded the same as a genuine no-mixed-layer profile — both land as
+  `no_mld_recorded=True`. These are semantically different: no-MLD = data present, valid abstain
+  target (flat heatmap); no-data = not a training example at all (should be excluded, like an absent
+  sensor). Conflation poisons the abstain class. To do: (1) MLD.py should record a distinct
+  `no_data` flag going forward; (2) retroactively filter existing R labels in dataset.py (drop
+  no-MLD rows whose profile has too few valid bins). Flagged during the manual walk-through of the
+  training pipeline. NOT yet implemented.
+
+- **Expertise reserve for making argosy AI-aligned:** Rich Signell, Scott Henderson, Ryan Abernathey
+  — a collective reference for cloud-native / ARCO / Pangeo-style practice (Zarr, xarray, cloud data).
+  Noted after explaining argosy to someone who recommended Signell as a point of reference. No
+  specific ask yet; a contact/expertise pool for the BR G1/G3 (Zarr/CF/STAC) and MOAR AI-ready work.
+
 - **Miniconda environment sprawl — refactor away the one-giant-env situation.** The single
   `argosy` conda env now carries hundreds of installed packages, many unrelated to argosy
   (e.g. torch/CUDA, qiskit + amazon-braket, pymatgen, transformers, icepyx/earthaccess) — see
