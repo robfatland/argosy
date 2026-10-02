@@ -142,6 +142,10 @@ e.g. `RCA_sb_sp_temperature_2018_296_6261_7_V1.nc`
 - `<yyyy>` year · `<ddd>` Julian day · `<global_index>` per-site profile counter (from `profileIndices`)
 - `<daily_index>` 1–9 (which profile of the day) · `<version>` V1 redux, V2 postproc subsets
 
+Each shard carries `depth` (metres) and `time` as coordinates plus the single sensor data
+variable. Pressure is NOT stored; derive it from depth (`gsw.p_from_z`) when needed — see
+`Sharding.md` → "Depth and pressure" (e.g. for Holte & Talley MLD, which works in dbar).
+
 See `Sharding.md` and `SensorTable.md` for details.
 
 

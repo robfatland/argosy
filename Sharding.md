@@ -362,3 +362,31 @@ For each file listed we want to perform the following procedure:
     - State this and prompt the User for instructions: `Continue [C] or Halt [H]?`
     - If the User choses Continue: Proceed to the next input CTD file
 - Continue to the next input CTD file until all have been processed in this manner 
+
+
+## Depth and pressure
+
+Shards store **`depth`** as an xarray **coordinate** (not a data variable), in **metres**,
+alongside the `time` coordinate and the single sensor data variable. Depth increases from the
+platform (~200 m) toward the surface over an ascent. Example (pp06 temperature shard):
+
+```
+Coordinates: depth (m), time
+Data variables: temperature
+```
+
+**Pressure is NOT stored.** The OOINET source files carried pressure, but sharding retains only
+`depth` (and `time` + the sensor). Code that needs pressure must derive it from depth.
+
+**Deriving pressure (dbar) from depth (m) — for e.g. Holte & Talley MLD:** the H&T algorithm and
+the `python-holteandtalley` reference implementation work in pressure (dbar). Two options:
+
+- **Quick:** use depth-in-metres directly as pressure-in-dbar. Numerically within ~1–2% over
+  0–200 m; H&T's thresholds are not very sensitive to this, so it is fine for a first pass.
+- **Correct (recommended):** convert via TEOS-10 (`gsw` is in the `argosy` env):
+  ```python
+  import gsw
+  pressure_dbar = gsw.p_from_z(-depth_m, latitude)   # depth_m positive-down; z = -depth_m
+  ```
+  Use the site's nominal latitude (sb 44.53, oo 44.37, ab 45.83). This is the same conversion
+  used for potential density elsewhere in argosy, so it is consistent and citable.
