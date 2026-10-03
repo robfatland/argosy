@@ -112,6 +112,14 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- **DSC task: review an OOI ION Functions module (DEADLINE Oct 28, 2026).** NSF (George Voulgaris)
+  asked the DSC/OOIFB to review ION Functions — the Python L0→L1→L2 calibration/processing library
+  (`ion_functions/data/`) — before it goes live on oceanobservatories.org (Oct 30). Review is from
+  the USER's perspective only (clarity + documentation; do NOT critique the algorithm). Rob signed
+  up for **FLO** (the two OOI fluorometer types — argosy-relevant: FLORT → CDOM/chlorA/backscatter,
+  already in the pp06 pipeline). Comments → George (gvoulgar@nsf.gov), CC Holly, by **Oct 28**;
+  express approval if it reads well. Details, links, and review notes in **`IONReview.md`**.
+
 - **MLD labels conflate "no-MLD" with "no-data".** In MLD.py an Advance click on an EMPTY chart
   (no visible data) is recorded the same as a genuine no-mixed-layer profile — both land as
   `no_mld_recorded=True`. These are semantically different: no-MLD = data present, valid abstain
