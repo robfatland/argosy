@@ -98,11 +98,28 @@ FILTERS = ("None", "savgol", "adaptive_savgol_std", "adaptive_savgol_mad")
 
 MAX_DEPTH = 100.0  # depth-axis bottom for the annotation view (0 m top .. 100 m bottom)
 
+
+def _flag_true(v):
+    """Truthiness test for a boolean label flag that is robust to the many forms it can
+    take across a round-trip: Python bool, numpy.bool_ (note numpy.bool_(True) is NOT the
+    Python True object, so `is True` fails), the strings 'True'/'1', or NaN/''/None."""
+    if v is True:
+        return True
+    if v is False or v is None:
+        return False
+    try:
+        import math
+        if isinstance(v, float) and math.isnan(v):
+            return False
+    except Exception:
+        pass
+    return str(v).strip().lower() in ("true", "1", "1.0")
+
 LABEL_COLUMNS = [
     "site", "gpi", "timestamp", "sensor",
     "mld_depth", "value_raw", "value_filtered",
     "who", "filter_key", "filter_p1", "filter_p2",
-    "no_mld_recorded", "reviewed_at",
+    "no_mld_recorded", "xud_recorded", "reviewed_at",
 ]
 
 
@@ -265,6 +282,7 @@ class MLDAnnotator:
 
         # Session state (sticky across advances)
         self.active_sensor = "temperature"
+        self.depth_floor = MAX_DEPTH   # adjustable depth-axis bottom (slider, 10..200 m)
         self.filter_key = "None"
         self.p1 = 11.0   # savgol window / adaptive base window
         self.p2 = 2.0    # savgol polyorder / adaptive adaptivity
@@ -286,7 +304,12 @@ class MLDAnnotator:
             df = pd.read_csv(self.labels_path)
             for c in LABEL_COLUMNS:
                 if c not in df.columns:
-                    df[c] = np.nan
+                    # Boolean flags default to False (NOT NaN — bool(NaN) is True, which
+                    # would make old rows read as XUD/no-MLD). Other missing cols -> NaN.
+                    df[c] = False if c in ("no_mld_recorded", "xud_recorded") else np.nan
+            # Normalize the boolean flags so stray NaN/blank/str values read as False.
+            for c in ("no_mld_recorded", "xud_recorded"):
+                df[c] = df[c].map(lambda v: str(v).strip().lower() in ("true", "1", "1.0"))
             return df[LABEL_COLUMNS]
         return pd.DataFrame(columns=LABEL_COLUMNS)
 
@@ -378,6 +401,12 @@ class MLDAnnotator:
         self.slider_p2.on_changed(self._on_slider)
         self._sync_slider_ranges()
 
+        # Depth-floor slider: adjustable axis bottom, 10..200 m (default MAX_DEPTH=100).
+        ax_floor = self.fig.add_axes([0.32, 0.11, 0.55, 0.03])
+        self.slider_floor = Slider(ax_floor, "depth floor (m)", 10, 200,
+                                   valinit=self.depth_floor, valstep=5)
+        self.slider_floor.on_changed(self._on_floor)
+
         # Navigation + advance buttons
         def _btn(x, w, label):
             a = self.fig.add_axes([x, 0.05, w, 0.05])
@@ -390,6 +419,7 @@ class MLDAnnotator:
         self.btn_advance = _btn(0.44, 0.10, "Advance")
         self.btn_clear = _btn(0.55, 0.09, "Clear pick")
         self.btn_start = _btn(0.65, 0.08, "◀ Start")
+        self.btn_xud = _btn(0.74, 0.08, "XUD ▶")
 
         self.btn_prev.on_clicked(lambda e: self._goto(self.idx - 1))
         self.btn_next.on_clicked(lambda e: self._goto(self.idx + 1))
@@ -398,6 +428,7 @@ class MLDAnnotator:
         self.btn_advance.on_clicked(self._on_advance)
         self.btn_clear.on_clicked(self._on_clear)
         self.btn_start.on_clicked(lambda e: self._jump_to_start())
+        self.btn_xud.on_clicked(self._on_xud)
 
         self.status = self.fig.text(0.02, 0.01, "", fontsize=8, color="#333")
 
@@ -420,14 +451,14 @@ class MLDAnnotator:
                 self.ax.plot(raw, depth, color=color, lw=1.0)
             else:
                 if self.show_raw_overlay:
-                    # Drawn FIRST in gray so the black filtered trace overwrites it and the
-                    # difference between raw and filtered is easy to see (gray avoids colliding
-                    # with the per-sensor MLD marker color, e.g. red for temperature).
-                    self.ax.plot(raw, depth, color="gray", lw=1.0, zorder=1)
+                    # Drawn FIRST in red so the black filtered trace overwrites it and the
+                    # difference between raw and filtered (e.g. jitter marking cline onset)
+                    # is easy to see.
+                    self.ax.plot(raw, depth, color="red", lw=1.0, zorder=1)
                 self.ax.plot(filt, depth, color="black", lw=1.2, zorder=2)
             self.ax.set_xlabel(SENSOR_LABELS[self.active_sensor], color=color)
 
-        self.ax.set_ylim(MAX_DEPTH, 0)
+        self.ax.set_ylim(self.depth_floor, 0)
         self.ax.set_ylabel("Depth (m)")
         self.ax.grid(True, alpha=0.3)
 
@@ -439,8 +470,12 @@ class MLDAnnotator:
         if self._has_label(gpi, self.active_sensor):
             r = self.labels[(self.labels["gpi"] == gpi)
                             & (self.labels["sensor"] == self.active_sensor)].iloc[-1]
-            if not bool(r.get("no_mld_recorded", False)) and pd.notna(r.get("mld_depth")):
-                mld_d = float(r["mld_depth"])
+            _mld = r.get("mld_depth")
+            _has_depth = (not _flag_true(r.get("no_mld_recorded"))
+                          and not _flag_true(r.get("xud_recorded"))
+                          and pd.notna(_mld) and str(_mld).strip() != "")
+            if _has_depth:
+                mld_d = float(_mld)
                 self.ax.axhline(mld_d, color=marker_color, lw=1.4, ls="--", zorder=3)
                 if depth is not None and len(depth) > 0:
                     trace = filt if (self.filter_key != "None" and filt is not None) else raw
@@ -456,11 +491,26 @@ class MLDAnnotator:
             self.ax.plot([xval], [d], "o", color=marker_color, markersize=7,
                          markeredgecolor="black", zorder=5)
 
-        labeled = "LABELED" if self._has_label(gpi, self.active_sensor) else "unlabeled"
+        # Status field: unlabeled, or (for a labeled sensor) No MLD / No Usable Data / "<d> m".
+        short = {"temperature": "temp", "salinity": "sal",
+                 "density": "density", "dissolvedoxygen": "DO"}.get(
+                     self.active_sensor, self.active_sensor)
+        if not self._has_label(gpi, self.active_sensor):
+            status = "unlabeled"
+        else:
+            r = self.labels[(self.labels["gpi"] == gpi)
+                            & (self.labels["sensor"] == self.active_sensor)].iloc[-1]
+            if _flag_true(r.get("xud_recorded")):
+                status = "No Usable Data"
+            elif _flag_true(r.get("no_mld_recorded")) or pd.isna(r.get("mld_depth")) \
+                    or str(r.get("mld_depth")) == "":
+                status = "No MLD"
+            else:
+                status = f"{float(r['mld_depth']):.1f} m"
         mode = "advance-on-click" if self.auto_advance else "stay-on-click"
         self.fig.suptitle(
             f"MLD [{self.site}/{self.who}]  GPI {gpi}  {ts}  "
-            f"[{self.idx + 1}/{len(self.candidates)}]  |  {self.active_sensor} ({labeled})  "
+            f"[{self.idx + 1}/{len(self.candidates)}]  |  {short} ({status})  "
             f"|  filter={self.filter_key}  |  {mode}",
             fontsize=11, fontweight="bold")
         self.fig.canvas.draw_idle()
@@ -522,6 +572,10 @@ class MLDAnnotator:
         self.p2 = self.slider_p2.val
         self.draw()
 
+    def _on_floor(self, _val):
+        self.depth_floor = float(self.slider_floor.val)
+        self.draw()
+
     def _on_click(self, event):
         if event.inaxes is not self.ax:
             return
@@ -529,6 +583,11 @@ class MLDAnnotator:
         # current sensor's state (real MLD if one exists, else no-MLD) and advance.
         if event.button == 3:
             self._on_advance(event)
+            return
+        # Middle-click (button 2) is a shortcut for the <XUD> button: mark this
+        # (gpi, sensor, who) as "no usable data" and advance.
+        if event.button == 2:
+            self._on_xud(event)
             return
         if event.button != 1:
             return
@@ -606,8 +665,18 @@ class MLDAnnotator:
             self._record(np.nan, np.nan, np.nan, no_mld=True)
         self._advance_after_commit()
 
+    def _on_xud(self, _e):
+        """Mark the ACTIVE sensor for this profile as XUD = 'no usable data' and advance.
+
+        Distinct from no-MLD: no-MLD means a signal is present but no mixed layer is
+        resolvable (a VALID training target); XUD means the sensor+profile has no usable
+        signal (blank or erratic) and must be EXCLUDED from training entirely. Overwrites
+        any prior row for (gpi, sensor, who)."""
+        self._record(np.nan, np.nan, np.nan, no_mld=False, xud=True)
+        self._advance_after_commit()
+
     # ── Recording ──
-    def _record(self, depth, value_raw, value_filtered, no_mld):
+    def _record(self, depth, value_raw, value_filtered, no_mld, xud=False):
         gpi = self._current_gpi()
         row = self._row()
         p1 = "" if self.filter_key == "None" else round(float(self.p1), 3)
@@ -617,14 +686,16 @@ class MLDAnnotator:
             "gpi": gpi,
             "timestamp": pd.Timestamp(row["timestamp"]).isoformat(),
             "sensor": self.active_sensor,
-            "mld_depth": "" if no_mld else round(float(depth), 3),
-            "value_raw": "" if no_mld else round(float(value_raw), 4),
-            "value_filtered": "" if no_mld else round(float(value_filtered), 4),
+            # XUD and no-MLD both carry NO depth; blank the depth/value fields for either.
+            "mld_depth": "" if (no_mld or xud) else round(float(depth), 3),
+            "value_raw": "" if (no_mld or xud) else round(float(value_raw), 4),
+            "value_filtered": "" if (no_mld or xud) else round(float(value_filtered), 4),
             "who": self.who,
             "filter_key": self.filter_key,
             "filter_p1": p1,
             "filter_p2": p2,
             "no_mld_recorded": bool(no_mld),
+            "xud_recorded": bool(xud),
             "reviewed_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
         # Overwrite any prior (gpi, sensor, who) row.
@@ -636,7 +707,7 @@ class MLDAnnotator:
         self.labels = pd.concat([self.labels, pd.DataFrame([new])], ignore_index=True)
         self.labels = self.labels[LABEL_COLUMNS]
         self._save_labels()
-        tag = "no-MLD" if no_mld else f"{depth:.1f} m"
+        tag = "XUD (no usable data)" if xud else ("no-MLD" if no_mld else f"{depth:.1f} m")
         self._set_status(f"saved {self.active_sensor} {tag} for GPI {gpi} -> {self.labels_path.name}")
 
     def _advance_after_commit(self):
