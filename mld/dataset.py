@@ -37,6 +37,23 @@ BIN_EDGES = np.linspace(DEPTH_MIN, DEPTH_MAX, N_BINS + 1)
 BIN_CENTERS = 0.5 * (BIN_EDGES[:-1] + BIN_EDGES[1:])
 
 
+def _flag_true(v):
+    """Robust truthiness for a boolean label flag that round-trips through CSV in many forms:
+    Python bool, numpy.bool_, 'True'/'1'/'1.0' strings, or NaN/''/None (all -> False).
+    (Mirrors MLD.py._flag_true so XUD/no-MLD flags read consistently on both sides.)"""
+    if v is True:
+        return True
+    if v is False or v is None:
+        return False
+    try:
+        import math
+        if isinstance(v, float) and math.isnan(v):
+            return False
+    except Exception:
+        pass
+    return str(v).strip().lower() in ("true", "1", "1.0")
+
+
 def _odd(x):
     x = int(round(x))
     return x if x % 2 == 1 else x + 1
@@ -139,7 +156,12 @@ def load_examples(sites=("sb", "oo", "ab"), who="R"):
             print(f"  no labels for {site}: {csv.name}")
             continue
         lab = pd.read_csv(csv, parse_dates=["timestamp"])
-        for gpi, grp in lab.groupby("gpi"):
+        groups = list(lab.groupby("gpi"))
+        print(f"  {site}: {len(groups)} labeled GPIs ...", flush=True)
+        for gi, (gpi, grp) in enumerate(groups):
+            if gi % 50 == 0 and gi:
+                print(f"    {site} {gi}/{len(groups)} GPIs  "
+                      f"({len(examples)} examples so far)", flush=True)
             year = pd.Timestamp(grp["timestamp"].iloc[0]).year
             ex_in = np.zeros((len(SENSORS), 2, N_BINS), np.float32)
             ex_mask = np.zeros((len(SENSORS), N_BINS), np.float32)
@@ -152,6 +174,16 @@ def load_examples(sites=("sb", "oo", "ab"), who="R"):
                 if len(row) == 0:
                     continue
                 row = row.iloc[0]
+                # XUD = "no usable data" for this sensor+profile. Exclude it PER SENSOR: skip the
+                # label (no target, has_label stays False) AND leave its input channel as the
+                # pre-initialized ZEROS (ex_in/ex_mask start zeroed) so the shared backbone sees a
+                # neutral "no data here" rather than a garbage trace that would poison the other
+                # heads. (Previously xud_recorded was ignored, so XUD rows leaked into training as
+                # flat 'no-MLD' targets — the abstain-class pollution behind the low abstention
+                # rate; see WorkingWithAgenticAI.md L1 and SyntheticMLDPlan.md.) The remaining
+                # clean sensors on this GPI are still used.
+                if _flag_true(row.get("xud_recorded", False)):
+                    continue
                 shard = _find_shard(site, year, sensor, int(gpi))
                 if shard is None:
                     continue

@@ -339,6 +339,18 @@ class MLDAnnotator:
         return (not bool(r.get("no_mld_recorded", False))) and pd.notna(r.get("mld_depth")) \
             and str(r.get("mld_depth")) != ""
 
+    def _has_xud(self, gpi, sensor):
+        """True if a committed XUD ('no usable data') record exists for (gpi, sensor, this who).
+        XUD carries no depth, so _has_real_mld misses it; <Advance> consults this so it never
+        overwrites an XUD with a no-MLD record."""
+        if self.labels.empty:
+            return False
+        m = ((self.labels["gpi"] == gpi) & (self.labels["sensor"] == sensor)
+             & (self.labels["who"] == self.who))
+        if not m.any():
+            return False
+        return _flag_true(self.labels[m].iloc[-1].get("xud_recorded", False))
+
     def _start_index(self, start_year):
         if start_year is None:
             return 0
@@ -661,6 +673,10 @@ class MLDAnnotator:
         if self._has_real_mld(gpi, self.active_sensor):
             # Real MLD already on record from a click; do not touch it.
             self._set_status(f"kept committed {self.active_sensor} MLD for GPI {gpi}; advancing")
+        elif self._has_xud(gpi, self.active_sensor):
+            # XUD already on record; Advance must NOT overwrite it with no-MLD (XUD has no
+            # depth, so _has_real_mld misses it — the bug this guards against).
+            self._set_status(f"kept committed {self.active_sensor} XUD for GPI {gpi}; advancing")
         else:
             self._record(np.nan, np.nan, np.nan, no_mld=True)
         self._advance_after_commit()

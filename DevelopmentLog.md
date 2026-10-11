@@ -120,14 +120,28 @@ This is at much lower task resolution.
   already in the pp06 pipeline). Comments → George (gvoulgar@nsf.gov), CC Holly, by **Oct 28**;
   express approval if it reads well. Details, links, and review notes in **`IONReview.md`**.
 
-- **MLD labels conflate "no-MLD" with "no-data".** In MLD.py an Advance click on an EMPTY chart
-  (no visible data) is recorded the same as a genuine no-mixed-layer profile — both land as
-  `no_mld_recorded=True`. These are semantically different: no-MLD = data present, valid abstain
-  target (flat heatmap); no-data = not a training example at all (should be excluded, like an absent
-  sensor). Conflation poisons the abstain class. To do: (1) MLD.py should record a distinct
-  `no_data` flag going forward; (2) retroactively filter existing R labels in dataset.py (drop
-  no-MLD rows whose profile has too few valid bins). Flagged during the manual walk-through of the
-  training pipeline. NOT yet implemented.
+- **MLD labels conflate "no-MLD" with "no-data" — add a "No Data" button to MLD.py.** The tool has
+  three states today: *no label* (uninspected, default), *No MLD* (signal present but MLD not
+  visually resolvable → valid abstain target = flat heatmap), and an *MLD value* (left-click depth →
+  Gaussian target). MISSING: a fourth state **No Data** — an Advance-style button/right-click that
+  tags a profile as "no usable signal" (blank or erratic). Semantically distinct: No MLD is a valid
+  training target; No Data must be **excluded from training entirely**, like an absent sensor. Many
+  profiles show no/erratic data, so the current conflation (both land as `no_mld_recorded=True`)
+  poisons the abstain class. To do: (1) add the No Data button + a distinct flag in MLD.py; (2)
+  retroactively reclassify existing R labels (no-MLD rows whose profile has too few valid bins → No
+  Data) in dataset.py. Flagged during the manual walk-through of the training pipeline.
+
+- **Experiment: QARTOD flags vs. manual "No Data" (automate / validate the trust layer).** We have
+  so far ignored the per-observation `<var>_qartod_results` flags in the delivered L1/L2 files. Idea:
+  pull QARTOD flags from the cloud (Gold Copy S3 / download) for the LABELED profiles only (targeted,
+  small), and compare per (gpi, sensor) the QARTOD verdict (fraction Fail=4 / Suspect=3) against the
+  manual MLD label (No Data / No MLD / MLD value). Deliverable: an agreement table + confusion
+  matrix. Payoffs: (a) independent validation of the human No-Data label; (b) if agreement is high,
+  QARTOD could PRE-POPULATE the No-Data tag and save manual clicks on blank profiles; (c) concrete
+  instance of folding QARTOD into the trust layer (BR G2). Expect strong agreement on gross junk and
+  divergence in the gray zone (QARTOD flags individual values on range/climatology; "No Data" is a
+  human gestalt) — the disagreements map where automated QC suffices vs. where human judgment is
+  irreducible, a publishable DSC-relevant finding. Cloud-side, modest effort.
 
 - **Expertise reserve for making argosy AI-aligned:** Rich Signell, Scott Henderson, Ryan Abernathey
   — a collective reference for cloud-native / ARCO / Pangeo-style practice (Zarr, xarray, cloud data).
@@ -475,6 +489,25 @@ This is at much lower task resolution.
 
 
 ## Next
+
+### Today (2026-10-10) — top priority
+
+1. **Frame a synthetic dataset.** Define a small, fully-synthetic shallow-profiler-like dataset
+   (profiles with depth + T/S/density/DO etc.) with KNOWN ground truth — e.g. a prescribed MLD and
+   cline structure per profile — so pipeline/analysis/ML code (MLD annotator, auto-pickers) can be
+   validated against answers we control. Scope to decide: variables, profile count/shape, how MLD
+   and clines are parameterized, noise model, and where it lives (code generator vs stored NetCDF
+   shards mirroring the `redux`/pp06 schema). Deliverable: a short design note before any code.
+2. **Start looking into the Zenodo implementation.** Investigate publishing the fixed pp06 dataset
+   via Zenodo as the durable open-data home (offloads hosting + egress from public S3 — see `BR.md`
+   open-Q 8 and the mitigations list). First pass: deposition model (record vs concept DOI,
+   versioning), size limits vs our ~46 GB pp06, metadata/licensing, and API vs manual upload.
+   Deliverable: findings note + a recommended path.
+3. **Revisit zarr file version of pp06.** Reconsider publishing/storing pp06 as Zarr rather than
+   (or alongside) the per-profile NetCDF shards — chunked, cloud-native access, consolidated
+   metadata, better for xarray/dask and remote reads. Scope to decide: whether it supersedes or
+   complements the shard layout, chunking scheme, and how it interacts with the Zenodo question
+   (item 2) and the public-access model.
 
 - **Filesystem restructure to per-site layout (in progress, Aug 2026)**. Adds a site
   dimension to the `~/ooi` data tree, centralized through a new `ooipaths.py` path module.

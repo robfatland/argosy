@@ -1,6 +1,63 @@
 # Session State
 
 ## Last updated
+2026-10-10 — **Synthetic MLD shadow dataset built + validated; 3-sensor model; first acceptance
+test run.** Full design in `SyntheticMLDPlan.md`; AI-collaboration lessons in `WorkingWithAgenticAI.md`
+(L3 added). Below is this session; the 2026-09-18 Chuck/env narrative is retained further down.
+
+## Completed this session (2026-10-10)
+- **Dropped DENSITY from the MLD model** (input channel AND prediction head): it's derived from
+  T,S,depth (TEOS-10), so redundant. Model now 3-sensor (T/S/DO). `mld_config.SENSORS` edited;
+  `model.py`/`dataset.py` cascade from it. Retrained -> `mldnet_20261010T233510.pt`, test MAE 4.65 m
+  (better than the old 4-head 5.03 m). A density MLD, if ever wanted, is COMPUTED not learned.
+- **Built the synthetic shadow dataset** (`mld/synthetic.py` + `SyntheticMLDPlan.md`): real pp06
+  shards in a parallel universe `~/ooi/synthetic/` (GPIs >= 900000, years 9000+, `--clean` flag).
+  Generator IS the annotator (writes label CSV with known truth; T/S/DO only, density shard but no
+  label). Grounded in real oo archetype envelopes via `ArchetypeValuePuller.py`.
+  - 1350 MLD-present: sweep z0{20,35,50,65,80} x mag{lo,mid,hi} x cline{10,18,28m} x
+    elbow-radius{1,3,6m} x 10 reps. Flat stem >=10 m, rounded softplus elbow BELOW z0, NOISE OFF.
+  - 300 No-MLD: contiguous block AFTER (GPI ~901350..901649). No stem; initial normalized slope
+    >1/6; gradual deep asymptote; half concave / half inflected. NOISE OFF.
+  - Visually validated via `SyntheticViewer.py` (`--dump` 40 PNGs w/ blue MLD dot; `--dumpNoMLD`
+    24 PNGs). Interactive viewer is temperature-only, one Next button (mpl Button/keyboard widgets
+    kept freezing under WSLg; PNG dump is the reliable path).
+- **First zeroth-order acceptance test** (`mld/score_synthetic.py`, +/-5 m): MLD-present 36.4%,
+  no-MLD abstention 6.1%, MAE 7.2 m. Reading: the model has a strong bias to ALWAYS place an MLD
+  (barely abstains) and is ~7 m imprecise even on textbook cases. Diagnosed as a TRAINING-LABEL
+  problem (weak/polluted abstain class — ties to `WorkingWithAgenticAI.md` L1 no-MLD/no-data
+  conflation), NOT a synthetic-data artifact. (An earlier 0.5% run was pre-fix OOD data.)
+
+## In progress / partially done
+- **Rob is re-annotating with `MLD.py`** to produce a better human training set: started `oo`,
+  still needs the rest of `oo` + all of `sb` + all of `ab` (3 sites x 4 sensors). Goal: a clean
+  abstain class (distinguish "No MLD" from "No Usable Data"/no-data).
+
+## Next action (THE PLAN agreed 2026-10-10)
+1. [Rob] Finish re-annotation: rest of oo, then all sb, then all ab (`python MLD.py --site <> --who R`).
+2. Retrain the 3-sensor model on the revised labels: `python ~/argosy/mld/train.py --epochs 60`.
+3. Re-run the synthetic acceptance test `python ~/argosy/mld/score_synthetic.py` and COMPARE to
+   today's baseline (MLD 36.4% / no-MLD 6.1% / MAE 7.2 m) to see if better labels fix the
+   abstain bias + precision. The synthetic set is the fixed yardstick; don't regenerate it for this.
+
+## Tabled for discussion (after Rob finishes reviewing training data)
+- **Depth-grid crop.** Is keeping data below ~120 m (even ~80 m, with a few ab exceptions) just
+  dead weight on training? MLDs live in the top ~80 m; the model uses a 0-200 m / 200-bin grid, so
+  the deep flat-asymptote bins may carry no MLD signal — diluting it, wasting capacity, and possibly
+  feeding the "always place an MLD / rarely abstain" bias (lots of featureless heatmap real estate).
+  Candidate: crop the grid to ~0-120 m (DEPTH_MAX / N_BINS in mld_config.py), check the ab deep
+  exceptions first. Decide AFTER the re-annotation review. (Would require regenerating synthetic +
+  retraining to keep the yardstick consistent.)
+
+## Deferred / housekeeping
+- Temp scripts to delete when done: `_diag_synthetic.py`, `_probe_shard_schema.py`.
+- Optional: add `weights_only=True` to the `torch.load` calls (score_synthetic/infer/_diag) to
+  silence the FutureWarning and future-proof the default flip. Our .pt are pure state_dicts so safe.
+- Possible scorer additions (not yet done): tolerance sweep (+/-3/5/8/10), per-sweep-axis breakdown
+  of MLD-present accuracy, to localize the model's weakness.
+
+---
+
+## (Earlier) Last updated
 2026-09-18 — **Collaborator (Chuck) MLD setup + env-sprawl topic filed.** Added a portable minimal
 conda spec so Chuck can run `MLD.py`, committed the (previously untracked) `MLD.py`, reconciled the
 MLD docs to "implemented", and filed the env-sprawl refactor as an Open Topic. `MLD.py` and

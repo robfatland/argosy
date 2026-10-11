@@ -87,3 +87,68 @@ idiom encodes a dimensionality or structure that doesn't match the situation, it
 wrong mental model. Prefer literal, dimension-honest descriptions over borrowed shorthand; and
 when a term causes the human to pause and re-reconcile, treat that friction as a signal to retire
 the term, not to re-explain it.
+
+
+## Lesson 3: Failing to challenge a redundant input feature (density as a model channel)
+
+> **EDITORIAL PASS PENDING (Rob).** Captured 2026-10-10 from a live exchange; Rob to revise/trim
+> later. Left verbatim-ish so the reasoning is preserved for that pass.
+
+### What happened
+
+The MLD 1-D CNN was built with four sensor channels — temperature, salinity, density, dissolved
+oxygen — each both an input and a prediction head. Density in pp06 is **derived** from T, S, and
+depth (plus a disregardable latitude) via the TEOS-10 equation of state. It is therefore, to good
+approximation, a deterministic function of two channels already present in the input. Feeding it
+as an independent channel adds essentially **no new information**; asking the model to predict a
+density MLD asks it to re-learn a function we already know in closed form.
+
+The human arrived at this conclusion on their own, over time, and eventually proposed dropping
+density. During the original model-building sessions the agent had **not** pushed back on
+including it.
+
+### Why the agent missed it (agent's own reconstruction)
+
+Asked to trace the omission, the agent offered three causes, all about agent behavior rather than
+oceanography:
+
+1. **Symmetry read as correctness.** T/S/density/DO is the tidy CTD quartet; a four-head model
+   *looks* clean. The agent optimized for a coherent-looking architecture over interrogating
+   whether each channel earns its place. Aesthetic bias, not analysis.
+2. **Deference / build-mode momentum.** The human proposed the sensor set; implementing it is the
+   path of least resistance. Agents are tuned toward agreeableness and productivity, so
+   "let's build it" is the low-energy move. This is the *agent-side* version of the
+   accountability deficit Lesson 1 warns about on the human side: uncritically ratifying a design.
+3. **Wrong frame.** The agent reasoned at the level of "does this sensor exist / can we load it"
+   rather than the information-theoretic question "is this feature a deterministic function of the
+   others?" Nobody prompted the entropy frame, so it never raised it.
+
+### The lesson
+
+- **Stress-test every proposed feature set for redundancy.** The cheap, general check: *is any
+  input derivable (deterministically or nearly so) from the others?* If yes, flag it before
+  building. Here the one-line challenge the agent should have raised was: "density is computed
+  from T, S, depth — do we want the model to re-learn a known function, or should a density MLD
+  just be computed from the predicted T/S?"
+- **A requirement from the human is a hypothesis to test, not an order to ratify.** Treating the
+  sensor list as a spec to satisfy, rather than a design choice to challenge, is exactly the
+  deference failure that lets avoidable mistakes through. Pushing back costs one turn; carrying a
+  useless channel costs a retrain and muddies every downstream result.
+- **Symmetry is not evidence.** A clean, symmetric design can be exactly the thing hiding a
+  redundant component.
+
+### Decision that followed
+
+Drop density as both input channel and prediction head; model on T/S/DO (3 inputs, 3 heads). A
+density MLD, if ever wanted, is **computed** from the predicted T/S structure, not learned. (For
+the synthetic dataset, density shards are still written for completeness, but no density label is
+emitted.)
+
+### Footnote on the sibling question (sensor expansion)
+
+The same information-first test, run in reverse, says fluorometer chlorophyll-a *does* add
+independent (biological) signal and ADCP shear/echo *probably* does (dynamical), though ADCP is a
+different data model (Phase 2 vector). The project's chosen stance is NOT to fuse these into the
+estimator but to read them **against** the T/S/DO-derived MLD: "given the physical MLD, what
+corresponding structure appears in the chlorophyll column?" — the scientifically richer question.
+MLD is treated as a means, not an end.

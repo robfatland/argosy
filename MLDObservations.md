@@ -54,9 +54,9 @@ Entries should include who, date, context and any amount of speculation.
 > a qualitative read on water-column stability, not for placing MLD.
 
 
-- Rob, 19-Sep-2026. The implicit *view* of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.
-    - Rob, 19-Sep-2026. Another really clean one: sb T 13271. Not corroborated... suggests looking at the descent
-    - Rob, 19-Sep-2026. Another really clean one: sb T 13994. Corroborated by DO!
+- Rob, 19-Sep-2026. The implicit *view* of MLD annotation is from the surface down. After completing 2024-25 x 4 sensors: A surprising number of MLs terminate with excursions to warmer water, commonly 20 or 30 meters thick. Even double excursions: Colder to warmer (than ML) to colder resuming the archetypical profile. This is above the thermocline proper. Current examples: sb T GPIs 929, 1077, 1365. However the white whale is corroboration in Salinity or DO: None in these examples; so keep looking.
+    - Rob, 19-Sep-2026. Another very clean: sb T 13271. Not corroborated... suggests looking at the descent
+    - Rob, 19-Sep-2026. Another very clean: sb T 13994. Corroborated by DO!
 
 
 - Rob, 20-Sep-2026. Flagging sb salinity anomaly starting Jan 2017: A deep lens or double lens down below 50 meters of higher salinity but **warning** this could be primarily a chart autoscale artifact. Worth a look though. First appears in GPI 5042. Variants in 5088, 5125, 5173, 5213, 5237, 5262, etc... 5469 has an interesting complement-corroboration from DO. Last of the sequence might be 5611 (10-MAR-2018). Suggest check each DESCENT corroboration. 
@@ -71,6 +71,46 @@ Entries should include who, date, context and any amount of speculation.
 
 
 - Rob, 25-SEP-2026. ab GPI 7130 through 8600: Oxygen inversion for like six months: June through December 2019.
+
+> NOTE: Rob went back with an improved `MLD.py` to re-annotate all 3 sites x all 4 sensors in October. This 
+produced a new set of anomalies (in addition to allowing `No Usable Data` added to options).
+
+
+- Rob, 10-OCT-2026. oo GPI 1613 2016-05-04 Salinity **massive** inversion. Thorough exploration needed. Similar anomaly 2026-09-22 GPI 2224, again Salinity at OO. Are these peculiar to OO?
+
+- Rob, 10-OCT-2026. oo GPI 4826 2019-02-24 Salinity lens 16m thick centered at 100m. COINCIDENT with DO and somewhat corroborated in temperature. This really seems to be a cline-interrupting entity.
+
+- Rob, 11-OCT-2026. oo GPI 9828 2023-01-23 Temperature shows an anomalously deep mixed layer down to 106.5m.
+
+- Rob, 11-OCT-2026. oo GPI 10899 2023-09-19 Temperature shows SP in a long-term *broken* state with no data shallower than 140m; engineering would have to confirm; maybe HITL? Ends around 2024-08-13 so that's about a year of down time. 
+
+
+## Good archetype profiles
+
+
+For the synthetic dataset these site + GPI + type identifiers are what "really easy" examples look like, either with a MLD in meters or a `No MLD` result. This table has left to right entries: site key, User (R = Rob), GPI nnnn (self-explanatory; for that site), sensor type from {Temp, Salinity, Density, DO}, MLD result. Assume for all cases that the filter is adaptive_savgol_mad with window 59 and adaptivity 2.
+
+
+- oo R GPI 567 Temp result 55.0m
+- oo R GPI 881 Temp result 52.6m
+- oo R GPI 1027 Temp result 47.4m
+- oo R GPI 2561 Temp result 61.1m
+- oo R GPI 5075 Temp result No MLD
+- oo R GPI 5437 Temp result No MLD
+- oo R GPI 2547 Salinity result 61.8m
+- oo R GPI 2561 Salinity result 61.8m 
+- oo R GPI 2667 Salinity result 72.0m
+- oo R GPI 3913 Salinity result 24.0m
+- oo R GPI 4064 Salinity result No MLD
+- oo R GPI 5075 Salinity result No MLD
+- oo R GPI 2667 DO result 72.4m
+- oo R GPI 2747 DO result 55.2m
+- oo R GPI 4443 DO result 63.8
+- oo R GPI 1812 DO result No MLD
+- oo R GPI 1914 DO result No MLD
+- oo R GPI 2078 DO result No MLD
+
+
 
 
 ## Open questions

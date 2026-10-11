@@ -1,10 +1,10 @@
 """
 mld_config.py — shared constants for the MLD 1D-CNN pipeline.
 
-Predicts per-sensor Mixed Layer Depth (4 heads: temperature, salinity, density,
-dissolvedoxygen) from pp06 profiles using a shared 1D-CNN backbone + heatmap-over-depth
-heads. See Analysis.md ("Machine Learning methods for automating SP profile annotation")
-and BR.md. Code in ~/argosy/mld/; generated data in ~/ooi/mld/.
+Predicts per-sensor Mixed Layer Depth (heads = temperature, salinity, dissolvedoxygen;
+density dropped 2026-10-10 as a derived/redundant feature) from pp06 profiles using a shared
+1D-CNN backbone + heatmap-over-depth heads. See Analysis.md ("Machine Learning methods for
+automating SP profile annotation") and BR.md. Code in ~/argosy/mld/; generated data in ~/ooi/mld/.
 """
 import sys
 from pathlib import Path
@@ -12,8 +12,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
 
-# The 4 MLD sensors (order = head order everywhere).
-SENSORS = ["temperature", "salinity", "density", "dissolvedoxygen"]
+# The MLD sensors (order = head order everywhere).
+# Density was DROPPED 2026-10-10: it is derived from T, S, depth (TEOS-10), so as an input it
+# adds no information and as a prediction head it re-learns a known function. A density MLD, if
+# wanted, is COMPUTED from predicted T/S, not learned. See SyntheticMLDPlan.md + WorkingWithAgenticAI.md L3.
+SENSORS = ["temperature", "salinity", "dissolvedoxygen"]
 
 # Depth grid: 0-200 m, 1 m bins (200 bins). Profiles rarely reach above ~5 m; those
 # bins are marked absent via the presence mask rather than fabricated.

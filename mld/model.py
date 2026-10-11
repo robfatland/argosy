@@ -1,12 +1,15 @@
 """
-model.py — shared 1D-CNN backbone + 4 per-sensor heatmap heads.
+model.py — shared 1D-CNN backbone + per-sensor heatmap heads (one per sensor in SENSORS).
 
-Input : [batch, 2, N_BINS]  per sensor (filtered value, local std). All 4 sensors share
-        ONE backbone (so each head benefits from cross-sensor features via joint training);
-        at forward time we run the backbone per sensor-channel-pair and each head reads the
-        shared features. Simpler + effective first cut: stack the 4 sensors' 2-ch inputs into
-        an 8-ch input, one backbone, 4 heads each emitting a heatmap over depth.
-Output: [batch, 4, N_BINS]  one heatmap per sensor (sigmoid 0..1).
+As of 2026-10-10 SENSORS = [temperature, salinity, dissolvedoxygen] (density dropped — see
+mld_config.py). So this is a 3-head / 6-input-channel model; counts derive from len(SENSORS),
+not hardcoded.
+
+Input : [batch, 2, N_BINS]  per sensor (filtered value, local std). All sensors share ONE
+        backbone (so each head benefits from cross-sensor features via joint training). We stack
+        the sensors' 2-ch inputs into a (len(SENSORS)*2)-ch input, one backbone, one head per
+        sensor each emitting a heatmap over depth.
+Output: [batch, n_sensors, N_BINS]  one heatmap per sensor (sigmoid 0..1).
 
 Loss   : per-bin BCE, MASKED to sensors whose label is present for that profile (absent
          sensors contribute nothing). "no MLD" is a flat (all-zero) target — learned like

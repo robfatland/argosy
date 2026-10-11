@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Re-check global steering on session start",
+      "trigger": "SessionStart",
+      "action": {
+        "type": "agent",
+        "prompt": "This session may be a resume of an older session (I typically start Kiro with `kiro .`, which drops me back into an existing session that can be many days stale). Before acting on my first request, re-read every `.md` file in my global steering directory at `\\\\wsl.localhost\\Ubuntu\\home\\rob\\.kiro\\steering\\`, and also the workspace `.kiro/steering/` files. Compare them against what is already in context. If nothing changed, proceed silently. If anything changed, adopt the updated directives for the rest of the session and mention a change only if it affects what we are actively doing. Do not announce that you performed this check when nothing changed."
+      }
+    }
+  ]
+}
