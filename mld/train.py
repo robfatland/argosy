@@ -20,7 +20,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
-from mld.mld_config import SENSORS, N_BINS, MODELS_DIR
+from mld.mld_config import SENSORS, N_BINS, N_INPUT_CHANNELS, MODELS_DIR
 from mld.dataset import load_examples, BIN_CENTERS
 from mld.model import MLDNet, masked_heatmap_loss, peak_from_heatmap
 
@@ -82,6 +82,10 @@ def main():
     ap.add_argument("--batch", type=int, default=16)
     args = ap.parse_args()
 
+    ch_desc = "filtered only" if N_INPUT_CHANNELS == 1 else "filtered + roughness"
+    print(f"input channels/sensor: {N_INPUT_CHANNELS} ({ch_desc})  "
+          f"[set MLD_INPUT_CHANNELS=2 to add the roughness channel]")
+
     examples = load_examples(sites=tuple(args.sites))
     if len(examples) < 10:
         print("Not enough labeled examples to train.")
@@ -118,10 +122,12 @@ def main():
     wpath = MODELS_DIR / f"mldnet_{stamp}.pt"
     torch.save(model.state_dict(), wpath)
     card = dict(created=stamp, sensors=SENSORS, n_bins=N_BINS, sites=args.sites,
+                input_channels=N_INPUT_CHANNELS,
+                input_channel_desc=ch_desc,
                 n_train=len(tr), n_val=len(va), n_test=len(te),
                 val_loss=best_va, test_loss=te_loss, test_mae_m=te_mae,
                 epochs=args.epochs, lr=args.lr, split="time-block 70/15/15",
-                arch="shared 1D-CNN backbone + 4 heatmap heads")
+                arch=f"shared 1D-CNN backbone + {len(SENSORS)} heatmap heads")
     (MODELS_DIR / f"mldnet_{stamp}.json").write_text(json.dumps(card, indent=2))
     print(f"saved {wpath}")
 

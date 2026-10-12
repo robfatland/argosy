@@ -18,15 +18,16 @@ Loss   : per-bin BCE, MASKED to sensors whose label is present for that profile 
 import torch
 import torch.nn as nn
 
-from mld.mld_config import SENSORS, N_BINS
+from mld.mld_config import SENSORS, N_BINS, N_INPUT_CHANNELS
 
 N_SENSORS = len(SENSORS)
 
 
 class MLDNet(nn.Module):
-    def __init__(self, n_bins=N_BINS, n_sensors=N_SENSORS, width=32):
+    def __init__(self, n_bins=N_BINS, n_sensors=N_SENSORS, width=32, in_channels=N_INPUT_CHANNELS):
         super().__init__()
-        in_ch = n_sensors * 2   # 4 sensors x {filtered, localstd}
+        # in_channels per sensor: 1 = [filtered] (default), 2 = [filtered, roughness].
+        in_ch = n_sensors * in_channels
         # Backbone: stacked 1D convolutions (padding keeps length = n_bins).
         self.backbone = nn.Sequential(
             nn.Conv1d(in_ch, width, kernel_size=7, padding=3), nn.ReLU(),
@@ -39,7 +40,7 @@ class MLDNet(nn.Module):
             [nn.Conv1d(width, 1, kernel_size=1) for _ in range(n_sensors)])
 
     def forward(self, x):
-        # x: [B, n_sensors, 2, N_BINS] -> [B, n_sensors*2, N_BINS]
+        # x: [B, n_sensors, C, N_BINS] -> [B, n_sensors*C, N_BINS]  (C = in_channels, 1 or 2)
         b = x.shape[0]
         x = x.reshape(b, -1, x.shape[-1])
         feats = self.backbone(x)                       # [B, width, N_BINS]

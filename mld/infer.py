@@ -22,7 +22,7 @@ import xarray as xr
 
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
-from mld.mld_config import SENSORS, N_BINS, INFER_DIR
+from mld.mld_config import SENSORS, N_BINS, N_INPUT_CHANNELS, INFER_DIR
 from mld.dataset import _bin_profile, _find_shard, BIN_CENTERS
 from mld.model import MLDNet, peak_from_heatmap
 
@@ -45,7 +45,7 @@ def _gpis_for_year(site, year):
 
 
 def _build_input(site, year, gpi, return_mask=False):
-    x = np.zeros((len(SENSORS), 2, N_BINS), np.float32)
+    x = np.zeros((len(SENSORS), N_INPUT_CHANNELS, N_BINS), np.float32)
     pmask = np.zeros((len(SENSORS), N_BINS), np.float32)
     ts = None
     any_ = False
@@ -65,7 +65,8 @@ def _build_input(site, year, gpi, return_mask=False):
         # Use the SAME filter the labels were made with (adaptive_savgol_mad, p1=51, p2=2).
         filt, lstd, m = _bin_profile(depth, value, "adaptive_savgol_mad", 51, 2.0)
         x[si, 0] = filt
-        x[si, 1] = lstd
+        if N_INPUT_CHANNELS == 2:
+            x[si, 1] = lstd
         pmask[si] = m
         any_ = True
     if not any_:

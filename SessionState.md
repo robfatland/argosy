@@ -49,6 +49,11 @@ test run.** Full design in `SyntheticMLDPlan.md`; AI-collaboration lessons in `W
   retraining to keep the yardstick consistent.)
 
 ## Deferred / housekeeping
+- **REMINDER (Rob asked to be reminded): set up the Asta / Semantic-Scholar MCP** — AI2's
+  Scientific Corpus Tool, endpoint `https://asta-tools.allen.ai/mcp/v1` (streamable HTTP, optional
+  x-api-key for higher limits). Purpose: rigorous citation-graph literature review for the
+  water-mass / thermohaline-intrusion hypothesis in `WaterMassTheory.md`. Needs an API key
+  (request via AI2 form) + a `.kiro/settings/mcp.json` entry (verify remote-HTTP schema keys).
 - Temp scripts to delete when done: `_diag_synthetic.py`, `_probe_shard_schema.py`.
 - Optional: add `weights_only=True` to the `torch.load` calls (score_synthetic/infer/_diag) to
   silence the FutureWarning and future-proof the default flip. Our .pt are pure state_dicts so safe.

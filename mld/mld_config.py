@@ -6,6 +6,7 @@ density dropped 2026-10-10 as a derived/redundant feature) from pp06 profiles us
 1D-CNN backbone + heatmap-over-depth heads. See Analysis.md ("Machine Learning methods for
 automating SP profile annotation") and BR.md. Code in ~/argosy/mld/; generated data in ~/ooi/mld/.
 """
+import os
 import sys
 from pathlib import Path
 
@@ -30,10 +31,16 @@ DEPTH_GRID_EDGES = None   # computed in dataset.py via numpy
 # no_mld_recorded -> flat (all-zero) target.
 HEATMAP_SIGMA_M = 4.0
 
-# Input channels per sensor: [filtered value, local std(raw - filtered)]. A presence
-# mask (1 where a real sample fell in the bin, else 0) rides alongside as a 3rd plane
-# used for masking, not as a learned feature.
-N_INPUT_CHANNELS = 2
+# Input channels per sensor:
+#   1 (DEFAULT) -> [filtered value] only.
+#   2           -> [filtered value, local roughness = std/MAD of (raw - filtered)].
+# The roughness channel is a HYPOTHESIS (the annotator used "scratchiness" as a cue). Default is
+# 1 so the noise channel must be CONSCIOUSLY opted into. Override via the MLD_INPUT_CHANNELS env
+# var (e.g. `MLD_INPUT_CHANNELS=2 python mld/train.py`) or train.py's --input-channels flag.
+# A presence mask rides alongside for masking, not as a learned feature.
+N_INPUT_CHANNELS = int(os.environ.get("MLD_INPUT_CHANNELS", "1"))
+if N_INPUT_CHANNELS not in (1, 2):
+    raise ValueError(f"MLD_INPUT_CHANNELS must be 1 or 2, got {N_INPUT_CHANNELS}")
 
 # ~/ooi/mld/ generated-data subfolders.
 MLD_BASE = op.OOI_ROOT / "mld"

@@ -72,8 +72,7 @@ Entries should include who, date, context and any amount of speculation.
 
 - Rob, 25-SEP-2026. ab GPI 7130 through 8600: Oxygen inversion for like six months: June through December 2019.
 
-> NOTE: Rob went back with an improved `MLD.py` to re-annotate all 3 sites x all 4 sensors in October. This 
-produced a new set of anomalies (in addition to allowing `No Usable Data` added to options).
+> NOTE: Rob went back with an improved `MLD.py` to re-annotate all 3 sites x all 4 sensors in October. This produced a new set of anomalies (in addition to allowing `No Usable Data` added to options).
 
 
 - Rob, 10-OCT-2026. oo GPI 1613 2016-05-04 Salinity **massive** inversion. Thorough exploration needed. Similar anomaly 2026-09-22 GPI 2224, again Salinity at OO. Are these peculiar to OO?
@@ -82,7 +81,13 @@ produced a new set of anomalies (in addition to allowing `No Usable Data` added 
 
 - Rob, 11-OCT-2026. oo GPI 9828 2023-01-23 Temperature shows an anomalously deep mixed layer down to 106.5m.
 
-- Rob, 11-OCT-2026. oo GPI 10899 2023-09-19 Temperature shows SP in a long-term *broken* state with no data shallower than 140m; engineering would have to confirm; maybe HITL? Ends around 2024-08-13 so that's about a year of down time. 
+- Rob, 11-OCT-2026. oo GPI 10899 2023-09-19 Temperature shows SP in a long-term *broken* state with no data shallower than 140m; engineering would have to confirm; maybe HITL? Ends around 2024-08-13 so that's about a year of down time.
+
+- Rob, 12-OCT-2026. sb GPI 10631 2021-02-13 Salinity very clean massive inversion 28m to 115m. Not corroborated, not time-extended; interesting. Also note that autoscaling the horizontal axis could lead to exaggeration... Salinity range is 32.24 to 32.36 i.e. .12; usual/adjacent range is 32 to 34 i.e. 2. For the same profile the DO range is 70 to 85, compared with the usual 100 - 300; so 5%. So for this anomaly the leader hypothesis is instrumentation glitch. The second place hypothesis is super peculiar water. Worth a look with bundle_chart.
+
+- Rob, 12-OCT-2026. sb GPI 5504 and adjacent 2018-02-26 DO. "raptor wing" inversion blocks: the block edge 20m thick includes a regular oscillation of 3 to 4 umol/kg. 5531 has an interesting raw signal noise figure. Goes away 10 days later. Reappears in 5611.
+
+
 
 
 ## Good archetype profiles

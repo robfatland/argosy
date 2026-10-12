@@ -24,7 +24,7 @@ import xarray as xr
 
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
-from mld.mld_config import (SENSORS, N_BINS, DEPTH_MIN, DEPTH_MAX, DEPTH_BIN,
+from mld.mld_config import (SENSORS, N_BINS, N_INPUT_CHANNELS, DEPTH_MIN, DEPTH_MAX, DEPTH_BIN,
                             HEATMAP_SIGMA_M, labels_csv)
 
 try:
@@ -163,7 +163,7 @@ def load_examples(sites=("sb", "oo", "ab"), who="R"):
                 print(f"    {site} {gi}/{len(groups)} GPIs  "
                       f"({len(examples)} examples so far)", flush=True)
             year = pd.Timestamp(grp["timestamp"].iloc[0]).year
-            ex_in = np.zeros((len(SENSORS), 2, N_BINS), np.float32)
+            ex_in = np.zeros((len(SENSORS), N_INPUT_CHANNELS, N_BINS), np.float32)
             ex_mask = np.zeros((len(SENSORS), N_BINS), np.float32)
             ex_tgt = np.zeros((len(SENSORS), N_BINS), np.float32)
             has_label = np.zeros(len(SENSORS), bool)
@@ -199,7 +199,8 @@ def load_examples(sites=("sb", "oo", "ab"), who="R"):
                     filter_key=str(row.get("filter_key", "adaptive_savgol_mad")),
                     p1=row.get("filter_p1", 51), p2=row.get("filter_p2", 2.0))
                 ex_in[si, 0] = filt
-                ex_in[si, 1] = lstd
+                if N_INPUT_CHANNELS == 2:
+                    ex_in[si, 1] = lstd          # roughness channel only when opted in
                 ex_mask[si] = mask
                 nomld = bool(row.get("no_mld_recorded", False))
                 ex_tgt[si] = _heatmap(row.get("mld_depth"), nomld)

@@ -508,6 +508,26 @@ This is at much lower task resolution.
    metadata, better for xarray/dask and remote reads. Scope to decide: whether it supersedes or
    complements the shard layout, chunking scheme, and how it interacts with the Zenodo question
    (item 2) and the public-access model.
+4. **MLD extender for shallow profiles with code name `scomplete`.**
+
+   > A profile+sensor marked "No MLD" (classification process unable to arrive at value
+   > solution) may have data up to within 8 meters or less of the surface. Solutions are marked
+   > as No MLD because any visible stem was < 8m. We may reasonably assert in these cases that
+   > there is a very thin ML. So we apply a post-annotation (or post-inference) step that will
+   > necessitate another bool column in the annotation table `used_scomplete` meaning a
+   > shallow-complete was applied: If this sensor+profile was marked No MLD but the data extended
+   > up to 8 meters or less: Start at the shallowest data value on the *filtered* signal = the MLD
+   > reference value for this profile and sensor, say call it `r`.  Proceed downward along the
+   > profile data 'drawing out a vertical stem': Each sensor value must be within a threshold of
+   > `r_sensor` for the stem to continue. Go down until `abs(data - r_sensor) > thresh_sensor` The
+   > stem ends at the previous depth. If the stem is one sample in length: Leave it as `No_MLD` but
+   > in all cases set `used_scomplete` to `True`. The stem depth (say 9 m) is written into the
+   > table as the MLD for that sensor+profile. We can apply this method to training data or to the
+   > inference data. Track how many times this algorithm was applied compared to how many
+   > sensor+profiles there are to get a sense of impact. This is intended as a common sense
+   > heuristic that granted may manufacture small MLs when there technically are none; but with the
+   > value of recuperating a bunch of small MLs that either the annotator was unsure of or the
+   > model won't find. It raises the question of which version to train with...
 
 - **Filesystem restructure to per-site layout (in progress, Aug 2026)**. Adds a site
   dimension to the `~/ooi` data tree, centralized through a new `ooipaths.py` path module.

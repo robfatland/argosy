@@ -28,7 +28,7 @@ import xarray as xr
 
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
-from mld.mld_config import SENSORS, N_BINS, MODELS_DIR
+from mld.mld_config import SENSORS, N_BINS, N_INPUT_CHANNELS, MODELS_DIR
 from mld.dataset import _bin_profile, BIN_CENTERS
 from mld.model import MLDNet, peak_from_heatmap
 
@@ -50,7 +50,7 @@ def _find_syn_shard(gpi, sensor):
 
 def _build_input(gpi):
     """Same 3-sensor input the trainer/infer build, from synthetic shards."""
-    x = np.zeros((len(SENSORS), 2, N_BINS), np.float32)
+    x = np.zeros((len(SENSORS), N_INPUT_CHANNELS, N_BINS), np.float32)
     any_ = False
     for si, sensor in enumerate(SENSORS):
         shard = _find_syn_shard(gpi, sensor)
@@ -65,7 +65,8 @@ def _build_input(gpi):
             continue
         filt, lstd, _ = _bin_profile(depth, value, "adaptive_savgol_mad", 51, 2.0)
         x[si, 0] = filt
-        x[si, 1] = lstd
+        if N_INPUT_CHANNELS == 2:
+            x[si, 1] = lstd
         any_ = True
     return (x if any_ else None)
 
