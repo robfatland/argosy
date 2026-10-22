@@ -25,7 +25,7 @@ import xarray as xr
 sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
 from mld.mld_config import (SENSORS, N_BINS, N_INPUT_CHANNELS, DEPTH_MIN, DEPTH_MAX, DEPTH_BIN,
-                            HEATMAP_SIGMA_M, labels_csv)
+                            HEATMAP_SIGMA_M, MLD_LABEL_MAX, labels_csv)
 
 try:
     from scipy.signal import savgol_filter
@@ -183,6 +183,12 @@ def load_examples(sites=("sb", "oo", "ab"), who="R"):
                 # rate; see WorkingWithAgenticAI.md L1 and SyntheticMLDPlan.md.) The remaining
                 # clean sensors on this GPI are still used.
                 if _flag_true(row.get("xud_recorded", False)):
+                    continue
+                # Deep-MLD guard: a labeled MLD below MLD_LABEL_MAX (110 m) sits in the 10 m
+                # band just above the 120 m cutoff, so its profile would be trained truncated.
+                # Exclude it per sensor, exactly like XUD.
+                _md = row.get("mld_depth")
+                if pd.notna(_md) and str(_md).strip() != "" and float(_md) > MLD_LABEL_MAX:
                     continue
                 shard = _find_shard(site, year, sensor, int(gpi))
                 if shard is None:

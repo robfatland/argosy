@@ -22,10 +22,15 @@ SENSORS = ["temperature", "salinity", "dissolvedoxygen"]
 # Depth grid: 0-200 m, 1 m bins (200 bins). Profiles rarely reach above ~5 m; those
 # bins are marked absent via the presence mask rather than fabricated.
 DEPTH_MIN = 0.0
-DEPTH_MAX = 200.0
+DEPTH_MAX = 120.0   # cutoff 2026-10-13: MLD never lives deep; drop below 120 m to stop the
+                    # peak-finder being distracted by deep structure. See MLD_LABEL_MAX below.
 DEPTH_BIN = 1.0
-N_BINS = int(round((DEPTH_MAX - DEPTH_MIN) / DEPTH_BIN))   # 200
+N_BINS = int(round((DEPTH_MAX - DEPTH_MIN) / DEPTH_BIN))   # 120
 DEPTH_GRID_EDGES = None   # computed in dataset.py via numpy
+
+# A labeled MLD deeper than this is EXCLUDED from training (treated like XUD): a 10 m guard
+# band below the 120 m cutoff, so no profile is trained with its MLD at/near the truncated edge.
+MLD_LABEL_MAX = 110.0
 
 # Heatmap target: Gaussian bump (sigma in metres = bins) centred on the labeled MLD.
 # no_mld_recorded -> flat (all-zero) target.

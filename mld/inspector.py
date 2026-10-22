@@ -27,7 +27,7 @@ import ooipaths as op
 from mld.mld_config import SENSORS, N_BINS, labels_csv
 from mld.dataset import _bin_profile, _find_shard, BIN_CENTERS
 from mld.infer import _gpis_for_year, _build_input
-from mld.model import MLDNet, peak_from_heatmap
+from mld.model import MLDNet, predict
 
 SENSOR_COLOR = {"temperature": "red", "salinity": "blue",
                 "density": "black", "dissolvedoxygen": "green"}
@@ -117,16 +117,20 @@ def main():
             lo, hi = _xrange(sensor, filt[real] if real.any() else filt)
             ax.set_xlim(lo, hi)
             with torch.no_grad():
-                pred = model(torch.from_numpy(x[None]))[0, si].numpy()
-            # Heatmap overlay: faint band spanning the panel width, alpha = prediction.
+                loc, pres_logit = model(torch.from_numpy(x[None]))
+            pmf = torch.softmax(loc[0, si], dim=0).numpy()   # distribution over depth
+            dec = predict(loc[0], pres_logit[0], BIN_CENTERS)
+            depth, pres_prob, conf = dec[si]
+            # Overlay: faint band spanning the panel width, alpha = softmax pmf (normalized).
+            band = pmf / (pmf.max() + 1e-9)
             ax.pcolormesh(np.array([lo, hi]), np.arange(N_BINS + 1),
-                          pred[:, None], cmap="Oranges", alpha=0.35,
+                          band[:, None], cmap="Oranges", alpha=0.35,
                           shading="flat", vmin=0, vmax=1)
-            depth, conf = peak_from_heatmap(pred, BIN_CENTERS, 0.3)
             if depth is not None:
-                ax.axhline(depth, color="orange", lw=1.5, label=f"pred {depth:.0f}m ({conf:.2f})")
+                ax.axhline(depth, color="orange", lw=1.5,
+                           label=f"pred {depth:.0f}m  P(mld) {pres_prob:.2f}")
             else:
-                ax.text(0.5, 0.05, f"no-MLD ({conf:.2f})", transform=ax.transAxes,
+                ax.text(0.5, 0.05, f"no-MLD  P(mld) {pres_prob:.2f}", transform=ax.transAxes,
                         ha="center", color="orange", fontsize=8)
             if lab is not None:
                 r = lab[(lab["gpi"] == gpi) & (lab["sensor"] == sensor)]

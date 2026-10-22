@@ -8,9 +8,9 @@
 
 # ab circa 07-SEP-2026
 # missing CTDPF
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T170527488Z-RS03AXPS-SF03A-4F-PCO2WA301-streamed-pco2w_a_sami_data_record
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T170623939Z-RS03AXPS-SF03A-4A-NUTNRA301-streamed-nutnr_a_sample
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T170851446Z-RS03AXPS-SF03A-3C-PARADA301-streamed-parad_sa_sample
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T171246592Z-RS03AXPS-SF03A-2D-PHSENA301-streamed-phsen_data_record
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T171112969Z-RS03AXPS-SF03A-3A-FLORTD301-streamed-flort_d_data_record
-https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T171530723Z-RS03AXPS-SF03A-2A-CTDPFA302-streamed-ctdpf_sbe43_sample
+# https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T170527488Z-RS03AXPS-SF03A-4F-PCO2WA301-streamed-pco2w_a_sami_data_record
+# https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T170623939Z-RS03AXPS-SF03A-4A-NUTNRA301-streamed-nutnr_a_sample
+# https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T170851446Z-RS03AXPS-SF03A-3C-PARADA301-streamed-parad_sa_sample
+# https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T171246592Z-RS03AXPS-SF03A-2D-PHSENA301-streamed-phsen_data_record
+# https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T171112969Z-RS03AXPS-SF03A-3A-FLORTD301-streamed-flort_d_data_record
+# https://downloads.oceanobservatories.org/async_results/kilroy1618@gmail.com/20260907T171530723Z-RS03AXPS-SF03A-2A-CTDPFA302-streamed-ctdpf_sbe43_sample

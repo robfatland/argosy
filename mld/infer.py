@@ -24,9 +24,7 @@ sys.path.insert(0, str(Path("~/argosy").expanduser()))
 import ooipaths as op
 from mld.mld_config import SENSORS, N_BINS, N_INPUT_CHANNELS, INFER_DIR
 from mld.dataset import _bin_profile, _find_shard, BIN_CENTERS
-from mld.model import MLDNet, peak_from_heatmap
-
-MIN_CONF = 0.30
+from mld.model import MLDNet, predict
 
 
 def _gpis_for_year(site, year):
@@ -99,9 +97,11 @@ def main():
             if x is None:
                 continue
             with torch.no_grad():
-                pred = model(torch.from_numpy(x[None]))[0].numpy()   # [4, N_BINS]
+                loc, pres_logit = model(torch.from_numpy(x[None]))
+            dec = predict(loc[0], pres_logit[0], BIN_CENTERS)   # [(depth|None, P(pres), conf)]
             for si, sensor in enumerate(SENSORS):
-                depth, conf = peak_from_heatmap(pred[si], BIN_CENTERS, MIN_CONF)
+                depth, pres_prob, conf = dec[si]
+                conf = pres_prob    # report presence probability as the confidence column
                 rows.append(dict(site=args.site, gpi=gpi,
                                  timestamp=ts.isoformat() if ts is not None else "",
                                  sensor=sensor,

@@ -45,9 +45,31 @@ it looks good, say so.
 - Module sign-up spreadsheet (each ION function linked to its GitHub page):
   https://docs.google.com/spreadsheets/d/1ilYS7E-_fQKiwHaZqZ8hHothuPULATTPxHIUIMD6QU0/edit?usp=sharing
 
+## FLO module facts (from the ION landing page, fetched Sep 2026)
+
+ION's **FLO** family = the two OOI fluorometer classes:
+- **FLORD** — 2-wavelength fluorometer (Chl-a, backscatter)
+- **FLORT** — 3-wavelength fluorometer (Chl-a, CDOM, backscatter)  ← the SP sensor argosy uses
+
+FLO data products (the L1/L2 variable codes): **CHLAFLO** (chlorophyll-a fluorescence),
+**CDOMFLO** (CDOM fluorescence), **FLUBSCT** (optical backscatter).
+
+ION processing levels: **L0** raw (counts/volts), **L1** calibrated physical quantity from one
+sensor channel, **L2** derived product from ≥2 L1/L2 inputs. Algorithms are drawn from OOI Data
+Product Specifications (DPS), vendor docs, and peer-reviewed literature; source discrepancies are
+noted in-module. (So CHLAFLO/CDOMFLO/FLUBSCT are the L1 calibrated outputs — ION takes raw counts
+→ these, applying the vendor dark-count + scale-factor cal.)
+
+Argosy relevance: these are exactly argosy's `chlora`, `cdom`, `backscatter` shard variables. The
+argosy pp06 filter2 (Savitzky-Golay) / filter3 (backscatter despike) work operates DOWNSTREAM of
+this L1 calibration — on the quantization/noise problem, not the raw→physical conversion. (See the
+"bridging" discussion in DeveloperGuide/BR; ION = L0→L1/L2, argosy pp05/pp06 = QC + conditioning on
+top of the delivered product.)
+
 ## Review notes (to fill in)
 
 Reviewing FLO from a user standpoint — clarity, completeness, accessibility of the documentation.
+Open the FLORD/FLORT module page from the sign-up spreadsheet link.
 
 - Access / can a user find and open it: _TBD_
 - Is the purpose / what-it-does clear: _TBD_

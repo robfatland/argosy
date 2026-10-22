@@ -135,6 +135,61 @@ def labels_path(site, block_days, who):
             / f"mld_labels_{site}_block{block_days:02d}_{who}.csv")
 
 
+def science_labels_path(site, who):
+    """Separate SCIENCE label CSV — never touches training. One per site+who."""
+    return (op.metadata_dir(site, "annotations")
+            / f"mld_labels_{site}_science_{who}.csv")
+
+
+def load_science_candidates(site, gpi_files, start, end):
+    """Enumerate EVERY pp06 GPI whose timestamp falls in [start, end] (contiguous, no block
+    sampling), ordered by time. Timestamp per GPI is read once from any available shard."""
+    start, end = pd.Timestamp(start), pd.Timestamp(end)
+    rows = []
+    for gpi, entry in gpi_files.items():
+        f = next(iter(entry.values()), None)
+        if f is None:
+            continue
+        try:
+            ds = xr.open_dataset(f)
+            ts = pd.Timestamp(ds["time"].values[0])
+            ds.close()
+        except Exception:
+            continue
+        if start <= ts <= end:
+            rows.append({"gpi": int(gpi), "timestamp": ts})
+    if not rows:
+        raise SystemExit(f"No pp06 profiles for site {site} in [{start.date()}, {end.date()}].")
+    df = pd.DataFrame(rows).sort_values("timestamp").reset_index(drop=True)
+    return df
+
+
+def seed_science_from_training(site, who, sci_path, start, end):
+    """One-time: if the science CSV does not exist, create it by copying the TRAINING labels
+    (block05) whose timestamp falls in [start, end]. Science clicks thereafter never touch
+    training. Overlapping re-runs are fine — seeding only happens when the file is absent."""
+    if sci_path.exists():
+        return
+    train_path = labels_path(site, 5, who)
+    sci_path.parent.mkdir(parents=True, exist_ok=True)
+    if train_path.exists():
+        df = pd.read_csv(train_path)
+        if "timestamp" in df.columns and len(df):
+            ts = pd.to_datetime(df["timestamp"], errors="coerce")
+            in_range = df[(ts >= pd.Timestamp(start)) & (ts <= pd.Timestamp(end))]
+        else:
+            in_range = df.iloc[0:0]
+        for c in LABEL_COLUMNS:
+            if c not in in_range.columns:
+                in_range[c] = "" if c not in ("no_mld_recorded", "xud_recorded") else False
+        in_range[LABEL_COLUMNS].to_csv(sci_path, index=False)
+        print(f"seeded science CSV from {train_path.name}: {len(in_range)} rows in range "
+              f"-> {sci_path.name}")
+    else:
+        pd.DataFrame(columns=LABEL_COLUMNS).to_csv(sci_path, index=False)
+        print(f"no training CSV to seed from; created empty science CSV {sci_path.name}")
+
+
 # ── Data loading ────────────────────────────────────────────────────────────────
 
 def load_candidates(site, block_days, year=None):
@@ -269,15 +324,24 @@ def _apply_filter_impl(vals, filter_key, p1, p2):
 # ── Annotator ──────────────────────────────────────────────────────────────────
 
 class MLDAnnotator:
-    def __init__(self, site, block_days, who, start_year=None):
+    def __init__(self, site, block_days, who, start_year=None,
+                 science=False, sci_start=None, sci_end=None):
         self.site = site
         self.block_days = block_days
         self.who = who
-        self.candidates = load_candidates(site, block_days, start_year)
-        if self.candidates.empty:
-            raise SystemExit(f"No candidate profiles with a selected gpi for site {site}.")
+        self.science = science
         self.gpi_files = build_gpi_file_index(site)
-        self.labels_path = labels_path(site, block_days, who)
+        if science:
+            # Contiguous time-range mode -> science CSV (seeded once from training), its own
+            # candidate list = every pp06 GPI in [sci_start, sci_end]. Never touches training.
+            self.labels_path = science_labels_path(site, who)
+            seed_science_from_training(site, who, self.labels_path, sci_start, sci_end)
+            self.candidates = load_science_candidates(site, self.gpi_files, sci_start, sci_end)
+        else:
+            self.candidates = load_candidates(site, block_days, start_year)
+            if self.candidates.empty:
+                raise SystemExit(f"No candidate profiles with a selected gpi for site {site}.")
+            self.labels_path = labels_path(site, block_days, who)
         self.labels = self._load_labels()
 
         # Session state (sticky across advances)
@@ -771,10 +835,21 @@ def main():
                     help="Labeler identity, fixed for the session (default C = Chuck).")
     ap.add_argument("--year", type=int, default=None,
                     help="Start at the first candidate in this year (continues past it).")
+    ap.add_argument("--science", action="store_true",
+                    help="SCIENCE mode: label a CONTIGUOUS time range (every pp06 profile in "
+                         "[--start,--end], no block sampling). Output goes to a separate science "
+                         "CSV (seeded once from training), never touching the training labels.")
+    ap.add_argument("--start", default=None, help="science mode: range start YYYY-MM-DD")
+    ap.add_argument("--end", default=None, help="science mode: range end YYYY-MM-DD")
     args = ap.parse_args()
 
-    annot = MLDAnnotator(args.site, args.block_days, args.who, start_year=args.year)
-    print(f"MLD annotator — site={args.site}, who={args.who}, block_days={args.block_days}, "
+    if args.science and not (args.start and args.end):
+        raise SystemExit("--science requires --start and --end (YYYY-MM-DD).")
+
+    annot = MLDAnnotator(args.site, args.block_days, args.who, start_year=args.year,
+                         science=args.science, sci_start=args.start, sci_end=args.end)
+    mode = f"SCIENCE [{args.start}..{args.end}]" if args.science else f"block_days={args.block_days}"
+    print(f"MLD annotator — site={args.site}, who={args.who}, {mode}, "
           f"candidates={len(annot.candidates)}, labels_file={annot.labels_path}")
     annot.run()
 

@@ -380,10 +380,11 @@ def main():
 def _report(prof, z0, sharp):
     import numpy as _np
     d = prof["depth"]
+    def _f(v, nd=1):  # format a possibly-None MLD (no-MLD profiles have None)
+        return "none" if v is None else f"{v:.{nd}f}"
+    m = prof["mld"]
     print(f"  profile z0={z0} sharp={sharp} dmin={prof['dmin']:.1f} n={len(d)} "
-          f"mld(T/S/DO)="
-          f"{prof['mld']['temperature']:.1f}/"
-          f"{prof['mld']['salinity']:.1f}/{prof['mld']['dissolvedoxygen']:.1f}  "
+          f"mld(T/S/DO)={_f(m['temperature'])}/{_f(m['salinity'])}/{_f(m['dissolvedoxygen'])}  "
           f"T[{_np.min(prof['temperature']):.1f},{_np.max(prof['temperature']):.1f}] "
           f"DO[{_np.min(prof['dissolvedoxygen']):.0f},{_np.max(prof['dissolvedoxygen']):.0f}]")
 
