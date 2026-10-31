@@ -44,6 +44,9 @@ See also the "annotation problem" framing in the `argosy-conventions` steering f
 ## Observations
 
 
+### From Rob Training
+
+
 Entries should include who, date, context and any amount of speculation. 
 
 > **Descent overlay note:** The idea is to add a button that overlays descent data on a particular 
@@ -87,6 +90,22 @@ Entries should include who, date, context and any amount of speculation.
 
 - Rob, 12-OCT-2026. sb GPI 5504 and adjacent 2018-02-26 DO. "raptor wing" inversion blocks: the block edge 20m thick includes a regular oscillation of 3 to 4 umol/kg. 5531 has an interesting raw signal noise figure. Goes away 10 days later. Reappears in 5611.
 
+
+### From Rob Science
+
+
+Using `--science` and a date range compiles MLD data separately from the training dataset: Every profile. When a training result is present (one of 3 outcomes: A depth, a `No MLD`, or an `XUD`) that is indicated on the display: Either as a dot on the chart (that can be relocated in science mode) or as text in the chart title.
+
+
+- Rob, 30-OCT-2026. sb GPI 17147, 17148 (late January 2024): Temperature. Smallest possible coincidence interval. Inversion layer at 60 meters.
+
+
+- Rob, 30-OCT-2026. sb GPI 17171 (late January 2024): Salinity. Inversion layer at 60 meters+. Single profile.
+
+
+- Rob, 30-OCT-2026. sb GPI 17199 (late January 2024): Salinity and Temperature and DO. Double ML with subtle transition: 7m to 30m to 38m to 61m. Persists for 3: 17199, 17200, 17201.
+
+- Rob, 31-OCT-2026. sb GPI 18089+ (early August 2024): Temperature: Super shallow cline, no discernable ML, inversion feature down around 90m. Echoed in DO and ~vaguely~ in Salinity. Persists to 18090, 18091, ... 18099; then starts to deform and break up. More or less gone at 18105; but the shallow cline with almost no ML persists. Then the 60 - 80m inversion returns. One more peculiarity: The DO has a separate upper inversion layer that pushes *its* cline down to the 30 to 70m range; in contrast to the temperature cline that is generally shallower at 10 to 50m. The DO shallow inversion persists all the way to the end of the month; so we do not have an end profile for this feature.      
 
 
 

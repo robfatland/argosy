@@ -55,6 +55,7 @@ kept in the `operational-recipes` steering file, not here.
 - **Running curtain plots**: `chapters/Visualizations.ipynb` curtain plot cell — see `Visualization.md`
 - **Switching the SP site (sb/oo/ab) in the vis notebook**: each plot cell calls `op.select_site()` — press Enter to keep the `ARGOSY_SITE` default or type a 2-letter code to switch (no kernel restart needed). See the intro cell of `chapters/Visualizations.ipynb`.
 - **MLD annotation suite (human-labeled mixed-layer-depth dataset)**: two-program workflow — `PreSelectProfiles.py` (reproducible candidate sampling → `mld_candidates/`) then `MLD.py` (interactive TkAgg annotator → per-labeler `mld_labels_*` CSVs). Design/spec in `MLDAnnotationPlan.md`; hands-on experience notes in `MLDObservations.md`; collaborator env in `environment-mld.yml`; downstream ML in `Analysis.md` → "Mixed Layer Depth".
+- **Publishing the MLD training set to Zenodo (release + versioning)**: the human-labeled MLD label CSVs + profile-index slices are published as a versioned Zenodo dataset (v1 DOI `10.5281/zenodo.23650419`, concept DOI `10.5281/zenodo.23650418`). Release record, bundle contents, staging locations, and the repeatable "New version" procedure are in `MLDDataRelease.md`.
 - **Descent-data recovery (second-class companion to ascent)**: pre-shard descent for the 8 HSD sensors into a parallel `redux_descent`/`pp06_descent` tree (`V1D` version token), via the disposable-EC2 pipeline; surfaced by a non-pickable "Descent" overlay button in `MLD.py`. Full spec in `DescentData.md`.
 
 \newpage

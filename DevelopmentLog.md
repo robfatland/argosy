@@ -112,6 +112,21 @@ This is at much lower task resolution.
 ## Open Topics
 
 
+- **Address CF-compatibility (pp06 NetCDF → publish-ready).** Before pp06 goes up as a Zenodo
+  product, the NetCDF files should pass a CF (Climate and Forecast) conventions check. Inspection of
+  live `ab`-site pp06 files shows they are already most of the way there — they inherit strong
+  variable-level metadata from OOI's NetCDF (`standard_name`, udunits `units`, `long_name`,
+  correct `time`/`depth` axes, `ancillary_variables` → QARTOD). The gaps are mechanical: (1) no
+  global `Conventions` attribute; (2) broken `coordinates: lat depth lon time` — `lat`/`lon` are
+  referenced but absent (add scalar lat/lon from site metadata, or drop them from the string); (3)
+  `depth` lacks `positive = "down"`; (4) inconsistent `_FillValue` (`-9999999.0` vs `nan` vs
+  `-1e8`); (5) optional recommended globals (`title`, `institution`, `source`, `history`,
+  `featureType` = DSG profile); (6) `compliance-checker` not installed in the `argosy` env. Fix via
+  a new idempotent, `--dry-run`-first `postprocess_pp06_cfify.py` (same shape as
+  `postprocess_pp06_filter3.py`). Estimated ~1–1.5 days total including verification. Touches all
+  four sites × all years, rewrites in place → rely on the S3 mirror as backstop. Full assessment in
+  `PathCurationSourceMaterial.md` → "CF-compliance of the pp06 NetCDF files".
+
 - **DSC task: review an OOI ION Functions module (DEADLINE Oct 28, 2026).** NSF (George Voulgaris)
   asked the DSC/OOIFB to review ION Functions — the Python L0→L1→L2 calibration/processing library
   (`ion_functions/data/`) — before it goes live on oceanobservatories.org (Oct 30). Review is from
@@ -260,6 +275,24 @@ This is at much lower task resolution.
 
 
 ## Completed (June 2026)
+
+## Completed (Oct 2026) — MLD training set published to Zenodo (v1)
+
+- **Published the human-labeled MLD training set as a versioned Zenodo dataset.** Bundle =
+  3 label CSVs (`sb`/`oo`/`ab`, 6,320 rows total; `ascent_start`/`ascent_end` folded in from
+  the profile index) + 3 `profile_index_<site>.csv` slices + README.md + METHODS.md. Framed as
+  the human training subset feeding the 1-D CNN (no model, no predictions, no synthetic data).
+  Single annotator (Rob, `who = R`), stated plainly. v1 DOI `10.5281/zenodo.23650419`, concept
+  DOI `10.5281/zenodo.23650418`. Submitted for review to the `nsf-ooi` community (publishes on
+  curator acceptance). Staging bundle at `~/mld_zenodo_release/v1/` (kept out of both `~/argosy`
+  and `~/ooi`); drag copy at `~/D/mld_zenodo_v1/`. Full release record + versioning procedure in
+  `MLDDataRelease.md`; key-action pointer in `ArgosyOverview.md`.
+- Along the way: documented the Zenodo "intellectual support" survey of the 24 `nsf-ooi` records
+  (code/docs/GitHub coverage, and the currents/triplet-fluorometer topic gaps) in
+  `PathCurationSourceMaterial.md`; logged the OOI data-products discoverability finding and the
+  "AI-ready / llms.txt" idea in `OOIUsability.md`; and recorded the pp06 CF-compliance assessment
+  as an Open Topic ("Address CF-compatibility").
+
 
 - Full re-shard complete (all instruments, all years 2015–2025). Redux data in `~/ooi/redux/`.
 - `~/ooi/ooinet/` (204 GB source NetCDF) synced to `s3://s3ooi/ooinet/` and deleted locally.
