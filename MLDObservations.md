@@ -105,6 +105,7 @@ Using `--science` and a date range compiles MLD data separately from the trainin
 
 - Rob, 30-OCT-2026. sb GPI 17199 (late January 2024): Salinity and Temperature and DO. Double ML with subtle transition: 7m to 30m to 38m to 61m. Persists for 3: 17199, 17200, 17201.
 
+
 - Rob, 31-OCT-2026. sb GPI 18089+ (early August 2024): Temperature: Super shallow cline, no discernable ML, inversion feature down around 90m. Echoed in DO and ~vaguely~ in Salinity. Persists to 18090, 18091, ... 18099; then starts to deform and break up. More or less gone at 18105; but the shallow cline with almost no ML persists. Then the 60 - 80m inversion returns. One more peculiarity: The DO has a separate upper inversion layer that pushes *its* cline down to the 30 to 70m range; in contrast to the temperature cline that is generally shallower at 10 to 50m. The DO shallow inversion persists all the way to the end of the month; so we do not have an end profile for this feature.      
 
 
