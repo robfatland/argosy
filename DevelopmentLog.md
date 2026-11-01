@@ -111,57 +111,80 @@ This is at much lower task resolution.
 
 ## Open Topics
 
+Ordered by priority (most important first).
 
-- **Address CF-compatibility (pp06 NetCDF → publish-ready).** Before pp06 goes up as a Zenodo
-  product, the NetCDF files should pass a CF (Climate and Forecast) conventions check. Inspection of
-  live `ab`-site pp06 files shows they are already most of the way there — they inherit strong
-  variable-level metadata from OOI's NetCDF (`standard_name`, udunits `units`, `long_name`,
-  correct `time`/`depth` axes, `ancillary_variables` → QARTOD). The gaps are mechanical: (1) no
-  global `Conventions` attribute; (2) broken `coordinates: lat depth lon time` — `lat`/`lon` are
-  referenced but absent (add scalar lat/lon from site metadata, or drop them from the string); (3)
-  `depth` lacks `positive = "down"`; (4) inconsistent `_FillValue` (`-9999999.0` vs `nan` vs
-  `-1e8`); (5) optional recommended globals (`title`, `institution`, `source`, `history`,
+
+- **Dependency on Chuck: H&T vs by-hand (science) MLDs, SB, Jan + Aug 2024, Temperature only.**
+  Compare Holte & Talley (2009) algorithmic MLDs against the hand-labeled science-mode MLDs
+  (`mld_labels_sb_science_*.csv`) for January and August 2024 at Slope Base, temperature only.
+  Bonus: run inference with the 1-D CNN model on the same profiles and add it as a third column in
+  the comparison. Blocked on Chuck (H&T results; output location TBD — see `vis/mld_coverage.py`
+  SOURCES registry, cyan lane reserved).
+
+- **Science sweeps from MLD Observations + a catalog.** Review `MLDObservations.md` for the
+  time ranges / sites of interest flagged there (lenses, inversions, deep mixed layers, broken
+  intervals, etc.) and run an `MLD.py --science` sweep over each. Build a catalog (site, date range,
+  sensor(s), motivating observation, science CSV, status) of those sweeps.
+
+- **QARTOD.** Make first-class use of the per-observation QARTOD / QC flags delivered in the OOI
+  L1/L2 files (`<var>_qartod_results`, `<var>_qartod_executed`, `<var>_qc_results`), which argosy has
+  so far ignored. Two threads:
+  - *Exclusion filter:* use the flags (plus engineering/metadata) to disqualify segments of a sensor
+    time series automatically. See `PostProcessing.md` QC Filter section. Initial study shows 0.11%
+    suspect temperature and 9.38% suspect conductivity in a 2018 CTD file; need to determine whether
+    flagged data falls within profiles (actionable) or at rest (ignorable).
+  - *Experiment — QARTOD vs. manual "No Data" (validate the trust layer):* pull QARTOD flags (Gold
+    Copy S3 / download) for the LABELED profiles only (targeted, small) and compare per (gpi, sensor)
+    the QARTOD verdict (fraction Fail=4 / Suspect=3) against the manual MLD label (No Data / No MLD /
+    MLD value). Deliverable: an agreement table + confusion matrix. Payoffs: (a) independent
+    validation of the human No-Data label; (b) if agreement is high, QARTOD could PRE-POPULATE the
+    No-Data tag and save manual clicks on blank profiles; (c) concrete instance of folding QARTOD into
+    the trust layer (BR G2). Expect strong agreement on gross junk and divergence in the gray zone
+    (QARTOD flags individual values on range/climatology; "No Data" is a human gestalt) — the
+    disagreements map where automated QC suffices vs. where human judgment is irreducible, a
+    publishable DSC-relevant finding. Cloud-side, modest effort.
+
+- **Cline as a best-fit line through a pivot point (2-DOF search).** Treat a profile's MLD as a
+  pivot point; build a surrounding grid of candidate pivots; through each, sweep a straight line over
+  angle and pick the angle that maximizes an inner-product-style agreement with the cline. Keep the
+  best pivot + angle overall — a two-degrees-of-freedom search for the best linear approximation to
+  the cline. Do this for T, S, and DO.
+
+- **Deep profiler O₂ integration**: Combine shallow profiler (RS01SBPS, 0–200m) with deep profiler
+  (RS01SBPD, 200–2900m) to visualize the full water column oxygen structure including the OMZ core
+  and deep recovery. See `Umbrella.md` → "Deep Profiler: Full Water Column Oxygen Structure".
+
+- **Testing follow-up (high priority)**: Implement and run the tests defined in `Testing.md`
+  (SGA synthetic validation, internal wave incompressibility check). Failed tests go to Open Topics.
+  - Internal wave incompressibility: DONE. Stream function formulation passes at <3%.
+    Remaining error is finite-amplitude (Lagrangian vs Eulerian). See `Testing.md` for details.
+
+- **Address CF-compatibility (pp06 NetCDF → publish-ready), then re-publish MLD data on Zenodo.**
+  Before pp06 goes up as a Zenodo product, the NetCDF files should pass a CF (Climate and Forecast)
+  conventions check. Inspection of live `ab`-site pp06 files shows they are already most of the way
+  there — they inherit strong variable-level metadata from OOI's NetCDF (`standard_name`, udunits
+  `units`, `long_name`, correct `time`/`depth` axes, `ancillary_variables` → QARTOD). The gaps are
+  mechanical: (1) no global `Conventions` attribute; (2) broken `coordinates: lat depth lon time` —
+  `lat`/`lon` are referenced but absent (add scalar lat/lon from site metadata, or drop them from the
+  string); (3) `depth` lacks `positive = "down"`; (4) inconsistent `_FillValue` (`-9999999.0` vs
+  `nan` vs `-1e8`); (5) optional recommended globals (`title`, `institution`, `source`, `history`,
   `featureType` = DSG profile); (6) `compliance-checker` not installed in the `argosy` env. Fix via
   a new idempotent, `--dry-run`-first `postprocess_pp06_cfify.py` (same shape as
   `postprocess_pp06_filter3.py`). Estimated ~1–1.5 days total including verification. Touches all
   four sites × all years, rewrites in place → rely on the S3 mirror as backstop. Full assessment in
   `PathCurationSourceMaterial.md` → "CF-compliance of the pp06 NetCDF files".
+  **Then:** re-publish the MLD data on Zenodo (a new version of the MLD training-set record — see
+  `MLDDataRelease.md` → "How to cut the next version") by adding an exemplary sequence of pp06
+  NetCDF files modified to be CF-compliant, so the labels ship alongside the profiles they label.
 
-- **DSC task: review an OOI ION Functions module (DEADLINE Oct 28, 2026).** NSF (George Voulgaris)
-  asked the DSC/OOIFB to review ION Functions — the Python L0→L1→L2 calibration/processing library
-  (`ion_functions/data/`) — before it goes live on oceanobservatories.org (Oct 30). Review is from
-  the USER's perspective only (clarity + documentation; do NOT critique the algorithm). Rob signed
-  up for **FLO** (the two OOI fluorometer types — argosy-relevant: FLORT → CDOM/chlorA/backscatter,
-  already in the pp06 pipeline). Comments → George (gvoulgar@nsf.gov), CC Holly, by **Oct 28**;
-  express approval if it reads well. Details, links, and review notes in **`IONReview.md`**.
+- Erratics filter: Identify and suppress spurious profile data (e.g. salinity bundles with 180 profiles
+  frequently show 1–2 profiles with clearly non-physical values). Could operate as a pp05-level filter
+  or a runtime toggle in the bundle chart. Needs a detection heuristic (e.g. profile mean outside
+  N sigma of bundle mean, or individual points beyond physical bounds).
 
-- **MLD labels conflate "no-MLD" with "no-data" — add a "No Data" button to MLD.py.** The tool has
-  three states today: *no label* (uninspected, default), *No MLD* (signal present but MLD not
-  visually resolvable → valid abstain target = flat heatmap), and an *MLD value* (left-click depth →
-  Gaussian target). MISSING: a fourth state **No Data** — an Advance-style button/right-click that
-  tags a profile as "no usable signal" (blank or erratic). Semantically distinct: No MLD is a valid
-  training target; No Data must be **excluded from training entirely**, like an absent sensor. Many
-  profiles show no/erratic data, so the current conflation (both land as `no_mld_recorded=True`)
-  poisons the abstain class. To do: (1) add the No Data button + a distinct flag in MLD.py; (2)
-  retroactively reclassify existing R labels (no-MLD rows whose profile has too few valid bins → No
-  Data) in dataset.py. Flagged during the manual walk-through of the training pipeline.
-
-- **Experiment: QARTOD flags vs. manual "No Data" (automate / validate the trust layer).** We have
-  so far ignored the per-observation `<var>_qartod_results` flags in the delivered L1/L2 files. Idea:
-  pull QARTOD flags from the cloud (Gold Copy S3 / download) for the LABELED profiles only (targeted,
-  small), and compare per (gpi, sensor) the QARTOD verdict (fraction Fail=4 / Suspect=3) against the
-  manual MLD label (No Data / No MLD / MLD value). Deliverable: an agreement table + confusion
-  matrix. Payoffs: (a) independent validation of the human No-Data label; (b) if agreement is high,
-  QARTOD could PRE-POPULATE the No-Data tag and save manual clicks on blank profiles; (c) concrete
-  instance of folding QARTOD into the trust layer (BR G2). Expect strong agreement on gross junk and
-  divergence in the gray zone (QARTOD flags individual values on range/climatology; "No Data" is a
-  human gestalt) — the disagreements map where automated QC suffices vs. where human judgment is
-  irreducible, a publishable DSC-relevant finding. Cloud-side, modest effort.
-
-- **Expertise reserve for making argosy AI-aligned:** Rich Signell, Scott Henderson, Ryan Abernathey
-  — a collective reference for cloud-native / ARCO / Pangeo-style practice (Zarr, xarray, cloud data).
-  Noted after explaining argosy to someone who recommended Signell as a point of reference. No
-  specific ask yet; a contact/expertise pool for the BR G1/G3 (Zarr/CF/STAC) and MOAR AI-ready work.
+- **SGA two-cluster problem**: Multi-year runs converge to k=2 (seasonal dominance). Need diagnostic
+  plan: try per-year analysis, force higher k, vary σ², examine outlier cluster composition,
+  consider sub-annual windowing. See `SpectralGraphAnalysis.md` → "Known Issues / History".
 
 - **Miniconda environment sprawl — refactor away the one-giant-env situation.** The single
   `argosy` conda env now carries hundreds of installed packages, many unrelated to argosy
@@ -178,105 +201,80 @@ This is at much lower task resolution.
   the latter. Ties into the steering "environment stability" rule (snapshot after every
   install) and the portability lesson from the Chuck/MLD setup. Decide the target env
   topology before doing any destructive `conda remove`.
+
 - **pCO2 on Oregon Offshore — check with Wendi/Joe: does it exist?** When ordering `oo` data
   (Sep 2026) there was no clear pCO2 (PCO2W) link in the OOINET order interface after a careful
   look. `oo` currently has 5 instrument orders (PHSEN, CTDPF, FLORT, NUTNR, PARAD) covering 10 of
   11 scalar sensors — proceeding with those 10. Confirm whether Oregon Offshore has a pCO2 sensor
   at all, or whether it's available via another route; add it if so.
+
 - Explore access to and use of the data cube provided by Joe and Wendi: How does it map to the data scheme of this repo?
-- Cloud-native data access (future optimization): the current pipeline downloads from OOINET async
-  staging URLs. Consider THREDDS/OPeNDAP or the OOI Gold Copy S3 buckets (`ooigoldcopy`) — an
-  in-region S3→S3 copy could eliminate the download step entirely for cloud runs. Deferred to keep
-  the first EC2 build to one new variable at a time.
-- Open-science publishing: decide do-or-don't on OSF (Open Science Framework) as a project hub for repo+data+poster. Zenodo (code by-reference + poster/data by-upload) and Figshare (redundant visibility) are the current plan; OSF is the open question. See `Publishing.md`.
-- Baffle LH with cyclonicity, learn critical depth vis a population and compensation depth vis individual and review SeaFlow with Cornell
-- Clean up `chapters/StubWork.ipynb`: still uses hardcoded `~/ooi/...` paths (left as-is during
-  the Aug 2026 `ooipaths.py` conversion since it's a scratch notebook). Either convert its cells
-  to `ooipaths` accessors (cells ~2,3,4,9,11,13,25) or prune stale scratch cells.
-- Inquire about a shallow profiler conversation with A.Gray
-- Bundle plot "Scanning redux folders" message counts shard files rather than unique profiles.
-  Replace with profile count from `profileIndices` plus maximum possible.
-- 2020 T vs S has odd behaviors: Wide aneurism in salinity; +/- buttons don't behave as expected.
-  Suggest making mean/std box width a slider.
-- Backscatter shard: Verify using `optical_backscatter` not `total_volume_scattering_etcetera`.
-- Revamp animations (frame timing, hold time per frame).
-- Add curtain plots: See e.g. `~/OceanRepos/notebooks/dev_notebooks/keenan/3d_DO.ipynb`.
-- Axis offset calculation for dual-sensor bundle plots: Verify the math with a worked example.
-- DO streams: Confirmed CTD-derived DO is identical to DOFSTA; using CTD as single source.
-- Revalidate that DO data is identical to the DO sensor data found in the CTD instrument file (side-by-side value comparison still pending).
-- Is there a means of automated data retrieval from OOINET (eliminating the manual order step)?
-- Proper use of engineering / metadata to validate a sensor time series: Use data quality flags (qartod) to disqualify certain segments automatically.
-- Profile count calculation confusion (line ~1050):
-    - The diagnostic shows "4394 profiles" for 2015 but then says it should show "578 profiles (3285 possible)"
-    - The document correctly identifies this as counting shard files (4 sensors × ~1100 profiles ≈ 4400)
-    - But the logic needs clarification: Are you counting unique profiles or total shard files?
-- Time zone handling ambiguity:
-    - Mentions UTC-8/UTC-7 for standard/daylight time
-    - Doesn't specify when DST transitions occur (important for the NOON/MIDNIGHT logic)
-    - Consider adding explicit DST transition dates or using a timezone library
-- Coincidence detection plans: See `CoincidencePlans.md` for multi-sensor anomaly flagging
-  (auto-coincidence and hetero-coincidence). Referenced from `Analysis.md` → Pending modifications.
--Gripes section (line ~180):
-    - Mentions "two streams for DO" plus a third - this unresolved question could affect the dissolved oxygen processing
-    - Should be investigated before finalizing the sensor variable names
-- Animation frame timing (line ~450):
-    - Says "If possible: Add in a 'hold time' per frame of d seconds"
-    - This uncertainty should be resolved - matplotlib animations support frame duration
-- Axis offset calculation (lines ~900-920):
-    - The formula for offsetting two sensor ranges is clever but could use a worked example
-    - The concrete example helps but doesn't match the formula exactly (should verify the math)
-- Terminology for indexing profiles:
-    - "global profile index" means the ordinal global index across all time: From profileIndices
-    - "daily profile number" refers to a particular day: Which profile this is in the range 1 -- 9
-- Finding and using QC flags (qartod) for data exclusion filter: See `PostProcessing.md` QC Filter section.
-  Initial study shows 0.11% suspect temperature and 9.38% suspect conductivity in a 2018 CTD file.
-  Need to determine if flagged data falls within profiles (actionable) or at rest (ignorable).
+
+- DO source revalidation: CTD-derived DO was confirmed identical to DOFSTA and the CTD is used as the
+  single source, but a side-by-side value comparison of DO vs the DO sensor data in the CTD instrument
+  file is still pending. Related gripe (line ~180): "two streams for DO" plus a third — resolve before
+  finalizing sensor variable names.
+
 - Validation test: Calculate contour lines with independent code and compare with Vis.ipynb notebook
   values produced for curtain plots. Reference data: `~/ooi/sb/metadata/curtain_contour_values.csv`.
+
 - Revisit ChlorA and CDOM curtain plots: Can they be redeemed? (Dynamic range shifts across time make
   single-colormap representation poor. Consider per-segment normalization or log scale.)
-- Place curtain plot at the top of the Vis notebook; and set up a control in the interactive bundle
-  chart to launch a bundle chart animation run.
-- Consolidate the bundle animation cells in Vis.ipynb (see analysis below).
-- **Testing follow-up (high priority)**: Implement and run the tests defined in `Testing.md`
-  (SGA synthetic validation, internal wave incompressibility check). Failed tests go to Open Topics.
-  - Internal wave incompressibility: DONE. Stream function formulation passes at <3%.
-    Remaining error is finite-amplitude (Lagrangian vs Eulerian). See `Testing.md` for details.
+
 - **SGA depth grid range**: Does expanding the SGA depth quantization range add any value to
   the analysis? e.g. 185m - 27m becomes 195m - 5m; see png of histograms at
   `~/ooi/sb/analysis/sga/depth_range_histograms.png`. Also consider depth bin width as a
   hyperparameter: 2m (current, 80 bins) vs 1m (160 bins, doubles feature dimension). Finer bins
   may resolve thin layers but risk curse-of-dimensionality effects in the SGA distance metric.
-- **Deep profiler O₂ integration**: Combine shallow profiler (RS01SBPS, 0–200m) with deep profiler
-  (RS01SBPD, 200–2900m) to visualize the full water column oxygen structure including the OMZ core
-  and deep recovery. See `Umbrella.md` → "Deep Profiler: Full Water Column Oxygen Structure".
-- **SGA two-cluster problem**: Multi-year runs converge to k=2 (seasonal dominance). Need diagnostic
-  plan: try per-year analysis, force higher k, vary σ², examine outlier cluster composition,
-  consider sub-annual windowing. See `SpectralGraphAnalysis.md` → "Known Issues / History".
-- Erratics filter: Identify and suppress spurious profile data (e.g. salinity bundles with 180 profiles
-  frequently show 1–2 profiles with clearly non-physical values). Could operate as a pp05-level filter
-  or a runtime toggle in the bundle chart. Needs a detection heuristic (e.g. profile mean outside
-  N sigma of bundle mean, or individual points beyond physical bounds).
-- CDOM quantization/smoothing: The WET Labs ECO FLORT sensor digitizes CDOM fluorescence from
-  raw counts with coarse ADC resolution, producing a staircase-like profile that obscures real
-  structure. References for smoothing approaches:
-  - **Savitzky-Golay filter** (Savitzky & Golay 1964; scipy.signal.savgol_filter): Fits local
-    polynomials via least squares. Preserves peak width and position better than moving average.
-    Standard choice in spectroscopy for quantized/noisy data. Window size = depth span (~5–11
-    points at 2m bins = 10–22m smoothing window). Polynomial order 2 or 3.
-  - **LOWESS/LOESS** (Cleveland 1979; statsmodels.nonparametric.lowess): Locally weighted
-    regression, robust to outliers. More computationally expensive but handles irregular
-    spacing well. `frac` parameter controls smoothing bandwidth.
-  - **Median filter** (scipy.ndimage.median_filter): Non-linear, good for removing single-point
-    spikes while preserving step edges. Less good for quantization noise specifically.
-  - Recommendation: Start with Savitzky-Golay (window=11, polyorder=2) as Filter 2 for CDOM
-    in pp06. Compare visually with raw data in bundle chart. Same filter likely applicable to
-    ChlorA and backscatter.
 
+- Cloud-native data access (future optimization): the current pipeline downloads from OOINET async
+  staging URLs. Consider THREDDS/OPeNDAP or the OOI Gold Copy S3 buckets (`ooigoldcopy`) — an
+  in-region S3→S3 copy could eliminate the download step entirely for cloud runs. Deferred to keep
+  the first EC2 build to one new variable at a time.
 
-## Completed (June 2026)
+- Is there a means of automated data retrieval from OOINET (eliminating the manual order step)?
+
+- Coincidence detection plans: See `CoincidencePlans.md` for multi-sensor anomaly flagging
+  (auto-coincidence and hetero-coincidence). Referenced from `Analysis.md` → Pending modifications.
+
+- Bundle chart profile counting: the "Scanning redux folders" message counts shard files rather than
+  unique profiles (e.g. "4394 profiles" for 2015 ≈ 4 sensors × ~1100, vs the intended "578 profiles
+  (3285 possible)", line ~1050). Replace with the unique-profile count from `profileIndices` plus the
+  maximum possible.
+
+- Axis offset calculation for dual-sensor bundle plots (lines ~900-920): the formula for offsetting
+  two sensor ranges could use a worked example; the existing concrete example doesn't match the
+  formula exactly — verify the math.
+
+- Revamp animations: frame timing and a per-frame "hold time" of d seconds (line ~450; matplotlib
+  animations support frame duration, so resolve the "if possible").
+
+- Vis notebook layout: place the curtain plot at the top of the Vis notebook; add a control in the
+  interactive bundle chart to launch a bundle chart animation run; consolidate the bundle animation
+  cells in Vis.ipynb (see analysis below).
+
+- Clean up `chapters/StubWork.ipynb`: still uses hardcoded `~/ooi/...` paths (left as-is during
+  the Aug 2026 `ooipaths.py` conversion since it's a scratch notebook). Either convert its cells
+  to `ooipaths` accessors (cells ~2,3,4,9,11,13,25) or prune stale scratch cells.
+
+- Open-science publishing: decide do-or-don't on OSF (Open Science Framework) as a project hub for repo+data+poster. Zenodo (code by-reference + poster/data by-upload) and Figshare (redundant visibility) are the current plan; OSF is the open question. See `Publishing.md`.
+
+- Science conversations: baffle LH with cyclonicity, learn critical depth vis a population and
+  compensation depth vis individual, and review SeaFlow with Cornell; inquire about a shallow
+  profiler conversation with A.Gray.
+
+- Reference notes (not tasks):
+  - **Expertise reserve for making argosy AI-aligned:** Rich Signell, Scott Henderson, Ryan
+    Abernathey — a collective reference for cloud-native / ARCO / Pangeo-style practice (Zarr,
+    xarray, cloud data). No specific ask yet; a contact/expertise pool for the BR G1/G3
+    (Zarr/CF/STAC) and MOAR AI-ready work.
+  - Terminology for indexing profiles: "global profile index" means the ordinal global index across
+    all time (from profileIndices); "daily profile number" is which profile of a given day (1–9).
+
 
 ## Completed (Oct 2026) — MLD training set published to Zenodo (v1)
+
+- **DSC ION Functions review (FLO module) — completed.** Notes in `IONReview.md`.
 
 - **Published the human-labeled MLD training set as a versioned Zenodo dataset.** Bundle =
   3 label CSVs (`sb`/`oo`/`ab`, 6,320 rows total; `ascent_start`/`ascent_end` folded in from
@@ -293,6 +291,8 @@ This is at much lower task resolution.
   "AI-ready / llms.txt" idea in `OOIUsability.md`; and recorded the pp06 CF-compliance assessment
   as an Open Topic ("Address CF-compatibility").
 
+
+## Completed (June 2026)
 
 - Full re-shard complete (all instruments, all years 2015–2025). Redux data in `~/ooi/redux/`.
 - `~/ooi/ooinet/` (204 GB source NetCDF) synced to `s3://s3ooi/ooinet/` and deleted locally.
@@ -426,6 +426,16 @@ This is at much lower task resolution.
 
 ## Pending To Do
 
+- **TOP PRIORITY — Revisit PO.DAAC/satellite SST vs top-of-profile SP temperature** (Sep 2026;
+  promoted to top). The comparison is currently VISUAL ONLY (`plume/surface_plot.py` Panel 3). Needs
+  a fidelity metric that demonstrates SP-surface ↔ SST agreement is **better than an uninformed
+  baseline** ("random SST") — e.g. a skill score vs a null such as time-shuffled or
+  off-site SST, or vs climatology/persistence — not just correlation/RMSE/bias in isolation (still
+  report those, plus seasonal breakdown). Substantiates the MOAR "SST tracks SP surface" claim. Also:
+  reconcile the "PO.DAAC" vs actual "NOAA Coral Reef Watch" provider wording; generalize the plume
+  fetchers off the hardcoded `slopebase`/sb lat-lon to the 2-letter site code. Detail in `BR.md` →
+  "Plume: quantify ... SST vs top-of-profile".
+
 - **Align argosy to the MOAR AI-ready objectives** (new agenda, Sep 2026). Close the six "where
   argosy misses" gaps from `MakingOOIAIReady.md` so argosy is a credible AI-ready building block.
   Full roadmap in `BR.md` → "Roadmap: align argosy to the MOAR objectives". Priority/sequence:
@@ -435,12 +445,6 @@ This is at much lower task resolution.
   provenance + first-class QARTOD, → pp07); (G5) standardized human-label schema + benchmark
   protocol (with the MLD work); (G4) RAG knowledge corpus from the docset; (G6) governance = the
   proposal's job, not code.
-- **Plume: quantify PO.DAAC/satellite SST vs top-of-profile SP temperature** (Sep 2026). The
-  comparison is currently VISUAL ONLY (`plume/surface_plot.py` Panel 3). Add a quantitative fit
-  (correlation/RMSE/bias, seasonal) to substantiate the MOAR "SST tracks SP surface" claim; reconcile
-  the "PO.DAAC" vs actual "NOAA Coral Reef Watch" provider wording; generalize the plume fetchers off
-  the hardcoded `slopebase`/sb lat-lon to the 2-letter site code. Detail in `BR.md` → "Plume: quantify
-  ... SST vs top-of-profile".
 
 - **Harden the CDK user-data env bootstrap** (found during first `oo` deploy, Sep 2026):
   (1) `conda env create` now hits `CondaToSNonInteractiveError` — the user-data must run
