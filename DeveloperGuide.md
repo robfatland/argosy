@@ -22,9 +22,10 @@ the analysis of that data (Phase 2).
   `pp06` (and annotated derivatives). Workflow tasks 0–3 + 6 below. Docs: this guide,
   `Sharding.md`, `PostProcessing.md`, `PP05_QCAnalysis.md`, `DataOps.md`, `VectorData.md`.
 - **Phase 2 — Analysis:** anomaly coincidence, residual climatology, spectral graph analysis,
-  internal waves, Columbia plume, and cross-comparison with satellite (NASA PO.DAAC SST/SSS/
-  ocean color). Tasks 4–5. Docs: `Analysis.md`, `SpectralGraphAnalysis.md`, `InternalWaves.md`,
-  `ColumbiaPlumePlan.md`, `TidalAnalysis.md`, `CoincidencePlans.md`.
+  internal waves, Columbia plume (the plume study), and cross-comparison with satellite (CRW SST
+  and SMAP SSS via NOAA CoastWatch ERDDAP; ocean color planned). Tasks 4–5. Docs: `Analysis.md`,
+  `SpectralGraphAnalysis.md`, `InternalWaves.md`, `plume/ColumbiaPlumePlan.md`, `TidalAnalysis.md`,
+  `CoincidencePlans.md`.
 
 Argosy starts with the Oregon Slope Base (`sb`) shallow profiler; a near-term goal is bringing
 Oregon Offshore (`oo`) and Axial Base (`ab`) to the same stage.

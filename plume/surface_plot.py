@@ -12,6 +12,11 @@
 # Output: inline display + PNG to ~/ooi/visualizations/
 
 import sys
+import matplotlib
+# Headless Agg when run as a standalone script (WSL has no usable Qt/xcb display);
+# leave the backend alone under %run in a Jupyter kernel so the figure displays inline.
+if "ipykernel" not in sys.modules:
+    matplotlib.use("Agg")  # must precede pyplot import
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -86,7 +91,8 @@ except (EOFError, OSError):
 start_date = pd.Timestamp(start_input) if start_input else pd.Timestamp(default_start)
 end_date = pd.Timestamp(end_input) if end_input else pd.Timestamp(default_end)
 
-mask = (df['timestamp'] >= start_date) & (df['timestamp'] <= end_date)
+# End date is inclusive of the whole day (2025-03-31 keeps March 31's profiles).
+mask = (df['timestamp'] >= start_date) & (df['timestamp'] < end_date + pd.Timedelta(days=1))
 df = df[mask].reset_index(drop=True)
 print(f"  Plotting {len(df)} records from {start_date.date()} to {end_date.date()}")
 
@@ -127,7 +133,7 @@ fig.suptitle(f"Near-Surface Extract: {SITE_NAME} ({start_date.date()} to {end_da
 ax = axes[0]
 plot_gapped(ax, df['timestamp'], df['sal_mean'].clip(30.5, 34.0), 'blue', 'Profiler sal')
 if smap_df is not None:
-    sm = smap_df[(smap_df['timestamp'] >= start_date) & (smap_df['timestamp'] <= end_date)].copy()
+    sm = smap_df[(smap_df['timestamp'] >= start_date) & (smap_df['timestamp'] < end_date + pd.Timedelta(days=1))].copy()
     sss_col = 'sss_8day' if 'sss_8day' in sm.columns else 'sss_psu'
     plot_gapped(ax, sm['timestamp'], sm[sss_col].clip(30.5, 34.0), 'orange', 'SMAP SSS (8d)', linewidth=1.2)
 ax.set_ylabel('Salinity (PSU)')
@@ -138,7 +144,7 @@ ax.legend(loc='upper right', fontsize=8)
 # Panel 2: SMAP SSS alone (autoscaled, 8-day smoothed)
 ax = axes[1]
 if smap_df is not None:
-    sm = smap_df[(smap_df['timestamp'] >= start_date) & (smap_df['timestamp'] <= end_date)].copy()
+    sm = smap_df[(smap_df['timestamp'] >= start_date) & (smap_df['timestamp'] < end_date + pd.Timedelta(days=1))].copy()
     sss_col = 'sss_8day' if 'sss_8day' in sm.columns else 'sss_psu'
     sm_valid = sm.dropna(subset=[sss_col])
     plot_gapped(ax, sm_valid['timestamp'], sm_valid[sss_col], 'orange', 'SMAP SSS (8d)')
@@ -151,7 +157,7 @@ ax.legend(loc='upper right', fontsize=8)
 ax = axes[2]
 plot_gapped(ax, df['timestamp'], df['temp_mean'].clip(8.0, 20.0), 'red', 'Profiler temp')
 if smap_sst_df is not None:
-    sm = smap_sst_df[(smap_sst_df['timestamp'] >= start_date) & (smap_sst_df['timestamp'] <= end_date)].copy()
+    sm = smap_sst_df[(smap_sst_df['timestamp'] >= start_date) & (smap_sst_df['timestamp'] < end_date + pd.Timedelta(days=1))].copy()
     sm_valid = sm.dropna(subset=['sst_degC'])
     if len(sm_valid) > 0:
         plot_gapped(ax, sm_valid['timestamp'], sm_valid['sst_degC'].clip(8.0, 20.0), 'orange', 'Satellite SST', linewidth=1.2)
@@ -236,4 +242,5 @@ output_path = OUTPUT_DIR / f"surface_extract_{SITE_NAME}_{start_date.strftime('%
 plt.savefig(output_path, dpi=150, bbox_inches='tight')
 print(f"\nSaved: {output_path}")
 
-plt.show()
+if "ipykernel" in sys.modules:
+    plt.show()

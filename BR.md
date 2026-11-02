@@ -1,82 +1,109 @@
 # BR — Bicameral Redesign (September 2026)
 
-> **Status: DESIGN / DELIBERATION. No file moves, renames, new folders, or rewrites yet.**
-> This document thinks through options and tradeoffs first, then converges on a plan.
-> Implementation happens only after the plan below is settled and explicitly approved.
 
-## What BR is
+**Bicameral Redesign** (BR, September 2026) is a transitional organizing activity: Argosy cast as two chambers: A **Jupyter Book** (science narrative, reader-facing) and a **working analysis environment** (code + data > results). The main focus at this time is the analysis environment. 
 
-BR is the **Bicameral Redesign**, a September 2026 fix-up of Argosy. "Bicameral" alludes to
-Argosy's two-chamber nature: the **Jupyter Book** (the science narrative, reader-facing) and
-the **working data-analysis environment** (code + data that produce results). The redesign
-aims to make that dichotomy clean and legible instead of tangled by organic growth.
 
-It serves two personae in particular:
-- **Arthur** (science reader) — sees the Book. Should encounter Phase 2 analysis, not pipeline plumbing.
-- **Chuck** (collaborator) — works the machinery. Needs the pipeline and analysis code cleanly separated and discoverable.
+Terms
 
-## Goals (the "done" criteria for BR)
+- Stage 1 "pipelines": Perfunctory steps in data management and processing
+- Stage 2 "analysis": data management and processing connected with discovery, reasoning and interpretation
+- **Arthur** (a science reader: Jupyter Books) Sees Stage 2, particularly data and analysis, not pipelines. Aligned with the argosy *Jupyter Book* (Jupyter notebooks, markdown, visuals).
+- **Chuck** (a collaborator: Analysis) Sees Stage 1 and Stage 2: machinery/pipelines/analysis; code, visualizations, written narrative.
 
-1. **Phase separation is physical, not just conceptual.** Phase 1 (pipeline) code and Phase 2
-   (analysis) code live in clearly distinct, self-describing locations.
+
+## Organizing principles
+
+
+1. Phase 1 (pipeline) code and Phase 2 (analysis) materials reside in logical locations. Conceptually we have projects with associated folders and the `chapters` folder containing `.ipyb` Jupyter notebooks.
 2. **The Book contains Phase 2, and (almost) no Phase 1.** Phase-1 code that grew inside Book
-   notebooks is identified and moved out (or demoted to repo-only working notebooks).
-3. **Default time range is 2014–2026 (soon 2027) and runs without hanging.** No hardcoded
-   narrow windows (e.g. the leftover 2024 defaults); year ranges derive from data or config.
+   notebooks is identified and moved out (or relocated in repo-only working notebooks (not Jupyter notebooks)).
+3. **Working time range is 2014–2026 (soon 2027) but practically 2015 through 2025. Code is tested and runs without errors.** 
 4. **Everything conforms to the per-site data restructure** (`~/ooi/<site>/...`, all paths via
    `ooipaths.py`, 2-letter site codes, no `slopebase`-style legacy tokens).
-5. Redesign supports Arthur (Book) and Chuck (machinery) reading paths without friction.
-
-## Non-goals / constraints
-
-- Not a science-methods change: the physics/QC logic stays; this is about **organization**.
-- Must not break the AB run happening in parallel (see "Parallel track" below).
-- Follow the project rule: don't move data into `~/argosy`; generated data → `~/ooi`.
+5. Metadata in small volumes can go into `~/argosy`; generated data goes into `~/ooi`.
 
 
-## Bicameral model (the two chambers)
 
-| | Chamber A: Jupyter Book | Chamber B: Working environment |
+| | Jupyter book | Working environment |
 |---|---|---|
-| Audience | Arthur (reader), Maggie (oversight) | Chuck (collaborator), the pipeline itself |
+| Audience | Arthur (reader), Maggie (oversight) | Chuck (collaborator), ...|
 | Content | Phase 2 analysis, narrative, figures | Phase 1 pipeline, QC, data production |
 | In `_toc.yml`? | Yes | No (repo-only) |
-| Examples | internal-wave analysis, SGA, tidal, plume | download/shard/pp/VisQC, ooipaths |
+| Examples | internal-waves, SGA, tides, plume | download/shard/pp/VisQC, ooipaths |
 
-**Phase 1** = the data pipeline that produces analysis-ready datasets **and metadata**
-(download → shard → pp05 → pp06 → **pp07/VisQC**). Tends NOT to appear in the Book.
-**Phase 2** = analysis on those datasets (internal wave amplitude/speed, SGA, tidal, plume).
-SHOULD appear in the Book.
+**Phase 1** data pipeline exemplar: download > shard > pp05 > pp06 > MLD.<br> 
+**Phase 2** = MLD analysis, internal wave detection, SGA, tides, plume.
 
 
-## Design tenet: where do the components go? (laptop vs cloud vs web)
 
-Argosy is a reasonably complex project with many moving parts, so the recurring question is
-"where does each component go?" The guiding placement map:
+## Where components go (laptop vs cloud vs web)
 
-- **The Argosy repo** holds the Jupyter Book AND the computational code (sorted within it).
-- **The data** lives in the `ooi/` directory, kept SEPARATE from `argosy/`.
-- **The data is backed up on S3 object storage.** Once backed up:
-  - high-volume, low-touch data is DELETED from localhost as superfluous (reclaim disk);
-  - some S3 content is kept in a collaborative/shared state — no cost to download.
-- **The localhost machine (laptop etc.) is for EDITING and ORCHESTRATION** — of both the Book
-  and the computation. It is NOT where heavy data-touching computation should happen.
-- **Actual computation should be relegated to the cloud when doing so makes sense.** For any new
-  data task the question to ask FIRST is: *"Is this a cloud task?"* (Compute goes to the data,
-  which lives in S3 — not the other way around. Getting AWAY from "pull the data to the laptop
-  and work on it locally" is an explicit goal.)
-- **Other components live elsewhere on the web:**
-  - **GitHub** — the safe master copy of the repo (localhost + EC2 are clones).
-  - **Zenodo / similar** — archival + open-science / DOI use.
-  - **Published Jupyter Book** — the reader-facing site (GitHub Pages).
-  - **Published AGU26 poster** — reached via QR code.
 
-Consequence for design decisions (e.g. descent-data recovery, VisQC pp07 production): prefer
-cloud-side compute against the S3-resident raw/redux/pp data over pulling large files to the
-laptop. See "Descent-data recovery" below for a worked example of applying this tenet.
+Argosy has many moving parts, so "where does each component go?" is a serious organizational task. 
 
+- **The Argosy repo** holds Phase 1 and Phase 2 code/documentation and (small volume) metadata as noted.
+- **Data** lives on `localhost` in the `~/ooi` directory.
+- **Data are backed up on S3 AWS cloud object storage.**
+    - Sole-copy data can also be placed on S3 object storage
+        - High-volume, low-touch data may be superfluous on `localhost`
+    - Some S3 content is in a collaborative/shared state (no cost to download)
+- `localhost` machine is ideally only for Phase 2 activities
+    - Heavy computation should (ideally) be done on the cloud
+    - *"Is this a cloud task?"*
+- **Open science paradigm** brings in other web-based resources
+  - **GitHub** for version control
+  - **Zenodo** `nsf-ooi` for publishing datasets (leaning Phase 2)
+  - **Published Jupyter Book** (GitHub Pages): Compiled, readable
+      - [robfatland.github.io/argosy](https://robfatland.github.io/argosy/)
+      - Build the book: `jupyter-book build --all .` from `~/argosy`
+      - Publish: `ghp-import -n -p -f _build/html`
+  - **Published AGU26 poster** (QR code): Closes the loop at meetings
+      - Publish on Zenodo (citable) > URL
+      - Generate the QR
+          - `pip install "qrcode[pil]"`
+          - `python -c "import qrcode; qrcode.make('<URL>').save('poster/figs/qr.png')"`
+      - Swap the QR code into the poster
+          - Replace placeholder `.qr` div in `AGUPoster.html`...
+          - ...with `img src="figs/qr.png">`
+      - Test it before printing the final poster
+
+
+## AGU Abstract (for reference; delete later)
+
+- Title
+    - An Interpretive Framework for OOI Shallow Profiler Data
+- Abstract body
+    - Three OOI Regional Cabled Array shallow profilers have produced continuous
+        9-per-day profiles of the upper 200 m since 2015 — a decade-long synoptic
+        characterization of the Northeast Pacific photic zone. We present visualization,
+        analysis, and an interpretive framework for these 15-parameter time series (CTD,
+        bio-optical, biogeochemical), with a reproducible data-cleaning workflow. The
+        framework centers on three forms of <b>anomaly coincidence</b>: <b>self</b>
+        (a single sensor, repeated across profiles), <b>inter-sensor</b> (across multiple
+        sensors), and <b>corroborated</b> (confirmed by external sources — deep profilers,
+        circulation models, remote sensing, Argo). Anomalies are defined against per-sensor
+        mean±std baseline envelopes over seasonal/annual/multi-year windows (published with
+        the tools). We show self- and inter-sensor coincident signals at/near the pycnocline
+        interpreted as internal waves and coherent water-mass emplacement persisting over
+        multiple tidal cycles. Published as an open-science GitHub repository with a
+        step-by-step acquisition→analysis workflow. E.g. buoyancy frequency
+        $N^2 = -\tfrac{g}{\rho_0}\,\dfrac{\partial \rho}{\partial z}$.
+
+
+
+## Project list
+
+
+Alphabetical by folder name
+
+
+- `chapters`: Jupyter Book; emphasis some but not all Phase 2 work
+- `cloud`: Cloud infrastructure around S3 object storage management
+- `images`: 
 
 ## Descent-data recovery (design topic — applies the cloud-vs-laptop tenet)
+
 
 Motivation: temperature (and other ascent-only sensors) on DESCENT is useful as a comparison
 with ascent. Mechanism (confirmed correct against `shard.py`): descent is just the OTHER
@@ -506,23 +533,9 @@ the proposal turns the pattern into facility-scale standards.
 6. **G6** is the proposal, ongoing.
 
 
-## Plume: quantify PO.DAAC/satellite SST vs top-of-profile SP temperature
+## Plume study: satellite SST/SSS cross-comparison (MOVED)
 
-**Current state (verified Sep 2026):** the SST↔SP-surface comparison exists but is VISUAL ONLY —
-`plume/surface_plot.py` Panel 3 overlays profiler `temp_mean` (shallowest-10-point mean from
-`surface_extract.py`, on pp06) against satellite SST (from `fetch_sst.py`). No quantitative fit.
-**Also:** the "SST" is actually **NOAA Coral Reef Watch** (`noaacrwsstDaily` via CoastWatch
-ERDDAP), NOT literally PO.DAAC — reconcile the "NASA PO.DAAC SST" wording in DeveloperGuide/MOAR.
-And the plume fetchers hardcode `slopebase` + sb lat/lon (same stale-naming pattern fixed elsewhere).
-
-**To do:**
-- Add a QUANTITATIVE SST-vs-SP-surface analysis: time-align satellite SST with per-profile surface
-  temp, compute correlation / RMSE / bias (and seasonal breakdown), to substantiate the MOAR claim
-  "SST tracks SP surface well" (currently flagged as an unverified project observation).
-- Reconcile provider wording (NOAA CRW vs PO.DAAC) across code + docs.
-- Generalize plume fetchers to the 2-letter site code + per-site lat/lon (retire `slopebase`).
-- (Ties to G3: this cross-comparison is exactly what standardized metadata + a satellite "external"
-  product should make routine rather than bespoke.)
+Moved to `plume/ColumbiaPlumePlan.md` → "Satellite cross-comparison: CRW SST vs top-of-profile SP temperature" (Nov 2026). The plume study's plan, status, and ideation now live there.
 
 
 ## Design topic: potential density (σ₀) as a derived data value
@@ -563,17 +576,8 @@ Emerging motivation: the SP appears to be observing water-mass EMPLACEMENT (e.g.
 signal persisting ~2 months at ab). Goal: harmonize available data to give these anomalies a
 spatial/dynamical scale and a fuller narrative, not just a time signature. Two sub-topics.
 
-### A. PO.DAAC/satellite SST 2D heatmap time-series movie (eddy structure)
-Extend the current POINT SST fetch (`plume/fetch_sst.py`, single lat/lon) to a REGIONAL BOX fetch
-(`SST[time, lat, lon]`) — the ERDDAP griddap box-query form already appears in `ColumbiaPlumePlan.md`
-(`[(42):(49)][(-130):(-122)]`). Animate frames over time (reuse `vis/bundle_animate.py` machinery)
-to SEE a mesoscale feature approach/pass a SP site, then check whether top-of-profile temperature
-registers it at the matching time — turning "2-month anomaly" into "here is the feature responsible."
-- Caveats: NOAA CRW ~5 km resolves mesoscale eddies (tens of km) but NOT submesoscale filaments;
-  IR SST has cloud gaps (analysed products gap-fill/smooth); SST is surface-only (corroborates
-  top-of-profile T, says nothing direct about the subsurface salinity lens).
-- Upgrade path if eddies become central: sea-surface-height / geostrophic velocity (AVISO/Copernicus)
-  detects eddies DIRECTLY (closed SSH contours + rotation) — a stronger eddy detector than SST.
+### A. Regional SST heatmap movie (eddy structure) (MOVED)
+Moved to `plume/ColumbiaPlumePlan.md` → "Extension: regional CRW SST heatmap time-series movie (eddy structure)" (Nov 2026).
 
 ### B. Synthesize current(depth) V from SP velocity + platform ADCP; anomaly scale S = V·T
 Combine the SP science-pod point velocity (VELPT-class; current at the pod's instantaneous

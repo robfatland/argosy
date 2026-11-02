@@ -433,8 +433,9 @@ Ordered by priority (most important first).
   off-site SST, or vs climatology/persistence — not just correlation/RMSE/bias in isolation (still
   report those, plus seasonal breakdown). Substantiates the MOAR "SST tracks SP surface" claim. Also:
   reconcile the "PO.DAAC" vs actual "NOAA Coral Reef Watch" provider wording; generalize the plume
-  fetchers off the hardcoded `slopebase`/sb lat-lon to the 2-letter site code. Detail in `BR.md` →
-  "Plume: quantify ... SST vs top-of-profile".
+  fetchers off the hardcoded `slopebase`/sb lat-lon to the 2-letter site code. Detail in
+  `plume/ColumbiaPlumePlan.md` → "Satellite cross-comparison: CRW SST vs top-of-profile SP
+  temperature".
 
 - **Align argosy to the MOAR AI-ready objectives** (new agenda, Sep 2026). Close the six "where
   argosy misses" gaps from `MakingOOIAIReady.md` so argosy is a credible AI-ready building block.

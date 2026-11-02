@@ -96,7 +96,7 @@ and Working docs (repo-only, not in the published book).
 - `SpectralGraphAnalysis.md` — Module-by-module guide for the SGA notebook
 - `InternalWaves.md` — Internal wave analysis: terminology, physics, plan
 - `TidalAnalysis.md` — Tidal prediction (TPXO10), start-depth correlation, blowdown events
-- `ColumbiaPlumePlan.md` — Columbia River plume detection plan (+ satellite cross-comparison)
+- `plume/ColumbiaPlumePlan.md` — the plume study: Columbia River plume detection plan, status, and satellite (CRW SST / SMAP SSS) cross-comparison
 - `Umbrella.md` — Expansion beyond the shallow profiler: other data resources
 
 **Reference**
@@ -114,6 +114,7 @@ and Working docs (repo-only, not in the published book).
 - `Testing.md` — Test definitions (SGA synthetic validation, IW incompressibility)
 - `CoincidencePlans.md` — Anomaly detection: auto/hetero coincidence plans
 - `OOIUsability.md` — Usability notes on OOI data-access tools (OOINET etc.); DSC feedback
+- **prototype-userguide** (separate repo, `~/prototype-userguide`, https://github.com/robfatland/prototype-userguide) — self-funded, unofficial demonstrator of PathCuration "Version 2": an AI-readable user-guide corpus (`llms.txt`) on GitHub Pages + a Bedrock client. Design in its `UserGuide.md`.
 - `poster/AGUPoster.html` — AGU poster (standalone artifact)
 - `DevelopmentLog.md` — Red zone goals, umbrella goals, development narrative, open topics, pending ideas, Next prompt section
 

@@ -20,11 +20,13 @@
     - "reorganize" is addressed below in terms of an AI assistant
     - "categories of data sets": Suggest revisit this with FAIR principles in mind
 * The [data products page](https://oceanobservatories.org/data-products/data-products-complete-list/) is a list of physical products
-* As of 24-OCT-2026 there are 24 records (equivalent to *projects*) uploaded to the [Zenodo "NSF-OOI" community](https://zenodo.org/communities/nsf-ooi/)
+* From 24-OCT-2026: 25 records (*projects*) in [Zenodo "NSF-OOI" community](https://zenodo.org/communities/nsf-ooi/)
     * Repos relevant to the current/ADCP/VEL* example above:
         - ooi-data-explorations (Chris Wingard)
         - Parsing NMEA raw Nortek 500 Signature Data (George Voulgaris)
         - Additional repos by Andrew Reed, Craig Risien, Carolina Camargo
+    * Machine learning training: MLD (Rob Fatland)
+* Open question: Is NSF PAR the "analysis-ready data" publication root site over Zenodo?
 
 
 ## Suggestions

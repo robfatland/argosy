@@ -7,7 +7,7 @@
 #
 # Output: ~/ooi/<site>/metadata/features/surface_extract_<site>.csv
 #
-# This supports the Columbia River plume detection analysis (see ColumbiaPlumePlan.md).
+# This supports the Columbia River plume detection analysis (see plume/ColumbiaPlumePlan.md).
 
 import sys
 import numpy as np

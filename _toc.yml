@@ -44,7 +44,7 @@ parts:
     - file: SpectralGraphAnalysis
     - file: InternalWaves
     - file: TidalAnalysis
-    - file: ColumbiaPlumePlan
+    - file: plume/ColumbiaPlumePlan
     - file: Umbrella
 
 - caption: Reference
