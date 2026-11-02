@@ -111,7 +111,11 @@ spanning the full depth range. The sensor is turned on only for these two
 extended profiles to manage power and lamp lifetime.
 Reference: [OOI Nitrate instrument class](https://oceanobservatories.org/instrument-class/nutnr)
 
-**pCO2 (PCO2W, Pro-Oceanus CO2-Pro):** Requires equilibration time at each
+**pCO2 (PCO2W, Sunburst SAMI-CO2):** *(Corrected Nov 2026 — previously listed as Pro-Oceanus
+CO2-Pro. The delivered stream is `pco2w_a_sami_data_record` and carries 434/620 nm indicator
+absorbances + blanks, i.e. the colorimetric SAMI-CO2, not an NDIR sensor. A deployment-6 file
+also shows ~2,600 samples taken at the ~190 m platform between profiles, in addition to the
+#4/#9 descent stops.)* Requires equilibration time at each
 measurement depth. The profiler stops at predefined depths during the descent
 phase (peak → end) of profiles 4 and 9, pausing long enough for the sensor to
 equilibrate. Produces ~10 measurements per profile. The V18 operations page
