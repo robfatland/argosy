@@ -15,35 +15,64 @@ intentionally NOT part of the Jupyter Book TOC).
 
 ## Export to PDF (vector, print-ready)
 
-Chrome/Chromium headless preserves the exact page size:
+Chrome/Chromium headless preserves the exact page size. Set the poster to 42×42 in (below):
 
 ```bash
 google-chrome --headless --disable-gpu --no-pdf-header-footer \
   --print-to-pdf=AGUPoster.pdf --no-margins \
   file://$HOME/argosy/poster/AGUPoster.html
 ```
-(If the page size isn't honored, set an @page rule `@page { size: 48in 36in; margin:0 }`
-in the HTML, or use a headless-print tool that reads it.)
+If the page size isn't honored, add an `@page` rule in the HTML `<style>`:
+`@page { size: 42in 42in; margin: 0 }`. (On WSL the binary may be `google-chrome`,
+`google-chrome-stable`, or `chromium`.)
 
-## Host online + QR
+## Host online + QR (Zenodo)
 
-- The poster can be hosted at the GitHub Pages site (e.g. `robfatland.github.io/argosy/poster/AGUPoster.html`)
-  or given a Zenodo DOI (preferred for citability — see `Publishing.md`).
-- Generate the QR encoding that URL, then replace the `.qr` placeholder div with an `<img>`:
+- Host the poster at a **Zenodo DOI** (citable; see `Publishing.md`). Publish the poster
+  (PDF and/or the HTML) to Zenodo, then encode that DOI URL in the QR.
+- Generate the QR, then replace the `.qr` placeholder div in `AGUPoster.html` with
+  `<img src="figs/qr.png">`:
   ```bash
-  # one option (Python): pip install qrcode[pil]
-  python -c "import qrcode; qrcode.make('<POSTER_URL>').save('poster/figs/qr.png')"
+  pip install "qrcode[pil]"
+  python -c "import qrcode; qrcode.make('<ZENODO_DOI_URL>').save('figs/qr.png')"   # run from poster/
   ```
+- Test: scan the printed/exported PDF from ~2 m before finalizing.
 
-## AGU submission metadata (authoritative)
+## AGU26 acceptance details (authoritative)
+
+*Source: AGU acceptance email (pasted by Rob). Links are from that email — follow them in a
+browser; they are not verified here.*
 
 - Meeting: **AGU26** — https://www.agu.org/annual-meeting
 - Abstract submission ID: **2097211**
-- Session: **OS025 — Long-Term Ocean Observatories as Drivers of Sensor and Data Science Innovation**
+- Format: **Poster** (shared board, side-by-side)
+- Session: **OS31D — Long-Term Ocean Observatories as Drivers of Sensor and Data Science
+  Innovation I Poster**
+- When: **Wednesday 9 December 2026, 08:30–12:00 PST**
+- Where: **Moscone, Halls ABC (poster hall)**
 - Title: *Coincident Anomalies in Ten Years of Photic Zone Profiles: An Interpretive
   Framework for OOI Shallow Profiler Data*
-- Title/session/abstract are now embedded in `AGUPoster.html` (submitted abstract text
-  condensed to fit the poster; full text is in the AGU submission).
+- Title/session/abstract are embedded in `AGUPoster.html` (submitted abstract condensed to fit
+  the poster; full text is in the AGU submission).
+
+### Poster size (hard constraint)
+
+- **Max 44 in × 44 in** on a shared board. **Design target: 42 in × 42 in (square).**
+  Update `AGUPoster.html` from the old 48×36 landscape to **42×42 square** — this changes the
+  CSS page size AND the 2×2 panel layout (was landscape).
+
+### Printing
+
+- **CCI on-site poster printing service** (AGU presenter resources):
+  https://www.agu.org/annual-meeting/present?tab=presenter-resources  (poster-requirements tab)
+
+### Deadlines & presenter links (from the email)
+
+- [ ] **Confirm participation by 5 November** in the Speaker Center:
+  https://studio.m-anage.com/agu/agu26/speakercenter.cgi
+  (the email included a pre-filled username/password query string — use the email's link directly)
+- Poster presenter resources: https://www.agu.org/annual-meeting/present?tab=posters
+- Scientific Program / schedule app: https://studio.m-anage.com/agu/agu26/meetingapp.cgi
 
 ## Panel mapping (poster vs. abstract)
 
@@ -58,8 +87,10 @@ into panels 1 and 4 respectively. Revisit if you'd rather split differently.)
 
 ## Status / TODO
 
-- [x] Title, session, abstract embedded (AGU26 / OS025 / 2097211)
-- [ ] Confirm co-authors + affiliations (currently "R. Fatland [+ co-authors TBD]")
+- [x] Title, session, abstract embedded (AGU26 / OS31D / 2097211)
+- [x] Size/orientation confirmed: max 44×44 shared board → design for **42×42 square**
+- [x] Co-authors: **R. Fatland**; **Isabella Fatland (Cornell University)**
+- [ ] Re-lay out `AGUPoster.html` from 48×36 landscape to **42×42 square** (page size + panel grid)
 - [ ] Four panel figures (currently placeholders)
-- [ ] Decide poster online home (Pages vs Zenodo DOI) → generate QR to it
-- [ ] Confirm AGU poster size/orientation requirement (assumed 48×36 landscape, readable @2m)
+- [ ] Publish poster to **Zenodo** → mint DOI → generate QR to it
+- [ ] Confirm AGU26 participation by **5 Nov** in the Speaker Center
