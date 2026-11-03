@@ -144,11 +144,27 @@ Ordered by priority (most important first).
     disagreements map where automated QC suffices vs. where human judgment is irreducible, a
     publishable DSC-relevant finding. Cloud-side, modest effort.
 
-- **Cline as a best-fit line through a pivot point (2-DOF search).** Treat a profile's MLD as a
-  pivot point; build a surrounding grid of candidate pivots; through each, sweep a straight line over
-  angle and pick the angle that maximizes an inner-product-style agreement with the cline. Keep the
-  best pivot + angle overall — a two-degrees-of-freedom search for the best linear approximation to
-  the cline. Do this for T, S, and DO.
+- **HIGH PRIORITY — Cline curve: a new derived data type (fit the cline below the MLD).** A new
+  per-sensor derived product, analogous to MLD (one per sensor). An idealized profile is a near-
+  vertical stem from the surface, an **elbow at the MLD**, then a **cline** that starts with a
+  shallow slope and bends toward a deep asymptote; in practice the exception is the rule.
+  Characterize the cline by fitting a curve that pivots at (near) the MLD point:
+  - **Simplest:** a straight line pivoting at the MLD point; find the **slope** that minimizes
+    sum-of-squared differences against the (filtered) profile below the MLD. Build this first and
+    show a good match can be found.
+  - **Two complications to add next:** (1) a **quadratic term** on top of the linear slope (better
+    fit to the curving cline); (2) a **movable pivot** near — not fixed at — the MLD point
+    (matters when the MLD is poorly defined and a vestigial stem hangs below where the MLD was
+    pinned; MLD to date is human-selected). This is the 2-DOF idea (pivot + slope); the quadratic
+    adds a 3rd parameter.
+  - **Architecture:** write the fit as a **standalone module** (start with temperature). Decision
+    to make: either (a) `MLD.py --cline` (default False) computes+draws the fit line through the
+    MLD point for each profile with a registered MLD depth, using the filtered profile; or (b) a
+    **pre-process** step computes clines into a product/metadata table and `MLD.py` only *charts*
+    them. **Leaning (b)** — pre-compute, so the fit is a reusable derived product and MLD.py stays
+    a viewer; but (a) is the faster way to prototype and eyeball fits. Advise/decide at build time.
+  - Eventually for T, S, and DO. Relates to the VisQC cline-boundary work (`VisQC.md`) and the
+    synthetic-dataset ground truth (which parameterizes MLD + cline).
 
 - **Deep profiler O₂ integration**: Combine shallow profiler (RS01SBPS, 0–200m) with deep profiler
   (RS01SBPD, 200–2900m) to visualize the full water column oxygen structure including the OMZ core
