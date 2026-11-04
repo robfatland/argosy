@@ -11,6 +11,54 @@ inventory see `CodeManifest.md`; for one-off operational commands (build/publish
 PDF, standalone widgets) see the `operational-recipes` steering file.
 
 
+## gpi2fnm
+
+`~/argosy/gpi2fnm.py` resolves a **Global Profile Index (GPI)** to that profile's metadata
+and the pp06 shard filename for every sensor. A GPI names one shallow-profiler profile at a
+site; each profile has one shard per sensor, so the tool returns all of them.
+
+Run it in the `argosy` conda env:
+
+```bash
+source ~/miniconda3/etc/profile.d/conda.sh && conda activate argosy
+
+python ~/argosy/gpi2fnm.py --gpi 2047                 # Slope Base (sb) is the default
+python ~/argosy/gpi2fnm.py --gpi 16509 --location ab  # Axial Base; or --location oo
+python ~/argosy/gpi2fnm.py --gpi 2047 --json          # machine-readable JSON
+python ~/argosy/gpi2fnm.py --gpi 2047 --paths         # also list pp06 files present on disk
+```
+
+`--location` (alias `--site`) takes `sb` (default), `oo`, or `ab`. Example output:
+
+```
+GPI 74  site sb (RS01SBPS)
+  date 2015-10-09  day-of-year 282  daily index 3 of 9
+  ascent  2015-10-09T14:44:00 -> 2015-10-09T15:37:00  (53.0 min)
+  descent 2015-10-09T15:37:00 -> 2015-10-09T17:00:00  (83.0 min)
+  pp06 shard filenames (11 sensors):
+    temperature      RCA_sb_sp_temperature_2015_282_74_3_V1.nc
+    salinity         RCA_sb_sp_salinity_2015_282_74_3_V1.nc
+    ... (density, dissolvedoxygen, chlora, cdom, backscatter, par, nitrate, ph, pco2)
+```
+
+The GPI → (date, time, daily index) mapping comes from the site's `profileIndices` tables
+(`ooipaths.profile_index_dir`); a GPI outside the available range prints an error with the
+valid range. `--paths` reports which of the 11 sensor files actually exist locally (e.g. a
+profile may have no nitrate/pH/pCO2 shard).
+
+**Reuse in your own code** — the logic lives in a function that returns a dict, so import it
+rather than shelling out:
+
+```python
+from gpi2fnm import resolve_gpi           # run from ~/argosy, or add it to sys.path
+info = resolve_gpi(2047, site="sb")
+info["date"]                              # '2015-...'
+info["daily_index"]                       # 1..9
+info["filenames"]["temperature"]          # 'RCA_sb_sp_temperature_...nc'
+info["start"], info["peak"], info["end"]  # ISO UTC profile times
+```
+
+
 ## Two-phase structure
 
 
