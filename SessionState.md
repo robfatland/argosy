@@ -53,6 +53,16 @@ in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_
   consistent driver, wind work modest, signs unstable across months (Dec reverses). Next: finish 2024
   labeling (sb/oo/ab), seasonal-cycle comparison, partial correlations, validate ERA5 vs CE04OSSM/NDBC
   46050. Idea: may become a named project ("mldforcing"); stay in Umbrella.md for now.
+- **Zenodo nsf-ooi catalog for the userguide (2026-11-07)**: `PathCuration.md` Zenodo table updated to 28
+  records, date-sorted (a "doc score" column was tried and REMOVED at Rob's request: "bad idea"). In the
+  separate repo `~/prototype-userguide`: `tools/gen_datasets.py` (stdlib; pulls live Zenodo API) +
+  `tools/zenodo_curation.json` (per-record summaries, 0-5 doc scores, shallow-profiler relevance,
+  caveats) generate `docs/datasets.md`; `docs/llms.txt` entry made real; `UserGuide.md` tests T17
+  updated, T19 added (not run). NOT YET COMMITTED/PUSHED. OPEN DECISION: since Rob dropped scoring in
+  PathCuration, decide whether the public datasets.md should keep the doc scores (publicly rating
+  colleagues' records) before pushing. Scratch downloads in `~/ooi/external/zenodo_nsfooi/`.
+  Findings: MLD record's Zenodo "related identifiers" is empty (fix in v2); shelfbreak-jet README
+  back-conversion factor looks wrong (4.10^10 vs expected 4x10^-2).
 - **Sharing labels**: `shared_labels/` + `sync_labels.py` (push/pull) documented in
   `DeveloperGuide.md` "Sharing small datasets"; first push to git done (commit 1b864c7). Zenodo
   science-label release deferred ~1 week until 2024 labeling for sb/oo/ab is complete; make it a
