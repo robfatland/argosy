@@ -18,20 +18,18 @@ the vicinity of the Regional Cabled Array.
 ## National Data Buoy Center (NDBC)
 
 
-Oregon Slope Base (informal abbreviation in this book "sb") is located at 42.754°N, 124.839°W.
-The "Port Orford" NDBC station 46015 is 200 km away (not adjacent). This topic is relegated
-to `~/argosy/NDBC` for the time being.
+Oregon Slope Base (informal abbreviation in this book "sb") is located at 44.529°N, 125.390°W
+(table below). An earlier version of this file gave sb as 42.754°N, 124.839°W; those are in fact
+the coordinates of NDBC station 46015 "Port Orford", not of sb. Corrected Nov 2026.
+
+NDBC 46015 is roughly 200 km south of sb (not adjacent). A 2019 NWS service notice said it was
+inoperable pending replacement; current status not verified. The closer, more useful buoy is
+**46050 Stonewall Bank** (44.68°N, 124.54°W): ~70 km from sb, ~50 km from oo. Others: 46029
+(Columbia River Bar), 46089 (Tillamook offshore); for ab the nearest is probably 46005 (verify).
+This topic is relegated to `~/argosy/NDBC` for the time being.
 
 
 [46015 dedicated web page](https://www.ndbc.noaa.gov/station_page.php?station=46015)
-
-
-The following quote seems to be in error: 
-
-
-```
-NDBC buoy 46015 "Port Orford" 42.754 N 124.839 W
-```
 
 
 Shallow profiler coordinates:
@@ -51,7 +49,7 @@ Axial Base              AXB            45.83049          -129.75326
 
 ```
 from math import pi, cos, sqrt
-def distance_approximate(lat_a_dd, lon_a_dd, lat_b_dd = 44.6, lon_b_dd = -124.)
+def distance_approximate(lat_a_dd, lon_a_dd, lat_b_dd = 44.6, lon_b_dd = -124.):
     '''
     A very coarse distance local distance estimation in km.
     The default lat/lon is Newport Oregon.
@@ -62,7 +60,7 @@ def distance_approximate(lat_a_dd, lon_a_dd, lat_b_dd = 44.6, lon_b_dd = -124.)
     lat_b_rad = lat_b_dd * conversion
     lon_b_rad = lon_b_dd * conversion
     re        = 6378.                        # earth radius, km
-    mean_lat  = (lat_a_rad - lat_b_rad)*0.5
+    mean_lat  = (lat_a_rad + lat_b_rad)*0.5
     dx_km     = (lon_a_rad - lon_b_rad)*cos(mean_lat)*re
     dy_km     = (lat_a_rad - lat_b_rad)*re
     return sqrt(dx_km**2 + dy_km**2)
@@ -134,6 +132,30 @@ Other data types beyond standard meteorological are:
 - Continuous winds data
 - Five types of wave data
 - Supplemental measurement data (certain years only)
+
+
+## ERA5 sea state (MLD seasonality check)
+
+Question: summer MLD is shallower than winter. Is that explained by mixing energy (storms,
+waves, wind stress) or by stratification (surface heating)? Plan agreed Nov 2026: start with
+ERA5 (all three sites, no OOI streams yet). Platform ADCP/VELPT wave estimation is deferred.
+
+- Code: `~/argosy/seastate/fetch_era5.py` (see `seastate/README.md`). CDS dataset
+  `reanalysis-era5-single-levels-timeseries` (the POINT product: give it a lon/lat, get a
+  ready-made series at the nearest grid cell -- no area box). Output:
+  `~/ooi/<site>/metadata/external/era5/era5_<site>_<yyyy>.nc` (one per site-year; may be a
+  `.zip` of several tables when the wave 0.5 deg and atmospheric 0.25 deg grids differ).
+- Fields: waves (Hs, mean/peak period, mean direction, wind-wave and swell Hs); 10 m wind;
+  turbulent surface stress; latent/sensible/shortwave/longwave heat flux.
+- Caveats: wave grid is 0.5 deg (a +/-0.5 deg box gives only a few cells); stress and heat flux are
+  hourly ACCUMULATIONS (divide by 3600 s); heat flux sign is positive downward.
+- Hs is probably not the best MLD predictor. Prefer wind stress / friction velocity and net
+  surface heat flux, accumulated over a lag window (e.g. integrated u*^3 over the prior N days).
+- Validation anchor: OOI Endurance surface mooring CE04OSSM (Axys TriAxys wave sensor) is at oo;
+  compare ERA5 Hs there, and NDBC 46050, to establish model skill before trusting it at sb and ab.
+
+Next steps: fetch; build a daily/lagged series per site; compare against the MLD label set
+(`MLDDataRelease.md`, `MLD.py` label CSVs) season by season.
 
 
 ## Task list

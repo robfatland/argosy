@@ -442,6 +442,13 @@ Ordered by priority (most important first).
 
 ## Pending To Do
 
+- **Link `MLD.py` and `MLDTimeSeries.py`** (Nov 2026; NOT started, do not start without Rob).
+  Give `MLD.py` an API that `MLDTimeSeries.py` can trigger via a marker click: the time-series
+  viewer sends a sensor type, a site and a GPI to `MLD.py`, and `MLD.py` jumps to that profile.
+  **Be super careful:** there is real potential to break existing `MLD.py` annotation behavior
+  (label commits, Advance/Stay semantics, who-scoped files). Design first; keep `MLD.py`'s
+  current behavior unchanged when no request arrives. Spec for the viewer is in
+  `MLDAnnotationPlan.md` section 4.
 - **TOP PRIORITY — Revisit PO.DAAC/satellite SST vs top-of-profile SP temperature** (Sep 2026;
   promoted to top). The comparison is currently VISUAL ONLY (`plume/surface_plot.py` Panel 3). Needs
   a fidelity metric that demonstrates SP-surface ↔ SST agreement is **better than an uninformed

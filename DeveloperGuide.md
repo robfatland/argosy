@@ -217,6 +217,38 @@ aws s3 sync ~/ooi/sb/postproc/ s3://s3ooi/sb/postproc/
 ```
 
 
+## Sharing small datasets
+
+`~/ooi` is not in git, but a few datasets are tiny and need to reach collaborators; today that
+means the human MLD label CSVs (science + training, well under 1 MB). The workaround is a
+repo-side staging folder, `~/argosy/shared_labels/`, plus `sync_labels.py`, which copies label
+files between that folder and `~/ooi/<site>/metadata/annotations/`. The labeler *pushes* into the
+folder and commits it; the collaborator pulls the repo and *pulls* from the folder into her own
+`~/ooi`. The copy is a merge, not an overwrite: rows are keyed by (gpi, sensor, who) and the later
+`reviewed_at` wins, so re-running is harmless and different labelers (R, C) never touch each
+other's files. Limitation: a label removed with "Clear pick" is not removed on the other side.
+It is a kluge, but a safe one for files this small. Details: `shared_labels/README.md`.
+
+Labeler (after annotating):
+
+```bash
+python ~/argosy/sync_labels.py push --dry-run   # preview what would be copied/merged
+python ~/argosy/sync_labels.py push
+cd ~/argosy && git add shared_labels && git commit -m "labels" && git push
+```
+
+Collaborator (to see them in `MLDTimeSeries.py`):
+
+```bash
+cd ~/argosy && git pull
+python ~/argosy/sync_labels.py pull
+python ~/argosy/MLDTimeSeries.py
+```
+
+Options for both directions: `--site <sb|oo|ab>`, `--who <R|C>`. Only use this for small files; large
+data belongs in S3 (see "S3 mirror" above).
+
+
 ## Where to go next
 
 - Extend to a new site (`oo`/`ab`): run tasks 0–3 with `site=` set; `ooipaths` handles paths.

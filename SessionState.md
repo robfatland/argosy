@@ -1,6 +1,67 @@
 # Session State
 
 ## Last updated
+2026-11-06 — **Public prototype-userguide demo DEPLOYED and live; profileIndices layout inquiry
+opened (next session).** Long session, compacted once. HAT-vs-science MLD comparison work from earlier
+in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_plot.py`).
+
+## Completed this session
+- **Public user-guide demo live** (repo `~/prototype-userguide`, GitHub `robfatland/prototype-userguide`).
+  Invite link: `https://robfatland.github.io/prototype-userguide/ask.html?token=ooi-Vt38-K-IO-b-rh`.
+  AWS account `securecomputing` (084375582624), us-west-2: Lambdas `ooi-ug-ask`/`ooi-ug-burn`,
+  DynamoDB `ooi-ug-state`, IAM role `ooi-ug-lambda`, EventBridge `ooi-ug-burn-daily`, budget
+  `ooi-ug-monthly` ($100). **Endpoint = API Gateway HTTP API `q1uauf9sq2`**
+  (`https://q1uauf9sq2.execute-api.us-west-2.amazonaws.com/`).
+- **Key lesson:** account is in the UW eScience AWS Org; an SCP denies `lambda:InvokeFunctionUrl`, so
+  Function URLs (public NONE, and CloudFront+OAC) 403. API Gateway (`lambda:InvokeFunction`) works.
+  Documented in `public/DEPLOY.md` §5. CloudFront dist + OAC were torn down.
+- SES `rob5@uw.edu` verified (us-west-2, `Success`); burn email tested and sent.
+- `ask.html` renders answer markdown (marked + DOMPurify); intro text reworded + typos fixed.
+- GitHub Pages lesson: rapid back-to-back pushes cancel each other's deploys; if the site doesn't
+  update, check `gh run list` and request ONE fresh build (`gh api -X POST repos/<r>/pages/builds`).
+
+## In progress / partially done
+- **profileIndices layout inquiry (just started).** Findings so far:
+  - `~/ooi/sb/profileIndices/` is the actual **git clone of the whole repo**
+    (`https://github.com/OOI-CabledArray/profileIndices.git`): `.git`, `profileIndexer*.py`, Dockerfile,
+    and CSVs for ALL 6 designators (RS01SBPS 12, CE04OSPS 13, RS03AXPS 13, + deep profilers
+    RS01SBPD 8, CE04OSPD 8, RS03AXPD 11).
+  - `~/ooi/ab/profileIndices/` and `~/ooi/oo/profileIndices/` are plain copies (13 CSVs each, 2014-2026)
+    of their own shallow designator only, so they go stale on `git pull` in sb.
+  - sb has only 12 RS01SBPS files vs 13 for the others: a year may be missing (not yet checked).
+  - Proposed (not done): one clone at `~/profileIndices`, plus an ingest step copying each site's
+    shallow CSVs into `~/ooi/<site>/profileIndices/`. Check what code reads profileIndices
+    (`ooipaths`, `run_pipeline.sh` S3 pull) before moving anything. S3 copies exist at
+    `s3://s3ooi/<site>/profileIndices/`.
+
+## Reverted / needs redo
+- (none)
+
+## Blocked / waiting on user
+- Decide the profileIndices layout (single clone + ingest vs status quo).
+
+## Next action
+- **REMINDER (Rob asked, 2026-11-06): FIRST thing next session, before returning to ERA5, look for
+  patterns in the MLD data itself** (e.g. "MLD tends to decrease from dawn to dusk", diurnal /
+  time-of-day structure, daily-index 4 vs 9, sensor-to-sensor differences) in the science label set
+  `~/ooi/sb/metadata/annotations/mld_labels_sb_science_R.csv` (Jan, Aug, Oct 2024). Then resume ERA5.
+- **Sea state vs MLD (`~/argosy/seastate/`, documented in `Umbrella.md` "ERA5 sea state")** status:
+  point-product ERA5 (swh,mwp,mwd,u10,v10,slhf,sshf) fetched for all 3 sites 2014-2026 (verified
+  39 files). Radiation (ssr,str) fetched via `fetch_era5_radiation.py` into ONE shared box:
+  `~/ooi/era5_shared/era5rad_shared_<yyyy>.nc` (done per Rob, not yet verified by me). TODO: extend
+  `load_era5.py` to crop each site's nearest cell and add qnet = ssr+str+slhf+sshf; rerun
+  `compare_mld.py` for 2024-08 and 2024-10. First result (sb 2024-01): MLD correlates with turbulent
+  heat loss (rho -0.28..-0.44, strongest at 168 h trailing), weakly with Hs, ~0 with wind; n inflated
+  ~3x by three sensors per profile.
+- (older) Start a fresh session on the profileIndices inquiry: find the missing RS01SBPS year, audit the code
+  that consumes profileIndices, then propose the restructure.
+- Housekeeping: delete the inert Lambda@Edge replica once CloudFront releases it:
+  `aws lambda delete-function --region us-east-1 --function-name ooi-ug-edge-sign` (profile
+  securecomputing). Optional: delete the unused AWS_IAM Function URL on `ooi-ug-ask`.
+
+---
+
+## (Earlier) Last updated
 2026-10-10 — **Synthetic MLD shadow dataset built + validated; 3-sensor model; first acceptance
 test run.** Full design in `SyntheticMLDPlan.md`; AI-collaboration lessons in `WorkingWithAgenticAI.md`
 (L3 added). Below is this session; the 2026-09-18 Chuck/env narrative is retained further down.

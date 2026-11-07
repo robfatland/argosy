@@ -109,6 +109,14 @@ Using `--science` and a date range compiles MLD data separately from the trainin
 - Rob, 31-OCT-2026. sb GPI 18089+ (early August 2024): Temperature: Super shallow cline, no discernable ML, inversion feature down around 90m. Echoed in DO and ~vaguely~ in Salinity. Persists to 18090, 18091, ... 18099; then starts to deform and break up. More or less gone at 18105; but the shallow cline with almost no ML persists. Then the 60 - 80m inversion returns. One more peculiarity: The DO has a separate upper inversion layer that pushes *its* cline down to the 30 to 70m range; in contrast to the temperature cline that is generally shallower at 10 to 50m. The DO shallow inversion persists all the way to the end of the month; so we do not have an end profile for this feature.      
 
 
+- Rob, 04-NOV-2026. sb GPI 18689 (late October 2024): Temperature. XUD in isolation. What was going on with the ADCP? See also GPI 18525.
+
+- Rob, 04-NOV-2026. sb GPI 18494 (early October 2024): Salinity. Massive saline lens at 25m 2 profiles.
+
+- Rob, 04-NOV-2026. sb GPI 18611 (15-OCT 2024): Salinity. 1.0 PSU salinity lens at 25m. 
+
+- Rob, 04-NOV-2026. sb GPI 18478+++18493+++ to 15-OCT (18610) and beyond, super stable: DO. Inversion directly below MLD at 19m, persists for a long time (inherited from September???) In fact this is the longest lasting inversion signal I've seen to date. It continues to varying strengths all the way to 18747, the last GPI of October.
+
 
 ## Good archetype profiles
 

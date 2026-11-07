@@ -139,6 +139,9 @@ to make data folders (especially `metadata/` and its subfolders) somewhat self-d
 
 - Never write data or generated files to `~/argosy`. Output goes to `~/ooi`.
 - Exception: `~/argosy/images/` holds copies of key charts for the PDF/repo.
+- Exception: `~/argosy/shared_labels/` holds small MLD label CSVs (science + training) shared with
+  collaborators via git; moved to/from `~/ooi/<site>/metadata/annotations/` by `sync_labels.py`
+  (`push` before committing, `pull` after `git pull`). Also `~/argosy/mld_candidates/` (candidate lists).
 - Do not run long-running code without asking. Describe what will happen and get confirmation.
 - When editing notebook cells, preserve existing outputs unless asked to clear them.
 - **Environment stability**: The `argosy` conda environment should be pinned. After any

@@ -4,18 +4,18 @@
 ## Community-driven publication of OOI data, code and documentation
 
 
-**Summary:** This memo concerns the *transition problem* of making OOI data more readily usable. The transition is *from* OOI engineering (data organized and available as L1/L2 products) *to* community-driven expansion of available scientific data (L1/L2 and higher level L3+) and tools and documentation under the FAIR paradigm; recognizing the need for a lower barrier to entry. Two suggestions:
+**Summary:** This memo addresses the challenge of making OOI data more readily usable. The OOI data system makes engineering and science data available as L1/L2 products. (additional characterization needed.) We envision progress as community-driven expansion of available scientific data types and production methods (for example to level L3+). That is: Datasets are great; but add tools and documentation under the FAIR paradigm. Recognize the need for documentation that a scientist can use. Lower the barrier to entry; with these two specific suggestions:
 
 
-- From progress so far (particularly Zenodo): Build out and promote *path curation* guidance
-- Implement AI Assistant support (2 possible modes) for researchers 
+- Expand the Zenodo nsf-ooi community by facilitating publication standards that incorporate data, code and documentation. Together they define a path so I use the term *path curation*.
+- Implement an AI Assistant for researchers that spans the OOI program sensors, the operational parameters, the arrays, the Zenodo nsf-ooi publications, and so on: Everything that makes OOI a viable contributor to oceanographic research. 
 
 
 ## Notes on current status
 
 
-* The "*transition solution*" is already in progress; within the OOI website and on Zenodo (+ Github)
-    * Example: I want current data from ADCPs at particular sites. The data products page is organized by physical products; not by science themes or by instrument. To find *current* or *ADCP* data requires hunting around on the website; where eventually I would discover `VELPROF` and related data types. The Data Product Specification is 41 pages (half of this MATLAB code) that seems to produce L1 data... do I need to use this? Furthermore: Several Zenodo records are relevant... does the website refer me to them? 
+* The OOI website and Zenodo are evolving; but here is an example of how it can be difficult to make progress. 
+    * I want current data from ADCPs at particular sites. The data products page is organized by physical products; not by science themes or by instrument. To find *current* or *ADCP* data requires hunting around on the website; where eventually I would discover `VELPROF` and related data types. The Data Product Specification is 41 pages (half of this MATLAB code) that seems to produce L1 data... do I need to use this if L1 is my starting point? Several Zenodo records seem ADCP-relevant... I do not believe the OOI website points me to them.
 * The [DSC 2026 Action Item](https://docs.google.com/document/d/11QpakTqgdPrwWmic2K7j2v6IEM_umnRBkBRHmjZShdo/edit?tab=t.0) document reads: "The DSC will [...] reorganize the OOI data products page and make it a more useful, easy to navigate resource. The page will include what qualifies as a community data set, which is likely connected to a published research paper or data paper with DOI. Two categories of data sets will be created/linked: published data sets (PI provides DOI) and research data products without a DOI."
     - "reorganize" is addressed below in terms of an AI assistant
     - "categories of data sets": Suggest revisit this with FAIR principles in mind
@@ -27,6 +27,7 @@
         - Additional repos by Andrew Reed, Craig Risien, Carolina Camargo
     * Machine learning training: MLD (Rob Fatland)
 * Open question: Is NSF PAR the "analysis-ready data" publication root site over Zenodo?
+* Open question: What standards are in place? For example **Croissant** for metadata mentioned in relation to Zenodo.
 
 
 ## Suggestions
