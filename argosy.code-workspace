@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../prototype-userguide"
+		},
+		{
+			"path": "../mld_zenodo_release"
 		}
 	],
 	"settings": {}

@@ -154,8 +154,64 @@ ERA5 (all three sites, no OOI streams yet). Platform ADCP/VELPT wave estimation 
 - Validation anchor: OOI Endurance surface mooring CE04OSSM (Axys TriAxys wave sensor) is at oo;
   compare ERA5 Hs there, and NDBC 46050, to establish model skill before trusting it at sb and ab.
 
-Next steps: fetch; build a daily/lagged series per site; compare against the MLD label set
-(`MLDDataRelease.md`, `MLD.py` label CSVs) season by season.
+### Status (2026-11-06)
+
+- Data: ERA5 point series (waves, wind, latent/sensible flux) for sb/oo/ab 2014-2026, plus gridded
+  net solar/longwave radiation in one shared box (`~/ooi/era5_shared/`). `seastate/load_era5.py`
+  merges them and derives wind stress, u*, and the full net surface heat flux `q_net`
+  (= solar + longwave + latent + sensible, W/m^2, positive downward).
+- Method (`seastate/compare_mld.py`): for each human-labeled MLD (science set, `value`-bearing
+  labels only; No-MLD and unusable profiles are excluded), take the TRAILING mean of each forcing
+  over 6/24/72/168 h before the profile and compute the Spearman correlation with MLD, separately
+  per sensor (T/S/DO label the same profiles, so pooling would triple-count). Per-month results are
+  saved to `~/ooi/sb/analysis/seastate/mld_forcing_corr_sb_<yyyy-mm>.csv`; plots to
+  `~/ooi/sb/visualizations/mld_vs_era5_sb_<yyyy-mm>.png`.
+
+### Results: sb, 2024 (Spearman rho, MLD vs trailing-window forcing)
+
+rho > 0 means stronger / more-downward forcing goes with a DEEPER MLD. Columns are T / S / DO.
+`q_net` is net heat flux (negative = ocean losing heat); `ustar^3` is the wind mixing-energy index.
+
+| Month | usable n (T/S/DO) | q_net 72 h | q_net 168 h | ustar^3 72 h | ustar^3 168 h |
+|---|---|---|---|---|---|
+| Jan | 259 / 262 / 263 | -0.31 / -0.56 / -0.27 | -0.38 / -0.61 / -0.38 | 0.16 / 0.08 / 0.18 | 0.07 / 0.05 / 0.03 |
+| Aug | 49 / 46 / 56 | -0.69 / -0.69 / -0.64 | -0.68 / -0.64 / -0.60 | 0.69 / 0.69 / 0.56 | 0.64 / 0.56 / 0.52 |
+| Sep | 210 / 196 / 220 | -0.21 / -0.22 / -0.33 | 0.05 / 0.02 / -0.13 | 0.18 / 0.19 / 0.27 | -0.17 / -0.10 / 0.02 |
+| Oct | 216 / 195 / 251 | -0.43 / -0.48 / -0.42 | -0.50 / -0.60 / -0.58 | 0.35 / 0.44 / 0.36 | 0.25 / 0.32 / 0.40 |
+| Nov | 214 / 218 / 231 | -0.33 / -0.40 / -0.42 | -0.27 / -0.30 / -0.28 | 0.12 / 0.21 / 0.42 | 0.30 / 0.32 / 0.41 |
+| Dec | 241 / 224 / 229 | +0.20 / +0.58 / +0.43 | +0.20 / +0.39 / +0.35 | 0.44 / 0.26 / 0.37 | 0.43 / 0.30 / 0.42 |
+
+Other notable entries: Hs tracks wind (Aug 72 h: 0.66 / 0.65 / 0.53; otherwise weak, 0 to 0.3);
+solar `q_sw` is positive in Aug (168 h: +0.61 / +0.47 / +0.55) but negative in Nov and Dec
+(168 h about -0.3 to -0.4); Dec turbulent flux alone is strongly positive (72 h salinity +0.61).
+
+### Reading (tentative)
+
+- **Heat loss is the most consistent driver.** Net heat loss over the prior 3 to 7 days goes with a
+  deeper MLD in Jan, Aug, Oct and Nov (rho about -0.3 to -0.7), weakly in Sep.
+- **Wind work is positive but modest** in Aug through Dec (rho about 0.2 to 0.7) and near zero in
+  January. So storms matter, but less consistently than heat loss.
+- **The signs are not stable across months.** December reverses the heat-flux relationship
+  (positive), and solar flips sign between Aug and Nov/Dec. A single monotonic "forcing drives MLD"
+  story does not fit; lateral advection, the plume, or covarying forcings (clear, windy,
+  upwelling-favorable northerlies in summer) probably matter. Not tested.
+- **Caveats.** (1) These are rank correlations, not causal. (2) Profiles are ~9 per day and the
+  trailing means are strongly autocorrelated, so the effective sample size is closer to the number
+  of independent days than to n. (3) August has only 46 to 56 usable labels per sensor out of 429
+  rows, because No-MLD and unusable profiles are excluded, so it is both small and selected.
+  (4) One year, one site (sb). (5) ERA5 grid cell is ~15 to 20 km from the profiler.
+- **This does not yet test the seasonal question** (summer shallow vs winter deep). That needs the
+  full-year record (the labeling in progress for 2024 sb/oo/ab) and a seasonal-cycle comparison,
+  not within-month correlations.
+
+### Next steps
+
+1. Finish labeling 2024 for sb, oo, ab, then repeat for all months and the other two sites.
+2. Seasonal cycle: monthly-mean MLD vs monthly-mean forcing (heat flux, wind work, Hs).
+3. Control for the confounds: partial correlation (e.g. wind work controlling for heat flux), and
+   a lag scan finer than 6/24/72/168 h.
+4. Validate ERA5 against CE04OSSM (OOI Endurance surface mooring wave and wind) and NDBC 46050.
+5. If this grows, split it into its own named project folder (idea: "mldforcing") out of this file.
 
 
 ## Task list

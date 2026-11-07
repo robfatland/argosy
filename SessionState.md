@@ -44,15 +44,19 @@ in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_
 - **REMINDER (Rob asked, 2026-11-06): FIRST thing next session, before returning to ERA5, look for
   patterns in the MLD data itself** (e.g. "MLD tends to decrease from dawn to dusk", diurnal /
   time-of-day structure, daily-index 4 vs 9, sensor-to-sensor differences) in the science label set
-  `~/ooi/sb/metadata/annotations/mld_labels_sb_science_R.csv` (Jan, Aug, Oct 2024). Then resume ERA5.
-- **Sea state vs MLD (`~/argosy/seastate/`, documented in `Umbrella.md` "ERA5 sea state")** status:
-  point-product ERA5 (swh,mwp,mwd,u10,v10,slhf,sshf) fetched for all 3 sites 2014-2026 (verified
-  39 files). Radiation (ssr,str) fetched via `fetch_era5_radiation.py` into ONE shared box:
-  `~/ooi/era5_shared/era5rad_shared_<yyyy>.nc` (done per Rob, not yet verified by me). TODO: extend
-  `load_era5.py` to crop each site's nearest cell and add qnet = ssr+str+slhf+sshf; rerun
-  `compare_mld.py` for 2024-08 and 2024-10. First result (sb 2024-01): MLD correlates with turbulent
-  heat loss (rho -0.28..-0.44, strongest at 168 h trailing), weakly with Hs, ~0 with wind; n inflated
-  ~3x by three sensors per profile.
+  `~/ooi/sb/metadata/annotations/mld_labels_sb_science_R.csv` (now Jan, Aug-Dec 2024).
+  `MLDTimeSeries.py` is the tool for this. Then resume ERA5.
+- **Sea state vs MLD (`~/argosy/seastate/`, results in `Umbrella.md` "ERA5 sea state")**: DONE through
+  the first full pass. ERA5 point + gridded radiation data are downloaded and merged (`load_era5.py`
+  gives `qnet`); `compare_mld.py` was run for sb 2024-01, 08, 09, 10, 11, 12 and results are tabulated
+  in Umbrella.md (per-month CSVs in `~/ooi/sb/analysis/seastate/`). Finding: net heat loss is the most
+  consistent driver, wind work modest, signs unstable across months (Dec reverses). Next: finish 2024
+  labeling (sb/oo/ab), seasonal-cycle comparison, partial correlations, validate ERA5 vs CE04OSSM/NDBC
+  46050. Idea: may become a named project ("mldforcing"); stay in Umbrella.md for now.
+- **Sharing labels**: `shared_labels/` + `sync_labels.py` (push/pull) documented in
+  `DeveloperGuide.md` "Sharing small datasets"; first push to git done (commit 1b864c7). Zenodo
+  science-label release deferred ~1 week until 2024 labeling for sb/oo/ab is complete; make it a
+  SEPARATE Zenodo record from the v1 training set; copy `~/mld_zenodo_release/v1` to `v2`, don't rename.
 - (older) Start a fresh session on the profileIndices inquiry: find the missing RS01SBPS year, audit the code
   that consumes profileIndices, then propose the restructure.
 - Housekeeping: delete the inert Lambda@Edge replica once CloudFront releases it:

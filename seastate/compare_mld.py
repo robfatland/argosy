@@ -124,6 +124,7 @@ def main():
     # One table per sensor (the three sensors label the SAME profiles, so pooling them would
     # triple-count and overstate significance).
     sensors = [args.sensor] if args.sensor else ["temperature", "salinity", "dissolvedoxygen"]
+    records = []                      # saved to CSV below so results can be read later
     for sens in sensors:
         sub = lab[lab["sensor"] == sens]
         print(f"\n[{sens}] Spearman rho: MLD vs trailing-window mean of forcing  (n={len(sub)})")
@@ -140,7 +141,16 @@ def main():
                 ok = np.isfinite(x)
                 rho = spearmanr(x[ok], sub["mld"].values[ok])[0] if ok.sum() > 10 else np.nan
                 row += f"{rho:8.2f}"
+                records.append({"site": args.site, "month": args.month, "sensor": sens,
+                                "forcing": col, "window_h": w, "rho": round(float(rho), 4),
+                                "n": int(ok.sum())})
             print(row)
+
+    out_dir = op.analysis_dir("seastate", args.site)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = out_dir / f"mld_forcing_corr_{args.site}_{args.month}.csv"
+    pd.DataFrame(records).to_csv(csv_path, index=False)
+    print(f"\nsaved {csv_path}")
 
 
 if __name__ == "__main__":
