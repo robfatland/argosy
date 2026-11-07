@@ -58,9 +58,11 @@ in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_
   separate repo `~/prototype-userguide`: `tools/gen_datasets.py` (stdlib; pulls live Zenodo API) +
   `tools/zenodo_curation.json` (per-record summaries, 0-5 doc scores, shallow-profiler relevance,
   caveats) generate `docs/datasets.md`; `docs/llms.txt` entry made real; `UserGuide.md` tests T17
-  updated, T19 added (not run). NOT YET COMMITTED/PUSHED. OPEN DECISION: since Rob dropped scoring in
-  PathCuration, decide whether the public datasets.md should keep the doc scores (publicly rating
-  colleagues' records) before pushing. Scratch downloads in `~/ooi/external/zenodo_nsfooi/`.
+  updated, T19 added (not run). PUSHED (prototype-userguide commit bb63cc9) and verified live:
+  datasets.md (28 records) + llms.txt entry. Doc scores were dropped everywhere (decision: no public
+  ratings of colleagues' records); pages carry "Documentation:" notes instead. TODO: re-run tests
+  T17 and T19 against the live corpus with the client. Scratch downloads in
+  `~/ooi/external/zenodo_nsfooi/`.
   Findings: MLD record's Zenodo "related identifiers" is empty (fix in v2); shelfbreak-jet README
   back-conversion factor looks wrong (4.10^10 vs expected 4x10^-2).
 - **Sharing labels**: `shared_labels/` + `sync_labels.py` (push/pull) documented in
