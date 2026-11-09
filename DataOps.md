@@ -22,8 +22,8 @@ s3://s3ooi/
 
 - Public-read policy grants unauthenticated `s3:GetObject` + `ListBucket` on **pp06 only**,
   for all three sites: `sb/postproc/pp06/*`, `oo/postproc/pp06/*`, `ab/postproc/pp06/*`.
-  Policy JSON: `~/argosy/s3_public_read_policy.json`; apply with
-  `aws s3api put-bucket-policy --bucket s3ooi --policy file://s3_public_read_policy.json`.
+  Policy JSON: `~/argosy/cloud/s3_public_read_policy.json`; apply with
+  `aws s3api put-bucket-policy --bucket s3ooi --policy file://cloud/s3_public_read_policy.json`.
   **redux, the other pp levels (pp01/pp02/pp05), metadata/analysis, and `ooinet/` all remain
   private.** redux is intentionally NOT public — it is a more flawed dataset than pp06, and we
   don't want reusers building on the inferior version. When a NEW dataset is created (pp07, other

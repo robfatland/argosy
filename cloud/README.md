@@ -4,7 +4,7 @@ and syncs results to S3, then is torn down. Infrastructure is defined with AWS C
 
 - **Status:** active (reviewed Nov 2026)
 - **Purpose:** disposable EC2 pipeline runner (CDK) and the S3 public-access and budget guard scripts
-- **Next:** add the S3 guard to this README; move s3_public_read_policy.json here
+- **Next:** add the S3 guard scripts (s3_public_on/off.sh, budget) to the file list below
 
 - `app.py` — the CDK app + `ArgosyPipelineStack`: EC2 instance (1 TB gp3 root, deleted with
   the stack), IAM role (S3 access to `s3ooi` + SSM), security group (no inbound; SSM access), and
