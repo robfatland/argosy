@@ -1,11 +1,28 @@
 # Session State
 
 ## Last updated
-2026-11-06 — **Public prototype-userguide demo DEPLOYED and live; profileIndices layout inquiry
-opened (next session).** Long session, compacted once. HAT-vs-science MLD comparison work from earlier
+2026-11-06 — **Repo reorganization Waves 0-2 complete and pushed; public prototype-userguide demo
+live; profileIndices layout inquiry still open.** Long session, compacted once. HAT-vs-science MLD comparison work from earlier
 in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_plot.py`).
 
 ## Completed this session
+- **Reorganization Waves 0, 1, 2 DONE and PUSHED (origin/master at 7618062, 2026-11-06).** Plan and
+  decisions in `BR.md` "Reorganization review". Checker clean: `python tools/check_refs.py` = 0 new
+  dangling refs (baseline 20 live, all intentional; 33 historical); 0 hard-coded `/home/rob/argosy`.
+  - Wave 0: status labels + READMEs on every folder; `tools/check_refs.py`, `tools/gen_manifest.py`;
+    `poster/agumemo.md` handout; NDBC retired (summary in `seastate/README.md`); `chapters/DataDownload`
+    and `StubWork` notebooks retired (recover: `git show f344e09:chapters/DataDownload.ipynb`); hand-kept
+    `CodeManifest.md` deleted (replaced by `python tools/gen_manifest.py`); `%run` paths made `~/argosy`.
+  - Wave 1: `s3_public_read_policy.json` -> `cloud/` (`s3_public_on.sh` now finds it beside itself);
+    new `tides/` folder (TidalAnalysis.md, TimeSeriesProfileCorrelation.py, tidal_constituents.json);
+    deleted `delete_cover_redundant_files.sh` and the temp scripts `_diag_synthetic`, `_probe_shard_schema`.
+  - Wave 2: `postprocess_pp05/pp06/pp06_filter2/pp06_filter3/special_profiles`, `gpi2fnm`,
+    `profile_duration_histograms` moved to `pipeline/`; each puts the repo root on `sys.path` via
+    `__file__`; the 8 calls in `run_pipeline.sh` repointed. Verified: `bash -n`, `gpi2fnm --gpi 2047`,
+    `--dry-run` of pp06/filter2/filter3 (also from /tmp). NOT exercised: pp05 and special_profiles (no
+    dry-run mode) and a real `run_pipeline.sh pp` run; do a small-slice run before the next EC2 job.
+  - Status labels confirmed by Rob: plume = active; the rest as guessed (visqc, reference, sga, mld, iw,
+    LegacyCode = paused; NDBC = stub).
 - **Public user-guide demo live** (repo `~/prototype-userguide`, GitHub `robfatland/prototype-userguide`).
   Invite link: `https://robfatland.github.io/prototype-userguide/ask.html?token=ooi-Vt38-K-IO-b-rh`.
   AWS account `securecomputing` (084375582624), us-west-2: Lambdas `ooi-ug-ask`/`ooi-ug-burn`,
@@ -65,14 +82,15 @@ in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_
   `~/ooi/external/zenodo_nsfooi/`.
   Findings: MLD record's Zenodo "related identifiers" is empty (fix in v2); shelfbreak-jet README
   back-conversion factor looks wrong (4.10^10 vs expected 4x10^-2).
-- **Reorganization, Wave 0 (Nov 2026; plan in `BR.md` "Reorganization review")**: status labels
-  (active / paused / stub) now on every folder README; `NDBC/` retired; `tools/check_refs.py` and
-  `tools/gen_manifest.py` written, NOT YET RUN. `poster/agumemo.md` is now a printable handout
-  (project review + manifest in logical order + poster guide). NEXT: run `python tools/check_refs.py
-  --baseline` and `python tools/gen_manifest.py`, fix what they report, then Wave 1 (cheap moves).
-  Status labels I guessed (confirm): plume = active (confirmed), visqc = paused, reference = paused, sga = paused,
-  mld = paused, iw = paused, LegacyCode = paused. **a-gap note:** the three `mld_forcing_rolling_*.png`
-  charts still need a plain-language explanation (one explained, two not).
+- **Reorganization**: Waves 0-2 done (see Completed). Wave 3 (iw/visqc split; `cline_extract` may
+  belong with `iw`) is deliberately deferred until `iw` is revived; resume it from `BR.md` then. Root
+  strays still to review with Rob: `notebooks.ipynb`, `image.png`, `_preview.png`, `slides.html`,
+  `SeekingResearch.pdf`, `logo.png`, `downlinklist_completed.txt`, and the MLD helper scripts at the
+  root (`SyntheticViewer`, `ArchetypeValuePuller`, `HAT_vs_science_*`). After any move run
+  `python tools/check_refs.py`. Note: `~/ooi/sb/redux/` holds only a README on this machine, so
+  `postprocess_pp06.py` cannot re-run from redux until it is synced from `s3://s3ooi/sb/redux/`.
+  **a-gap note:** the three `mld_forcing_rolling_*.png` charts still need a plain-language
+  explanation (one explained, two not).
 - **Sharing labels**: `shared_labels/` + `sync_labels.py` (push/pull) documented in
   `DeveloperGuide.md` "Sharing small datasets"; first push to git done (commit 1b864c7). Zenodo
   science-label release deferred ~1 week until 2024 labeling for sb/oo/ab is complete; make it a
