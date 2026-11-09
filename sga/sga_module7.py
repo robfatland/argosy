@@ -1,6 +1,6 @@
 # Module 7: Characterize Water Column Regimes
 # Analyzes physical properties of each cluster.
-# Run this as: %run /home/rob/argosy/sga/sga_module7.py
+# Run this as: %run ~/argosy/sga/sga_module7.py
 
 import numpy as np
 import pandas as pd

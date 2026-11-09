@@ -1,5 +1,5 @@
 # Module 6: Spectral Clustering
-# Run this as: %run /home/rob/argosy/sga/sga_module6.py
+# Run this as: %run ~/argosy/sga/sga_module6.py
 
 import numpy as np
 import pandas as pd

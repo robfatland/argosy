@@ -1,5 +1,5 @@
 # Module 3: Normalize features and handle missing data
-# Run this as: %run /home/rob/argosy/sga/sga_module3.py
+# Run this as: %run ~/argosy/sga/sga_module3.py
 
 import numpy as np
 import pandas as pd

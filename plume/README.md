@@ -2,6 +2,10 @@ This folder `~/argosy/plume/` contains files for the **plume study**: detecting 
 River freshwater plume in the shallow profiler near-surface record, cross-compared with
 satellite SST and SSS.
 
+- **Status:** active (reviewed Nov 2026)
+- **Purpose:** Columbia River plume detection in shallow-profiler near-surface data, with satellite SST and SSS comparison
+- **Next:** generalize the scripts from Slope Base to the 2-letter site code; retire smap_download.py
+
 Plan, status, data sources, and ideation: **`ColumbiaPlumePlan.md`** (in this folder; part of
 the Jupyter Book). Book notebook: `chapters/ColumbiaPlume.ipynb` (runs the scripts below via
 `%run`).

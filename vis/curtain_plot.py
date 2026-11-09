@@ -1,5 +1,5 @@
 # Curtain plot: HSD sensors for Oregon Slope Base shallow profiler
-# Run this as: %run ~/argosy/curtain_plot.py
+# Run this as: %run ~/argosy/vis/curtain_plot.py
 #
 # Inputs (interactive):
 #   - Data source (redux/pp01/pp02/pp05/pp06)

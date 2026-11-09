@@ -1,6 +1,6 @@
 # SGA Configuration — Module 0
 # Edit these values, then run all subsequent modules non-interactively.
-# Run this as: %run /home/rob/argosy/sga/sga_config.py
+# Run this as: %run ~/argosy/sga/sga_config.py
 #
 # All modules read from ~/ooi/analysis/sga/sga_config.pkl
 # For meta-runs (parameter sweeps), modify this config and re-run the pipeline.

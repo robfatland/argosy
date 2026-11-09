@@ -1,7 +1,7 @@
 """
 pipeline/download.py — OOINET data acquisition for the Phase 1 pipeline.
 
-Single source of truth for the download logic (extracted from DataDownload.ipynb so the
+Single source of truth for the download logic (extracted from the retired DataDownload notebook so the
 notebook and the cloud/EC2 job call the SAME code, not duplicates). Pure functions +
 `ooipaths` for destinations, so it runs identically:
   - locally from the notebook (`%run` / `from pipeline.download import ...`)

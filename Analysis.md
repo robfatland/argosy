@@ -597,7 +597,7 @@ The feature matrix is the numerical data, and feature_names is its labeled colum
 ### Module 3
 
 
-Module 3 reads both `feature_matrix.py` and `feature_names.pkl`. It normalizes the matrix,
+Module 3 reads both `feature_matrix.npy` and `feature_names.pkl`. It normalizes the matrix,
 handles missing data, and writes the results as `feature_matrix_normalized.npy` which has 
 the same shape as `feature_matrix` but with z-score values instead of physical units.
 
@@ -798,7 +798,7 @@ An inner product would give you cosine similarity, which measures the angle betw
 
     
 I ran 20 experiments using AutoDiscovery on 81 x 4 profile files: { density, dissolved oxygen, salinity, temperature }. 
-Files were for 2016, January 1 -- 9, 9 profiles per day. I borrowed text from `AIPrompt.md` to write up context for 
+Files were for 2016, January 1 -- 9, 9 profiles per day. I borrowed text from an earlier prompt file (since removed) to write up context for 
 the data exploration. Of the 324 upload files a number (40+) had to be reloaded; so that is an obstacle.
 
 

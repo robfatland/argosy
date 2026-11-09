@@ -3,7 +3,7 @@
 # Horizontal axis: time. Vertical: stacked rows for each sensor.
 # Each profile with data for a given sensor is marked as a thin vertical line.
 #
-# Run this as: %run /home/rob/argosy/sga/sga_sensor_presence.py
+# Run this as: %run ~/argosy/sga/sga_sensor_presence.py
 #
 # Input: start month (MM-YYYY) and end month (MM-YYYY)
 

@@ -1,0 +1,7 @@
+# tools/refs_ignore.txt -- one Python regex per line; matching tokens are skipped by check_refs.py.
+# Add names that are examples, or that live in OTHER repos (for example ~/prototype-userguide).
+^UserGuide\.md$
+^PublicClient\.md$
+^DEPLOY\.md$
+^datasets\.md$
+^llms\.txt$

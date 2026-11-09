@@ -1,5 +1,5 @@
 # Module 5: Spectral Analysis of Similarity Graph
-# Run this as: %run /home/rob/argosy/sga/sga_module5.py
+# Run this as: %run ~/argosy/sga/sga_module5.py
 
 import numpy as np
 import pandas as pd

@@ -528,4 +528,3 @@ dependencies:
       - xxhash==3.7.0
       - yarl==1.24.5
       - zarr==2.18.2
-prefix: /home/rob/miniconda3/envs/argosy

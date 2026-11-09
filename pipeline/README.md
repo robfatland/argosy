@@ -4,7 +4,11 @@ analysis-ready version). The goal is one authoritative copy of this logic that r
 locally (from the notebooks) and headless on cloud/EC2 — see `cloud/` for the EC2 create/destroy
 machinery that invokes it.
 
-- `download.py` — OOINET acquisition. Extracted from `chapters/DataDownload.ipynb` so the
+- **Status:** active (reviewed Nov 2026)
+- **Purpose:** Phase 1 pipeline: download, shard, post-process to pp06, sync to S3
+- **Next:** move the postprocess_* scripts here after a one-year dry run (BR.md Wave 2); replace manual OOINET ordering with the OOI M2M API
+
+- `download.py` — OOINET acquisition. Extracted from the retired DataDownload notebook so the
   notebook and the EC2 job call the same code (no duplication). Functions: `estimate_download_volume()`,
   `bulk_download(instrument, ooi_instrument, site)`, `download_all(site)`. Reads the async staging
   URLs from `~/argosy/download_link_list.txt`; writes to `ooipaths.ooinet_dir(site, "scalar")`.
@@ -32,6 +36,6 @@ future tidy-up; not done now to avoid churn.
 
 - All destinations come from `ooipaths.py` (per-site layout), so AWS is an accelerator, not a
   dependency: the same code runs from the notebook on localhost.
-- The notebook's audit/dedup/plot cells (sensor audit, CTD overlap/minimum-cover, availability
-  plot) remain in `DataDownload.ipynb` — they are human-in-the-loop (generate review-then-run
-  deletion scripts) and viz, so they stay notebook-side rather than in the headless module.
+- The old notebook's audit/dedup/plot cells (sensor audit, CTD overlap/minimum-cover, availability
+  plot) were human-in-the-loop and were NOT ported to the headless module. The notebook is retired;
+  recover it with `git show f344e09:chapters/DataDownload.ipynb` if those cells are needed.

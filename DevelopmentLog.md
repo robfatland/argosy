@@ -121,6 +121,10 @@ Ordered by priority (most important first).
   the comparison. Blocked on Chuck (H&T results; output location TBD — see `vis/mld_coverage.py`
   SOURCES registry, cyan lane reserved).
 
+- **Subsurface oxygen maximum (SOM): DO inversion below the MLD.** New topic folder `som/`; framework
+  and tests in `som/SOM.md` (three bundle charts embedded). Open item: annotate the time intervals
+  with a high-oxygen inversion (automated or by hand using the bundle chart). See `MLDObservations.md` (04-NOV-2026 entry) for the origin.
+
 - **Science sweeps from MLD Observations + a catalog.** Review `MLDObservations.md` for the
   time ranges / sites of interest flagged there (lenses, inversions, deep mixed layers, broken
   intervals, etc.) and run an `MLD.py --science` sweep over each. Build a catalog (site, date range,

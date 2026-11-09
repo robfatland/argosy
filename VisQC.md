@@ -27,7 +27,7 @@ Run this interactive tool to step through profiles one at a time for a selected 
   cline_thickness, reviewed_at`. Accept/Discard auto-advance to the next profile.
 - Site via `ARGOSY_SITE`; start date via `VISQC_START_DATE` (default 2024-01-01).
 
-## Stage 2: VisQCCorrector.py
+## Stage 2: the corrector (PLANNED, not yet written)
 
 Reads the visitation CSV and produces a corrected version of `cline_extract_site.csv`
 incorporating the human-verified adjustments.

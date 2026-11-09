@@ -1,7 +1,7 @@
 # Umbrella
 
 This file describes the 'umbrella' askpect of this OOI project. For a definition
-of umbrella in this context: See `~/argosy/AIPrompt.md`. This markdown file 
+of umbrella in this context: See the glossary in `~/argosy/OOIObservatory.md`. This markdown file 
 primarily concerns non-OOI data resources, the most important aspect of the umbrella 
 concept. The scientific objective is to use this profusion of data to better characterize 
 the upper water column (photic zone) in the northeast Pacific, particularly in 
@@ -22,14 +22,11 @@ Oregon Slope Base (informal abbreviation in this book "sb") is located at 44.529
 (table below). An earlier version of this file gave sb as 42.754°N, 124.839°W; those are in fact
 the coordinates of NDBC station 46015 "Port Orford", not of sb. Corrected Nov 2026.
 
-NDBC 46015 is roughly 200 km south of sb (not adjacent). A 2019 NWS service notice said it was
-inoperable pending replacement; current status not verified. The closer, more useful buoy is
-**46050 Stonewall Bank** (44.68°N, 124.54°W): ~70 km from sb, ~50 km from oo. Others: 46029
-(Columbia River Bar), 46089 (Tillamook offshore); for ab the nearest is probably 46005 (verify).
-This topic is relegated to `~/argosy/NDBC` for the time being.
-
-
-[46015 dedicated web page](https://www.ndbc.noaa.gov/station_page.php?station=46015)
+**NDBC status: stub (Nov 2026).** The `NDBC/` folder was retired; nothing was ever built on it. The
+program summary, station list (46050 Stonewall Bank is the best candidate, ~70 km from sb and ~50 km
+from oo; 46015 is ~200 km south and possibly out of service) and honest utility assessment are in
+`seastate/README.md` -> "NDBC". The one downloaded file (46015, 2016) is at
+`~/ooi/sb/metadata/external/ndbc/`. The buoy comparison is now part of the `seastate` work below.
 
 
 Shallow profiler coordinates:
@@ -73,10 +70,9 @@ def distance_approximate(lat_a_dd, lon_a_dd, lat_b_dd = 44.6, lon_b_dd = -124.):
 [Descriptions of data fields in NDBC historical data files](https://www.ndbc.noaa.gov/faq/measdes.shtml)
 
 
-I downloaded and placed an example text table file: 
-Standard Meteorological Data, NDBC Buoy 46015, hourly for 2016. 
-This is placed for scrutiny in` ~/argosy/NDBC` with filename `NDBC46015h2016.txt`. 
-The first two rows act as type/units doubled column headers:
+An example text table file was downloaded: Standard Meteorological Data, NDBC Buoy 46015, hourly
+for 2016. It now lives at `~/ooi/sb/metadata/external/ndbc/NDBC46015h2016.txt` (moved from the
+retired `~/argosy/NDBC/` folder in Nov 2026). The first two rows act as type/units doubled column headers:
 
 
 ```
@@ -204,13 +200,72 @@ solar `q_sw` is positive in Aug (168 h: +0.61 / +0.47 / +0.55) but negative in N
   full-year record (the labeling in progress for 2024 sb/oo/ab) and a seasonal-cycle comparison,
   not within-month correlations.
 
+### What the quantities mean
+
+- **q_net** (net surface heat flux, W/m^2, positive = ocean gains heat) = absorbed sunlight
+  (shortwave) + net infrared (longwave, usually negative) + evaporation (latent, negative) +
+  conduction (sensible, usually negative). Negative q_net cools the surface water, which sinks and
+  mixes the layer deeper; positive q_net stabilizes it and the MLD shoals. Expected sign of the MLD
+  correlation: negative.
+- **ustar^3** = (friction velocity)^3, with u* = sqrt(wind stress / water density). The rate of
+  wind stirring work scales with u*^3, so storms dominate (a 20 m/s wind gives ~8x the stirring of
+  10 m/s). Here u* uses a constant drag coefficient, so ustar^3 is essentially (wind speed)^3.
+  Expected sign of the MLD correlation: positive.
+- **The 72 h and 168 h numbers** (3 and 7 days) are Spearman rank correlations between a profile's
+  MLD and the AVERAGE of the forcing over the preceding 72 or 168 hours (a trailing window ending at
+  the profile time). The MLD remembers past forcing: it deepens in storms and cold spells and stays
+  deep. 3 days captures individual storms; 7 days captures slower build-up. rho = -0.5 for q_net at
+  7 days means profiles that followed colder weeks tended to have deeper mixed layers (rho^2 ~ 0.25
+  of the rank variance). It is order-only and not causal.
+
+### Sliding-window results: sb, Aug to Dec 2024 (`seastate/rolling_corr.py`)
+
+Method: a centered 21-day window slid by 1 day (133 windows); per sensor; trailing 72 h and 168 h
+forcing means; 90% bands from a bootstrap that resamples whole label-days; partial correlations; and
+the correlation between the two forcings. Figures: `~/ooi/sb/visualizations/mld_forcing_rolling_*_sb_2024-08-01_2024-12-31.png`
+(plain, `_ci_`, `_partial_`); tables in `~/ooi/sb/analysis/seastate/`.
+
+| Month | q_net rho, 168 h (T / S / DO) | Windows with q_net band < 0 (T / S / DO) | ustar^3 rho, 168 h (T / S / DO) | rho(q_net, ustar^3) between forcings, 168 h |
+|---|---|---|---|---|
+| Aug | -0.28 / -0.27 / -0.24 | 43% / 54% / 40% | 0.22 / 0.28 / 0.10 | -0.49 |
+| Sep | -0.03 / -0.02 / -0.11 | 17% / 10% / 27% | -0.01 / 0.04 / 0.07 | -0.71 |
+| Oct | -0.42 / -0.43 / -0.51 | 84% / 74% / 97% | 0.30 / 0.33 / 0.41 | -0.77 |
+| Nov | -0.17 / -0.15 / -0.17 | 47% / 50% / 43% | 0.19 / 0.16 / 0.30 | -0.70 |
+| Dec | 0.11 / 0.41 / 0.24 | 0% / 0% / 0% (positive in 14% / 81% / 29%) | 0.16 / 0.03 / 0.13 | 0.01 |
+
+Findings:
+
+- **October is the clearest month.** The q_net band excludes zero on the negative side in 74 to 97%
+  of windows, and the partial correlation of MLD with q_net, controlling for ustar^3, stays near -0.3.
+- **From August through November the two forcings are the same events.** rho(q_net, ustar^3) is
+  -0.5 to -0.8: windy weeks are the cold weeks (frontal passages). Hence the plain wind correlation
+  (0.2 to 0.4, positive in many windows) is mostly the cooling effect seen through a second variable:
+  the wind partial correlation (ustar^3 given q_net) is about 0 in Aug to Oct. Only DO in November
+  retains an independent wind signal (+0.25). The data cannot separate wind from cooling in these
+  months; heat loss is the better-supported driver, and wind may still contribute.
+- **December is a different regime.** The two forcings decouple (rho about 0), but the q_net
+  relationship flips positive (band entirely above 0 in 81% of salinity windows) and ustar^3 is
+  positive in about half of the windows (it dips to about -0.5 near Dec 1). Warmer, windier weeks
+  go with deeper MLD. The earlier suggestion that warm south-west storms (wind and weaker cooling
+  together) cause the flip is NOT supported: the forcings are uncorrelated in December, not
+  positively correlated. Cause unknown.
+- **September is weak** for both forcings (q_net significant in only 10 to 27% of windows).
+- **August** is low-n before about Aug 25 (fewer than ~10 label days in the window); read the early
+  values as unreliable.
+- **Caveats.** The bands treat days as independent, but the forcing is autocorrelated across days,
+  so the bands are too narrow: a band excluding zero means "robust sign", not a formal test. The
+  three sensors label the same profiles, so they are not independent confirmations. One year, one
+  site.
+
 ### Next steps
 
-1. Finish labeling 2024 for sb, oo, ab, then repeat for all months and the other two sites.
-2. Seasonal cycle: monthly-mean MLD vs monthly-mean forcing (heat flux, wind work, Hs).
-3. Control for the confounds: partial correlation (e.g. wind work controlling for heat flux), and
-   a lag scan finer than 6/24/72/168 h.
-4. Validate ERA5 against CE04OSSM (OOI Endurance surface mooring wave and wind) and NDBC 46050.
+1. Check why December flips: (a) are December MLDs deep enough to meet the bottom of the profile
+   range? (b) are the excluded "no MLD" and "unusable" labels unevenly distributed across months
+   (selection)? (c) does the pattern survive daily-mean MLD?
+2. Validate ERA5 against the Oregon Offshore surface mooring CE04OSSM (done below as data are
+   fetched: `seastate/compare_era5_mooring.py`); NDBC 46050 as a second check.
+3. Finish labeling 2024 for sb, oo, ab, then repeat for all months and the other two sites.
+4. Seasonal cycle: monthly-mean MLD vs monthly-mean forcing (heat flux, wind work, Hs).
 5. If this grows, split it into its own named project folder (idea: "mldforcing") out of this file.
 
 

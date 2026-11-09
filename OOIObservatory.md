@@ -179,8 +179,8 @@ system.
             - compilations: BCO DMO, GLODAP
 
 
-- `SensorInformation.md` is a supporting document relating native datafile structure to red zone format.
-- `ShallowProfiler.ipynb` is a supporting document in the same vein
+- A supporting document relating native datafile structure to red zone format was planned (`SensorInformation`) but never written.
+- A companion notebook in the same vein (`ShallowProfiler`) was also planned and never written.
 
 
 ## websites

@@ -31,9 +31,9 @@ Prerequisites (one-time):
     3. pip install cdsapi
 
 Usage:
-    python ~/argosy/era5/fetch_era5.py --dry-run
-    python ~/argosy/era5/fetch_era5.py --site oo --years 2024
-    python ~/argosy/era5/fetch_era5.py --site all
+    python ~/argosy/seastate/fetch_era5.py --dry-run
+    python ~/argosy/seastate/fetch_era5.py --site oo --years 2024
+    python ~/argosy/seastate/fetch_era5.py --site all
 
 Re-running skips site-years whose output already exists.
 """

@@ -56,7 +56,7 @@
 
 ## Data pipeline
 
-- Download: `chapters/DataDownload.ipynb`. URLs in `~/argosy/download_link_list.txt` (lines starting with `#` are ignored).
+- Download: `pipeline/download.py` (the old DataDownload notebook is retired). URLs in `~/argosy/download_link_list.txt` (lines starting with `#` are ignored).
 - Sharding: `chapters/DataSharding.ipynb`. Reads from `~/ooi/<site>/ooinet/...`, writes to `~/ooi/<site>/redux/<yyyy>/`.
 - Post-processing: `~/argosy/postprocess_special_profiles.py`. Reads redux, writes to `~/ooi/<site>/postproc/pp01/<yyyy>/` or `pp02/`.
 - Sensor exclusions: `~/argosy/sensor_exclusions.csv`. Manual QC embargo list (sensor, start, end, reason). Consumed by the curtain plot and the postprocess script. Add entries when fouling or anomalies are observed.
@@ -134,6 +134,31 @@ subfolder that begins:
 Append a bullet list of the source files (scripts that produce or consume the folder's
 contents, e.g. `VisQCInspector.py`) with one-line summaries of what each does. The goal is
 to make data folders (especially `metadata/` and its subfolders) somewhat self-documenting.
+
+### Status labels on every sub-project folder
+
+Every sub-project folder under `~/argosy` has a `README.md`. After the opening sentence, it carries
+a three-line bullet block that tools read (`tools/gen_manifest.py`):
+
+```
+- **Status:** active | paused | stub (reviewed <Mon YYYY>)
+- **Purpose:** one line, no pipes
+- **Next:** one line
+```
+
+- **active**: worked on in the last couple of months, or needed by the running pipeline.
+- **paused**: real work exists, deliberately on hold; `Next` says how to restart.
+- **stub**: begun but little real work, or superseded; a candidate to grow or to retire.
+
+Update the label and the review date whenever the folder's state changes. Adding a folder means adding
+it to `ORDER` in `tools/gen_manifest.py` (the logical order shown in `poster/agumemo.md` Part II).
+Retiring a folder means adding its name to `RETIRED_DIRS` in `tools/check_refs.py`.
+
+### Moving or renaming files
+
+Before moving anything, run `python tools/check_refs.py --impact NAME`; afterwards run
+`python tools/check_refs.py` and make sure no NEW dangling references appear. Update LIVE references;
+do not rewrite HISTORICAL files (`SessionState.md`, `DevelopmentLog.md` completed sections).
 
 ## Key rules
 

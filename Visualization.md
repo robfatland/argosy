@@ -145,7 +145,7 @@ chart at the lower right.
 The next feature to add will be annotation per profile from a source CSV file: In the
 form of either text or markers. The name of the annotation file will arbitrary so there 
 will be (at the bottom of the user interface) a blank field where the user will type a 
-filename such as `~/argosy/annotation.csv`. 
+filename such as `~/ooi/<site>/metadata/annotations/annotation.csv`. 
     
     
 Next to the filename field place a button labeled `Annotation Load`. When this is clicked

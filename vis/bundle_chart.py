@@ -1,4 +1,4 @@
-# _bundle_chart.py
+# bundle_chart.py
 # Bundle chart visualization — standalone development file.
 # Once validated, this becomes the bundle plot cell in Visualizations.ipynb.
 # Temporary file (per convention: _ prefix). Delete after injection into notebook.

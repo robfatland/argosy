@@ -1,12 +1,12 @@
 """
-inspect.py — visualize MLDNet predictions against profiles (and human labels).
+inspector.py — visualize MLDNet predictions against profiles (and human labels).
 
 For a given site/year, steps through profiles showing, per sensor: the filtered trace vs
 depth, the predicted heatmap (as a shaded band over depth), the picked MLD peak + its
 confidence, and — where a human label exists — the human MLD for comparison. Sibling to
 VisQCInspector / SignoffQC; the qualitative check you run before trusting the metrics.
 
-Run: python ~/argosy/mld/inspect.py --model <path.pt> --site sb --year 2024
+Run: python ~/argosy/mld/inspector.py --model <path.pt> --site sb --year 2024
 Needs a display (matplotlib TkAgg + python3-tk).
 """
 import argparse

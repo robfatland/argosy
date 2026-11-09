@@ -2,7 +2,7 @@
 # Analyzes temperature profiles from pp06 (2020-2025) to find the
 # actual min/max depth range of shard data.
 #
-# Run this as: %run /home/rob/argosy/sga/sga_depth_analysis.py
+# Run this as: %run ~/argosy/sga/sga_depth_analysis.py
 #
 # Output: Histograms of shallowest and deepest depth values per profile.
 # These inform the choice of depth grid for Module 2.

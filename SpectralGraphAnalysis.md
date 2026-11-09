@@ -146,7 +146,7 @@ Left off here.
 - User selects final k
 - Assign cluster labels
 
-**External script**: `%run /home/rob/argosy/_sga_module6.py`
+**External script**: `%run ~/argosy/sga/sga_module6.py`
 
 **Interpretation challenges** (from prior runs):
 - With multi-year data, the dominant signal is the seasonal cycle → k=2 wins

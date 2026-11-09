@@ -8,8 +8,8 @@ Three histograms with 2-minute bin widths, x-axis fixed 0-250 minutes:
   3. Total duration   (start -> end)
 
 Also writes:
-  ~/argosy/profiles_midnight.csv
-  ~/argosy/profiles_noon.csv
+  ~/ooi/<site>/metadata/profiles/ooi_rca_<site>_midnight_global_profile_indices.csv
+  ~/ooi/<site>/metadata/profiles/ooi_rca_<site>_noon_global_profile_indices.csv
 
 And prints a per-year summary table to stdout.
 """

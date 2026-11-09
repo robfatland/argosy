@@ -1,6 +1,10 @@
 This folder `~/argosy/poster/` contains files for the AGU poster (standalone artifact,
 intentionally NOT part of the Jupyter Book TOC).
 
+- **Status:** active (reviewed Nov 2026)
+- **Purpose:** AGU26 poster (HTML), its project handout and technical guide (agumemo.md), and logistics
+- **Next:** re-lay out to 42 x 42 in; build the four panel figures; Zenodo DOI and QR code
+
 - `AGUPoster.html` — the poster, authored in HTML/CSS with KaTeX for LaTeX math.
   48×36 in landscape; font sizes set for legibility at ~2 m. Currently a scaffold:
   stubbed title/authors/abstract and four figure placeholders (2×2 theme grid:

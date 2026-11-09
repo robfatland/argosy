@@ -1,5 +1,5 @@
 # Module 4: Build Depth-Time Similarity Graph
-# Run this as: %run /home/rob/argosy/sga/sga_module4.py
+# Run this as: %run ~/argosy/sga/sga_module4.py
 
 import numpy as np
 import pandas as pd

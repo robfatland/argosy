@@ -65,6 +65,14 @@ in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_
   `~/ooi/external/zenodo_nsfooi/`.
   Findings: MLD record's Zenodo "related identifiers" is empty (fix in v2); shelfbreak-jet README
   back-conversion factor looks wrong (4.10^10 vs expected 4x10^-2).
+- **Reorganization, Wave 0 (Nov 2026; plan in `BR.md` "Reorganization review")**: status labels
+  (active / paused / stub) now on every folder README; `NDBC/` retired; `tools/check_refs.py` and
+  `tools/gen_manifest.py` written, NOT YET RUN. `poster/agumemo.md` is now a printable handout
+  (project review + manifest in logical order + poster guide). NEXT: run `python tools/check_refs.py
+  --baseline` and `python tools/gen_manifest.py`, fix what they report, then Wave 1 (cheap moves).
+  Status labels I guessed (confirm): plume = active (confirmed), visqc = paused, reference = paused, sga = paused,
+  mld = paused, iw = paused, LegacyCode = paused. **a-gap note:** the three `mld_forcing_rolling_*.png`
+  charts still need a plain-language explanation (one explained, two not).
 - **Sharing labels**: `shared_labels/` + `sync_labels.py` (push/pull) documented in
   `DeveloperGuide.md` "Sharing small datasets"; first push to git done (commit 1b864c7). Zenodo
   science-label release deferred ~1 week until 2024 labeling for sb/oo/ab is complete; make it a

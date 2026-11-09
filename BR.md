@@ -102,6 +102,102 @@ Alphabetical by folder name
 - `cloud`: Cloud infrastructure around S3 object storage management
 - `images`: 
 
+## Reorganization review (Nov 2026) — PROPOSAL, nothing moved
+
+**Concept (Rob).** Keep the bicameral model: Phase 2 content is spread over sub-project folders plus
+`chapters/` (the Book's notebooks); Phase 1 is also spread over sub-project folders; a few tasks stay
+in the `~/argosy` root because they are hard to relocate. **Problem to solve:** the project has grown
+many sub-topics, markdown files, scripts and folders, and is daunting to take in. **Constraint:** do
+not break the internal network of references (potentially N**2).
+
+**Diagnosis.** Most of the pain is *orientation* (what is this, is it live), not *location*. So:
+map first, move only where a move removes real confusion at low cost.
+
+**Three kinds of reference** (this is what tames the N**2):
+
+- **A. Executable** (imports, `%run`, shell scripts, hard-coded paths): break at run time. Few; mechanically checkable.
+- **B. Live navigation** (current docs, `_toc.yml`, the file inventory, READMEs): break silently and erode trust. Must be updated on a move.
+- **C. Historical** (`SessionState.md`, `DevelopmentLog.md` "Completed" sections, change logs): describe the past; do NOT edit on a move (add a "paths as of date" note instead).
+
+**Blast radius** = live (A+B) files that mention the item, 2026-11-07 scan (C excluded; the item's own file excluded):
+
+| Cheap (<=4) | Medium (5-8) | Expensive (>=10) | Never move |
+|---|---|---|---|
+| sync_labels.py 3; SyntheticViewer 2; HAT_vs_science 2; ArchetypeValuePuller 3; MLDDataRelease.md 1; MLDModelReflection.md 2; SyntheticMLDPlan.md 4; gpi2fnm 2; profile_duration_histograms 3; TimeSeriesProfileCorrelation 4; TidalAnalysis.md 4; tidal_constituents.json 4; s3_public_read_policy.json 3; NDBC 2; shared_labels 4; cline_plot 3 | MLDTimeSeries.py 5; postprocess_special_profiles 5; postprocess_pp06_filter2 6; postprocess_pp05 8; postprocess_pp06 7; postprocess_pp06_filter3 7; InternalWaves.md 6; cline_extract 7; VisQCInspector 8; MLDObservations.md 7 | MLD.py 18; MLDAnnotationPlan.md 13; PreSelectProfiles.py 10; mld_candidates 10 | ooipaths.py 79; `_toc.yml`, `_config.yml`, `references.bib`; sensortable.csv; sensor_exclusions.csv (17); environment*.yml; download_link_list.txt; README/intro/ArgosyOverview |
+
+The former hand-maintained code manifest and `ArgosyOverview.md` appeared in nearly every list: they are hand-maintained
+inventories, so every move costs an edit there. Generating the inventory would remove that coupling.
+
+**Technical traps found**
+
+- The five `postprocess_*` scripts do `import ooipaths` with NO `sys.path` line (unlike the newer
+  scripts), and `pipeline/run_pipeline.sh` calls them as `python postprocess_pp05.py` from the repo root.
+  Moving them to `pipeline/` breaks both until a 2-line path fix and 8 shell edits are made, and the
+  failure would show up on an EC2 box hours into a run. Needs a small-slice dry run first.
+- `mld/` is a Python package (`from mld.mld_config import ...` in 9 files): do not rename or relocate it.
+- `chapters/SpectralGraphAnalysis.ipynb` hard-coded an absolute home path; fixed Nov 2026 (now `~/argosy/...`).
+- Half-executed earlier decision: open questions #1 and #5 above decided that `visqc/` houses
+  VisQCInspector + cline_extract + cline_plot, but they are still in `iw/` (dated 2026-09-07) and
+  `visqc/` holds only SignoffQC.py and shard_source.py.
+
+**Folder verdicts**
+
+| Folder | What it is | Status | Verdict |
+|---|---|---|---|
+| argo | SP vs Argo comparison code; data in `~/ooi/<site>/metadata/external/argo/` | new, active | keep; data stays in ~/ooi like all external data |
+| chapters | Book notebooks | active | keep |
+| cloud | (a) EC2 runner (CDK); (b) S3 public on/off and budget guard | active | keep; README covers only (a), add (b); move root `s3_public_read_policy.json` in (3 live refs) |
+| images | key figures for the repo/PDF | active | keep; add a README index |
+| iw | internal waves + cline family + VisQCInspector | on hold, to be revived | leave until revived; then settle the visqc split (decision #5 may be wrong: cline_extract feeds IW analysis) |
+| LegacyCode | one old script | dormant | keep |
+| mld | the CNN package | paused (awaiting new labels) | keep; add a README hub that lists the human-labeling suite at the root |
+| mld_candidates, shared_labels | data folders of the labeling suite | active | keep in place (code constants point at them) |
+| NDBC | one 2016 text file from buoy 46015; no code | STUB, superseded by `seastate` | retire (see below) |
+| pipeline | Phase 1 runner | active | receives pp scripts, gpi2fnm, profile_duration_histograms (Wave 2) |
+| plume | plume detection + satellite SST/SSS comparison | active | keep; the SST-vs-top-of-profile work already lives in `plume/ColumbiaPlumePlan.md`; nothing in the root belongs here |
+| poster | AGU poster + `agumemo.md` | active | keep |
+| reference | `bibliography.md`, `glossary.md` (not papers) | untouched since 2026-03-30; `glossary.md` not in `_toc.yml` | keep; decide the glossary; the live bibliography is root `references.bib` |
+| seastate | ERA5 + mooring + MLD forcing | active | keep |
+| sga | spectral graph analysis | paused | keep |
+| som | subsurface oxygen maximum | active | the model for a sub-project folder |
+| vis | scripts behind `chapters/Visualizations.ipynb` | active | keep; `mld_coverage.py` is MLD-specific and could move to `mld/` |
+| visqc | Phase 1 QC GUIs: SignoffQC.py (built; produced `scalar_signoff_sb_2024.csv`), shard_source.py (not yet wired) | paused | keep |
+
+**mld vs iw.** Related, not coupled: no code in one imports the other. `iw/cline_extract.py` computes its own
+algorithmic MLD (0.03 kg/m^3 from a 3 m reference band) for the cline features; `mld/` is human labels plus a CNN.
+The planned "cline curve" derived data type is where the human/CNN MLD would feed the IW chain.
+Record the link in both READMEs; keep the folders separate.
+
+**NDBC.** A stub: one hourly file for buoy 46015 (about 200 km south of Slope Base, status uncertain), no
+code, no analysis, last touched Mar 2026, mentioned only in `Umbrella.md` and `OOIObservatory.md`. The
+intent (buoy waves vs MLD) is now done better in `seastate` (ERA5, CE04OSSM, and NDBC 46050 as a check).
+
+**Wave 0 status (Nov 2026).** DONE: status labels defined (steering + `poster/agumemo.md`); READMEs
+written for sga, mld, LegacyCode, chapters, iw, visqc, vis, images, reference, som, tools; status blocks
+added to the eight existing folder READMEs; NDBC retired (data file moved to
+`~/ooi/sb/metadata/external/ndbc/`, summary in `seastate/README.md`); `tools/check_refs.py` and
+`tools/gen_manifest.py` written; manifest drafted in `poster/agumemo.md` Part II. PENDING (needs a run
+in the `argosy` env): `python tools/check_refs.py --baseline`, then `python tools/gen_manifest.py`
+(to confirm the manifest and READMEs agree). The hand-maintained code manifest was retired Nov 2026 in favor of the generated manifest.
+
+**Proposed waves** (each = one commit; the reference checker must report no new dangling references):
+
+- **Wave 0, no moves:** write `tools/check_refs.py` and record the baseline; add a README to every
+  folder lacking one (sga, mld, LegacyCode, chapters, iw, visqc, vis, images, NDBC, reference, som); add
+  a status label (active / paused / stub / done) to each README; generate the inventory instead of
+  hand-maintaining a manifest file (done: retired).
+- **Wave 1, cheap:** retire NDBC; `s3_public_read_policy.json` to `cloud/`; a `tides/` folder for
+  TidalAnalysis.md + TimeSeriesProfileCorrelation.py + tidal_constituents.json; delete
+  `delete_cover_redundant_files.sh` (a no-op), the temp scripts `_diag_synthetic.py` and
+  `_probe_shard_schema.py`.
+- **Wave 2, deliberate:** pp scripts, gpi2fnm, profile_duration_histograms to `pipeline/`, with the path
+  fix and a dry run of `run_pipeline.sh` on a one-year slice before any cloud run.
+- **Wave 3, later:** the iw/visqc split (after IW is revived); the MLD labeling suite (probably leave
+  `MLD.py`, `PreSelectProfiles.py`, `MLDTimeSeries.py` and `sync_labels.py` at the root, since collaborators
+  type those commands).
+
+---
+
 ## Descent-data recovery (design topic — applies the cloud-vs-laptop tenet)
 
 
@@ -199,7 +295,7 @@ pp07 is referenced as the deferred "human-corrected shards" output (VisQC.md, An
 - Is pp07 a full re-shard, or a filtered/annotated copy of pp06 (like filter2/filter3)? (Prior
   finding: filters read pp06, not redux — pp07 likely follows.)
 - Layout: `~/ooi/<site>/postproc/pp07/<yyyy>/` (consistent with pp06). Confirm.
-- Who writes it: the planned `VisQCCorrector.py` (Stage 2), consuming the visitation CSV +
+- Who writes it: the planned the VisQC corrector (Stage 2, planned), consuming the visitation CSV +
   cline_extract + pp06.
 
 

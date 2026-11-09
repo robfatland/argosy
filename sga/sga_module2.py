@@ -1,6 +1,6 @@
 # Module 2: Interpolate profiles to standard depth grid
 # Creates the feature matrix using global-index-based file lookup.
-# Run this as: %run /home/rob/argosy/sga/sga_module2.py
+# Run this as: %run ~/argosy/sga/sga_module2.py
 
 import sys
 import xarray as xr

@@ -1,6 +1,6 @@
 # Module 1: Load and prepare profile data for graph analysis
 # Scans pp06 shard files and creates a profile index keyed by global index.
-# Run this as: %run /home/rob/argosy/sga/sga_module1.py
+# Run this as: %run ~/argosy/sga/sga_module1.py
 
 import sys
 import numpy as np

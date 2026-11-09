@@ -2,6 +2,10 @@ This folder `~/argosy/cloud/` contains files for the **Create/Destroy EC2 pipeli
 a disposable on-demand EC2 instance that runs the Phase 1 pipeline (`pipeline/run_pipeline.sh`)
 and syncs results to S3, then is torn down. Infrastructure is defined with AWS CDK (Python).
 
+- **Status:** active (reviewed Nov 2026)
+- **Purpose:** disposable EC2 pipeline runner (CDK) and the S3 public-access and budget guard scripts
+- **Next:** add the S3 guard to this README; move s3_public_read_policy.json here
+
 - `app.py` — the CDK app + `ArgosyPipelineStack`: EC2 instance (1 TB gp3 root, deleted with
   the stack), IAM role (S3 access to `s3ooi` + SSM), security group (no inbound; SSM access), and
   user-data that installs miniconda, clones argosy, and creates the `argosy` conda env.

@@ -49,15 +49,12 @@ parts:
 
 - caption: Reference
   chapters:
-    - file: CodeManifest
     - file: OOINETSlopeBaseDataStatus
     - file: reference/bibliography
 
 - caption: Chapters (executable notebooks)
   chapters:
-    - file: chapters/DataDownload
     - file: chapters/DataSharding
     - file: chapters/MidnightNoon
     - file: chapters/Visualizations
     - file: chapters/SpectralGraphAnalysis
-    - file: chapters/StubWork

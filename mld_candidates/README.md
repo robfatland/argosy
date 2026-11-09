@@ -2,6 +2,10 @@ This folder `~/argosy/mld_candidates/` contains the **blessed, canonical candida
 lists** for the MLD annotation workflow — the shared source of truth that both annotators
 (Chuck, Rob) label against so they sample the *same* profiles.
 
+- **Status:** active (reviewed Nov 2026)
+- **Purpose:** candidate profile lists that feed the MLD annotator (MLD.py)
+- **Next:** none; regenerate with PreSelectProfiles.py if the sampling changes
+
 These are small, diff-friendly CSV manifests kept under version control (a deliberate exception
 to the "no data in `~/argosy`" rule, like `sensor_exclusions.csv`). Full design in
 `../MLDAnnotationPlan.md`.

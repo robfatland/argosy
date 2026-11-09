@@ -267,8 +267,8 @@ The lists of midnight and noon profiles are kept in these two CSV files:
 
 
 ```
-~/argosy/profiles_midnight.csv With columns index, start, peak, end
-~/argosy/profiles_noon.csv     Ditto
+~/ooi/<site>/metadata/profiles/ooi_rca_<site>_midnight_global_profile_indices.csv With columns index, start, peak, end
+~/ooi/<site>/metadata/profiles/ooi_rca_<site>_noon_global_profile_indices.csv     Ditto
 ```
 
 
@@ -318,7 +318,7 @@ This text may be somewhat redundant to what came above (to reconcile)
         - There follows some more detail on how this code will work
     - Source data folders have name format `~/ooi/sb/ooinet/scalar/<yyyy>_<instrum>`
         - <yyyy> runs from 2014 through 2026
-        - <instrum> designators are found in the **Sensor Table** (see `SensorReference.md`)
+        - <instrum> designators are found in the **Sensor Table** (see `SensorTable.md`)
         - The program should prompt for y/n for each year (folder) for which there is data 
             - This prompt defaults to `y`
     - Output files as developed earlier with these changes:
@@ -334,7 +334,7 @@ This text may be somewhat redundant to what came above (to reconcile)
     
 
 From a Jupyter cell Python script: Read the entries in the `~/argosy/source_<instrum>_filelist.txt` generated
-above. The instrument name <instrum> is from the `key` column of the **Sensor Table** (see `SensorReference.md`).
+above. The instrument name <instrum> is from the `key` column of the **Sensor Table** (see `SensorTable.md`).
 For each file listed we want to perform the following procedure: 
 
     

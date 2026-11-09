@@ -115,7 +115,7 @@ Using `--science` and a date range compiles MLD data separately from the trainin
 
 - Rob, 04-NOV-2026. sb GPI 18611 (15-OCT 2024): Salinity. 1.0 PSU salinity lens at 25m. 
 
-- Rob, 04-NOV-2026. sb GPI 18478+++18493+++ to 15-OCT (18610) and beyond, super stable: DO. Inversion directly below MLD at 19m, persists for a long time (inherited from September???) In fact this is the longest lasting inversion signal I've seen to date. It continues to varying strengths all the way to 18747, the last GPI of October.
+- Rob, 04-NOV-2026. sb GPI 18478+++18493+++ to 15-OCT (18610) and beyond, super stable: DO. Inversion directly below MLD at 19m, persists for a long time (inherited from September???) In fact this is the longest lasting inversion signal I've seen to date. It continues to varying strengths all the way to 18747, the last GPI of October. DO inversion is a topic that should be expanded across all years and all 3 sites.
 
 
 ## Good archetype profiles

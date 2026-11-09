@@ -33,8 +33,8 @@ Public API:
   daily(ds)                         -> xr.Dataset (daily means + a daily wind-work column)
 
 CLI (quick look):
-  python ~/argosy/era5/load_era5.py --site oo --year 2024
-  python ~/argosy/era5/load_era5.py --site oo --year 2024 --plot   # saves a PNG
+  python ~/argosy/seastate/load_era5.py --site oo --year 2024
+  python ~/argosy/seastate/load_era5.py --site oo --year 2024 --plot   # saves a PNG
 """
 import argparse
 import sys
