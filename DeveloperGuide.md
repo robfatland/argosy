@@ -72,7 +72,7 @@ the analysis of that data (Phase 2).
 - **Phase 2 — Analysis:** anomaly coincidence, residual climatology, spectral graph analysis,
   internal waves, Columbia plume (the plume study), and cross-comparison with satellite (CRW SST
   and SMAP SSS via NOAA CoastWatch ERDDAP; ocean color planned). Tasks 4–5. Docs: `Analysis.md`,
-  `SpectralGraphAnalysis.md`, `InternalWaves.md`, `plume/ColumbiaPlumePlan.md`, `TidalAnalysis.md`,
+  `SpectralGraphAnalysis.md`, `InternalWaves.md`, `plume/ColumbiaPlumePlan.md`, `tides/TidalAnalysis.md`,
   `CoincidencePlans.md`.
 
 Argosy starts with the Oregon Slope Base (`sb`) shallow profiler; a near-term goal is bringing

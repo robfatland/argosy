@@ -212,7 +212,7 @@ Workflow for adding new exclusions:
 Correcting profile data to align successive profiles in view of current pressure
 on the shallow profiler platform and tidal variation.
 
-See `TidalAnalysis.md` for the TPXO10 tidal prediction methodology and start-depth
+See `tides/TidalAnalysis.md` for the TPXO10 tidal prediction methodology and start-depth
 correlation results. Not yet implemented as a postprocessing correction.
 
 

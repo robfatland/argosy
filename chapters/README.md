@@ -12,7 +12,7 @@ Each mostly runs a script from another folder with `%run`:
 - `Visualizations.ipynb` -- bundle chart, curtain plot, bundle animation (scripts in `../vis/`). The main Phase 2 notebook.
 - `SpectralGraphAnalysis.ipynb` -- runs the modules in `../sga/`.
 - `InternalWaves.ipynb` -- a small notebook that runs `../iw/cline_plot.py`.
-- `TidalSignal.ipynb` -- tide against profiler start depth (`../TimeSeriesProfileCorrelation.py`).
+- `TidalSignal.ipynb` -- tide against profiler start depth (`../tides/TimeSeriesProfileCorrelation.py`).
 - `ColumbiaPlume.ipynb` -- runs the scripts in `../plume/`.
 - `MidnightNoon.ipynb` -- classifying midnight and noon profiles (pp01/pp02): Phase 1.
 - `DataSharding.ipynb` -- Phase 1, superseded by `../pipeline/shard.py`.

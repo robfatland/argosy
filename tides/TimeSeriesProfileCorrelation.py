@@ -6,7 +6,7 @@
 # profile N+1 with profile N. This reveals tidal and current-driven platform
 # displacement over time.
 #
-# Run this as: %run ~/argosy/TimeSeriesProfileCorrelation.py
+# Run this as: %run ~/argosy/tides/TimeSeriesProfileCorrelation.py
 #
 # Output: A chart with:
 #   - Red: temperature inter-profile vertical offset (relative to mean)
@@ -304,7 +304,7 @@ ax = axes[3]
 import json
 from datetime import timezone
 
-json_path = Path("~/argosy/tidal_constituents.json").expanduser()
+json_path = Path(__file__).resolve().parent / "tidal_constituents.json"
 with open(json_path) as f:
     tidal_data = json.load(f)
 

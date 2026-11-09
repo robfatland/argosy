@@ -128,7 +128,7 @@ world, share it. Each folder's own `README.md` has the file list and the next st
 | `gpi2fnm.py`, `profile_duration_histograms.py` | Phase 1 helpers | planned move to `pipeline/` |
 | `MLD.py`, `PreSelectProfiles.py`, `MLDTimeSeries.py`, `sync_labels.py` | the MLD labeling suite | stay at the root; collaborators type these commands |
 | `SyntheticViewer.py`, `ArchetypeValuePuller.py`, `HAT_vs_science_*.py` | MLD helpers | described in `mld/README.md` |
-| `TimeSeriesProfileCorrelation.py`, `tidal_constituents.json`, `TidalAnalysis.md` | tide work | candidate for a `tides/` folder |
+| `tides/` | tide work: `TimeSeriesProfileCorrelation.py`, `tidal_constituents.json`, `TidalAnalysis.md` | moved Nov 2026 (Wave 1) |
 | `sensortable.csv`, `sensor_exclusions.csv`, `download_link_list.txt` | small hand-kept metadata | stay at the root |
 | `_toc.yml`, `_config.yml`, `intro.md`, `references.bib`, `README.md` | Jupyter Book machinery and front door | stay at the root |
 | `environment.yml`, `environment-mld.yml` | conda environments (full snapshot; portable MLD subset) | stay at the root |
@@ -137,7 +137,7 @@ world, share it. Each folder's own `README.md` has the file list and the next st
 
 - *Orientation:* `ArgosyOverview.md` (start here), `OOIObservatory.md`, `SensorTable.md`, `SETUP.md`, `DeveloperGuide.md`.
 - *Phase 1:* `Sharding.md`, `PostProcessing.md`, `PP05_QCAnalysis.md`, `PP06_Filters.md`, `DescentData.md`, `DataOps.md`, `VectorData.md`.
-- *Phase 2:* `Analysis.md`, `Visualization.md`, `InternalWaves.md`, `TidalAnalysis.md`, `SpectralGraphAnalysis.md`, `CoincidencePlans.md`, `Umbrella.md`, `Testing.md`.
+- *Phase 2:* `Analysis.md`, `Visualization.md`, `InternalWaves.md`, `tides/TidalAnalysis.md`, `SpectralGraphAnalysis.md`, `CoincidencePlans.md`, `Umbrella.md`, `Testing.md`.
 - *Mixed layer depth:* `MLDAnnotationPlan.md`, `MLDObservations.md`, `MLDDataRelease.md`, `MLDModelReflection.md`, `SyntheticMLDPlan.md`.
 - *Strategy and outreach:* `PathCuration.md`, `MakingOOIAIReady.md`, `IONReview.md`, `OOIUsability.md`, `SeekingResearch.md`, `Publishing.md`, `WorkingWithAgenticAI.md`.
 - *Working logs:* `BR.md` (design and reorganization), `DevelopmentLog.md`, `SessionState.md`.

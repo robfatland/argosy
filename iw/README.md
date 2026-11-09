@@ -19,6 +19,6 @@ visual-QC tools that grew up alongside it.
 
 ## Related
 
-- Docs: `../InternalWaves.md` (method), `../VisQC.md`, `../TidalAnalysis.md`, `../Testing.md`, `../BR.md`.
+- Docs: `../InternalWaves.md` (method), `../VisQC.md`, `../tides/TidalAnalysis.md`, `../Testing.md`, `../BR.md`.
 - MLD link: `mld/` (human labels and CNN) shares no code with this folder. The planned "cline curve"
   derived data type is where a human or CNN MLD would feed this analysis.

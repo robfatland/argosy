@@ -98,7 +98,7 @@ and Working docs (repo-only, not in the published book).
 - `Analysis.md` — Derived oceanographic parameters, exploration ideas, SGA methodology
 - `SpectralGraphAnalysis.md` — Module-by-module guide for the SGA notebook
 - `InternalWaves.md` — Internal wave analysis: terminology, physics, plan
-- `TidalAnalysis.md` — Tidal prediction (TPXO10), start-depth correlation, blowdown events
+- `tides/TidalAnalysis.md` — Tidal prediction (TPXO10), start-depth correlation, blowdown events
 - `plume/ColumbiaPlumePlan.md` — the plume study: Columbia River plume detection plan, status, and satellite (CRW SST / SMAP SSS) cross-comparison
 - `Umbrella.md` — Expansion beyond the shallow profiler: other data resources
 
@@ -236,7 +236,7 @@ pandoc \
   PP05_QCAnalysis.md \
   PP06_Filters.md \
   SpectralGraphAnalysis.md \
-  TidalAnalysis.md \
+  tides/TidalAnalysis.md \
   InternalWaves.md \
   CoincidencePlans.md \
   VectorData.md \

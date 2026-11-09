@@ -43,7 +43,7 @@ parts:
     - file: Analysis
     - file: SpectralGraphAnalysis
     - file: InternalWaves
-    - file: TidalAnalysis
+    - file: tides/TidalAnalysis
     - file: plume/ColumbiaPlumePlan
     - file: Umbrella
 
