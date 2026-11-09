@@ -188,8 +188,8 @@ in the `argosy` env): `python tools/check_refs.py --baseline`, then `python tool
   hand-maintaining a manifest file (done: retired).
 - **Wave 1, cheap:** retire NDBC; `s3_public_read_policy.json` to `cloud/`; a `tides/` folder for
   TidalAnalysis.md + TimeSeriesProfileCorrelation.py + tidal_constituents.json; delete
-  `delete_cover_redundant_files.sh` (a no-op), the temp scripts `_diag_synthetic.py` and
-  `_probe_shard_schema.py`.
+  `delete_cover_redundant_files` (a no-op shell script), the temp scripts `_diag_synthetic` and
+  `_probe_shard_schema` (done in Wave 1).
 - **Wave 2, deliberate:** pp scripts, gpi2fnm, profile_duration_histograms to `pipeline/`, with the path
   fix and a dry run of `run_pipeline.sh` on a one-year slice before any cloud run.
 - **Wave 3, later:** the iw/visqc split (after IW is revived); the MLD labeling suite (probably leave
@@ -396,7 +396,7 @@ reference in .py/.md/.ipynb/.yml/.sh.
 - `vbeamatten.csv`, `vcurrent.csv`, `vopticalabsorb.csv`, `vspectralirr.csv` — vector-sensor
   channel CSVs anticipating a future vector-data download; not needed now. NOTE: three of these
   (vcurrent, vspectralirr, vopticalabsorb) are still referenced by `SensorTable.md` and
-  `CodeManifest.md` → those docs need reconciliation (BR follow-up). `vbeamatten.csv` was
+  the former code manifest → those docs need reconciliation (BR follow-up). `vbeamatten.csv` was
   already unreferenced. `SensorTable.md` also references a `vspectrophot.csv` that never existed.
 
 **Also noticed (not deleted — clutter, gitignored `_*.py`):**
@@ -405,7 +405,7 @@ reference in .py/.md/.ipynb/.yml/.sh.
 
 **BR follow-up: DONE (2026-09-07).** Reconciled the vector-CSV references after the vXXXX.csv
 deletions: `SensorTable.md` (companion-files line reworded to "deferred until vector download";
-phantom `vspectrophot.csv` mention dropped), `CodeManifest.md` (four v*.csv rows removed), and
+phantom `vspectrophot.csv` mention dropped), the former code manifest (four v*.csv rows removed), and
 the `argosy-conventions.md` steering (vector-channel line reworded). No dangling references remain.
 
 

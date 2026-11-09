@@ -5,3 +5,6 @@
 ^DEPLOY\.md$
 ^datasets\.md$
 ^llms\.txt$
+# Retired files named on purpose (recovery commands and retirement notes).
+^chapters/DataDownload\.ipynb$
+^tidal_extract\.py$

@@ -170,7 +170,9 @@ def extract(rel, text):
         if t and not re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", t) and "{" not in t:
             toks.append(("link", t))
     for m in RUN_RE.finditer(text):
-        toks.append(("run", m.group(1)))
+        tgt = m.group(1).rstrip("`.,;:)")      # prose punctuation is not part of the path
+        if tgt and "..." not in tgt:
+            toks.append(("run", tgt))
     for m in DIR_RE.finditer(text):
         toks.append(("dir", m.group(1)))
     return toks
