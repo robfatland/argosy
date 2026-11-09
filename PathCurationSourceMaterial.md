@@ -123,7 +123,7 @@ Each variable already carries the attributes CF cares about most:
 ### Effort estimate
 
 The transformation is per-file, deterministic, and vectorizable — the same shape as
-`postprocess_pp06_filter3.py` (open, tweak attrs, write temp, replace). Attribute surgery, not
+`pipeline/postprocess_pp06_filter3.py` (open, tweak attrs, write temp, replace). Attribute surgery, not
 data surgery.
 
 - **Core script (items 1–3): ~half a day.** A `postprocess_pp06_cfify.py` that walks the pp06 tree,

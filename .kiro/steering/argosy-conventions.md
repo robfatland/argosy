@@ -58,7 +58,7 @@
 
 - Download: `pipeline/download.py` (the old DataDownload notebook is retired). URLs in `~/argosy/download_link_list.txt` (lines starting with `#` are ignored).
 - Sharding: `chapters/DataSharding.ipynb`. Reads from `~/ooi/<site>/ooinet/...`, writes to `~/ooi/<site>/redux/<yyyy>/`.
-- Post-processing: `~/argosy/postprocess_special_profiles.py`. Reads redux, writes to `~/ooi/<site>/postproc/pp01/<yyyy>/` or `pp02/`.
+- Post-processing: `~/argosy/pipeline/postprocess_special_profiles.py`. Reads redux, writes to `~/ooi/<site>/postproc/pp01/<yyyy>/` or `pp02/`.
 - Sensor exclusions: `~/argosy/sensor_exclusions.csv`. Manual QC embargo list (sensor, start, end, reason). Consumed by the curtain plot and the postprocess script. Add entries when fouling or anomalies are observed.
 - Profile metadata: `~/ooi/<site>/profileIndices/` (from GitHub clone; designator-keyed CSVs placed per site — an explicit ingest step). Derived metadata goes to `~/ooi/<site>/metadata/`.
 - Visualizations saved to disk go to `~/ooi/<site>/visualizations/`. Copies for the repo go to `~/argosy/images/`.

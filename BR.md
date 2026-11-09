@@ -131,9 +131,9 @@ inventories, so every move costs an edit there. Generating the inventory would r
 **Technical traps found**
 
 - The five `postprocess_*` scripts do `import ooipaths` with NO `sys.path` line (unlike the newer
-  scripts), and `pipeline/run_pipeline.sh` calls them as `python postprocess_pp05.py` from the repo root.
-  Moving them to `pipeline/` breaks both until a 2-line path fix and 8 shell edits are made, and the
-  failure would show up on an EC2 box hours into a run. Needs a small-slice dry run first.
+  scripts), and `pipeline/run_pipeline.sh` called them as `python postprocess_pp05` from the repo root.
+  Moving them to `pipeline/` (done in Wave 2, Nov 2026) needed a 2-line path fix and 8 shell edits, and a
+  wrong path would show up on an EC2 box hours into a run, hence a small-slice dry run first.
 - `mld/` is a Python package (`from mld.mld_config import ...` in 9 files): do not rename or relocate it.
 - `chapters/SpectralGraphAnalysis.ipynb` hard-coded an absolute home path; fixed Nov 2026 (now `~/argosy/...`).
 - Half-executed earlier decision: open questions #1 and #5 above decided that `visqc/` houses

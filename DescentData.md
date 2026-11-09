@@ -21,7 +21,7 @@ water — this is why ascent is the primary, higher-precision dataset. **Descent
 It is still useful: descent gives at least a *qualitative* sense of water-column **stability** and
 the **rate of distortion** of structure between the ascent and the return. Because ascent and
 descent of one profile are separated in time (minutes to tens of minutes — see the descent-duration
-histogram in `profile_duration_histograms.py`), overlaying them shows two *different times*, and
+histogram in `pipeline/profile_duration_histograms.py`), overlaying them shows two *different times*, and
 the difference between them is exactly the stability/distortion signal of interest.
 
 Primary consumer: a **"Descent" overlay button** in the MLD annotator (`MLD.py`) that plots the

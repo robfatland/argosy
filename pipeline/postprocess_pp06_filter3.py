@@ -1,5 +1,5 @@
 """
-postprocess_pp06_filter3.py — Despike optical backscatter profiles in pp06
+pipeline/postprocess_pp06_filter3.py — Despike optical backscatter profiles in pp06
 using the rolling-minimum baseline method of Briggs et al. (2011).
 
 Filter 3: Backscatter despiking via rolling-minimum baseline extraction.
@@ -39,7 +39,7 @@ Rationale for parameters:
 
 Usage:
     source ~/miniconda3/etc/profile.d/conda.sh && conda activate argo-env2
-    python postprocess_pp06_filter3.py [--dry-run]
+    python pipeline/postprocess_pp06_filter3.py [--dry-run]
 
 Operates in-place on pp06 backscatter shard files.
 """
@@ -53,6 +53,9 @@ import numpy as np
 import xarray as xr
 from scipy.ndimage import minimum_filter1d
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))  # repo root, so `import ooipaths` works from pipeline/
 import ooipaths as op
 
 # == Configuration =============================================================
@@ -79,7 +82,7 @@ def main():
 
     if not PP06_BASE.exists():
         print(f"ERROR: pp06 directory not found at {PP06_BASE}")
-        print("Run postprocess_pp06.py first.")
+        print("Run pipeline/postprocess_pp06.py first.")
         sys.exit(1)
 
     print(f"Filter 3: Backscatter despiking — rolling minimum baseline")

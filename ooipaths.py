@@ -40,14 +40,14 @@ SITES = ("sb", "oo", "ab")
 
 # Default site for scripts that do `SITE = op.DEFAULT_SITE`. Overridable via the
 # ARGOSY_SITE environment variable so the whole pipeline can be pointed at another
-# site (e.g. `ARGOSY_SITE=oo python postprocess_pp05.py`) without editing code.
+# site (e.g. `ARGOSY_SITE=oo python pipeline/postprocess_pp05.py`) without editing code.
 DEFAULT_SITE = os.environ.get("ARGOSY_SITE", "sb")
 if DEFAULT_SITE not in SITES:
     raise ValueError(f"ARGOSY_SITE={DEFAULT_SITE!r} not in {SITES}")
 
 # Default profile direction for scripts that build module-level paths at import
 # (pp05/pp06). Overridable via ARGOSY_DIRECTION so the whole pp chain can target the
-# descent tree (e.g. `ARGOSY_DIRECTION=descent python postprocess_pp05.py`) without
+# descent tree (e.g. `ARGOSY_DIRECTION=descent python pipeline/postprocess_pp05.py`) without
 # code edits — parallel to ARGOSY_SITE. Validated after DIRECTIONS is defined below.
 
 # site code -> (human name, OOI designator, shallow-profiler node, array)

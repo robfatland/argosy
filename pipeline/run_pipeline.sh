@@ -101,10 +101,10 @@ run_pp() {
     # set it explicitly. Simplest robust approach: run in a subshell exporting the site
     # the scripts honor. (postprocess_*.py currently read SITE = op.DEFAULT_SITE at import;
     # for multi-site they should accept --site or read $ARGOSY_SITE — a small TODO.)
-    ARGOSY_SITE="$SITE" python postprocess_pp05.py 2>&1 | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" python postprocess_pp06.py 2>&1 | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" python postprocess_pp06_filter2.py 2>&1 | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" python postprocess_pp06_filter3.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" python pipeline/postprocess_pp05.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" python pipeline/postprocess_pp06.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" python pipeline/postprocess_pp06_filter2.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" python pipeline/postprocess_pp06_filter3.py 2>&1 | tee -a "$LOG"
 }
 
 run_sync() {
@@ -129,10 +129,10 @@ run_descent() {
     python pipeline/shard.py --site "$SITE" --direction descent 2>&1 | tee -a "$LOG"
 
     echo "--- descent: pp05 -> pp06 (pp06_descent, same filters) (site=$SITE) ---" | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp05.py 2>&1 | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp06.py 2>&1 | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp06_filter2.py 2>&1 | tee -a "$LOG"
-    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python postprocess_pp06_filter3.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python pipeline/postprocess_pp05.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python pipeline/postprocess_pp06.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python pipeline/postprocess_pp06_filter2.py 2>&1 | tee -a "$LOG"
+    ARGOSY_SITE="$SITE" ARGOSY_DIRECTION=descent python pipeline/postprocess_pp06_filter3.py 2>&1 | tee -a "$LOG"
 
     echo "--- descent: sync redux_descent + pp06_descent to S3 (site=$SITE) ---" | tee -a "$LOG"
     aws s3 sync "$HOME/ooi/$SITE/redux_descent/"        "s3://s3ooi/$SITE/redux_descent/"        2>&1 | tee -a "$LOG"

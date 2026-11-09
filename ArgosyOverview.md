@@ -49,7 +49,7 @@ kept in the `operational-recipes` steering file, not here.
 - **Building PDFs**: See the "Building the PDF" section below in this file. Per-file PDF and book publish commands are in the `operational-recipes` steering file.
 - **Data file paths**: Always obtain via `ooipaths.py` (`import ooipaths as op`; `op.redux_dir(year, site)`, `op.postproc_dir(pp, year, site)`, etc.). Per-site layout `~/ooi/<site>/...`; never hardcode. See `PostProcessing.md` → "Recap of the data filesystem logic".
 - **S3 backup (syncing ooinet)**: See `DataOps.md` → "S3 sync: data to AWS object storage"
-- **Generating pp05 manifest**: `python postprocess_pp05.py` — see `PP05_QCAnalysis.md`
+- **Generating pp05 manifest**: `python pipeline/postprocess_pp05.py` — see `PP05_QCAnalysis.md`
 - **Adding sensor exclusions**: Edit `~/argosy/sensor_exclusions.csv` — see `PostProcessing.md` → "Sensor exclusions"
 - **Localhost disk management**: WSL vhdx compaction, free space checks — see `DataOps.md` → "Localhost Data Management"
 - **Running curtain plots**: `chapters/Visualizations.ipynb` curtain plot cell — see `Visualization.md`

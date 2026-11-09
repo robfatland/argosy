@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-gpi2fnm.py — resolve a Global Profile Index (GPI) to profile metadata and the
+pipeline/gpi2fnm.py — resolve a Global Profile Index (GPI) to profile metadata and the
 pp06 shard filenames for every sensor we currently have.
 
 A GPI identifies one shallow-profiler profile at a site. Given the GPI (and the
@@ -18,10 +18,10 @@ reused elsewhere:
     info["filenames"]["temperature"]   # -> 'RCA_sb_sp_temperature_...nc'
 
 CLI:
-    python gpi2fnm.py --gpi 2047                 # Slope Base (default)
-    python gpi2fnm.py --gpi 16509 --location ab  # Axial Base
-    python gpi2fnm.py --gpi 2047 --json          # machine-readable
-    python gpi2fnm.py --gpi 2047 --paths         # full pp06 paths, existing files only
+    python pipeline/gpi2fnm.py --gpi 2047                 # Slope Base (default)
+    python pipeline/gpi2fnm.py --gpi 16509 --location ab  # Axial Base
+    python pipeline/gpi2fnm.py --gpi 2047 --json          # machine-readable
+    python pipeline/gpi2fnm.py --gpi 2047 --paths         # full pp06 paths, existing files only
 
 Site codes: sb (Slope Base, default), oo (Oregon Offshore), ab (Axial Base).
 """
@@ -34,7 +34,7 @@ from pathlib import Path
 
 import pandas as pd
 
-sys.path.insert(0, str(Path("~/argosy").expanduser()))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import ooipaths as op
 
 # Sensors currently in the pp06 inventory. oo has no pco2; absent sensors simply

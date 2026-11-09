@@ -6,7 +6,7 @@ machinery that invokes it.
 
 - **Status:** active (reviewed Nov 2026)
 - **Purpose:** Phase 1 pipeline: download, shard, post-process to pp06, sync to S3
-- **Next:** move the postprocess_* scripts here after a one-year dry run (BR.md Wave 2); replace manual OOINET ordering with the OOI M2M API
+- **Next:** dry-run the moved postprocess_* scripts on a one-year slice; replace manual OOINET ordering with the OOI M2M API
 
 - `download.py` — OOINET acquisition. Extracted from the retired DataDownload notebook so the
   notebook and the EC2 job call the same code (no duplication). Functions: `estimate_download_volume()`,
@@ -24,13 +24,10 @@ machinery that invokes it.
 
 ## Related code still at the repo root (not yet moved here)
 
-Post-processing is `ooipaths`-based and site-parameterized; `run_pipeline.sh` calls it in place:
+Post-processing is `ooipaths`-based and site-parameterized; `run_pipeline.sh` calls these scripts (moved here in Wave 2, Nov 2026):
 - `postprocess_pp05.py`, `postprocess_pp06.py`, `postprocess_pp06_filter2.py`,
   `postprocess_pp06_filter3.py`, `postprocess_special_profiles.py`.
-Consolidating these under `pipeline/` is a possible future tidy-up (not done to avoid churn).
-
-`run_pipeline.sh` calls these in place. Consolidating them under `pipeline/` is a possible
-future tidy-up; not done now to avoid churn.
+`gpi2fnm.py` and `profile_duration_histograms.py` (Phase 1 helpers) moved here at the same time. Each script puts the repo root on `sys.path` itself, so `import ooipaths` works from this folder.
 
 ## Design notes
 

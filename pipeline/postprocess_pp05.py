@@ -7,7 +7,7 @@ redux shard files pass QC. Analysis code reads the manifest and accesses
 files directly from redux.
 
 Usage:
-    python postprocess_pp05.py
+    python pipeline/postprocess_pp05.py
 
 Output:
     ~/ooi/<site>/metadata/qc/pp05_manifest.csv
@@ -25,6 +25,9 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))  # repo root, so `import ooipaths` works from pipeline/
 import ooipaths as op
 
 

@@ -13,7 +13,7 @@ PDF, standalone widgets) see the `operational-recipes` steering file.
 
 ## gpi2fnm
 
-`~/argosy/gpi2fnm.py` resolves a **Global Profile Index (GPI)** to that profile's metadata
+`~/argosy/pipeline/gpi2fnm.py` resolves a **Global Profile Index (GPI)** to that profile's metadata
 and the pp06 shard filename for every sensor. A GPI names one shallow-profiler profile at a
 site; each profile has one shard per sensor, so the tool returns all of them.
 
@@ -22,10 +22,10 @@ Run it in the `argosy` conda env:
 ```bash
 source ~/miniconda3/etc/profile.d/conda.sh && conda activate argosy
 
-python ~/argosy/gpi2fnm.py --gpi 2047                 # Slope Base (sb) is the default
-python ~/argosy/gpi2fnm.py --gpi 16509 --location ab  # Axial Base; or --location oo
-python ~/argosy/gpi2fnm.py --gpi 2047 --json          # machine-readable JSON
-python ~/argosy/gpi2fnm.py --gpi 2047 --paths         # also list pp06 files present on disk
+python ~/argosy/pipeline/gpi2fnm.py --gpi 2047                 # Slope Base (sb) is the default
+python ~/argosy/pipeline/gpi2fnm.py --gpi 16509 --location ab  # Axial Base; or --location oo
+python ~/argosy/pipeline/gpi2fnm.py --gpi 2047 --json          # machine-readable JSON
+python ~/argosy/pipeline/gpi2fnm.py --gpi 2047 --paths         # also list pp06 files present on disk
 ```
 
 `--location` (alias `--site`) takes `sb` (default), `oo`, or `ab`. Example output:
@@ -50,7 +50,7 @@ profile may have no nitrate/pH/pCO2 shard).
 rather than shelling out:
 
 ```python
-from gpi2fnm import resolve_gpi           # run from ~/argosy, or add it to sys.path
+from gpi2fnm import resolve_gpi           # first add ~/argosy/pipeline to sys.path
 info = resolve_gpi(2047, site="sb")
 info["date"]                              # '2015-...'
 info["daily_index"]                       # 1..9

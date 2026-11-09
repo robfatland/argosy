@@ -18,7 +18,7 @@ import re
 from pathlib import Path
 
 # Repo root importable so `import ooipaths` works under %run or headless.
-sys.path.insert(0, str(Path("~/argosy").expanduser()))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import ooipaths as op
 
 # Optional deps (only needed for actual downloads, not for imports/tests).

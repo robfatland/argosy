@@ -124,8 +124,8 @@ world, share it. Each folder's own `README.md` has the file list and the next st
 | Item | Role | Note |
 |---|---|---|
 | `ooipaths.py` | the one authority for data paths | imported by almost every script; never moves |
-| the `postprocess_*` scripts (pp05, pp06, pp06_filter2, pp06_filter3, special_profiles) | Phase 1 post-processing | planned move to `pipeline/` after a dry run |
-| `gpi2fnm.py`, `profile_duration_histograms.py` | Phase 1 helpers | planned move to `pipeline/` |
+| the `postprocess_*` scripts (pp05, pp06, pp06_filter2, pp06_filter3, special_profiles) | Phase 1 post-processing | moved to `pipeline/` (Wave 2); dry run pending |
+| `gpi2fnm.py`, `profile_duration_histograms.py` | Phase 1 helpers | moved to `pipeline/` (Wave 2) |
 | `MLD.py`, `PreSelectProfiles.py`, `MLDTimeSeries.py`, `sync_labels.py` | the MLD labeling suite | stay at the root; collaborators type these commands |
 | `SyntheticViewer.py`, `ArchetypeValuePuller.py`, `HAT_vs_science_*.py` | MLD helpers | described in `mld/README.md` |
 | `tides/` | tide work: `TimeSeriesProfileCorrelation.py`, `tidal_constituents.json`, `TidalAnalysis.md` | moved Nov 2026 (Wave 1) |

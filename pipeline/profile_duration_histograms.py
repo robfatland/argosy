@@ -25,7 +25,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 # Make the repo root importable so `import ooipaths` works under %run.
-sys.path.insert(0, str(Path("~/argosy").expanduser()))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import ooipaths as op
 SITE = op.DEFAULT_SITE
 

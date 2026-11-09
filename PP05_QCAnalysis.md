@@ -102,9 +102,9 @@ This is simpler than tracking seasonal sunrise/sunset times.
 
 ## Implementation
 
-Script: `~/argosy/postprocess_pp05.py`
+Script: `~/argosy/pipeline/postprocess_pp05.py`
 
-Usage: `python postprocess_pp05.py`
+Usage: `python pipeline/postprocess_pp05.py`
 
 Design: **Manifest-based** — instead of copying shard files (which would duplicate
 ~50+ GB of data), the script produces a CSV manifest listing which redux files

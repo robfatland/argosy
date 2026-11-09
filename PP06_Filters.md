@@ -14,10 +14,10 @@ backscatter, PAR.
 
 | Filter | Purpose | Sensors | Script |
 |--------|---------|---------|--------|
-| 0 | Baseline copy from the pp05 manifest | all 8 HSD | `postprocess_pp06.py` |
-| 1 | Suppress conductivity erratics (MRA walk) | salinity, density | `postprocess_pp06.py` |
-| 2 | Savitzky-Golay smoothing (quantization noise) | cdom, chlorA | `postprocess_pp06_filter2.py` |
-| 3 | Rolling-minimum despike (Briggs et al. 2011) | backscatter | `postprocess_pp06_filter3.py` |
+| 0 | Baseline copy from the pp05 manifest | all 8 HSD | `pipeline/postprocess_pp06.py` |
+| 1 | Suppress conductivity erratics (MRA walk) | salinity, density | `pipeline/postprocess_pp06.py` |
+| 2 | Savitzky-Golay smoothing (quantization noise) | cdom, chlorA | `pipeline/postprocess_pp06_filter2.py` |
+| 3 | Rolling-minimum despike (Briggs et al. 2011) | backscatter | `pipeline/postprocess_pp06_filter3.py` |
 
 
 ## Filter 0: Baseline (manifest → pp06)

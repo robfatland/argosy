@@ -1,5 +1,5 @@
 """
-postprocess_pp06.py — Build the pp06 physical dataset from pp05-qualified shards.
+pipeline/postprocess_pp06.py — Build the pp06 physical dataset from pp05-qualified shards.
 
 pp06 is a physical copy of redux shard files that pass the pp05 QC manifest,
 restricted to the 8 HSD (High Sample Density) scalar sensors.
@@ -16,7 +16,7 @@ Filter 1: MRA walk on salinity; removes erratic samples from salinity AND densit
 
 Usage:
     source ~/miniconda3/etc/profile.d/conda.sh && conda activate argo-env2
-    python postprocess_pp06.py [--dry-run]
+    python pipeline/postprocess_pp06.py [--dry-run]
 
 Output:
     ~/ooi/postproc/pp06/redux{yyyy}/<shard_files>.nc
@@ -33,6 +33,9 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))  # repo root, so `import ooipaths` works from pipeline/
 import ooipaths as op
 
 # == Configuration =============================================================

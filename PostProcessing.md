@@ -110,11 +110,11 @@ usable data.
 ### Implementation
 
 
-Single script: `~/argosy/postprocess_special_profiles.py`
+Single script: `~/argosy/pipeline/postprocess_special_profiles.py`
 
 ```
-python postprocess_special_profiles.py noon      # writes to pp01
-python postprocess_special_profiles.py midnight  # writes to pp02
+python pipeline/postprocess_special_profiles.py noon      # writes to pp01
+python pipeline/postprocess_special_profiles.py midnight  # writes to pp02
 ```
 
 The script:
@@ -175,13 +175,13 @@ The core sequence, in brief (each stage has a dedicated deep-dive doc):
 
 - **`pp05`** is a *virtual* dataset — a CSV manifest (`~/ooi/<site>/metadata/qc/pp05_manifest.csv`)
   listing which redux shards are "good to keep." It applies manual time-window exclusions plus a
-  per-profile gross-range filter, with distinct HSD vs LSD rules. Script: `postprocess_pp05.py`.
+  per-profile gross-range filter, with distinct HSD vs LSD rules. Script: `pipeline/postprocess_pp05.py`.
   **Full methodology (three-tier exclusion strategy, suspect ranges, manifest design):
   see `PP05_QCAnalysis.md`.**
 - **`pp06`** is an *actual* (physical) dataset — a QC-filtered copy of the pp05-qualified HSD
   shards, with sample-level despiking/smoothing filters applied. Output:
-  `~/ooi/<site>/postproc/pp06/<yyyy>/`. Scripts: `postprocess_pp06.py` (Filter 0 + 1),
-  `postprocess_pp06_filter2.py` (Filter 2), `postprocess_pp06_filter3.py` (Filter 3).
+  `~/ooi/<site>/postproc/pp06/<yyyy>/`. Scripts: `pipeline/postprocess_pp06.py` (Filter 0 + 1),
+  `pipeline/postprocess_pp06_filter2.py` (Filter 2), `pipeline/postprocess_pp06_filter3.py` (Filter 3).
   **Full per-filter reference (Filter 0 baseline, Filter 1 salinity/density MRA despike,
   Filter 2 Savitzky-Golay CDOM/ChlorA smoothing, Filter 3 backscatter rolling-min despike,
   with references and erratic examples): see `PP06_Filters.md`.**

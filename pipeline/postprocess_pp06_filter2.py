@@ -1,5 +1,5 @@
 """
-postprocess_pp06_filter2.py — Apply Savitzky-Golay smoothing to CDOM, ChlorA,
+pipeline/postprocess_pp06_filter2.py — Apply Savitzky-Golay smoothing to CDOM, ChlorA,
 and Backscatter profiles in the pp06 dataset.
 
 Filter 2: Savitzky-Golay smoothing for quantization noise reduction.
@@ -34,10 +34,10 @@ filter.
 
 Usage:
     source ~/miniconda3/etc/profile.d/conda.sh && conda activate argo-env2
-    python postprocess_pp06_filter2.py [--dry-run]
+    python pipeline/postprocess_pp06_filter2.py [--dry-run]
 
 Operates in-place on pp06 shard files. Creates a backup is NOT made (pp06 can be
-regenerated from redux via postprocess_pp06.py if needed).
+regenerated from redux via pipeline/postprocess_pp06.py if needed).
 """
 
 import argparse
@@ -49,6 +49,9 @@ import numpy as np
 import xarray as xr
 from scipy.signal import savgol_filter
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))  # repo root, so `import ooipaths` works from pipeline/
 import ooipaths as op
 
 # == Configuration =============================================================
@@ -79,7 +82,7 @@ def main():
 
     if not PP06_BASE.exists():
         print(f"ERROR: pp06 directory not found at {PP06_BASE}")
-        print("Run postprocess_pp06.py first.")
+        print("Run pipeline/postprocess_pp06.py first.")
         sys.exit(1)
 
     print(f"Filter 2: Savitzky-Golay smoothing (window={WINDOW_LENGTH}, polyorder={POLYORDER})")

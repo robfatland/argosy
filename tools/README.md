@@ -19,7 +19,7 @@ broken cross-references and a generator for the project manifest.
 ## Routine around a move
 
 1. `python tools/check_refs.py --impact NAME` -- see the blast radius and the hazards. Run it with
-   the file name (`postprocess_pp05.py`) and again with the bare stem (`postprocess_pp05`) to catch
+   the file name (`pipeline/postprocess_pp05.py`) and again with the bare stem (`postprocess_pp05`) to catch
    prose mentions that omit the extension.
 2. Move the file; update the LIVE references it lists (leave historical ones alone).
 3. `python tools/check_refs.py` -- must print no NEW dangling references.
