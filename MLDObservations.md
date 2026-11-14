@@ -113,9 +113,27 @@ Using `--science` and a date range compiles MLD data separately from the trainin
 
 - Rob, 04-NOV-2026. sb GPI 18494 (early October 2024): Salinity. Massive saline lens at 25m 2 profiles.
 
+
 - Rob, 04-NOV-2026. sb GPI 18611 (15-OCT 2024): Salinity. 1.0 PSU salinity lens at 25m. 
 
+
 - Rob, 04-NOV-2026. sb GPI 18478+++18493+++ to 15-OCT (18610) and beyond, super stable: DO. Inversion directly below MLD at 19m, persists for a long time (inherited from September???) In fact this is the longest lasting inversion signal I've seen to date. It continues to varying strengths all the way to 18747, the last GPI of October. DO inversion is a topic that should be expanded across all years and all 3 sites.
+
+
+- Rob, 09-NOV-2026. sb GPI 17293 +- Feb 2024: Temperature, extended sequence: Super sharp cline down to 80 meters and then very interesting layer structure down to 165+. 
+
+
+- Rob, ditto. sb GPI 17325 +-1 Feb 7 2024: Temperature shallow inversion layer, maybe 3 profiles. The ensuing sequence continues pretty funky and 17338 is worth a look. Generally "Investigate the entire time range" is what I'd suggest.
+
+
+- Rob, 13-NOV-2026. sb GPI 17685 mid March 2024: Salinity lens only visible as noise in the raw signal. Persists +- several profiles. Corroborated in T and DO but not as raw noise. Interesting. Another occurrence around March 27 2024.
+
+
+- Rob, 13-NOV-2026. sb GPI 17910 eary April 2024: Salinity inversion layer, persists for awhile.
+
+- Same. sb GPI 17410 Feb 16. DO has a massive surface starvation event. Sensor problem or...?
+
+- Same. sb GPI 17963 mid-April extended duration DO inversion layer very small but persisting. As a precursor to the later big one: Is there a Chlor-A signal here as well?
 
 
 ## Good archetype profiles
