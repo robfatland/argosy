@@ -201,7 +201,7 @@ def check_noon_midnight(ds):
 
 
 def plot_bundle(sensor1, sensor2, low1, high1, mode1, low2, high2, mode2,
-                nProfiles, index0):
+                nProfiles, index0, depth_max=200):
     """Plot a bundle of consecutive profiles keyed by global index."""
 
     if nProfiles == 0:
@@ -369,7 +369,7 @@ def plot_bundle(sensor1, sensor2, low1, high1, mode1, low2, high2, mode2,
     ax2.xaxis.set_label_position('top')
 
     ax1.set_ylabel('Depth (m)', fontsize=12)
-    ax1.set_ylim(200, 0)
+    ax1.set_ylim(depth_max, 0)   # lower depth limit comes from the depth slider
     ax1.grid(True, alpha=0.3)
 
     # Time Gap warning
@@ -481,6 +481,12 @@ nProfiles_slider = widgets.IntSlider(
 index0_slider = widgets.IntSlider(
     value=min_global_idx, min=min_global_idx, max=max_global_idx, step=1,
     description='index0:', continuous_update=False,
+    style={'description_width': 'initial'})
+
+# Lower (deepest) depth shown on the y axis. 200 m = full profile; down to 20 m to zoom the surface.
+depth_max_slider = widgets.IntSlider(
+    value=200, min=20, max=200, step=5,
+    description='Max depth (m):', continuous_update=False,
     style={'description_width': 'initial'})
 
 # --- Sensor change callbacks --------------------------------------------------
@@ -596,6 +602,7 @@ out = widgets.interactive_output(plot_bundle, {
     'mode2': mode2_toggle,
     'nProfiles': nProfiles_slider,
     'index0': index0_slider,
+    'depth_max': depth_max_slider,
 })
 
 # Layout
@@ -607,6 +614,7 @@ controls = widgets.VBox([
     widgets.HBox([nProfiles_slider, index0_slider,
                   btn_prev_big, btn_prev, btn_next, btn_next_big,
                   exclusion_btn]),
+    widgets.HBox([depth_max_slider]),
 ])
 
 display(controls, out)
