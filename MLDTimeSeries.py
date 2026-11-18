@@ -13,7 +13,7 @@ Data come from the label CSVs written by MLD.py (value_raw = sensor value at the
            drawn as TRIANGLES (markers only, no lines), toggled by the "Training" checkbox.
            Training rows whose (gpi, sensor) are already in the science file are skipped
            (the science set was seeded from training, so they would just overlap).
-Spec: MLDAnnotationPlan.md section 4.
+Spec: MLDTimeSeries.md.
 
 Controls (bottom of window)
   start coarse : global window start over 2014-2027 (continuous; spans year boundaries)

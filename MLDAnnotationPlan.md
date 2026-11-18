@@ -1,13 +1,20 @@
 # MLD Annotation Plan
 
-Design spec for a two-program workflow that builds a **human-labeled MLD (mixed-layer
+Design spec for the workflow that builds a **human-labeled MLD (mixed-layer
 depth) training dataset** from the pp06 shallow-profiler data. The labels are the ground
 truth for a later ML model that will estimate MLD across the entire shard dataset (see
 `Analysis.md` and the "annotation problem" note in `argosy-conventions.md`).
 
-Status: **implemented (Sep 2026).** Two programs, both in the repo root:
+Status: **implemented (Sep 2026).** All programs are in the repo root:
 1. `PreSelectProfiles.py` — selects candidate profiles (reproducible sampling).
-2. `MLD.py` — interactive standalone GUI to hand-label MLD on those candidates.
+2. `MLD.py` — interactive standalone GUI to hand-label MLD on those candidates (training mode on
+   the block candidates, or `--science` mode on a contiguous time range).
+3. `MLDTimeSeries.py` — viewer for the resulting labels as a time series. Not part of the labeling
+   design; documented in `MLDTimeSeries.md`.
+4. `sync_labels.py` — moves the small label CSVs between `~/ooi` and `shared_labels/` for sharing
+   through git; see `DeveloperGuide.md` -> "Sharing small datasets".
+
+Running `MLD.py` on another machine: `SETUP.md` -> "Running the MLD annotator".
 
 Modeled on the existing standalone annotator `iw/VisQCInspector.py` (TkAgg, per-decision
 rows written to a CSV under `metadata/annotations/`). All paths via `ooipaths` (`op`).
@@ -77,6 +84,9 @@ candidate list, lets a human place an MLD on a profile, writes one label row per
 
 ### Invocation
 - `--site <sb|oo|ab>` — default `sb` (overrides the default; analogous to `ARGOSY_SITE`).
+- `--block-days <N>` — which candidate set to use (default 5; reads the `block<NN>` blessed list).
+- `--science --start YYYY-MM-DD --end YYYY-MM-DD` — science mode: every pp06 profile in the range, not
+  the block sample; labels go to the separate science CSV (see section 3).
 - `--year <yyyy>` — start point, **not** a hard filter: the tool begins at the first candidate
   whose timestamp falls in that year and continues **past** it into later profiles. Default
   start = first profile in the candidate list for the site.
@@ -91,7 +101,8 @@ candidate list, lets a human place an MLD on a profile, writes one label row per
 - **Active sensor:** one of T / S / ρ / DO. **T is the default operational sensor;** a UI
   control selects which of the four is active. **Only one MLD is recorded per interaction.**
   The ρ trace is the pp06 `density` shard (potential density σ₀ is deferred).
-- **Depth axis:** 0 m at top to 100 m at bottom.
+- **Depth axis:** 0 m at top; the bottom defaults to 100 m and is adjustable with a depth-floor
+  slider (10 to 200 m).
 - **Per-sensor color:** trace and MLD marker share one color per sensor — **temperature = red,
   salinity = green, density = gold, DO = blue** — so a sensor reads the same everywhere.
 - **Labeled-profile cue:** returning to an already-labeled (gpi, sensor) shows the committed
@@ -103,9 +114,9 @@ candidate list, lets a human place an MLD on a profile, writes one label row per
 - **State 1 — filter application:** `file data` (default) OR `file data with the active filter
   applied`.
 - **State 2 — raw overlay** (only meaningful when State 1 = "filter applied"): the unfiltered
-  file data is *also* drawn in **gray** behind the filtered trace, or not shown. Filtered data
-  always renders in **black**. (Gray avoids colliding with the per-sensor marker colors, e.g.
-  the red temperature marker.) Default **on**.
+  file data is *also* drawn in **red** behind the filtered trace, or not shown. Filtered data
+  always renders in **black**, drawn on top, so the difference between raw and filtered (for
+  example jitter marking cline onset) is easy to see. Default **on**.
 
 ### Filters
 A small, extensible registry. Initial set of **four**:
@@ -121,9 +132,8 @@ A small, extensible registry. Initial set of **four**:
   them as separate selectable keys makes the metric an explicit, recorded experimental variable —
   later analysis can test whether MAD's spike-robustness yields better human picks than σ.
 - Filter key + slider values are recorded per label (structured columns, see schema).
-- **Minor open item:** exact adaptive formulation (how the local roughness metric maps to window
-  width) — start with a reasonable default shared by both adaptive filters, expose one adaptivity
-  slider, treat as tunable.
+- **Adaptive formulation:** a shared default maps the local roughness metric to window width, with one
+  adaptivity slider; it remains tunable (see the as-built bounds below).
 - **Slider bounds (as built):** savgol window 3–101 odd; polyorder 1–5 and always < window
   (enforced in code). Adaptive filters: base window 3–101 odd; adaptivity 0–3 (headroom past 1,
   where 1 tracks normalized local roughness and >1 pushes more of the profile toward the heavy
@@ -150,10 +160,14 @@ bug was Advance overwriting a real pick with no-MLD because it consulted the mar
 pending marker and **deletes the committed row** for (gpi, sensor, who), so it re-registers as
 unlabeled (Fwd/Rev-to-Null will find it again).
 
+**`<XUD>`** records `xud_recorded` ("No Usable Data") for the current (gpi, sensor, who) and advances, for profiles
+that cannot be labeled at all. **Right-click** anywhere in the chart is a shortcut for `<Advance>`.
+**`<◀ Start>`** jumps to the first candidate.
+
 **Recording no-MLD** (a necessary annotation — many profiles have no clear mixed layer): in Stay
 mode, either never click then `<Advance>`, or click then `<Clear pick>` then `<Advance>`.
 
-**Descent overlay (planned):** a "Descent" button will overlay the descent trace for the current
+**Descent overlay (planned, NOT built):** a "Descent" button will overlay the descent trace for the current
 (sensor, gpi) as visual context for water-column stability/distortion. Context only — not pickable.
 Requires pre-sharded descent data; full design in `DescentData.md`.
 
@@ -195,10 +209,11 @@ within a file — the value's real purpose is disambiguating rows once per-who f
 ## 3. Label output schema
 
 **One CSV per site per labeler** at
-`~/ooi/<site>/metadata/annotations/mld_labels_<site>_<who>.csv` (create folder if absent).
-The label filename should also carry the candidate block tag (e.g.
-`mld_labels_<site>_block05_<who>.csv`) so a label set is traceable to the candidate set it
-was made against.
+`~/ooi/<site>/metadata/annotations/mld_labels_<site>_block<NN>_<who>.csv` (create folder if absent),
+for example `mld_labels_sb_block05_R.csv`. The block tag ties a label set to the candidate set it
+was made against. In `--science` mode the file is
+`mld_labels_<site>_science_<who>.csv`: one contiguous time range instead of block sampling, seeded
+once from the training labels in that range, and never written back to the training file.
 Baking `who` into the filename means each running tool instance writes/overwrites **only its own
 labeler's file** — no collision when Chuck and Rob work on separate computers and combine later.
 
@@ -229,79 +244,13 @@ Columns (structured; not a packed string):
 | `filter_key` | `None` / `savgol` / `adaptive_savgol_std` / `adaptive_savgol_mad` |
 | `filter_p1`, `filter_p2` | structured filter slider settings (e.g. window, polyorder); empty when `None` |
 | `no_mld_recorded` | `True` for an explicit "no MLD here" record (no depth); `mld_depth`/values empty |
+| `xud_recorded` | `True` for "No Usable Data" (the XUD button; no depth). Takes precedence over `no_mld_recorded` |
 | `reviewed_at` | UTC timestamp of the decision |
 
 - **Both** raw and filtered values are stored (per decision), so a label is interpretable
   regardless of the filter that was active.
 - Depth is the continuous click depth; both values are interpolated at that depth.
 
-
-## 4. MLDTimeSeries.py — MLD time-series viewer
-
-Standalone TkAgg GUI (repo root, beside `MLD.py`; reuses its `build_gpi_file_index`,
-`load_profile`, `science_labels_path`). Purpose: look at the human-labeled MLD as a TIME SERIES
-(diurnal / seasonal / event structure) and at the sensor value found at the MLD, to compare
-against external forcing (see `Umbrella.md` -> "ERA5 sea state").
-
-### Charts
-Two charts stacked, one shared time axis:
-- **Upper:** MLD depth (m, axis inverted) for temperature (red), salinity (green), DO (blue).
-- **Lower:** the sensor value AT the MLD (the label's `value_raw`): T at MLD (left axis, red),
-  S at MLD (first twin axis, right, green), DO at MLD (second twin axis, right, offset spine,
-  blue). Three y-axes via `twinx`.
-- All series: filled circle markers joined by lines. **No connector line** across a gap of more
-  than 1 day between successive points of a series (NaN break).
-- Y limits auto-fit the visible window each time the time range changes.
-
-### Controls (bottom of window)
-- **start coarse** slider: global window start over 2014-01-01 .. 2027-12-31, continuous (not
-  quantized by year, so it spans year boundaries gracefully).
-- **start fine** slider: a day OFFSET added to the coarse start (0 .. 45 d, constant
-  `FINE_MAX_DAYS`). **Window start = coarse + fine.** The window label under the lower chart
-  shows the resulting start and end.
-- **width (d)** slider: window width in days, 0.25 to 400.
-- One compact **checkbox panel** to the right of the sliders, four boxes:
-  - **Adaptive y** (default ON). ON: all y axes re-fit to the visible window on every pan/zoom.
-    OFF: fixed WIDE limits so any start time is directly comparable. Wide limits are the full
-    range of all loaded labels over all times (science, plus training if shown; plus the
-    Faux No-MLD shallow values when on) with the same padding, for each of the three lower-chart
-    axes (T, S, DO) and the upper depth axis (0 m to deepest MLD).
-  - **Training (^)** (default ON when the training file exists): show/hide training labels.
-  - **Faux No-MLD** (default OFF) — how a profile labeled *No MLD* for a sensor is shown.
-    OFF = `X`: a cross in the sensor's color near the TOP of the lower chart (one row per
-    sensor so the three do not overlap). ON: read that profile's pp06 shard, take the SHALLOWEST
-    valid sample, and plot it as an OPEN marker in that sensor's lower-chart series (circle for
-    science, joined by the line; triangle for training). First use indexes the pp06 shards, so
-    it pauses briefly once.
-  - **Local time** (default OFF = UTC). Switches the time axis, the window label and the day
-    gridlines between UTC and Pacific local time. The vertical gridlines fall at midnight of the
-    displayed zone. Toggling keeps the same instant at the window start (the coarse slider is
-    reset to it and the fine offset to 0).
-
-### Science vs training data
-- **Science** (`mld_labels_<site>_science_<who>.csv`): filled circles joined by lines.
-- **Training** (`mld_labels_<site>_block05_<who>.csv`, ~1 profile in 45): filled TRIANGLES,
-  markers only (they are too sparse to join). Rows whose (gpi, sensor) already appear in the
-  science file are skipped, because the science set was seeded from the training labels and
-  they would just overlap.
-- Profiles flagged unusable (`xud_recorded`) are never plotted. No-MLD profiles add nothing to
-  the upper chart in either mode.
-
-### Invocation
-- `--site <sb|oo|ab>` default `sb`.
-- `--start`, `--end` default 2024-01-01 / 2024-01-31 (`--end` is inclusive of that day). These
-  only set the initial window; the sliders reach anywhere in the label file's time span.
-- `--who` default `R` (reads `mld_labels_<site>_science_<who>.csv`).
-- `--local` starts in Pacific local time (America/Los_Angeles); default is UTC. The same switch
-  is the "Local time" checkbox in the window.
-- `--size WxH` initial window size in pixels (e.g. `1500x850`); default auto-fits the screen
-  (92% of screen width, 85% of height). Under WSLg a "full screen" click can size to the whole
-  Windows desktop rather than one monitor; if so, un-maximize and use `--size`.
-
-### Notes
-- Value at MLD is `value_raw`, never the filtered value; the O-mode shallowest value is also
-  raw. Density labels are ignored.
-- Layout: all axes are placed in figure fractions, so the layout scales with the window.
 
 ## Conventions honored
 - Standalone GUI uses **TkAgg** (genuinely interactive; needs a display) — contrast the headless
@@ -316,38 +265,20 @@ Two charts stacked, one shared time axis:
 - **"No MLD recorded" = `no_mld_recorded` flag column** (not an empty `mld_depth`).
 - **Chuck's who-code = `C`** (was `I`; changed for readability); default `--who` = `C`.
 - **Four filters** including both σ- and MAD-based adaptive savgol (see filter table).
+- **Raw overlay is red, not gray** (as built; the plan first said gray).
 
 ## Open / deferred items
 - Exact adaptive local-roughness → window mapping, shared by `adaptive_savgol_std` and
   `adaptive_savgol_mad` (default proposed; tunable).
-- Final savgol slider ranges/defaults (proposed above; confirm at build).
 - Whether a combined all-sites label file is ever needed (per-site is primary; easy to
   concatenate later).
 
 
 ## Implementation status
-Both programs are built and committed in the repo root. `PreSelectProfiles.py` produces the
+The labeling programs are built and committed in the repo root. `PreSelectProfiles.py` produces the
 per-site block candidate lists (working copies under
 `~/ooi/<site>/metadata/annotations/`, blessed copies committed to `~/argosy/mld_candidates/`);
 `MLD.py` reads the blessed lists and writes labels to
-`~/ooi/<site>/metadata/annotations/mld_labels_<site>_<who>.csv`.
-
-## Collaborator setup (running MLD.py on another machine)
-
-`MLD.py` needs a small subset of the `argosy` env, so a portable minimal spec is provided as
-**`environment-mld.yml`** (NOT the full `environment.yml` snapshot, which is pinned to exact
-Linux build hashes for Rob's machine and carries hundreds of unrelated packages — see the
-"environment sprawl" entry in `DevelopmentLog.md` → Open Topics). Dependencies: `numpy`,
-`pandas`, `scipy`, `xarray`, `netcdf4`, `matplotlib`, `tk` on `python=3.11`.
-
-```bash
-git pull                                   # get MLD.py, environment-mld.yml, mld_candidates/
-conda env create -f environment-mld.yml    # creates a conda env named "argosy"
-conda activate argosy
-sudo apt install python3-tk                # OS Tk bindings for the TkAgg GUI (WSL/Debian/Ubuntu)
-python MLD.py --site sb --who C            # C = Chuck (default); see MLD.py header for switches
-```
-
-Caveats: TkAgg needs a working display (an X server under WSL2) — headless will not work
-(see `operational-recipes` §3). The tool reads the **blessed** candidate lists in
-`~/argosy/mld_candidates/`, which is what guarantees Chuck and Rob label the same profiles.
+`~/ooi/<site>/metadata/annotations/mld_labels_<site>_block05_<who>.csv` (training) or
+`mld_labels_<site>_science_<who>.csv` (science mode). Small label CSVs are shared through git
+with `sync_labels.py` and `shared_labels/`.

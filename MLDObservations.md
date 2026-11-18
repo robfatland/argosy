@@ -15,7 +15,7 @@ The MLD effort is a small suite of files.
 
 | Piece | File | Role |
 |---|---|---|
-| Design / spec | `MLDAnnotationPlan.md` | Two-program workflow, interaction model, label schema, decisions. **Read first.** |
+| Design / spec | `MLDAnnotationPlan.md` | Annotation workflow, interaction model, label schema, decisions. **Read first.** |
 | Candidate profiles | `PreSelectProfiles.py` | Reproducible seeded sampling: one profile per N-day block per site from pp06. `--bless` promotes chosen set to the repo. |
 | Blessed candidate lists | `mld_candidates/` | The committed, shared candidate CSVs (`mld_candidates_<site>_block<NN>.csv`) that all annotators label against. See `mld_candidates/README.md`. |
 | Annotator | `MLD.py` | Standalone TkAgg GUI to hand-label MLD on blessed candidates. |
@@ -131,9 +131,44 @@ Using `--science` and a date range compiles MLD data separately from the trainin
 
 - Rob, 13-NOV-2026. sb GPI 17910 eary April 2024: Salinity inversion layer, persists for awhile.
 
-- Same. sb GPI 17410 Feb 16. DO has a massive surface starvation event. Sensor problem or...?
 
-- Same. sb GPI 17963 mid-April extended duration DO inversion layer very small but persisting. As a precursor to the later big one: Is there a Chlor-A signal here as well?
+- Rob, 13-NOV-2026. sb GPI 17410 Feb 16. DO has a massive surface starvation event. Sensor problem or...?
+
+
+- Rob, 13-NOV-2026. sb GPI 17963 mid-April extended duration DO inversion layer very small but persisting. As a precursor to the later big one: Is there a Chlor-A signal here as well?
+
+
+### Observations on dissolved oxygen near-surface inversions
+
+
+We are particularly interested in DO inversions that are supported by ChlorA peaks. Abbreviate subsurface oxygen max as **SOM**. Abbreviate the Chlor-A Max as **CM**. These are both depths. Ideally we'd eventually recover data *value* at those depths.
+
+
+Let's record observations as a sequence of standardized entries. We intend to eventually turn this into a table/chart.
+
+
+Rob started off using `bundle chart` with nProfiles = 27, nominally 3 day "segments". `meanstd` or `bundle chart` mode as needed. The example entry below is from Slope Base. 
+
+
+The "Wendi" hypothesis asserts that the autotrophs are calling the shots; and that the ChlorA maximum descends (after using up nutrients); and this drags the SOM down behind it. So "anti-Wendi" means a DO max *below* the ChlorA max; in short "SOM > CM".
+
+
+Some DO-inversion profiles have a distinct ML; some do not.
+
+
+Entry format:
+
+
+- Who, GPI, yr-doy, note, optional second note
+    - optional sub-note
+
+
+Example:
+
+
+- Rob, 9441, 2020-276, CM < SOM, anti-Wendi thru 9575
+        - many nearby segments have CM without SOM
+   
 
 
 ## Good archetype profiles

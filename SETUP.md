@@ -140,7 +140,29 @@ navigation buttons. Select source `pp06` from the dropdown.
 4. Open a Pull Request on GitHub from your branch to `robfatland/argosy:master`.
 
 
-## 9. Troubleshooting
+## 9. Running the MLD annotator (collaborators)
+
+`MLD.py` needs a small subset of the `argosy` env, so a portable minimal spec is provided as
+**`environment-mld.yml`** (NOT the full `environment.yml` snapshot, which is pinned to exact
+Linux build hashes for Rob's machine and carries hundreds of unrelated packages — see the
+"environment sprawl" entry in `DevelopmentLog.md` → Open Topics). Dependencies: `numpy`,
+`pandas`, `scipy`, `xarray`, `netcdf4`, `matplotlib`, `tk` on `python=3.11`.
+
+```bash
+git pull                                   # get MLD.py, environment-mld.yml, mld_candidates/
+conda env create -f environment-mld.yml    # creates a conda env named "argosy"
+conda activate argosy
+sudo apt install python3-tk                # OS Tk bindings for the TkAgg GUI (WSL/Debian/Ubuntu)
+python MLD.py --site sb --who C            # C = Chuck (default); see MLD.py header for switches
+```
+
+Caveats: TkAgg needs a working display (an X server under WSL2) — headless will not work
+(see `operational-recipes` §3). The tool reads the **blessed** candidate lists in
+`~/argosy/mld_candidates/`, which is what guarantees Chuck and Rob label the same profiles.
+
+Design of the tool: `MLDAnnotationPlan.md`. To look at the labels afterward: `MLDTimeSeries.md`.
+
+## 10. Troubleshooting
 
 - **JupyterLab won't start**: Ensure `argosy` is activated.
 - **Bundle chart widgets don't render**: Run `jupyter labextension list` and

@@ -8,7 +8,7 @@ in this session is committed (see `HAT_vs_science_compare.py` / `HAT_vs_science_
 ## Completed this session
 - **Reorganization Waves 0, 1, 2 DONE and PUSHED (origin/master at 7618062, 2026-11-06).** Plan and
   decisions in `BR.md` "Reorganization review". Checker clean: `python tools/check_refs.py` = 0 new
-  dangling refs (baseline 20 live, all intentional; 33 historical); 0 hard-coded `/home/rob/argosy`.
+  dangling refs (baseline 20 live, all intentional; 33 historical); no hard-coded home-directory paths.
   - Wave 0: status labels + READMEs on every folder; `tools/check_refs.py`, `tools/gen_manifest.py`;
     `poster/agumemo.md` handout; NDBC retired (summary in `seastate/README.md`); `chapters/DataDownload`
     and `StubWork` notebooks retired (recover: `git show f344e09:chapters/DataDownload.ipynb`); hand-kept

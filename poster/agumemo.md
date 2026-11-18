@@ -138,7 +138,7 @@ world, share it. Each folder's own `README.md` has the file list and the next st
 - *Orientation:* `ArgosyOverview.md` (start here), `OOIObservatory.md`, `SensorTable.md`, `SETUP.md`, `DeveloperGuide.md`.
 - *Phase 1:* `Sharding.md`, `PostProcessing.md`, `PP05_QCAnalysis.md`, `PP06_Filters.md`, `DescentData.md`, `DataOps.md`, `VectorData.md`.
 - *Phase 2:* `Analysis.md`, `Visualization.md`, `InternalWaves.md`, `tides/TidalAnalysis.md`, `SpectralGraphAnalysis.md`, `CoincidencePlans.md`, `Umbrella.md`, `Testing.md`.
-- *Mixed layer depth:* `MLDAnnotationPlan.md`, `MLDObservations.md`, `MLDDataRelease.md`, `MLDModelReflection.md`, `SyntheticMLDPlan.md`.
+- *Mixed layer depth:* `MLDAnnotationPlan.md`, `MLDTimeSeries.md`, `MLDObservations.md`, `MLDDataRelease.md`, `MLDModelReflection.md`, `SyntheticMLDPlan.md`.
 - *Strategy and outreach:* `PathCuration.md`, `MakingOOIAIReady.md`, `IONReview.md`, `OOIUsability.md`, `SeekingResearch.md`, `Publishing.md`, `WorkingWithAgenticAI.md`.
 - *Working logs:* `BR.md` (design and reorganization), `DevelopmentLog.md`, `SessionState.md`.
 

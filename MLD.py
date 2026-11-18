@@ -12,7 +12,7 @@ Key behaviors
     is the pp06 `density` shard (potential density deferred).
   - Display State 1 — filter: file data (default) OR file data with the active filter applied.
   - Display State 2 — raw overlay (only when a filter is applied): also draw the raw file data
-    in gray behind the black filtered trace (gray drawn first, overwritten by black), or not.
+    in red behind the black filtered trace (red drawn first, overwritten by black), or not.
   - Filters: None / savgol / adaptive_savgol_std / adaptive_savgol_mad, with sliders. The
     window slider runs 3..101 samples; the adaptivity slider runs 0..3 (headroom past 1).
   - A click always COMMITS a real MLD for the current (gpi, sensor, who), overwriting any
@@ -41,8 +41,8 @@ Key behaviors
 Recorded per label: continuous click depth (interpolated), raw value AND filtered value at
 that depth, sensor, who, filter key + structured params, no_mld_recorded flag, reviewed_at.
 
-Display notes: depth axis runs 0 m (top) to 100 m (bottom). Returning to an already-labeled
-(gpi, sensor) shows the committed MLD as a green dashed line plus a green dot on the trace, so
+Display notes: depth axis runs 0 m (top) to a floor that defaults to 100 m (slider 10..200 m). Returning to an already-labeled
+(gpi, sensor) shows the committed MLD as a dashed line plus a dot in the sensor color, so
 the User can see it is labeled and where.
 
 Usage:
@@ -84,7 +84,7 @@ SENSOR_LABELS = {
     "dissolvedoxygen": "Dissolved O₂ (µmol/kg)",
 }
 # Per-sensor color, used for BOTH the profile trace and the committed/pending MLD marker
-# so a sensor reads the same everywhere. The raw overlay is drawn gray (see draw()).
+# so a sensor reads the same everywhere. The raw overlay is drawn red (see draw()).
 SENSOR_COLORS = {
     "temperature": "red", "salinity": "green",
     "density": "gold", "dissolvedoxygen": "blue",
