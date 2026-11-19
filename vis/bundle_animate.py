@@ -4,7 +4,7 @@
 # Workflow:
 #   1. Prompt for start date (M-YYYY) and end date (M-YYYY)
 #   2. Display ipywidgets for configuration (sensors, ranges, modes, etc.)
-#   3. Click "Animate" to generate ~/ooi/visualizations/bundle_animation.mp4
+#   3. Click "Animate" to generate ~/ooi/<site>/visualizations/bundle_animation.mp4
 #
 # The animation renders the chart only (no widget controls).
 
@@ -183,9 +183,9 @@ def build_index_map(source):
                 _gidx_dates[global_idx] = file_date
 
 
-# Initial build with pp06
-print("Scanning pp06...")
-build_index_map('pp06')
+# Initial build with the source chosen at the prompt (default pp06)
+print(f"Scanning {initial_source}...")
+build_index_map(initial_source)
 
 # Determine valid index range
 all_indices = set()
@@ -207,7 +207,7 @@ sensor_options = [(SENSORS[k]['display_name'], k) for k in SENSORS]
 
 source_dropdown = widgets.Dropdown(
     options=['redux', 'pp01', 'pp02', 'pp05', 'pp06'],
-    value='pp06', description='Source:')
+    value=initial_source, description='Source:')
 
 sensor1_dropdown = widgets.Dropdown(
     options=sensor_options, value='temperature', description='Sensor 1:')
@@ -252,6 +252,12 @@ fps_slider = widgets.IntSlider(
 stride_slider = widgets.IntSlider(
     value=1, min=1, max=27, step=1,
     description='Stride:', continuous_update=False)
+
+# Lower (deepest) depth shown on the y axis: 200 m = full profile, down to 20 m to zoom the surface.
+depth_max_slider = widgets.IntSlider(
+    value=200, min=20, max=200, step=5,
+    description='Max depth (m):', continuous_update=False,
+    style={'description_width': 'initial'})
 
 exclusion_toggle = widgets.ToggleButtons(
     options=['EXCLUDE', 'NO FILTER'], value='EXCLUDE',
@@ -405,6 +411,7 @@ def generate_animation(b):
     n_profiles = nProfiles_slider.value
     fps = fps_slider.value
     stride = stride_slider.value
+    depth_max = depth_max_slider.value
     apply_exclusions = (exclusion_toggle.value == 'EXCLUDE')
 
     # Build frame list: each frame starts at a different index0
@@ -587,7 +594,7 @@ def generate_animation(b):
         ax2.xaxis.set_label_position('top')
 
         ax1.set_ylabel('Depth (m)', fontsize=12)
-        ax1.set_ylim(200, 0)
+        ax1.set_ylim(depth_max, 0)   # lower depth limit comes from the depth slider
         ax1.grid(True, alpha=0.3)
 
         if has_time_gap:
@@ -656,6 +663,7 @@ controls = widgets.VBox([
     widgets.HBox([low1_slider, high1_slider, mode1_toggle]),
     widgets.HBox([low2_slider, high2_slider, mode2_toggle]),
     widgets.HBox([nProfiles_slider, fps_slider, stride_slider]),
+    widgets.HBox([depth_max_slider]),
     widgets.HBox([animate_btn, status_label]),
     widgets.HBox([progress_bar, estimate_label]),
 ])
